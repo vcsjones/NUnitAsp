@@ -382,6 +382,21 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "AspTester\UserControlTestPage.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AspTester\UserControlTestPage.aspx.cs"
+                    DependentUpon = "UserControlTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\UserControlTestPage.aspx.resx"
+                    DependentUpon = "UserControlTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "AspTester\ValidationSummaryTestPage.aspx"
                     BuildAction = "Content"
                 />
