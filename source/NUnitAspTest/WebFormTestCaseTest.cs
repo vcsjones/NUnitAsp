@@ -38,7 +38,7 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"3"},
 				new string[] {"4"}
 			};
-			AssertSortOrder("testData", testData, 0, true);
+			AssertSortOrder("testData", testData, 0, true, DataType.String);
 		}
 
 		public void TestAssertSortOrder_WhenSortedAndStartingWithEmptyString()
@@ -50,7 +50,7 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"3"},
 				new string[] {"4"}
 			};
-			AssertSortOrder("testData", testData, 0, true);
+			AssertSortOrder("testData", testData, 0, true, DataType.String);
 		}
 		
 		public void TestAssertSortOrder_WhenSortedAndManyRepeatingValues()
@@ -64,7 +64,7 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"3"},
 				new string[] {"4"}
 			};
-			AssertSortOrder("testData", testData, 0, true);
+			AssertSortOrder("testData", testData, 0, true, DataType.String);
 		}
 
 		public void TestAssertSortOrder_WhenSortedDescending()
@@ -76,7 +76,7 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"2"},
 				new string[] {"1"},
 			};
-			AssertSortOrder("testData", testData, 0, false);
+			AssertSortOrder("testData", testData, 0, false, DataType.String);
 		}
 
 		public void TestAssertSortOrder_WhenSortedDescendingAndEndingWithEmptyString()
@@ -88,7 +88,7 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"2"},
 				new string[] {""},
 			};
-			AssertSortOrder("testData", testData, 0, false);
+			AssertSortOrder("testData", testData, 0, false, DataType.String);
 		}
 
 		public void TestAssertSortOrder_WhenSortedDescendingAndManyRepeatValues()
@@ -102,7 +102,7 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"2"},
 				new string[] {"1"},
 			};
-			AssertSortOrder("testData", testData, 0, false);
+			AssertSortOrder("testData", testData, 0, false, DataType.String);
 		}
 
 		public void TestAssertSortOrder_WhenSortingOnLastColumn()
@@ -114,7 +114,7 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"2", "2"},
 				new string[] {"4", "1"},
 			};
-			AssertSortOrder("testData", testData, 1, false);
+			AssertSortOrder("testData", testData, 1, false, DataType.String);
 		}
 
 		public void TestAssertSortOrder_WhenNotSorted()
@@ -128,7 +128,7 @@ namespace NUnit.Extensions.Asp.Test
 			};
 			try
 			{
-				AssertSortOrder("testData", testData, 0, true);
+				AssertSortOrder("testData", testData, 0, true, DataType.String);
 			}
 			catch (AssertionFailedError)
 			{
@@ -139,8 +139,28 @@ namespace NUnit.Extensions.Asp.Test
 
 		public void TestAssertSortOrder_WhenNoData()
 		{
-			AssertSortOrder("no data", new string[][] {}, 0, true);
-			AssertSortOrder("no data", new string[][] {}, 0, false);
+			AssertSortOrder("no data", new string[][] {}, 0, true, DataType.String);
+			AssertSortOrder("no data", new string[][] {}, 0, false, DataType.String);
+		}
+
+		public void TestAssertSortOrder_WhenNumber()
+		{
+			string[][] testData = new string[][]
+			{
+				new string[] {"9"},
+				new string[] {"10"},
+			};
+			AssertSortOrder("testData", testData, 0, true, DataType.Int);
+		}
+
+		public void TestAssertSortOrder_WhenDate()
+		{
+			string[][] testData = new string[][]
+			{
+				new string[] {"7/4/2002"},
+				new string[] {"7/16/2002"},
+			};
+			AssertSortOrder("testData", testData, 0, true, DataType.DateTime);
 		}
 	}
 }

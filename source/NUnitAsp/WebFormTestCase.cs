@@ -25,8 +25,11 @@ using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp 
 {
+	public enum DataType {String, DateTime, Int};
+ 
 	public abstract class WebFormTestCase : TestCase 
 	{
+
 		private HttpClient browser;
 		private WebForm form;
 
@@ -131,28 +134,52 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// Null strings in data[][] are not allowed.
 		/// </summary>
-		public static void AssertSortOrder(string message, string[][] data, int column, bool isAscending)
+		public static void AssertSortOrder(string message, string[][] data, int column, bool isAscending, DataType type)
 		{
 			string lastCell = null;
 			foreach (string[] row in data)
 			{
 				string cell = row[column];
-				int comparison = cell.CompareTo(lastCell);
+				if (lastCell == null) 
+				{
+					lastCell = cell;
+					continue;
+				}
 
 				bool sorted;
 				string orderName;
+				int comparison = Compare(cell, lastCell, type);
 				if (isAscending)
 				{
-					sorted = (lastCell == null) || (comparison >= 0);
+					sorted = comparison >= 0;
 					orderName = "ascending";
 				}
 				else
 				{
-					sorted = (lastCell == null) || (comparison <= 0);
+					sorted = comparison <= 0;
 					orderName = "descending";
 				}
 				if (!sorted) Fail(message + " should be sorted " + orderName + ".  Was: " + Flatten(data));
 				lastCell = cell;
+			}
+		}
+
+		private static int Compare(string a, string b, DataType type)
+		{
+			switch (type)
+			{
+				case DataType.String:
+					return a.CompareTo(b);
+				case DataType.Int:
+					int aInt = int.Parse(a);
+					int bInt = int.Parse(b);
+					return aInt.CompareTo(bInt);
+				case DataType.DateTime:
+					DateTime aDate = DateTime.Parse(a);
+					DateTime bDate = DateTime.Parse(b);
+					return aDate.CompareTo(bDate);
+				default:
+					throw new ApplicationException("Unknown data type comparison: " + type);
 			}
 		}
 	}
