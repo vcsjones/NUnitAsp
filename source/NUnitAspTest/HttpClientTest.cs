@@ -95,7 +95,7 @@ namespace NUnit.Extensions.Asp.Test
 			AssertCookieSet();
 		}
 
-		public void stubbed_TestCookieDuringRedirect()
+		public void TestCookieDuringRedirect()
 		{
 			Browser.GetPage(TestUrl);
 			AssertCookieNotSet();

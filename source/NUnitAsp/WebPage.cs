@@ -22,12 +22,20 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				if (document == null)
+				try 
 				{
-					document = new XmlDocument();
-					document.LoadXml(pageText);
+					if (document == null)
+					{
+						document = new XmlDocument();
+						document.LoadXml(pageText);
+					}
+					return document;
 				}
-				return document;
+				catch (XmlException e)
+				{
+					Console.WriteLine(pageText);
+					throw e;
+				}
 			}
 		}
 

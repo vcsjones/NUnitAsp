@@ -22,6 +22,7 @@ using System;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -50,7 +51,7 @@ namespace NUnit.Extensions.Asp
 			DoHttp(url, method, currentPage.FormVariables);
 		}
 
-		public void SetFormVariable(string name, string value) 
+		internal void SetFormVariable(string name, string value) 
 		{
 			currentPage.SetFormVariable(name, value);
 		}
@@ -79,9 +80,22 @@ namespace NUnit.Extensions.Asp
 
 		private void DoHttp(string url, string method, string formVariables)
 		{
-			UpdateCurrentUrl(url);
-			WebRequest request = CreateWebRequest(method, formVariables);
-			ReadHttpResponse(request);
+			TcpClient tcp = null;
+			try 
+			{
+				UpdateCurrentUrl(url);
+				tcp = new TcpClient(currentUrl.Host, currentUrl.Port);
+				NetworkStream stream = tcp.GetStream();
+				SendHttpRequest(stream, method, formVariables);
+				HttpResponse response = ReadHttpResponse(stream);
+				tcp.Close();
+				ParseHttpResponse(response);
+				if (response.IsRedirect) GetPage(response.RedirectUrl);
+			}
+			finally
+			{
+				if (tcp != null) tcp.Close();
+			}
 		}
 
 		private void UpdateCurrentUrl(string url)
@@ -90,50 +104,52 @@ namespace NUnit.Extensions.Asp
 			else currentUrl = new Uri(currentUrl, url);
 		}
 
-		private WebRequest CreateWebRequest(string method, string formVariables)
+		private void SendHttpRequest(NetworkStream stream, string method, string formVariables)
 		{
-			StreamWriter writer = null;
-			try 
-			{
-				string url = currentUrl.ToString();
-				if ((method.ToLower() == "get") && (formVariables != "")) url += "?" + formVariables;
+			string url = currentUrl.ToString();
+			if (method.ToLower() == "get" && formVariables != "") url += "?" + formVariables;
 
-				WebRequest request = WebRequest.Create(url);
-				request.Method = method;
-				request.Headers["Cookie"] = CreateCookieString();
-
-				if (method.ToLower() == "post")
-				{
-					request.ContentType = "application/x-www-form-urlencoded";
-					writer = new StreamWriter(request.GetRequestStream(), Encoding.ASCII);
-					writer.WriteLine(formVariables);
-					writer.Close();
-				}
-				return request;
-			}
-			finally
+			StreamWriter writer = new StreamWriter(stream, Encoding.ASCII);
+			writer.NewLine = "\r\n";
+			writer.WriteLine("{0} {1} HTTP/1.0", method.ToUpper(), url);
+			writer.WriteLine("User-Agent: NUnitAsp/0.x");
+			writer.WriteLine("Cookie: {0}", CreateCookieString());
+			if (method.ToLower() == "get") 
 			{
-				if (writer != null) writer.Close();
+				writer.WriteLine();
 			}
+			else if (method.ToLower() == "post")
+			{
+				writer.WriteLine("Content-Type: application/x-www-form-urlencoded");
+				writer.WriteLine("Content-Length: {0}", formVariables.Length);
+				writer.WriteLine();
+				writer.WriteLine(formVariables);
+			}
+			else
+			{
+				throw new ApplicationException("Unknown method: '" + method + "'");
+			}
+			writer.Flush();
 		}
 
-		private void ReadHttpResponse(WebRequest request)
+		private HttpResponse ReadHttpResponse(NetworkStream stream)
 		{
-			WebResponse response = null;
-			try
-			{
-				DateTime startTime = DateTime.Now;
-				response = request.GetResponse();
-				serverTime += (DateTime.Now - startTime);
+			StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+			HttpResponse response = new HttpResponse();
 
-				StreamReader pageReader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
-				currentPage = new WebPage(pageReader.ReadToEnd());
-				ParseCookies(response.Headers.GetValues("Set-Cookie"));
-			}
-			finally
+			response.SetStatus(reader.ReadLine());
+			for (string line = reader.ReadLine(); line != null && line != ""; line = reader.ReadLine()) 
 			{
-				if (response != null) response.Close();
+				response.AddHeader(line);
 			}
+			response.Body = reader.ReadToEnd();
+			return response;
+		}
+
+		private void ParseHttpResponse(HttpResponse response)
+		{
+			currentPage = new WebPage(response.Body);
+			ParseCookies(response.Headers.GetValues("Set-Cookie"));
 		}
 
 		private void ParseCookies(string[] newCookies) 
@@ -149,7 +165,6 @@ namespace NUnit.Extensions.Asp
 				cookies.Add(name, nameValue[1]);
 			}
 		}
-
 
 		private string CreateCookieString() 
 		{
@@ -167,6 +182,48 @@ namespace NUnit.Extensions.Asp
 		{
 			Uri uri = new Uri(url);
 			return uri.AbsoluteUri;
+		}
+
+		private class HttpResponse
+		{
+			private int statusCode;
+			public NameValueCollection Headers = new NameValueCollection();
+			public string Body;
+
+			public void AddHeader(string headerLine)
+			{
+				Regex headerRegex = new Regex(@"^(?<name>.*?):[ \t]+(?<value>.*)$");
+				if (!headerRegex.IsMatch(headerLine)) throw new ApplicationException("Expected '" + headerLine + "' to be a valid HTTP header");
+				Match header = headerRegex.Match(headerLine);
+				string name = header.Groups["name"].Captures[0].Value;
+				string value = header.Groups["value"].Captures[0].Value;
+
+				Headers.Add(name, value);
+			}
+
+			public void SetStatus(string statusLine)
+			{
+				string[] elements = statusLine.Split();
+				statusCode = int.Parse(elements[1]);
+			}
+
+			public bool IsRedirect
+			{
+				get
+				{
+					return statusCode == 302;
+				}
+			}
+
+			public string RedirectUrl
+			{
+				get
+				{
+					string location = Headers["Location"];
+					if (location == null) throw new ApplicationException("Expected Location header in HTTP response");
+					return location;
+				}
+			}
 		}
 
 		public class NoPageException : ApplicationException
