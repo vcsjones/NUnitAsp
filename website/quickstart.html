@@ -10,7 +10,7 @@
 
 <h2>About NUnitAsp</h2>
 
-<p>NUnitAsp is an extension to NUnit that adds the ability to test ASP.NET web pages.  It leverages your existing NUnit and ASP.NET knowledge by using standard NUnit tests and "Tester" classes that correspond to the ASP.NET controls you already know.</p>
+<p>NUnitAsp is an extension to NUnit that adds the ability to test ASP.NET web pages.  It uses standard NUnit tests and special "Tester" classes that correspond to the ASP.NET controls you already know.  It works by downloading web pages from your web server, just like a user would, then parsing the HTML page so you can use the Tester objects to tell what was on it.</p>
 
 <p>When you test an ASP.NET web page, you'll create NUnit test fixtures and test cases as normal.  Each of your test cases will contain three parts.  First, you'll instantiate "Tester" objects that correspond to the controls on the page you're testing.  Second, you'll tell NUnitAsp's "Browser" object to visit the page being tested.  Finally, you'll use the tester objects along with standard NUnit assertions to test the page.</p>
 
@@ -87,7 +87,7 @@
 	</ul></li>
 
 	<br />
-	<li><b>In the pages being tested</b>, make sure you're XHTML compliant:
+	<li><b>In your ASP.NET web pages</b>, make sure you're XHTML compliant:
 	<ul>
 		<li><b>Modify the DOCTYPE tag to reference the NUnitAsp DTD:</b>
 			<br />
@@ -96,7 +96,7 @@
 		<li><b>Make sure the <tt>&lt;HTML&gt;</tt> and <tt>&lt;/HTML&gt;</tt> tags are upper-case.</b>
 		<li><b>Close all stand-alone tags.</b>  (Particularly "meta" and "br".  Visual Studio .NET likes to remove the closing slash on these tags.)</li>
 		<li>Close all tag pairs.</li>
-		<li>Use entities, such as &amp;amp; and &amp;lt; instead of &amp; and &lt;, when you want to display HTML characters.</li>
+		<li>Use entities, such as "&amp;amp;" instead of "&" and "&amp;lt;" instead of "&lt;", when you want to display HTML characters.</li>
 		<li>Put quotes around HTML attributes.</li>
 		<li>Always include a value for HTML attributes.  For example, use <tt>&lt;td nowrap="true"&gt;</tt> instead of <tt>&lt;td nowrap&gt;</tt>
 		<li>Nest HTML tags instead of overlapping them.  For example, use <tt>&lt;b&gt;&lt;i&gt;text&lt;/i&gt;&lt;/b&gt;</tt> instead of <tt>&lt;b&gt;&lt;i&gt;text&lt;/b&gt;&lt;/i&gt;</tt>

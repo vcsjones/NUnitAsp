@@ -5,18 +5,23 @@
 	<property name="source.dir" value="source" />
 	<property name="lib.dir" value="lib" />
 	<property name="build.dir" value="build" />
+	<property name="bin.dir" value="${build.dir}\bin" />
 	<property name="testPagesBuild.dir" value="${source.dir}\NUnitAspTestPages\bin" />
 	
-	<property name="dll.path" value="${build.dir}\NUnitAsp.dll" />
-	<property name="testdll.path" value="${build.dir}\NUnitAspTest.dll" />
-	<property name="webdll.path" value="${testPagesBuild.dir}\NUnitAspTestPages.dll" />
+	<property name="dll.path" value="${bin.dir}\NUnitAsp.dll" />
+	<property name="testdll.path" value="${bin.dir}\NUnitAspTest.dll" />
+	<property name="webdll.path" value="${bin.dir}\NUnitAspTestPages.dll" />
 	
 	<target name="build_dir">
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${testPagesBuild.dir}" />
+		<mkdir dir="${bin.dir}" />
 	</target>
 	
-	<target name="build" depends="compile_nunitasp, compile_nunitasptest, compile_nunitasptestpages" description="Build entire project">
+	<target name="build" depends="compile, copy_web" description="Build entire project">
+	</target>
+
+	<target name="compile" depends="compile_nunitasp, compile_nunitasptest, compile_nunitasptestpages">
 	</target>
 
 	<target name="compile_nunitasp" depends="build_dir">
@@ -51,6 +56,23 @@
 			<references>
 			</references>
 		</csc>
+		<copy todir="${build.dir}\NUnitAspTestPages">
+			<fileset basedir="${source.dir}\NUnitAspTestPages">
+				<includes name="Web.config" />
+				<includes name="**/*.aspx" />
+				<includes name="**/*.ascx" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="copy_web" depends="build_dir">
+		<copy todir="${build.dir}">
+			<fileset>
+				<includes name="readme.html" />
+				<includes name="website\**" />
+				<includes name="web\**" />
+			</fileset>
+		</copy>
 	</target>
 	
 	<target name="test" depends="build" description="Test project">
@@ -62,7 +84,7 @@
 	</target>
 		
 	<target name="dist" depends="test" description="Creates a releasable .zip file">
-		<zip zipfile="${build.dir}\NUnitAsp-${version}.zip">
+		<zip zipfile="${build.dir}\NUnitAsp.zip">
 			<fileset>
 				<includes name="readme.html" />
 				<includes name="website\**" />
@@ -83,7 +105,7 @@
 		<mkdir dir="${build.dir}" failonerror="false" />
 		<mkdir dir="${testPagesBuild.dir}" failonerror="false" />
 		
-		<delete dir="${build.dir}" />f
+		<delete dir="${build.dir}" />
 		<delete>
 			<fileset>
 				<includes name="**/bin/**/*" />

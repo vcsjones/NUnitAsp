@@ -1,30 +1,30 @@
 <html>
   <head>
-    <title>NUnitAsp Usage Guide</title></head>
+    <title>NUnitAsp Tutorial</title></head>
   <body>
-    <p>NUnitAsp is based on the principle that testing web pages should use the same 
-      concepts as creating them. When you use NUnitAsp, you will be using classes and 
+  	<h1 align="center">NUnitAsp Tutorial</h1>
+    <p>NUnitAsp is based on the principle that testing web pages should use the same
+      concepts as creating them. When you use NUnitAsp, you will be using classes and
       IDs similar to those you used when creating the web page you are testing.</p>
-    <p>In this document, we'll walk you through the process of creating a simple web 
-      form and tests. We assume you're using Visual Studio .NET and Internet 
-      Information Server. The "Simple" project we create in this tutorial is located 
-      in the VS.NET "Samples" solution located in the NUnitAsp download. For advanced 
-      users, you can get started more quickly by jumping straight to the <A href="../api.html">
-        NUnitAsp API Reference</A></p>
+    <p>In this document, we'll walk you through the process of creating a simple web
+      form and tests. We assume you're using Visual Studio .NET and Internet
+      Information Server. The "Simple" project we create in this tutorial is located
+      in the VS.NET "Samples" solution located in the NUnitAsp download. For advanced
+      users, you can get started more quickly by jumping straight to the <A href="../quickstart.html">QuickStart Guide</A></p>
     <h3>Create a Test Project</h3>
     <img src="create-project.gif" alt="Create the project..." align="right" />
-    <P>Start by creating a class library project to contain your tests. We created a 
-      C# project named "Simple." Create a class, typically that ends in "Test," that 
-      describes what you're testing. We used "SimpleTest." Finally, all NUnitAsp test 
-      cases must extend WebFormTestCase. You'll need to add a reference to the 
-      NUnitAsp DLL in order to do so. You'll probably want to add a reference to 
+    <P>Start by creating a class library project to contain your tests. We created a
+      C# project named "Simple." Create a class, typically that ends in "Test," that
+      describes what you're testing. We used "SimpleTest." Finally, all NUnitAsp test
+      cases must extend WebFormTestCase. You'll need to add a reference to the
+      NUnitAsp DLL in order to do so. You'll probably want to add a reference to
       NUnitCore as well.</P>
-    <P>Once your project and class has been created, modify your class to extend 
-      WebFormTestCase. Update the constructor to take a string argument and pass that 
-      argument to the base class. Don't forget to include the NUnitAsp namespace 
+    <P>Once your project and class has been created, modify your class to extend
+      WebFormTestCase. Update the constructor to take a string argument and pass that
+      argument to the base class. Don't forget to include the NUnitAsp namespace
       (NUnit.Extensions.Asp).</P>
-    <P>Before you can run your new test class, you need to add a test. The simplest 
-      possible test is an empty test: Add a public method that 
+    <P>Before you can run your new test class, you need to add a test. The simplest
+      possible test is an empty test: Add a public method that
       starts with the word "Test" and has no body. We used "TestNothing."</P>
     <table align="center" bgColor="black" border="0" ID="Table3">
       <tr>
@@ -40,7 +40,7 @@
                   <br />
                   {
                   <br />
-                  &nbsp;&nbsp;&nbsp;<font color="blue">public class</font> SimpleTest : 
+                  &nbsp;&nbsp;&nbsp;<font color="blue">public class</font> SimpleTest :
                   WebFormTestCase
                   <br />
                   &nbsp;&nbsp;&nbsp;{
@@ -68,11 +68,11 @@
         </td>
       </tr>
     </table>
-    <P>Now you have a working test! Admittedly, one that doesn't do much and. Let's 
+    <P>Now you have a working test! Admittedly, one that doesn't do much and. Let's
       run it to make sure everything is set up properly.</P>
-    <P>If you're using VS.NET, you can configure your tests to automatically run when 
-      you press F5. Right-click your test project (in our case, "Simple") and select 
-      Properties. Modify the properties of the "Debugging" pane in the "Configuration 
+    <P>If you're using VS.NET, you can configure your tests to automatically run when
+      you press F5. Right-click your test project (in our case, "Simple") and select
+      Properties. Modify the properties of the "Debugging" pane in the "Configuration
       Properties" folder as follows:</P>
     <ul>
       <li>
@@ -89,15 +89,15 @@
       </li>
     </ul>
     <div align="center"><img src="modify-properties.gif" alt="Modify the project properties..." /></div>
-    <P>You can see this test pass by pressing "F5" and clicking the "Run" button on 
+    <P>You can see this test pass by pressing "F5" and clicking the "Run" button on
       the NUnit GUI.</P>
     <div align="center"><img src="run-nunit.gif" alt="Run the tests..." /></div>
     <H3>Create a Real Test</H3>
     <P>Now we're ready to start testing. That's right, we're going to write our tests <i>
-        first</i>. Test-first programming is part of the Extreme Programming 
+        first</i>. Test-first programming is part of the Extreme Programming
         methodology from which NUnit is derived.</P>
-    <P>First we'll modify our empty test to load the Web page we're going to write. 
-      WebFormTestCase, our parent class, provides a "Browser" object for getting web 
+    <P>First we'll modify our empty test to load the Web page we're going to write.
+      WebFormTestCase, our parent class, provides a "Browser" object for getting web
       pages. Call "Browser.GetPage(<EM>web page url</EM>)" to load the page.</P>
     <table align="center" bgColor="black" border="0">
       <tr>
@@ -118,25 +118,25 @@
       </tr>
     </table>
     <img src="create-webproject.gif" alt="Create a web project..." align="right" />
-    <p>Now press "F5" and run the test. It will fail, because the page doesn't exist 
-      yet, but we want to run it anyway. The reason is so that we find out 
-      immediately if things aren't working the way we expect. The sooner we know 
-      about problems, the easier it is to fix them. When testing with NUnitAsp (and 
-      NUnit), get into the habit of writing a small test, watching it fail, writing a 
-      few lines of code, and watching the test pass. You should repeat this cycle 
-      every few minutes. If you do, you'll never get into a situation where you spend 
+    <p>Now press "F5" and run the test. It will fail, because the page doesn't exist
+      yet, but we want to run it anyway. The reason is so that we find out
+      immediately if things aren't working the way we expect. The sooner we know
+      about problems, the easier it is to fix them. When testing with NUnitAsp (and
+      NUnit), get into the habit of writing a small test, watching it fail, writing a
+      few lines of code, and watching the test pass. You should repeat this cycle
+      every few minutes. If you do, you'll never get into a situation where you spend
       a lot of time debugging.</p>
-    <p>The test fails, so we want to make it pass. Create a web project and the 
+    <p>The test fails, so we want to make it pass. Create a web project and the
       corresponding page. In our case, we created FirstPage.aspx in our web project.
     </p>
-    <p>If you run the test again, you'll see that it still doesn't pass. That's 
-      because NUnitAsp requires web pages to be in XHTML. There's three changes that 
+    <p>If you run the test again, you'll see that it still doesn't pass. That's
+      because NUnitAsp requires web pages to be in XHTML. There's three changes that
       you have to make in order for the pages to parse correctly:</p>
     <ol>
       <li>
         Modify the DOCTYPE header to point to the NUnitAsp XHTML DTD:
         <br />
-        <code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; 
+        <code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
           &quot;http://localhost/NUnitAsp/dtd/xhtml1-transitional.dtd&quot;&gt;</code></li>
       <li>
         Close all stand-alone tags -- particularly "meta" and "br"</li>
@@ -148,13 +148,13 @@
         <td>
           <table cellpadding="5" bgColor="white" border="0">
             <tr>
-              <td><code>&lt;%@ Page language=&quot;c#&quot; 
-                  Codebehind=&quot;FirstPage.aspx.cs&quot; AutoEventWireup=&quot;false&quot; 
+              <td><code>&lt;%@ Page language=&quot;c#&quot;
+                  Codebehind=&quot;FirstPage.aspx.cs&quot; AutoEventWireup=&quot;false&quot;
                   Inherits=&quot;SamplePages.FirstPage&quot; %&gt;
                   <br />
                   <font color="blue">&lt;!</font><font color="brown">DOCTYPE</font> <font color="red">
-                    HTML</font> <font color="red">PUBLIC</font> <font color="blue">&quot;-//W3C//DTD 
-                    XHTML 1.0 Transitional//EN&quot; 
+                    HTML</font> <font color="red">PUBLIC</font> <font color="blue">&quot;-//W3C//DTD
+                    XHTML 1.0 Transitional//EN&quot;
                     &quot;http://localhost/NUnitAsp/dtd/xHTML1-transitional.dtd&quot;</font><font color="blue">&gt;</font>
                   <br />
                   <font color="blue">&lt;</font><font color="brown">HTML</font><font color="blue">&gt;</font>
