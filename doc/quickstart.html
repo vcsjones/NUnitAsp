@@ -101,7 +101,7 @@
 
 						<p>NUnitAsp test fixtures extend WebFormTestCase.  It provides a number of <a href="api/NUnit.Extensions.Asp.WebFormTestCaseMembers.html">useful asserts</a>, which I recommend reviewing.  It also provides the Browser property.</p>
 
-						<p>The Browser object represents the NUnitAsp web browser.  You'll use it to load your page in order to start testing it.  Browser is important, but in most of your tests, you'll just use it for that one thing:</p>
+						<p>The Browser object represents the NUnitAsp web browser.  You'll use it to load your page in order to start testing it.  Browser is important, but in most of your tests, you'll use it for just one thing:</p>
 
 						<p class="code">Browser.GetPage("http://localhost/example/example.aspx");</p>
 
@@ -130,9 +130,9 @@
 							<br />LinkButtonTester link = <span class="keyword">new</span> LabelTester("textLabel", CurrentWebForm);
 						</p>
 
-						<p>The first parameter is the ID attribute you specify in your ASP.NET code.  The second parameter, the container for your control, confuses a lot of people.  If you just have simple pages, you can safely ignore it.  Just use "CurrentWebForm."</p>
+						<p>The first parameter is the ID of the control.  You specified the ID in your ASP.NET code.  The second parameter is the container for the control.  This confuses a lot of people.  If you have simple pages, you can safely ignore it.  Just use "CurrentWebForm."</p>
 
-						<p>If you have a more complex web site, though, you'll need to specify a value.  For example, if you're testing a link button that's in a user control, you have to tell NUnitAsp that the link is inside the user control.  If you have a checkbox inside a data grid, you have to tell NUnitAsp that the checkbox is inside the data grid, and even which row it's in.  If you don't, NUnitAsp won't be able to find it for you.</p>
+						<p>If you have a more complex web site, though, you'll need to specify a different value.  For example, if you're testing a link button that's in a user control, you have to tell NUnitAsp that the link is inside the user control.  If you have a checkbox inside a data grid, you have to tell NUnitAsp that the checkbox is inside the data grid, and even which row it's in.  If you don't, NUnitAsp won't be able to find it for you.</p>
 
 						<p class="code">
 							<span class="comment">// Example: Link button in a user control in the web page</span>
@@ -154,7 +154,7 @@
 
 						<p>In NUnitAsp, the [SetUp] and [TearDown] attributes are already used by WebFormTestCase.  Using them again in a your own test fixture will cause NUnit to ignore the code in WebFormTestCase.  This prevents important set-up code from running.  Fortunately for your sanity, NUnitAsp will throw an exception explaining the problem if you accidently use one of these inappropriately.</p>
 
-						<p>Because [SetUp] and [TearDown] are not available, NUnitAsp uses the old NUnit 1.x approach of overriding SetUp() and TearDown() <i>methods</i> instead.</p>
+						<p>Because [SetUp] and [TearDown] are not available, NUnitAsp uses the old NUnit 1.x approach of overriding SetUp() and TearDown() methods instead.</p>
 
 						<p class="code">
 							<span class="comment">// <b>Don't</b> do this:</span>
