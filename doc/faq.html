@@ -2,13 +2,6 @@
 	<head>
 		<title>NUnitAsp FAQ</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<style>
-			.question {
-				margin-top: 1.5em;
-				font-size: 1.2em;
-				font-weight: bold;
-			}
-		</style>
   </head>
   <body>
 		<p class="title">NUnitAsp
@@ -39,19 +32,29 @@
 
 						<p>At this time, there aren't many frequently asked questions, so this is a short document.</p>
 
-						<p class="question">Q: When will NUnitAsp support NUnit 2.0?</p>
 
-						<p class="answer">A: With the release of version 1.2.1, NUnit 2.0 support is now available.
+						<h2>Q: When will NUnitAsp support NUnit 2.0?</h2>
 
-						<p class="question">Q: When will NUnitAsp stop requiring XHTML?</p>
+						<p>A: With the release of version 1.2.1, NUnit 2.0 support is now available.
 
-						<p class="answer">A: That's our most important new feature, and is scheduled for our next release.  We don't have a specific release date.</p>
 
-						<p class="question">Q: I want to send you a patch.  What should I do?</p>
+						<h2>Q: When will NUnitAsp stop requiring XHTML?</h2>
 
-						<div class="answer">
-							<p>A: Great!  We appreciate your enthusiasm and support.  The best way you can help is to send us a test case that demonstrates your bug or feature.  In your patch, integrate your test case into the existing tests.  The easier it is for us to run your test, the sooner we'll get to your suggestion.  Once your patch is ready, upload it to the SourceForge <a href="http://sourceforge.net/tracker/?group_id=49940&atid=458032">patch manager</a>, and then post an explanation to the developer <a href="http://sourceforge.net/mail/?group_id=49940">mailing list</a>.</p>
-						</div>
+						<p>A: That's our most important new feature, and is scheduled for our next release.  We don't have a specific release date.</p>
+
+
+						<h2>Q: When I try to compile NUnitAsp, I get a &quot;cryptographic failure&quot; error.  What's wrong?</h2>
+
+						<p>A: The NUnitAsp DLL is <em>strong-named</em>, which means it is signed by a cryptographic key.  We don't include a key in the distribution, which means you'll get this error message if you try to compile:
+
+						<p class="code">Cryptographic failure while signing assembly 'C:\projects\NUnitAsp\source\NUnitAsp\obj\Debug\NUnitAsp.dll' -- 'The key container name 'NUnitAsp' does not exist'</p>
+
+						<p>We <em>do</em> provide a build script that will generate the key for you.  Just open a Visual Studio .NET command prompt and type 'nant' in the root NUnitAsp directory.</p>
+
+
+						<h2>Q: I want to send you a patch.  What should I do?</h2>
+
+						<p>A: Great!  We appreciate your enthusiasm and support.  The best way you can help is to send us a test case that demonstrates your bug or feature.  In your patch, integrate your test case into the existing tests.  The easier it is for us to run your test, the sooner we'll get to your suggestion.  Once your patch is ready, upload it to the SourceForge <a href="http://sourceforge.net/tracker/?group_id=49940&atid=458032">patch manager</a>, and then post an explanation to the developer <a href="http://sourceforge.net/mail/?group_id=49940">mailing list</a>.</p>
 
 						<p class="end">(End of FAQ)</p>
 					</div>
