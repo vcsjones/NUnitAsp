@@ -44,24 +44,41 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// </summary>
 		public string[] Messages
 		{
-			get { return ReadMessages(); }
+			get
+			{
+				if (Element.SelectSingleNode(".//ul") != null)
+				{
+					return ReadBulletedMessages();
+				}
+				else
+				{
+					return ReadListMessages();
+				}
+			}
 		}
 
-		private string[] ReadMessages()
+
+		private string [] ReadBulletedMessages()
 		{
-			XmlNodeList nodes = SelectMessageNodes();
-			string[] messages = new string[nodes.Count];
+			XmlNodeList nodes = Element.SelectNodes(".//ul/li");
+			string [] messages = new string[nodes.Count];
 			for (int i = 0; i < nodes.Count; i++)
 			{
-				messages[i] = nodes[i].InnerText;
+				messages[i] = nodes[i].InnerXml;
 			}
-
 			return messages;
 		}
 
-		private XmlNodeList SelectMessageNodes()
+		private string[] ReadListMessages() 
 		{
-			return Element.SelectNodes(".//ul/li");
+			XmlNode node = Element.SelectSingleNode(".//font");
+			string delim = "<br />";
+			string inner = node.InnerXml.Trim();
+			if (inner.Length >= delim.Length)
+			{
+				inner = inner.Substring(0, inner.Length - delim.Length);
+			}
+			return inner.Replace(delim, "|").Split('|');
 		}
 	}
 }

@@ -28,7 +28,8 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 	public class ValidationSummaryTest : NUnitAspTestCase
 	{
 		private TextBoxTester textBox;
-		private ValidationSummaryTester validator;
+		private ValidationSummaryTester bulletedSummary;
+		private ValidationSummaryTester listSummary;
 		private ButtonTester button;
 
 		protected override void SetUp()
@@ -37,24 +38,39 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			Browser.GetPage(BaseUrl + "AspTester/ValidationSummaryTestPage.aspx");
 
 			textBox = new TextBoxTester("textbox", CurrentWebForm);
-			validator = new ValidationSummaryTester("validator", CurrentWebForm);
+			bulletedSummary = new ValidationSummaryTester("bulletedSummary", CurrentWebForm);
+			listSummary = new ValidationSummaryTester("listSummary", CurrentWebForm);
 			button = new ButtonTester("submit", CurrentWebForm);
 		}
 
-		public void TestPage()
+		public void TestPageLayout()
 		{
 			AssertEquals("", textBox.Text);
-			AssertVisibility(validator, false);
+
+			AssertVisibility(bulletedSummary, false);
+			AssertVisibility(listSummary, false);
 			AssertVisibility(button, true);
 		}
 
-		public void TestSubmit()
+		public void TestBulletedSummary()
+		{
+			AssertCorrectMessages(bulletedSummary);
+		}
+
+		public void TestListSummary()
+		{
+			AssertCorrectMessages(listSummary);
+		}
+
+
+		private void AssertCorrectMessages(ValidationSummaryTester summary)
 		{
 			AssertEquals("", textBox.Text);
 			button.Click();
-			AssertVisibility(validator, true);
-			AssertEquals(1, validator.Messages.Length);
-			AssertEquals("Text box must not be empty", validator.Messages[0]);
+			AssertVisibility(summary, true);
+
+			string[] expected = new string[] {"First message", "Second message", "Third message"};
+			AssertEquals("messages", expected, summary.Messages);
 		}
 	}
 }
