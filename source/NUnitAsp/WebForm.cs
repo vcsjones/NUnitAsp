@@ -67,9 +67,9 @@ namespace NUnit.Extensions.Asp.AspTester
 			return aspId;
 		}
 
-		private XmlElement GetElementInternal(string aspId)
+		private XmlElement GetElementInternal(string htmlId)
 		{
-			return browser.CurrentPage.GetElementById(aspId);
+			return browser.CurrentPage.GetElementById(htmlId);
 		}
 
 		protected internal override void EnterInputValue(string name, string value)
