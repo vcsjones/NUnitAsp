@@ -22,8 +22,7 @@ using System;
 
 namespace NUnit.Extensions.Asp.Test
 {
-
-	public class NUnitAspTestCase : WebFormTestCase
+	public abstract class NUnitAspTestCase : WebFormTestCase
 	{
 		protected const string BaseUrl = "http://localhost/NUnitAsp/source/NUnitAspTestPages/";
 		private DateTime startTime;

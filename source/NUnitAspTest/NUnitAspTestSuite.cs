@@ -19,6 +19,7 @@
 '*******************************************************************************************************************/
 
 using System;
+using System.Reflection;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp.Test
@@ -27,13 +28,19 @@ namespace NUnit.Extensions.Asp.Test
 	{
 		public NUnitAspTestSuite() : base() 
 		{
-			AddTestSuite(typeof(HttpClientTest));
-			AddTestSuite(typeof(HtmlTagParserTest));
-			AddTestSuite(typeof(HtmlTagTest));
-			AddTestSuite(typeof(WebFormTestCaseTest));
+			AddAllTestCaseClassesInThisAssemblyToSuite(this);
+		}
 
-			AddTest(new AspTester.AspTesterSuite());
-			AddTest(new HtmlTester.HtmlTesterSuite());
+		private void AddAllTestCaseClassesInThisAssemblyToSuite(TestSuite suite)
+		{			
+			Assembly assembly = Assembly.GetExecutingAssembly();
+			foreach(Type type in assembly.GetTypes()) 
+			{
+				if (type.IsSubclassOf(typeof(TestCase)) && !type.IsAbstract)
+				{
+					suite.AddTestSuite(type);
+				}
+			}
 		}
 
 		public static ITest Suite 
