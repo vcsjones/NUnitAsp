@@ -88,17 +88,10 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 			Assert("checkVaryNotServer still shouldn't be checked - plain (non ASP.NET) controls don't automatically remember state", !checkVaryNotServer.Checked);
 		}
 
-		public void TestCheck_WhenDisabled()
+        [ExpectedException(typeof(ControlDisabledException))]
+        public void TestCheck_WhenDisabled()
 		{
-			try
-			{
-				checkDisabled.Checked = true;
-				Fail("Expected ControlDisabledException");
-			}
-			catch (ControlDisabledException e)
-			{
-				Console.WriteLine(e.Message);
-			}
+			checkDisabled.Checked = true;
 		}
 
 		public void TestDisabled_True()

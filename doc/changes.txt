@@ -3,26 +3,29 @@ To Do:
 * Incorporate Dominique's latest contributions.
 * Check out the changes in the patch on SourceForge.
 * Fix common error: TestdpValues.Items.FindByText("Not Running").Selected = "True"
+  - FAQ: lstHospitals.Items[2].Selected = true ; should be lstHospitals.Selected = 2;
 * Report missing DTD more clearly (currently gives 404 Not Found)
 * Support NUnit 2.1
 
 
 Changes in CVS:
-Produced by Jim Little and Levi Khatskevitch.
-* Updated installation guide in response to user comments.  Credit to Jim Little.
+Produced by Jim Shore and Levi Khatskevitch.
+* Updated installation guide in response to user comments.  Credit to Jim Shore.
 * Added support for https: protocol.  Credit to Daniel Granath.
 * Added support for basic authentication.  Credit to Daniel Granath.
 * Added support for cookies with expiration date.  Credit to Rich Tebb.
 * Added support for defining user languages.  Credit to Rich Tebb.
 * Added HtmlInputCheckBoxTester.  Credit to Andrew Enfield.
 * Added ImageButtonTester.  Credit to Clifton F. Vaughn.
-* Added support for sorting data grids.  Credit to Clifton F. Vaughn and Jim Little.
+* Added support for sorting data grids.  Credit to Clifton F. Vaughn and Jim Shore.
 * Fixed HTML in tutorial.  Credit to Dominique Plante.
 * Fixed nested controls to work with .NET v1.1.  Credit to Levi Khatskevitch.
-* Clarified action to take when parse error occurs.  Credit to Jim Little.
+* Clarified action to take when parse error occurs.  Credit to Jim Shore.
 * Added Enabled and Disabled properties to appropriate controls.  Credit to Levi Khatskevitch.
 * Added Text property to ButtonTester.  Credit to Levi Khatskevitch.
 * Fixed Enabled property in CheckboxTester for Framework 1.0.  Credit to Levi Khatskevitch.
+
+(Note: Jim Shore was named Jim Little before the release of version 1.4.)
 
 
 Changes in NUnitAsp 1.3:

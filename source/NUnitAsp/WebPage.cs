@@ -58,7 +58,7 @@ namespace NUnit.Extensions.Asp
                     Console.WriteLine("vvvvvv The following HTML could not be parsed by NUnitAsp vvvvvv");
 					Console.WriteLine(pageText);
                     Console.WriteLine("^^^^^^ The preceding HTML could not be parsed by NUnitAsp ^^^^^^");
-					throw new ParseException("Could not parse HTML.  See standard out for the HTML and use a validator (such as the one at validator.w3c.org) to troubleshoot.  Parser error was: " + e.Message);
+					throw new ParseException("Could not parse HTML.  See standard out for the HTML and use a validator (such as the one at validator.w3.org) to troubleshoot.  Parser error was: " + e.Message);
 				}
 			}
 		}

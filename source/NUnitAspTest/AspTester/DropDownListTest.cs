@@ -22,6 +22,7 @@
 
 using System;
 using System.Web.UI.WebControls;
+using NUnit.Framework;
 using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
@@ -101,17 +102,10 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals(2, list.SelectedIndex);
 		}
 
-		public void TestSetSelectedIndex_WhenDisabled()
+        [ExpectedException(typeof(ControlDisabledException))]
+        public void TestSetSelectedIndex_WhenDisabled()
 		{
-			try
-			{
-				disabledList.SelectedIndex = 1;
-				Fail("Expected ControlDisabledException");
-			}
-			catch (ControlDisabledException e)
-			{
-				Console.WriteLine(e.Message);
-			}
+			disabledList.SelectedIndex = 1;
 		}
 
 		public void TestImmediatePostBack()

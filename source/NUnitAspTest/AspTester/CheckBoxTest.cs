@@ -19,6 +19,7 @@
 '*******************************************************************************************************************/
 
 using System;
+using NUnit.Framework;
 using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
@@ -47,17 +48,10 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			Assert("should be checked", checkBox.Checked);
 		}
 
-		public void TestCheck_WhenDisabled()
+        [ExpectedException(typeof(ControlDisabledException))]
+        public void TestCheck_WhenDisabled()
 		{
-			try
-			{
-				disabledCheckBox.Checked = true;
-				Fail("Expected ControlDisabledException");
-			}
-			catch (ControlDisabledException e)
-			{
-				Console.WriteLine(e.Message);
-			}
+			disabledCheckBox.Checked = true;
 		}
 
 		public void TestEnabled_True()

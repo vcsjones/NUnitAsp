@@ -22,6 +22,7 @@
 #endregion
 
 using System;
+using NUnit.Framework;
 using NUnit.Extensions.Asp;
 using NUnit.Extensions.Asp.AspTester;
 
@@ -49,17 +50,10 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("result", "2, 3", clickResult.Text);
 		}
 
-		public void TestClick_WhenDisabled()
+        [ExpectedException(typeof(ControlDisabledException))]
+        public void TestClick_WhenDisabled()
 		{
-			try
-			{
-				disabledButton.Click(2, 3);
-				Fail("Expected ControlDisabledException");
-			}
-			catch (ControlDisabledException e)
-			{
-				Console.WriteLine(e.Message);
-			}
+			disabledButton.Click(2, 3);
 		}
 
 		public void TestEnabled_True()

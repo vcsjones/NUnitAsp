@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using NUnit.Framework;
 using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
@@ -76,17 +77,10 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("multiline text box setting", "new text", multiline.Text);
 		}
 
-		public void TestText_WhenDisabled()
+        [ExpectedException(typeof(ControlDisabledException))]
+        public void TestText_WhenDisabled()
 		{
-			try
-			{
-				disabled.Text = "some text";
-				Fail("Expected ControlDisabledException");
-			}
-			catch (ControlDisabledException e)
-			{
-				Console.WriteLine(e.Message);
-			}
+			disabled.Text = "some text";
 		}
 	}
 }
