@@ -1,8 +1,8 @@
 <html>
   <head>
     <title>NUnitAsp - ASP.NET unit testing - Quick Start Guide</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
-		<style>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<style type="text/css">
 			.highlight {
 				background-color: yellow;
 				font-weight: bold;
@@ -24,9 +24,9 @@
 							<br /><a href="support.html">Support</a>
 							<br /><a href="consulting.html">Training and Consulting</a>
 						</p>
-						<p><a href="contribute.html">Contribute</p>
-						<p><A href="http://sourceforge.net/projects/nunitasp/"><IMG src=
-						"http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" border="0" alt="SourceForge Logo"></A></p>
+						<p><a href="contribute.html">Contribute</a></p>
+						<p><a href="http://sourceforge.net/projects/nunitasp/"><img src=
+						"http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" border="0" alt="SourceForge Logo" /></a></p>
 					</div>
 				</td>
 				<td>
@@ -101,7 +101,7 @@
 
 						<p>NUnitAsp test fixtures extend WebFormTestCase.  It provides a number of <a href="api/NUnit.Extensions.Asp.WebFormTestCaseMembers.html">useful asserts</a>, which I recommend reviewing.  It also provides the Browser property.</p>
 
-						<p>The Browser object represents the NUnitAsp web browser.  You'll use it to load your page in order to start testing it.  Browser is important, but in most of your tests, you'll just use it for that one thing:
+						<p>The Browser object represents the NUnitAsp web browser.  You'll use it to load your page in order to start testing it.  Browser is important, but in most of your tests, you'll just use it for that one thing:</p>
 
 						<p class="code">Browser.GetPage("http://localhost/example/example.aspx");</p>
 
@@ -154,7 +154,7 @@
 
 						<p>In NUnitAsp, the [SetUp] and [TearDown] attributes are already used by WebFormTestCase.  Using them again in a your own test fixture will cause NUnit to ignore the code in WebFormTestCase.  This prevents important set-up code from running.  Fortunately for your sanity, NUnitAsp will throw an exception explaining the problem if you accidently use one of these inappropriately.</p>
 
-						<p>Because [SetUp] and [TearDown] are not available, NUnitAsp uses the old NUnit 1.x approach of overriding SetUp() and TearDown() <i>methods</i> instead.
+						<p>Because [SetUp] and [TearDown] are not available, NUnitAsp uses the old NUnit 1.x approach of overriding SetUp() and TearDown() <i>methods</i> instead.</p>
 
 						<p class="code">
 							<span class="comment">// <b>Don't</b> do this:</span>
