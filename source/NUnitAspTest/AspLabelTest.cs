@@ -23,7 +23,7 @@ using System;
 namespace NUnit.Extensions.Asp.Test
 {
 
-	public class AspLabelTest : WebFormTestCase
+	public class AspLabelTest : NUnitAspTestCase
 	{
 		public AspLabelTest(string name) : base(name)
 		{

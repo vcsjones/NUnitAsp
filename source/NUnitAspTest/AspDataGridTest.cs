@@ -24,7 +24,7 @@ using NUnit.Extensions.Asp;
 namespace NUnit.Extensions.Asp.Test
 {
 
-	public class AspDataGridTest : WebFormTestCase
+	public class AspDataGridTest : NUnitAspTestCase
 	{
 		private AspDataGrid grid1;
 		private AspDataGrid grid2;
@@ -70,9 +70,9 @@ namespace NUnit.Extensions.Asp.Test
 		public void TestNestedControls()
 		{
 			new AspLinkButton("link1", grid1.GetRow(1)).Click();
-			AssertEquals("1,2", ClickResult.Text);
+			AssertEquals("1,2", clickResult.Text);
 			new AspLinkButton("link2", grid2.GetRow(0)).Click();
-			AssertEquals("2,3", ClickResult.Text);
+			AssertEquals("2,3", clickResult.Text);
 		}
 
 	}
