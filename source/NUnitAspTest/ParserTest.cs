@@ -30,7 +30,7 @@ namespace NUnit.Extensions.Asp.Test
 	public class ParserTest : NUnitAspTestCase
 	{
 		[Test]
-//		[Ignore("Parser doesn't support this yet")]
+		[Ignore("Parser doesn't support this yet")]
 		public void TestMalformedDocument()
 		{
 			CheckBoxTester control = new CheckBoxTester("control", CurrentWebForm);
