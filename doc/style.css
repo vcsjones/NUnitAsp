@@ -87,6 +87,20 @@ li {
 	padding: 0.5em;
 }
 
+.emph {
+	font-weight: bold;
+}
+
+.demph {
+	color: grey;
+}
+
+.error {
+	background-color: red;
+	color: white;
+	padding: 0.2em;
+}
+
 .figure {
 	margin: 0em 1em 0em 1em;
 	font-size: .8em;

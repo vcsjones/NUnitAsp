@@ -27,7 +27,7 @@
 					<div class="content">
 						<h1>Migration Guide</h1>
 
-						<p>With version 1.2.1, NUnitAsp migrated from NUnit 1.x to NUnit 2.0.  NUnit 2.0 offers many improvements over NUnit 1.x, but it isn't compatible.  Users who wish to use newer versions of NUnitAsp must upgrade.</p>
+						<p>With version 1.2.1, NUnitAsp migrated from NUnit 1.x to NUnit 2.0.  NUnit 2.0 offers many improvements over NUnit 1.x, but it isn't backwards compatible.  Users who wish to use newer versions of NUnitAsp must upgrade.</p>
 
 						<p>Fortunately, we've made every effort to ease the pain of transition.  Migrating to NUnitAsp for NUnit 2.0 is extremely easy.  We would have liked to make it completely seamless, but the NUnit 2.0 architecture didn't allow that.</p>
 
@@ -41,41 +41,41 @@
 						<p>If your existing test fixture constructors don't have any code, you can simply delete them:</p>
 
 						<p class="code">
-							<span class="keyword">public class</span> ExampleTest {
-							<br />&nbsp;&nbsp;&nbsp;<span class="keyword">public</span> ExampleTest(<span class="keyword">string</span> name) : <span class="keyword">base</span>(name) {
-							<br />&nbsp;&nbsp;&nbsp;}
-							<br />&nbsp;&nbsp;&nbsp;...
-							<br />}
+							<span class="demph">public class ExampleTest {</span>
+							<span class="emph"><br />&nbsp;&nbsp;&nbsp;<span class="keyword">public</span> ExampleTest(<span class="keyword">string</span> name) : <span class="keyword">base</span>(name) {
+							<br />&nbsp;&nbsp;&nbsp;}</span>
+							<span class="demph"><br />&nbsp;&nbsp;&nbsp;...
+							<br />}</span>
 						</p>
 
 						<p>Becomes:</p>
 
 						<p class="code">
-							<span class="keyword">public class</span> ExampleTest {
+							<span class="demph">public class ExampleTest {
 							<br />&nbsp;&nbsp;&nbsp;...
-							<br />}
+							<br />}</span>
 						</p>
 
 						<p>If your constructor <em>does</em> have code, just remove the parameter:</p>
 
 						<p class="code">
-							<span class="keyword">public class</span> ExampleTest {
-							<br />&nbsp;&nbsp;&nbsp;<span class="keyword">public</span> ExampleTest(<span class="keyword">string</span> name) : <span class="keyword">base</span>(name) {
-							<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DoSomething();
+							<span class="demph">public class ExampleTest {</span>
+							<span class="emph"><br />&nbsp;&nbsp;&nbsp;<span class="keyword">public</span> ExampleTest(<span class="keyword">string</span> name) : <span class="keyword">base</span>(name) {</span>
+							<span class="demph"><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DoSomething();
 							<br />&nbsp;&nbsp;&nbsp;}
 							<br />&nbsp;&nbsp;&nbsp;...
-							<br />}
+							<br />}</span>
 						</p>
 
 						<p>Becomes:</p>
 
 						<p class="code">
-							<span class="keyword">public class</span> ExampleTest {
-							<br />&nbsp;&nbsp;&nbsp;<span class="keyword">public</span> ExampleTest() {
-							<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DoSomething();
+							<span class="demph">public class ExampleTest {</span>
+							<span class="emph"><br />&nbsp;&nbsp;&nbsp;<span class="keyword">public</span> ExampleTest() {</span>
+							<span class="demph"><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DoSomething();
 							<br />&nbsp;&nbsp;&nbsp;}
 							<br />&nbsp;&nbsp;&nbsp;...
-							<br />}
+							<br />}</span>
 						</p>
 
 
