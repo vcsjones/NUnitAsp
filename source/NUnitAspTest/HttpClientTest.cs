@@ -102,7 +102,8 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEquals(BaseUrl + "RedirectionTarget.aspx", Browser.CurrentUrl.AbsoluteUri);
 		}
 
-		[Test, ExpectedException(typeof(HttpClient.RedirectLoopException))]
+		[Test]
+		[ExpectedException(typeof(HttpClient.RedirectLoopException))]
 		public void TestInfiniteRedirect()
 		{
 			Browser.GetPage(BaseUrl + "InfiniteRedirector.aspx");
