@@ -28,7 +28,6 @@ using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
-	[Ignore("Causes stack overflow exception.  Fix before 1.4 release.")]
 	[TestFixture]
 	public class ListBoxTest : ListControlTest
 	{

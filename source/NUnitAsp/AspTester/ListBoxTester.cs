@@ -71,7 +71,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			if (!selected || SelectionMode == ListSelectionMode.Single)
 			{
-				ChangeItemSelectState(item, selected);
+				base.ChangeItemSelectState(item, selected);
 			}
 			else
 			{
