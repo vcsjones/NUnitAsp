@@ -2,26 +2,55 @@
 <project name="NUnitAsp" basedir="." default="build">
 	<description>NUnitAsp - ASP.NET Unit Testing</description>
 	
-	<property name="source.dir" value="source\NUnitAsp" />
+	<property name="source.dir" value="source" />
 	<property name="lib.dir" value="lib" />
 	<property name="build.dir" value="build" />
-	<property name="dll.path" value="${build.dir}\NUnitAsp.dll" />
 	
-	<target name="init">
+	<property name="dll.path" value="${build.dir}\NUnitAsp.dll" />
+	<property name="testdll.path" value="${build.dir}\NUnitAspTest.dll" />
+	
+	<target name="build_dir">
 		<mkdir dir="${build.dir}" />
 	</target>
 	
-	<target name="build" depends="init" description="Creates NUnitAsp.dll">
+	<target name="build" depends="test" description="Build and test entire project">
+	</target>
+
+	<target name="compile_nunitasp" depends="build_dir">
 		<csc target="library" output="${dll.path}" debug="true">
-			<sources>
-				<includes name="${source.dir}\**\*.cs" />
+			<sources basedir="${source.dir}\NUnitAsp">
+				<includes name="**\*.cs" />
 			</sources>
 			<references>
 				<includes name="${lib.dir}\*.dll" />
 			</references>
+			<arg value="/nowarn:0679"/>
+		</csc>
+	</target>
+
+	<target name="compile_nunitasptest" depends="build_dir">
+		<csc target="library" output="${testdll.path}" debug="true">
+			<sources basedir="${source.dir}\NUnitAspTest">
+				<includes name="**\*.cs" />
+			</sources>
+			<references>
+				<includes name="${lib.dir}\*.dll" />
+				<includes name="${dll.path}" />
+			</references>
 		</csc>
 	</target>
 	
+	<target name="test" depends="compile_nunitasp, compile_nunitasptest">
+		<exec program="${lib.dir}\nunitconsole" commandline="NUnit.Extensions.Asp.Test.NUnitAspTestSuite,${testdll.path}" />
+<!--
+		<nunit basedir="${build.dir}" haltonerror="true" haltonfailure="true">
+			<formatter type="Xml"/>
+			<formatter type="Plain"/>
+			<test class="NUnit.Extensions.Asp.Test.NUnitAspTestSuite" assembly="${testdll.path}" outfile="${build.dir}\NUnitAspTest.Tests.Results" />
+		</nunit>
+-->
+	</target>
+		
 	<target name="dist" depends="build" description="Creates a releasable .zip file">
 		<zip zipfile="${build.dir}\NUnitAsp-${version}.zip">
 			<fileset>
@@ -41,5 +70,10 @@
 	<target name="clean" description="Deletes all build files">
 		<mkdir dir="${build.dir}" failonerror="false" />
 		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="rebuild" description="Build and test project from scratch">
+		<call target="clean" />
+		<call target="build" />
 	</target>
 </project>
