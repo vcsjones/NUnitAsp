@@ -175,11 +175,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "AspTester\DropDownListTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "AspTester\LabelTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
