@@ -33,7 +33,7 @@
           <div class="content">
             <h1>Quick Start Guide</h1>
 
-            <p>This guide contains a brief description of NUnitAsp and how to use it.  It assumes that you're familiar with NUnit, ASP.NET, and unit testing.  It also assumes that you're comfortable with a high-level explanation and can look up the <a href="api/index.html">API details</a> for yourself.  If you prefer a more detailed explanation, see the <a href="tutorial/index.html">NUnitAsp Tutorial</a> instead.</p>
+            <p>This guide contains a brief description of NUnitAsp and how to use it.  It assumes that you're familiar with NUnit, ASP.NET, and unit testing.  It also assumes that you're comfortable with a high-level explanation and can look up the <a href="api.html">API details</a> for yourself.  If you prefer a more detailed explanation, see the <a href="tutorial/index.html">NUnitAsp Tutorial</a> instead.</p>
 
             <p>The examples in this guide are written in C#.  NUnitAsp will work with other .NET languages, but we don't provide examples for them.  If you would like us to include examples for your favorite language, we welcome <a href="contribute.html">contributions</a>.</p>
 
@@ -99,7 +99,7 @@
 
             <h2>About WebFormTestCase</h2>
 
-            <p>NUnitAsp test fixtures extend WebFormTestCase.  It provides a number of <a href="api/NUnit.Extensions.Asp.WebFormTestCaseMembers.html">useful asserts</a>, which I recommend reviewing.  It also provides the Browser property.</p>
+            <p>NUnitAsp test fixtures extend WebFormTestCase.  It provides a number of <a href="api/NUnit.Extensions.Asp.WebAssertionMembers.html">useful asserts</a>, which I recommend reviewing.  It also provides the Browser property.</p>
 
             <p>The Browser object represents the NUnitAsp web browser.  You'll use it to load your page in order to start testing it.  Browser is important, but in most of your tests, you'll use it for just one thing:</p>
 
@@ -132,11 +132,11 @@
 
             <p>The first parameter is the ID of the control.  You specified the ID in your ASP.NET code.  The second parameter is the container for the control.  This confuses a lot of people.  If you have simple pages, you can safely ignore it.  Just use "CurrentWebForm."</p>
 
-            <p>For information about which controls are supported, see the <a href="api/index.html">API documentation</a>.  Testers for web controls are in the <a href="api/NUnit.Extensions.Asp.AspTester.html">AspTester</a> namespace and testers for HTML controls are in the <a href="api/NUnit.Extensions.Asp.HtmlTester.html">HtmlTester</a> namespace.</p>
+            <p>For information about which controls are supported, see the <a href="api.html">API documentation</a>.  Testers for web controls are in the <a href="api/NUnit.Extensions.Asp.AspTester.html">AspTester</a> namespace and testers for HTML controls are in the <a href="api/NUnit.Extensions.Asp.HtmlTester.html">HtmlTester</a> namespace.</p>
 
             <h2>User Controls, Data Grids, and Other Control Nesting</h2>
 
-            <p>If you have complex web site, you'll often need to specify a value for testers' container.  If you have a control contained within another control, pass the tester for containing control as the second parameter of the constructor.</p>
+            <p>If you have complex web site, you'll often need to specify a value for testers' container.  If you have a control contained within another control, pass the tester for the containing control as the second parameter of the constructor.</p>
 
             <p>For example, if you're testing a link button that's in a user control, you'll need a UserControlTester.  When you construct the LinkButtonTester, you'll pass in the UserControlTester as the container:</p>
 
