@@ -53,5 +53,21 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
+		public override bool Visible
+		{
+			get
+			{
+				throw new VisibilityException(this.GetType().Name);
+			}
+		}
+
+		private class VisibilityException : ApplicationException
+		{
+			internal VisibilityException(string className) : base(className + "s are never visible")
+			{
+			}
+		}
+
 	}
+
 }

@@ -41,7 +41,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 		}
 
-		public bool Visible
+		public virtual bool Visible
 		{
 			get
 			{
