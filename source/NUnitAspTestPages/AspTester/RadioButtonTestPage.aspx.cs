@@ -24,17 +24,17 @@ using System;
 
 namespace NUnitAspTestPages.AspTester
 {
-	public class CheckBoxTestPage : System.Web.UI.Page
+	public class RadioButtonTestPage : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.CheckBox disabled;
+		protected System.Web.UI.WebControls.RadioButton disabled;
 		protected System.Web.UI.WebControls.LinkButton submit;
-		protected System.Web.UI.WebControls.CheckBox noText;
-		protected System.Web.UI.WebControls.CheckBox formattedText;
-		protected System.Web.UI.WebControls.CheckBox checkBox;
+		protected System.Web.UI.WebControls.RadioButton noText;
+		protected System.Web.UI.WebControls.RadioButton formattedText;
+		protected System.Web.UI.WebControls.RadioButton radionButton;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if (formattedText.Text != "<b>bold!</b>") throw new ApplicationException("CheckBox.Text doesn't include formatting!");
+			if (formattedText.Text != "<b>bold!</b>") throw new ApplicationException("RadioButton.Text doesn't include formatting!");
 		}
 
 		#region Web Form Designer generated code

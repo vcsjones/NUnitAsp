@@ -162,16 +162,26 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		protected internal override void EnterInputValue(string name, string value)
+		protected internal override void EnterInputValue(XmlElement owner, string name, string value)
 		{
 			EnsureEnabled();
-			container.EnterInputValue(name, value);
+			container.EnterInputValue(owner, name, value);
 		}
 
-		protected internal override void RemoveInputValue(string name)
+		protected internal override void RemoveInputValue(XmlElement owner, string name)
 		{
 			EnsureEnabled();
-			container.RemoveInputValue(name);
+			container.RemoveInputValue(owner, name);
+		}
+
+		protected void EnterInputValue(string name, string value)
+		{
+			EnterInputValue(Element, name, value);
+		}
+
+		protected void RemoveInputValue(string name)
+		{
+			RemoveInputValue(Element, name);
 		}
 
 		protected internal override void Submit()
@@ -195,6 +205,12 @@ namespace NUnit.Extensions.Asp
 			return (candidate != null) && (candidate.StartsWith("__doPostBack"));
 		}
 
+		private void SetInputHiddenValue(string name, string value)
+		{
+			string expression = string.Format("//form//input[@type='hidden'][@name='{0}']", name);
+			container.EnterInputValue((XmlElement)Element.SelectSingleNode(expression), name, value);
+		}
+
 		protected void PostBack(string postBackScript)
 		{
 			string postBackPattern = @"__doPostBack\('(?<target>.*?)','(?<argument>.*?)'\)";
@@ -208,11 +224,8 @@ namespace NUnit.Extensions.Asp
 			string target = match.Groups["target"].Captures[0].Value;
 			string argument = match.Groups["argument"].Captures[0].Value;
 
-            // Workaround for .NET v1.1
-            target = target.Replace('$', ':'); 
-
-			container.EnterInputValue("__EVENTTARGET", target);
-			container.EnterInputValue("__EVENTARGUMENT", "argument");
+			SetInputHiddenValue("__EVENTTARGET", target.Replace('$', ':'));
+			SetInputHiddenValue("__EVENTARGUMENT", argument);
 			Submit();
 		}
 	}

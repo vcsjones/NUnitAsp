@@ -1,6 +1,7 @@
+#region Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -17,8 +18,10 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
+using System.Xml;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
@@ -45,6 +48,53 @@ namespace NUnit.Extensions.Asp.AspTester
 			{
 				string mangledGroupName = GetAttributeValue("name");
 				return mangledGroupName.Substring(mangledGroupName.LastIndexOf(":") + 1);
+			}
+		}
+
+		/// <summary>
+		/// True if the radio button is checked, false if not.
+		/// </summary>
+		public override bool Checked
+		{
+			get
+			{
+				return base.Checked;
+			}
+			set
+			{
+				if (value == true) 
+				{
+					UncheckWholeGroup();
+					base.Checked = value;
+				}
+				else
+				{
+					throw new CannotUncheckException();
+				}
+			}
+		}
+
+		private void UncheckWholeGroup()
+		{
+			string name = GetAttributeValue("name");
+			string groupExpr = string.Format("//form//input[@type='radio'][@name='{0}']", name);
+
+			foreach (XmlElement radio in Element.SelectNodes(groupExpr))
+			{
+				RemoveInputValue(radio, name);
+			}
+		}	
+
+		/// <summary>
+		/// Test attempted to set RadioButton's Checked property to false.
+		/// But radio buttons cannot be unchecked directly, check another 
+		/// radio button in the same group instead.
+		/// </summary>
+		public class CannotUncheckException : InvalidOperationException
+		{
+			public CannotUncheckException() : 
+				base("Cannot uncheck radio button, check another one in the same group instead.")
+			{
 			}
 		}
 	}

@@ -1,7 +1,7 @@
-#region Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
+#region Copyright (c) 2003, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2003, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -21,41 +21,48 @@
 #endregion
 
 using System;
+using NUnit.Framework;
+using NUnit.Extensions.Asp.AspTester;
 
-namespace NUnitAspTestPages.AspTester
+namespace NUnit.Extensions.Asp.Test.AspTester
 {
-	public class CheckBoxTestPage : System.Web.UI.Page
+	[TestFixture]
+	public class RadioButtonTest : CheckBoxTest
 	{
-		protected System.Web.UI.WebControls.CheckBox disabled;
-		protected System.Web.UI.WebControls.LinkButton submit;
-		protected System.Web.UI.WebControls.CheckBox noText;
-		protected System.Web.UI.WebControls.CheckBox formattedText;
-		protected System.Web.UI.WebControls.CheckBox checkBox;
-	
-		private void Page_Load(object sender, System.EventArgs e)
+		private RadioButtonTester groupedOne;
+		private RadioButtonTester groupedTwo;
+
+		protected override void SetUp()
 		{
-			if (formattedText.Text != "<b>bold!</b>") throw new ApplicationException("CheckBox.Text doesn't include formatting!");
+			base.SetUp();
+
+			// Used in base class
+			CheckBox = new RadioButtonTester("radionButton", CurrentWebForm);
+			DisabledCheckBox = new RadioButtonTester("disabled", CurrentWebForm);
+
+			groupedOne = new RadioButtonTester("groupedOne", CurrentWebForm);
+			groupedTwo = new RadioButtonTester("groupedTwo", CurrentWebForm);
+
+			Submit = new LinkButtonTester("submit", CurrentWebForm);
+			Browser.GetPage(BaseUrl + "/AspTester/RadioButtonTestPage.aspx");
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		[ExpectedException(typeof(RadioButtonTester.CannotUncheckException))]
+		public override void TestUncheck()
 		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
+			CheckBox.Checked = false;
 		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 
+		public void TestGroupedCheck()
+		{
+			AssertEquals(true, groupedOne.Checked);
+			AssertEquals(false, groupedTwo.Checked);
+
+			groupedTwo.Checked = true;
+			Submit.Click();
+
+			AssertEquals(false, groupedOne.Checked);
+			AssertEquals(true, groupedTwo.Checked);
 		}
-		#endregion
 	}
 }

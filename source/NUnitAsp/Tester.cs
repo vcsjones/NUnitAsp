@@ -37,8 +37,8 @@ namespace NUnit.Extensions.Asp
 		public abstract bool HasChildElement(string aspId);
 		protected internal abstract XmlElement GetChildElement(string htmlId);
 		protected internal abstract string GetChildElementHtmlId(string aspId);
-		protected internal abstract void EnterInputValue(string name, string value);
-		protected internal abstract void RemoveInputValue(string name);
+		protected internal abstract void EnterInputValue(XmlElement owner, string name, string value);
+		protected internal abstract void RemoveInputValue(XmlElement owner, string name);
 		protected internal abstract void Submit();
 		public abstract string Description
 		{

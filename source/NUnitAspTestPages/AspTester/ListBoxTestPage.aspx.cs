@@ -1,7 +1,7 @@
 #region Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -21,20 +21,47 @@
 #endregion
 
 using System;
+using System.Web.UI.WebControls;
 
 namespace NUnitAspTestPages.AspTester
 {
-	public class CheckBoxTestPage : System.Web.UI.Page
+	public class ListBoxTestPage : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.CheckBox disabled;
 		protected System.Web.UI.WebControls.LinkButton submit;
-		protected System.Web.UI.WebControls.CheckBox noText;
-		protected System.Web.UI.WebControls.CheckBox formattedText;
-		protected System.Web.UI.WebControls.CheckBox checkBox;
+		protected System.Web.UI.WebControls.ListBox list;
+		protected System.Web.UI.WebControls.ListBox emptyList;
+		protected System.Web.UI.WebControls.LinkButton clearSelection;
+		protected System.Web.UI.WebControls.CheckBox auto;
+		protected System.Web.UI.WebControls.CheckBox multi;
+		protected System.Web.UI.WebControls.Label indexChanged;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if (formattedText.Text != "<b>bold!</b>") throw new ApplicationException("CheckBox.Text doesn't include formatting!");
+			indexChanged.Text = "No";
+			if (!IsPostBack)
+			{
+				list.Items.Add(new ListItem("one", "1"));
+				list.Items.Add(new ListItem("two", "2"));
+				list.Items.Add(new ListItem("three", "3"));
+				list.SelectedIndex = 1;
+			}
+			list.AutoPostBack = auto.Checked;
+			list.SelectionMode = multi.Checked? ListSelectionMode.Multiple : ListSelectionMode.Single;
+		}
+
+		protected void clearSelection_Click(object sender, EventArgs args)
+		{
+			list.ClearSelection();
+		}
+
+		protected void add_Click(object sender, EventArgs args)
+		{
+			list.Items.Add(DateTime.Now.ToString());
+		}
+
+		protected void index_Changed(object sender, EventArgs args)
+		{
+			indexChanged.Text = "Yes";
 		}
 
 		#region Web Form Designer generated code
@@ -54,7 +81,7 @@ namespace NUnitAspTestPages.AspTester
 		private void InitializeComponent()
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
-
+			list.SelectedIndexChanged += new System.EventHandler(index_Changed);
 		}
 		#endregion
 	}

@@ -1,7 +1,7 @@
 #region Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -21,41 +21,43 @@
 #endregion
 
 using System;
+using NUnit.Framework;
+using NUnit.Extensions.Asp.AspTester;
 
-namespace NUnitAspTestPages.AspTester
+namespace NUnit.Extensions.Asp.Test.AspTester
 {
-	public class CheckBoxTestPage : System.Web.UI.Page
+	public class ListItemCollectionTest : NUnitAspTestCase
 	{
-		protected System.Web.UI.WebControls.CheckBox disabled;
-		protected System.Web.UI.WebControls.LinkButton submit;
-		protected System.Web.UI.WebControls.CheckBox noText;
-		protected System.Web.UI.WebControls.CheckBox formattedText;
-		protected System.Web.UI.WebControls.CheckBox checkBox;
-	
-		private void Page_Load(object sender, System.EventArgs e)
-		{
-			if (formattedText.Text != "<b>bold!</b>") throw new ApplicationException("CheckBox.Text doesn't include formatting!");
-		}
-
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
+		private ListItemCollectionTester collectionOne;
+		private ListItemCollectionTester collectionTwo;
 		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-			this.Load += new System.EventHandler(this.Page_Load);
+		protected override void SetUp()
+		{
+			base.SetUp();
 
+			Browser.GetPage(BaseUrl + "/AspTester/ListBoxTestPage.aspx");
+			collectionOne = new ListBoxTester("list", CurrentWebForm).Items;
+			collectionTwo = new ListBoxTester("disabledList", CurrentWebForm).Items;
 		}
-		#endregion
+
+		public void TestContains_True()
+		{
+			AssertEquals(true, collectionOne.Contains(collectionOne[1]));
+		}
+
+		public void TestContains_False()
+		{
+			AssertEquals(false, collectionOne.Contains(collectionTwo[0]));
+		}
+
+		public void TestFindByText()
+		{
+			AssertEquals("two", collectionOne.FindByText("two").Text);
+		}
+
+		public void TestFindByValue()
+		{
+			AssertEquals("2", collectionOne.FindByValue("2").Value);
+		}
 	}
 }

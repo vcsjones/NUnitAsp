@@ -1,7 +1,7 @@
 #region Copyright (c) 2003, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2003, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -21,34 +21,63 @@
 #endregion
 
 using System;
-using System.Web.UI.WebControls;
-using NUnit.Framework;
+using System.Xml;
 using NUnit.Extensions.Asp.AspTester;
+using System.Web.UI.WebControls;
 
-namespace NUnit.Extensions.Asp.Test.AspTester
+namespace NUnit.Extensions.Asp.AspTester
 {
-	public class DropDownListTest : ListControlTest
+	/// <summary>
+	/// Tester for System.Web.UI.WebControls.ListBox
+	/// </summary>
+	public class ListBoxTester : ListControlTester
 	{
-		protected override void SetUp()
+		/// <summary>
+		/// Create the tester and link it to an ASP.NET control.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to link to.</param>
+		/// <param name="container">The control that contains the control to link to</param>
+		public ListBoxTester(string aspId, Tester container) : base(aspId, container)
 		{
-			base.SetUp();
-			Browser.GetPage(BaseUrl + "/AspTester/DropDownListTestPage.aspx");
 		}
 
-		protected override ListControlTester CreateListControl(string aspId, Tester container)
+		/// <summary>
+		/// Gets the number of rows displayed in the System.Web.UI.WebControls.ListBox control.
+		/// </summary>
+		public int Rows
 		{
-			return new DropDownListTester(aspId, container);
+			get
+			{
+				return int.Parse(GetAttributeValue("size"));
+			}
+		}
+
+		/// <summary>
+		/// Gets the selection mode of the System.Web.UI.WebControls.ListBox control.
+		/// </summary>
+		public ListSelectionMode SelectionMode
+		{
+			get
+			{
+				if (Element.Attributes["multiple"] != null)
+				{
+					return ListSelectionMode.Multiple;
+				}
+				return ListSelectionMode.Single;
+			}
 		}
 
 
-		public void TestSetItemSelected()
+		protected internal override void ChangeItemSelectState(ListItemTester item, bool selected)
 		{
-			DoTestSetItemsSelected_WhenSingleSelect();
-		}
-
-		public void TestSeletionPreserved()
-		{
-			DoTestSelectionPreserved_WhenSingle();
+			if (!selected || SelectionMode == ListSelectionMode.Single)
+			{
+				base.ChangeItemSelectState(item, selected);
+			}
+			else
+			{
+				EnterInputValue(item.Element, Element.GetAttribute("name"), item.Value);
+			}
 		}
 	}
 }

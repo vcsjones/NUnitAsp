@@ -1,7 +1,7 @@
 #region Copyright (c) 2003, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2003, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -21,34 +21,80 @@
 #endregion
 
 using System;
+using System.Collections;
+using System.Text.RegularExpressions;
+using System.Xml;
 using System.Web.UI.WebControls;
-using NUnit.Framework;
-using NUnit.Extensions.Asp.AspTester;
 
-namespace NUnit.Extensions.Asp.Test.AspTester
+namespace NUnit.Extensions.Asp.AspTester
 {
-	public class DropDownListTest : ListControlTest
+	/// <summary>
+	/// Tester for System.Web.UI.WebControls.ListItem
+	/// </summary>
+	public class ListItemTester
 	{
-		protected override void SetUp()
+		private readonly ListControlTester owner;
+		internal readonly XmlElement Element;
+
+		internal ListItemTester(ListControlTester owner, XmlElement element)
 		{
-			base.SetUp();
-			Browser.GetPage(BaseUrl + "/AspTester/DropDownListTestPage.aspx");
+			this.owner = owner;
+			Element = element;
 		}
 
-		protected override ListControlTester CreateListControl(string aspId, Tester container)
+
+		/// <summary>
+		/// Gets the text displayed in a list control for the item represented by the ListItemTester.
+		/// </summary>
+		public string Text
 		{
-			return new DropDownListTester(aspId, container);
+			get
+			{
+				return Element.InnerText;
+			}
+		}
+
+		/// <summary>
+		/// Gets the value associated with the ListItemTester.
+		/// </summary>
+		public string Value
+		{
+			get
+			{
+				XmlAttribute valueAttribute = Element.Attributes["value"];
+
+				if (valueAttribute == null)
+				{
+					return Text;
+				}
+
+				return valueAttribute.Value;
+			}
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether the item is selected.
+		/// </summary>
+		public bool Selected
+		{
+			get
+			{
+				return Element.Attributes["selected"] != null;
+			}
+			set
+			{
+				owner.ChangeItemSelectState(this, value);
+			}
 		}
 
 
-		public void TestSetItemSelected()
+		/// <summary>
+		/// Returns a string that represents the current ListItemTester.
+		/// </summary>
+		/// <returns>ListItemTester's Text property.</returns>
+		public override string ToString()
 		{
-			DoTestSetItemsSelected_WhenSingleSelect();
-		}
-
-		public void TestSeletionPreserved()
-		{
-			DoTestSelectionPreserved_WhenSingle();
+			return Text;
 		}
 	}
 }

@@ -50,7 +50,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// <summary>
 		/// True if the checkbox is checked, false if not.
 		/// </summary>
-		public bool Checked
+		public virtual bool Checked
 		{
 			get
 			{

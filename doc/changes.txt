@@ -1,8 +1,3 @@
-To Do:
-* Fix common error: TestdpValues.Items.FindByText("Not Running").Selected = "True"
-  - FAQ: lstHospitals.Items[2].Selected = true ; should be lstHospitals.SelectedIndex = 2;
-
-
 Changes in CVS:
 Produced by Jim Shore and Levi Khatskevitch.
 * Updated installation guide in response to user comments.  Credit to Jim Shore.
@@ -29,6 +24,8 @@ Produced by Jim Shore and Levi Khatskevitch.
 * Added run-time exception to correct mis-use of DataGridTester as a container.  Credit to Jim Shore.
 * Finished tutorial.  Credit to Jim Shore.
 * Added support for List display mode in ValidationSummaryTester.  Credit to Leonardo Susatyo.
+* Fixed common error: list.Items.FindByText("My Text").Selected = True.  Credit to Levi Khatskevitch.
+* Added multi-select capable ListBoxTester class.  Credit to Levi Khatskevitch.
 
 (Note: Jim Shore was known as Jim Little before the release of version 1.4.)
 

@@ -24,8 +24,8 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Collections;
-using System.Collections.Specialized;
 using System.Web;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Net;
 
@@ -37,7 +37,7 @@ namespace NUnit.Extensions.Asp
 	{
 		private string pageText;
 		private XmlDocument document = null;
-		private NameValueCollection formVariables = new NameValueCollection();
+		private Hashtable formVariables = new Hashtable();
 
 		internal WebPage(string htmlPage)
 		{
@@ -57,14 +57,18 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				string joiner = "";
-				string result = "";
-				foreach (string key in formVariables.Keys)
+				if (formVariables.Count == 0) return "";
+
+				StringBuilder result = new StringBuilder();
+				foreach (DictionaryEntry entry in formVariables)
 				{
-					result += joiner + HttpUtility.UrlEncode(key) + "=" + HttpUtility.UrlEncode(formVariables.Get(key));
-					joiner = "&";
+					FormKey key = (FormKey)entry.Key;
+					result.AppendFormat("{0}={1}&", 
+						HttpUtility.UrlEncode((string)key.Name),
+						HttpUtility.UrlEncode((string)entry.Value));
 				}
-				return result;
+				result.Length--; // Trim last &
+				return result.ToString();
 			}
 		}
 
@@ -98,7 +102,7 @@ namespace NUnit.Extensions.Asp
 					throw new DoctypeDtdException(e);
 				}
 
-				ParseDefaultFormVariables();
+				ParseInitialFormValues();
 			}
 			catch (XmlException e)
 			{
@@ -113,137 +117,69 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		private void ParseDefaultFormVariables() 
+		private void ParseInitialFormValues() 
 		{
-			formVariables = new NameValueCollection();
-			ParseFormHiddenValues();
-			ParseFormTextValues("//input[@type='file']");
-			ParseFormTextValues("//input[@type='password']");
-			ParseFormTextValues("//input[@type='text']");
-			ParseFormTextValues("//input[@type='radio'][@checked]");
-			ParseFormCheckBoxValues();
-			ParseFormTextAreaValues();
-			ParseFormSelectValues();
+			ParseFormElementValues("//form//input[@type='file']", "@name", "");
+			ParseFormElementValues("//form//input[@type='password']", "@name", "");
+			ParseFormElementValues("//form//input[@type='text']", "@name", "");
+			ParseFormElementValues("//form//input[@type='hidden']", "@name", "");
+			ParseFormElementValues("//form//input[@type='radio'][@checked]", "@name", "on");
+			ParseFormElementValues("//form//input[@type='checkbox'][@checked]", "@name", "on");
+			ParseFormElementValues("//form//textarea", "@name", null);
+			ParseFormElementValues("//form//select/option[@selected]", "../@name", null);
 		}
 
-		private void ParseFormHiddenValues() 
+		private void ParseFormElementValues(string elementExpr, string nameExpr, string defaultValue)
 		{
-			XmlNodeList nodes = Document.SelectNodes("//input[@type='hidden']");
-			if (nodes == null) return;
-
-			foreach (XmlNode item in nodes) 
+			foreach (XmlElement element in Document.SelectNodes(elementExpr)) 
 			{
-				XmlAttribute name = item.Attributes["name"];
-				XmlAttribute aValue = item.Attributes["value"];
-				if ((name != null) && (aValue != null)) 
+				XmlAttribute name = (XmlAttribute)element.SelectSingleNode(nameExpr);
+				string value = element.GetAttribute("value");
+
+				if (name == null) continue; // if no name - skip it
+				if (value == null || value == "") 
 				{
-					SetFormVariable(name.Value, aValue.Value);
-				}
-			}
-		}
-
-		private void ParseFormTextValues(string expression) 
-		{
-			XmlAttribute name;
-			XmlAttribute aValue;
-			XmlNodeList nodes = Document.SelectNodes(expression);
-			if (nodes == null) return;
-
-			foreach (XmlNode item in nodes) 
-			{
-				name = item.Attributes["name"];
-				aValue = item.Attributes["value"];
-				if ((name != null) && (aValue != null)) 
-				{
-					SetFormVariable(name.Value, aValue.Value);
-				}
-			}
-		}
-
-		private void ParseFormCheckBoxValues() 
-		{
-			XmlAttribute name;
-			XmlNodeList nodes = Document.SelectNodes("//input[@type='checkbox'][@checked]");
-			if (nodes == null) return;
-
-			foreach (XmlNode item in nodes) 
-			{
-				name = item.Attributes["name"];
-				if (name != null) 
-				{
-					SetFormVariable(name.Value, "checked");
-				}
-			}
-		}
-
-		private void ParseFormTextAreaValues() 
-		{
-			XmlAttribute name;
-			XmlNodeList nodes = Document.SelectNodes("//textarea");
-			if (nodes == null) return;
-
-			foreach (XmlNode item in nodes) 
-			{
-				name = item.Attributes["name"];
-				if (name != null) 
-				{
-					SetFormVariable(name.Value, item.InnerText.Trim());
-				}
-			}
-		}
-
-		private void ParseFormSelectValues() 
-		{
-			string expression = "//select";
-			XmlAttribute name;
-			XmlNode aValue = null;
-			XmlNodeList nodes = Document.SelectNodes(expression);
-
-			if (nodes == null) return;
-
-			foreach (XmlNode item in nodes) 
-			{
-				name = item.Attributes["name"];
-				if (name == null) 
-				{
-					throw new XmlException("A select form element on the page does not have a name.", null);
-				}
-
-				// Look for the option that is selected
-				foreach (XmlNode child in item.ChildNodes) 
-				{
-					if (child.Attributes["selected"] != null) 
+					if (defaultValue != null)
 					{
-						aValue = child.Attributes["value"];
+						value = defaultValue;
+					}
+					else
+					{
+						// Last chance value for <option> and <textarea> element
+						value = element.InnerText.Trim();
 					}
 				}
-
-				// If there is no value then we will just set it as empty
-				if (aValue == null) 
-				{
-					SetFormVariable(name.Value, String.Empty);
-				}
-				else 
-				{
-					SetFormVariable(name.Value, aValue.Value);
-				}
+				SetFormVariable(element, name.Value, value);
 			}
+		}
+
+		public void SetFormVariable(XmlElement owner, string name, string value) 
+		{
+			if (owner == null) throw new ArgumentNullException("owner");
+			formVariables[new FormKey(owner, name)] = value;
 		}	
 
-		public void SetFormVariable(string name, string value) 
+		public void ClearFormVariable(XmlElement owner, string name)
 		{
-			formVariables.Remove(name);
-			formVariables.Add(name, value);
-		}	
-
-		public void ClearFormVariable(string name)
-		{
-			formVariables.Remove(name);
+			if (owner == null) throw new ArgumentNullException("owner");
+			formVariables.Remove(new FormKey(owner, name));
 		}
 
 		public override string ToString()
 		{
 			return pageText;
+		}
+
+		private struct FormKey
+		{
+			public readonly XmlElement Owner;
+			public readonly string Name;
+
+			public FormKey(XmlElement owner, string name)
+			{
+				Owner = owner;
+				Name = name;
+			}
 		}
 
 		private class XhtmlDocument : XmlDocument

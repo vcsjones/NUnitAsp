@@ -72,14 +72,14 @@ namespace NUnit.Extensions.Asp
 			return browser.CurrentPage.GetElementById(htmlId);
 		}
 
-		protected internal override void EnterInputValue(string name, string value)
+		protected internal override void EnterInputValue(XmlElement owner, string name, string value)
 		{
-			browser.SetFormVariable(name, value);
+			browser.SetFormVariable(owner, name, value);
 		}
 
-		protected internal override void RemoveInputValue(string name)
+		protected internal override void RemoveInputValue(XmlElement owner, string name)
 		{
-			browser.ClearFormVariable(name);
+			browser.ClearFormVariable(owner, name);
 		}
 
 		protected internal override void Submit()

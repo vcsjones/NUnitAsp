@@ -1,6 +1,7 @@
+#region Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2002, 2003 Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -17,17 +18,10 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 
 namespace NUnitAspTestPages.AspTester
 {
@@ -51,7 +45,6 @@ namespace NUnitAspTestPages.AspTester
 				list.SelectedIndex = 1;
 			}
 			list.AutoPostBack = auto.Checked;
-			list.SelectedIndexChanged += new EventHandler(index_Changed);
 		}
 
 		protected void clearSelection_Click(object sender, EventArgs args)
@@ -86,7 +79,7 @@ namespace NUnitAspTestPages.AspTester
 		private void InitializeComponent()
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
-
+			list.SelectedIndexChanged += new System.EventHandler(index_Changed);
 		}
 		#endregion
 	}

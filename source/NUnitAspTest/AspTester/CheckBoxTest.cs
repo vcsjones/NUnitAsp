@@ -28,47 +28,47 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 {
 	public class CheckBoxTest : NUnitAspTestCase
 	{
-		private CheckBoxTester checkBox;
-		private CheckBoxTester disabledCheckBox;
-		private LinkButtonTester submit;
+		protected CheckBoxTester CheckBox;
+		protected CheckBoxTester DisabledCheckBox;
+		protected LinkButtonTester Submit;
 		
 		protected override void SetUp()
 		{
 			base.SetUp();
-			checkBox = new CheckBoxTester("checkBox", CurrentWebForm);
-			disabledCheckBox = new CheckBoxTester("disabled", CurrentWebForm);
-			submit = new LinkButtonTester("submit", CurrentWebForm);
+			CheckBox = new CheckBoxTester("checkBox", CurrentWebForm);
+			DisabledCheckBox = new CheckBoxTester("disabled", CurrentWebForm);
+			Submit = new LinkButtonTester("submit", CurrentWebForm);
 			Browser.GetPage(BaseUrl + "/AspTester/CheckBoxTestPage.aspx");
 		}
 
 		public void TestCheck()
 		{
-			Assert("should not be checked", !checkBox.Checked);
-			checkBox.Checked = true;
-			Assert("still shouldn't be checked - not submitted", !checkBox.Checked);
-			submit.Click();
-			Assert("should be checked", checkBox.Checked);
+			Assert("should not be checked", !CheckBox.Checked);
+			CheckBox.Checked = true;
+			Assert("still shouldn't be checked - not submitted", !CheckBox.Checked);
+			Submit.Click();
+			Assert("should be checked", CheckBox.Checked);
 		}
 
-		public void TestUncheck()
+		public virtual void TestUncheck()
 		{
 			TestCheck();
 
-			checkBox.Checked = false;
-			Assert("still should be checked - not submitted", checkBox.Checked);
-			submit.Click();
-			Assert("shouldn't be checked", !checkBox.Checked);
+			CheckBox.Checked = false;
+			Assert("still should be checked - not submitted", CheckBox.Checked);
+			Submit.Click();
+			Assert("shouldn't be checked", !CheckBox.Checked);
 		}
 
-        [ExpectedException(typeof(ControlDisabledException))]
-        public void TestCheck_WhenDisabled()
+		[ExpectedException(typeof(ControlDisabledException))]
+		public void TestCheck_WhenDisabled()
 		{
-			disabledCheckBox.Checked = true;
+			DisabledCheckBox.Checked = true;
 		}
 
 		public void TestText()
 		{
-			AssertEquals("text", "Test me", checkBox.Text);
+			AssertEquals("text", "Test me", CheckBox.Text);
 		}
 
 		public void TestText_WhenNone()
@@ -83,12 +83,12 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 
 		public void TestEnabled_True()
 		{
-			AssertEquals("enabled", true, checkBox.Enabled);
+			AssertEquals("enabled", true, CheckBox.Enabled);
 		}
 
 		public void TestEnabled_False()
 		{
-			AssertEquals("enabled", false, disabledCheckBox.Enabled);
+			AssertEquals("enabled", false, DisabledCheckBox.Enabled);
 		}
 	}
 }

@@ -382,6 +382,37 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "AspTester\ListBoxTestPage.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AspTester\ListBoxTestPage.aspx.cs"
+                    DependentUpon = "ListBoxTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\ListBoxTestPage.aspx.resx"
+                    DependentUpon = "ListBoxTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "AspTester\RadioButtonTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AspTester\RadioButtonTestPage.aspx.cs"
+                    DependentUpon = "RadioButtonTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\RadioButtonTestPage.aspx.resx"
+                    DependentUpon = "RadioButtonTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "AspTester\TextBoxTestPage.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
