@@ -28,7 +28,7 @@ namespace NUnit.Extensions.Asp
 	public abstract class WebFormTestCase : TestCase 
 	{
 		private HttpClient browser;
-		private WebFormTester form;
+		private WebForm form;
 
 		public WebFormTestCase(string name) : base(name) 
 		{
@@ -38,10 +38,10 @@ namespace NUnit.Extensions.Asp
 		{
 			base.SetUp();
 			browser = new HttpClient();
-			form = new WebFormTester(browser);
+			form = new WebForm(browser);
    		}
 
-		protected WebFormTester CurrentWebForm
+		protected WebForm CurrentWebForm
 		{
 			get 
 			{
@@ -57,24 +57,24 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		protected static void AssertEquals(string[] a, string[] b)
+		protected static void AssertEquals(string[] expected, string[] actual)
 		{
-			AssertEquals(flatten(a), flatten(b));
+			AssertEquals(flatten(expected), flatten(actual));
 		}
 
-		protected static void AssertEquals(string message, string[] a, string[] b)
+		protected static void AssertEquals(string message, string[] expected, string[] actual)
 		{
-			Assertion.AssertEquals(message, flatten(a), flatten(b));
+			Assertion.AssertEquals(message, flatten(expected), flatten(actual));
 		}
 
-		protected static void AssertEquals(string[][] a, string[][] b)
+		protected static void AssertEquals(string[][] expected, string[][] actual)
 		{
-			AssertEquals(flatten(a), flatten(b));
+			AssertEquals(flatten(expected), flatten(actual));
 		}
 
-		protected static void AssertEquals(string message, string[][] a, string[][] b)
+		protected static void AssertEquals(string message, string[][] expected, string[][] actual)
 		{
-			AssertEquals(flatten(a), flatten(b));
+			AssertEquals(flatten(expected), flatten(actual));
 		}
 
 		private static string flatten(string[] a)

@@ -22,6 +22,7 @@ using System;
 using NUnit.Framework;
 using NUnit.Extensions.Asp;
 using System.Net;
+using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test
 {

@@ -112,6 +112,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "WebForm.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "WebFormTestCase.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -168,11 +173,6 @@
                 />
                 <File
                     RelPath = "AspTester\UserControlTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\WebFormTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

@@ -20,6 +20,7 @@
 
 using System;
 using NUnit.Extensions.Asp;
+using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test
 {

@@ -25,11 +25,11 @@ using NUnit.Framework;
 namespace NUnit.Extensions.Asp.AspTester
 {
 
-	public class WebFormTester : Control
+	public class WebForm : Control
 	{
 		HttpClient browser;
 
-		public WebFormTester(HttpClient browser)
+		public WebForm(HttpClient browser)
 		{
 			this.browser = browser;
 		}
