@@ -9,6 +9,7 @@
   <property name="bin.dir" value="${build.dir}\bin" />
   <property name="testPagesBuild.dir" value="${source.dir}\NUnitAspTestPages\bin" />
   <property name="api.dir" value="${build.dir}\api" />
+  <property name="release.dir" value="${build.dir}\release" />
   
   <property name="sgml.namespace" value="NUnit.Extensions.Asp.Sgml" />
 
@@ -26,13 +27,39 @@
   </target>
 
   <!--*****
-  * deploy
+  * release
   *****-->
-  <target name="deploy" depends="build" description="Copies build files to correct locations for deployment">
-    <mkdir dir="bin" failonerror="false" />
-    <delete dir="bin" />
-    <copy todir="bin" file="${bin.dir}\NUnitAsp.dll" />
-    <copy todir="bin" file="${nunit.dir}\Nunit.msi" />
+  <target name="release" depends="build, api" description="Creates release directory and files">
+    <mkdir dir="${release.dir}" failonerror="false" />
+    <delete dir="${release.dir}" />
+
+    <copy todir="${release.dir}">
+      <fileset>
+        <includes name="**" />
+        <excludes name="**\*.user" />
+        <excludes name="**\*.webinfo" />
+        <excludes name="**\*.suo" />
+        <excludes name="**\*.snk" />
+        <excludes name="**\.*" />
+        <excludes name="build\**" />
+        <excludes name="source\**\obj\**" />
+        <excludes name="source\**\bin\**" />
+        <excludes name="sample\**\obj\**" />
+        <excludes name="sample\**\bin\**" />
+        <excludes name="${nunit.dir}\Nunit.msi" />
+      </fileset>
+    </copy>
+
+    <mkdir dir="${release.dir}\bin" />
+    <copy todir="${release.dir}\bin" file="${bin.dir}\NUnitAsp.dll" />
+    <copy todir="${release.dir}\bin" file="${nunit.dir}\Nunit.msi" />
+    
+    <mkdir dir="${release.dir}\doc\api" />
+    <copy todir="${release.dir}\doc\api">
+      <fileset basedir="${api.dir}">
+        <includes name="**" />
+      </fileset>
+    </copy>
   </target>
   
   <!--*****
@@ -113,27 +140,15 @@
   </target>
       
   <!--*****
-  * zip
+  * package
   *****-->  
-  <target name="zip" depends="deploy, test" description="Creates a releasable .zip file">
+  <target name="package" depends="release, test" description="Creates a tested, releasable .zip file">
     <zip zipfile="${build.dir}\NUnitAsp.zip">
-      <fileset>
+      <fileset basedir="${release.dir}">
         <includes name="**" />
-        <excludes name="**\*.user" />
-        <excludes name="**\*.webinfo" />
-        <excludes name="**\*.suo" />
-        <excludes name="**\*.snk" />
-        <excludes name="**\.*" />
-        <excludes name="build\**" />
-        <excludes name="source\**\obj\**" />
-        <excludes name="source\**\bin\**" />
-        <excludes name="sample\**\obj\**" />
-        <excludes name="sample\**\bin\**" />
-        <excludes name="${nunit.dir}\Nunit.msi" />
       </fileset>
     </zip>
   </target>
-  
 
   <!--*****
   * api
@@ -146,7 +161,7 @@
       <documenters>
         <documenter name="MSDN">
           <property name="OutputDirectory" value="${api.dir}" />
-          <property name="HtmlHelpName" value="Documentation" />
+          <property name="HtmlHelpName" value="NUnitAspApi" />
           <property name="IncludeFavorites" value="False" />
           <property name="Title" value="NUnitAsp" />
           <property name="SplitTOCs" value="False" />
