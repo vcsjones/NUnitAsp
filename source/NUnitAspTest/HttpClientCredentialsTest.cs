@@ -83,6 +83,9 @@ namespace NUnit.Extensions.Asp.Test
 		private void AssertUnauthorized(string url)
 		{
 			string errorMessage = "Unauthorised Access status '401' was expected";
+			TextWriter consoleOut = Console.Out;
+
+			Console.SetOut(new StringWriter());
 			try
 			{
 				Browser.GetPage(url);
@@ -91,6 +94,10 @@ namespace NUnit.Extensions.Asp.Test
 			catch (HttpClient.BadStatusException e)
 			{
 				Assert(errorMessage, e.Status == HttpStatusCode.Unauthorized);
+			}
+			finally
+			{
+				Console.SetOut(consoleOut);
 			}
 		}
 
