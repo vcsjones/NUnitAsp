@@ -41,7 +41,7 @@ namespace NUnit.Extensions.Asp
 		/// parameter set to "true."  This method does not assert that the tester is actually
 		/// visible to the user.
 		/// </summary>
-		protected static void AssertVisibility(ControlTester tester, bool expectedVisibility)
+		public static void AssertVisibility(ControlTester tester, bool expectedVisibility)
 		{
 			string not = expectedVisibility ? "" : " not";
 			string message = String.Format("{0} control should{1} be visible (HTML ID: {2}; ASP location: {3})", tester.AspId, not, tester.HtmlId, tester.Description);
@@ -51,7 +51,7 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// Asserts that two "rows" of strings are identical.
 		/// </summary>
-		protected static void AssertEquals(string[] expected, string[] actual)
+		public static void AssertEquals(string[] expected, string[] actual)
 		{
 			AssertEquals(Flatten(expected), Flatten(actual));
 		}
@@ -59,7 +59,7 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// Asserts that two "rows" of strings are identical.
 		/// </summary>
-		protected static void AssertEquals(string message, string[] expected, string[] actual)
+		public static void AssertEquals(string message, string[] expected, string[] actual)
 		{
 			Assertion.AssertEquals(message, Flatten(expected), Flatten(actual));
 		}
@@ -67,7 +67,7 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// Asserts that two "tables" of strings are identical.
 		/// </summary>
-		protected static void AssertEquals(string[][] expected, string[][] actual)
+		public static void AssertEquals(string[][] expected, string[][] actual)
 		{
 			AssertEquals(Flatten(expected), Flatten(actual));
 		}
@@ -75,7 +75,7 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// Asserts that two "tables" of strings are identical.
 		/// </summary>
-		protected static void AssertEquals(string message, string[][] expected, string[][] actual)
+		public static void AssertEquals(string message, string[][] expected, string[][] actual)
 		{
 			AssertEquals(Flatten(expected), Flatten(actual));
 		}
@@ -85,7 +85,7 @@ namespace NUnit.Extensions.Asp
 		/// differences.  Individual rows in the tables must match, but the order of the
 		/// rows may differ.
 		/// </summary>
-		protected static void AssertEqualsIgnoreOrder(string message, string[][] expected, string[][] actual)
+		public static void AssertEqualsIgnoreOrder(string message, string[][] expected, string[][] actual)
 		{
 			if (expected.Length != actual.Length) Fail(message, expected, actual);
 
