@@ -19,31 +19,46 @@
 '*******************************************************************************************************************/
 
 using System;
-using NUnit.Framework;
+using System.Text.RegularExpressions;
 
-namespace NUnit.Extensions.Asp.Test
+namespace NUnit.Extensions.Asp
 {
-
-	public class NUnitAspTestSuite : TestSuite
+	public class HtmlTagParser
 	{
+		private string html;
 
-		public NUnitAspTestSuite() : base() 
+		public HtmlTagParser(string htmlIn)
 		{
-			AddTestSuite(typeof(HttpClientTest));
-			AddTestSuite(typeof(HtmlTagParserTest));
-
-			AddTest(new AspTester.AspTesterSuite());
-			AddTest(new HtmlTester.HtmlTesterSuite());
+			html = htmlIn;
 		}
 
-		public static ITest Suite 
+		/// <summary>
+		/// Returns null if no tag matches.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		public string GetTagById(string id)
 		{
-			get 
+			string whiteSpace = "\\s*";
+			string requiredWhiteSpace = "\\s+";
+			string elementName = "(?<name>\\w*)";
+			string optionalQuote = "\"?";
+			string optionalLeadingAttributes = "(.*?\\s)?";
+			string optionalTrailingAttributes = "(\\s.*?)?";
+			string idPattern = "id" + whiteSpace + "=" + whiteSpace + optionalQuote + id + optionalQuote;
+			string backReferenceToElementName = "\\k<name>";
+
+			string basicPattern = "<" + whiteSpace + elementName + requiredWhiteSpace + optionalLeadingAttributes + idPattern + optionalTrailingAttributes + whiteSpace;
+			string leafPattern = basicPattern + "/" + whiteSpace + ">";
+			string branchPattern = basicPattern + ">.*?<" + whiteSpace + "/" + whiteSpace + backReferenceToElementName + whiteSpace + ">";
+
+			Match match = Regex.Match(html, leafPattern, RegexOptions.Singleline | RegexOptions.IgnoreCase);
+			if (!match.Success)
 			{
-				return new NUnitAspTestSuite();
+				match = Regex.Match(html, branchPattern, RegexOptions.Singleline | RegexOptions.IgnoreCase);
+				if (!match.Success) return null;
 			}
+			return match.Captures[0].Value;
 		}
-
 	}
-
 }
