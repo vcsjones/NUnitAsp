@@ -132,7 +132,7 @@
 						<p>In our guest book application, we want four components: a text field for entering a name (called "name"), a text field for entering a comment (called "comments"), a button to save the data in the guest book (called "save"), and a datagrid for displaying what people have entered (called "book").</p>
 
 						<div class="figure">
-							Hand-drawn sketch of screen layout here
+							<img src="screen-sketch.gif" alt="Hand-drawn sketch of screen layout"/>
 						</div>
 
 						<p>To test these components, we have to create NUnitAsp "tester" objects.  A tester is an object that corresponds to an ASP.NET control you want to test.  You can instantiate the tester at any time&mdash;even before the page is loaded, if you like.  When you instantiate it, you tell the tester the name of the ASP.NET control it's supposed to test and which control it's located on.  Since we're going to test four controls on our guest book, we need to create four tester objects.</p>
@@ -339,25 +339,26 @@
 							<br />&nbsp;&nbsp;&nbsp;DataGridTester book = new DataGridTester("book", CurrentWebForm);
 							<br />
 							<br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/GuestBook/GuestBook.aspx");
+							<br />
 							<br />&nbsp;&nbsp;&nbsp;AssertVisibility(name, true);
 							<br />&nbsp;&nbsp;&nbsp;AssertVisibility(comments, true);
 							<br />&nbsp;&nbsp;&nbsp;AssertVisibility(save, true);
 							<br />&nbsp;&nbsp;&nbsp;AssertVisibility(book, false);
-							<br>}</span>
-							<br />
-							<br /><span class="emph">public void TestSave()</span>
-							<span class="demph"><br />{
+							<br />}
+							<br /></span>
+							<br /><span class="emph">public void TestSave()
+							<br />{
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester comments = new TextBoxTester("comments", CurrentWebForm);
 							<br />&nbsp;&nbsp;&nbsp;ButtonTester save = new ButtonTester("save", CurrentWebForm);
 							<br />&nbsp;&nbsp;&nbsp;DataGridTester book = new DataGridTester("book", CurrentWebForm);
 							<br />
-							<br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/GuestBook/GuestBook.aspx");</span>
+							<br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/GuestBook/GuestBook.aspx");
 							<br />
-							<br /><span class="emph">&nbsp;&nbsp;&nbsp;name.Text = &quot;Dr. Seuss&quot;;
+							<br />&nbsp;&nbsp;&nbsp;name.Text = &quot;Dr. Seuss&quot;;
 							<br />&nbsp;&nbsp;&nbsp;comments.Text = &quot;One Guest, Two Guest!  Guest Book, Best Book!&quot;;
-							<br />&nbsp;&nbsp;&nbsp;save.Click();</span>
-							<span class="demph"><br />}</span>
+							<br />&nbsp;&nbsp;&nbsp;save.Click();
+							<br />}</span>
 						</div>
 
 						<p>We've created a new test named "TestSave."  It's has the same tester set up and page load that the "TestLayout" method does, but then it does something different: it assigns values to the web page and presses the "Save" button.</p>
@@ -523,37 +524,35 @@
 
 						<p>Note that you can't just paste the following code into VS.NET and have it work correctly, because this code relies on the save_Click method being connected to the "Save" button's Click event. The easiest way to accomplish this is to double-click the "Save" button, which automatically creates the correct hookup code and gives you an empty save_Click method into which you can paste the code.</p>
 
-<div class="code">
-<pre>
-private void save_Click(object sender, System.EventArgs e)
-{
-   DataTable currGuestBook = (DataTable) Session["GuestBook"];
-
-   if (currGuestBook == null) {
-      currGuestBook = GetEmptyGuestBook();
-      Session["GuestBook"] = currGuestBook;
-   }
-
-   DataRow newRow = currGuestBook.NewRow();
-   newRow["Name"] = name.Text;
-   newRow["Comments"] = comments.Text;
-   currGuestBook.Rows.Add(newRow);
-
-   book.DataSource = currGuestBook;
-   book.DataBind();
-}
-
-private DataTable GetEmptyGuestBook()
-{
-   DataTable newGuestBook = new DataTable();
-
-   newGuestBook.Columns.Add(new DataColumn("Name", typeof(string)));
-   newGuestBook.Columns.Add(new DataColumn("Comments", typeof(string)));
-
-   return newGuestBook;
-}
-</pre>
-</div>
+						<div class="code">
+							<br />private void save_Click(object sender, System.EventArgs e)
+							<br />{
+							<br />&nbsp;&nbsp;&nbsp;DataTable currGuestBook = (DataTable) Session["GuestBook"];
+							<br />
+							<br />&nbsp;&nbsp;&nbsp;if (currGuestBook == null) {
+							<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currGuestBook = GetEmptyGuestBook();
+							<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Session["GuestBook"] = currGuestBook;
+							<br />&nbsp;&nbsp;&nbsp;}
+							<br />
+							<br />&nbsp;&nbsp;&nbsp;DataRow newRow = currGuestBook.NewRow();
+							<br />&nbsp;&nbsp;&nbsp;newRow["Name"] = name.Text;
+							<br />&nbsp;&nbsp;&nbsp;newRow["Comments"] = comments.Text;
+							<br />&nbsp;&nbsp;&nbsp;currGuestBook.Rows.Add(newRow);
+							<br />
+							<br />&nbsp;&nbsp;&nbsp;book.DataSource = currGuestBook;
+							<br />&nbsp;&nbsp;&nbsp;book.DataBind();
+							<br />}
+							<br />
+							<br />private DataTable GetEmptyGuestBook()
+							<br />{
+							<br />&nbsp;&nbsp;&nbsp;DataTable newGuestBook = new DataTable();
+							<br />
+							<br />&nbsp;&nbsp;&nbsp;newGuestBook.Columns.Add(new DataColumn("Name", typeof(string)));
+							<br />&nbsp;&nbsp;&nbsp;newGuestBook.Columns.Add(new DataColumn("Comments", typeof(string)));
+							<br />
+							<br />&nbsp;&nbsp;&nbsp;return newGuestBook;
+							<br />}
+						</div>
 
 						<p>Compile the code-behind assembly and run the tests. The save behavior test fails, but with a new error.</p>
 
@@ -563,35 +562,35 @@ private DataTable GetEmptyGuestBook()
 
 						<p>We actually don't need to clear the fields when we load the page - after all, the Page_Load method fires each time the page is displayed, including the first time when no data could be present. Instead, let's clear the fields in save_Click, after we've stored the data they contain. This makes sense - the only time we need to clear values is after the user has entered data and the data has been saved. To fix the problem, we remove the two lines of code from the Page_Load method and place them at the bottom of the save_Click method.</p>
 
-<div class="code">
-<pre>
-<span class="emph">// note that Page_Load is now empty
-private void Page_Load(object sender, System.EventArgs e)
-{
-}</span>
-
-private void save_Click(object sender, System.EventArgs e)
-{
-   DataTable currGuestBook = (DataTable) Session["GuestBook"];
-
-   if (currGuestBook == null) {
-      currGuestBook = GetEmptyGuestBook();
-      Session["GuestBook"] = currGuestBook;
-   }
-
-   DataRow newRow = currGuestBook.NewRow();
-   newRow["Name"] = name.Text;
-   newRow["Comments"] = comments.Text;
-   currGuestBook.Rows.Add(newRow);
-
-   book.DataSource = currGuestBook;
-   book.DataBind();
-
-<span class="emph">   // the information has been saved, so clear the text boxes
-   name.Text = "";
-   comments.Text = "";</span>
-}
-</pre>
+						<div class="code">
+							<span class="emph">
+							<br />// note that Page_Load is now empty
+							<br />private void Page_Load(object sender, System.EventArgs e)
+							<br />{
+							<br />}</span>
+							<br />
+							<br />private void save_Click(object sender, System.EventArgs e)
+							<br />{
+							<br />&nbsp;&nbsp;&nbsp;DataTable currGuestBook = (DataTable) Session["GuestBook"];
+							<br />
+							<br />&nbsp;&nbsp;&nbsp;if (currGuestBook == null) {
+							<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currGuestBook = GetEmptyGuestBook();
+							<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Session["GuestBook"] = currGuestBook;
+							<br />&nbsp;&nbsp;&nbsp;}
+							<br />
+							<br />&nbsp;&nbsp;&nbsp;DataRow newRow = currGuestBook.NewRow();
+							<br />&nbsp;&nbsp;&nbsp;newRow["Name"] = name.Text;
+							<br />&nbsp;&nbsp;&nbsp;newRow["Comments"] = comments.Text;
+							<br />&nbsp;&nbsp;&nbsp;currGuestBook.Rows.Add(newRow);
+							<br />
+							<br />&nbsp;&nbsp;&nbsp;book.DataSource = currGuestBook;
+							<br />&nbsp;&nbsp;&nbsp;book.DataBind();
+							<br />
+							<span class="emph">
+							<br />&nbsp;&nbsp;&nbsp;// the information has been saved, so clear the text boxes
+							<br />&nbsp;&nbsp;&nbsp;name.Text = "";
+							<br />&nbsp;&nbsp;&nbsp;comments.Text = "";</span>
+							<br />}
 </div>
 
 						<p>Run the tests again. This time both of them pass.</p>
@@ -664,7 +663,7 @@ private void save_Click(object sender, System.EventArgs e)
 
 						<p>Test-driven development is a relaxing, low-risk approach to software development.  Once you get used to it, it's fast and reliable.  Follow the pattern above, and you'll spend more time adding features and less time fixing defects.</p>
 
-						<p class="end">by Jim Little, Andrew Enfield</p>
+						<p class="end">by Jim Little and Andrew Enfield</p>
 					</div>
 				</td>
 			</tr>

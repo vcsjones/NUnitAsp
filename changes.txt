@@ -1,26 +1,43 @@
 Changes in current version:
 Produced by Jim Little.
-* Browser.ElapsedServerTime now works.
+* Browser.ElapsedServerTime now works.  Credit to Jim Little.
 * Added support for multiline text boxes.  Thanks to (luKa) for his submission.
-* Updated installation guide for error caused by XMLSpy.  Thanks to Peter Wijntjes.
-* Many improvements to tutorial, including update for NUnit 2.0.  Thanks to Andrew Enfield.
+* Updated installation guide for error caused by XMLSpy.  Credit to Peter Wijntjes.
+* Many improvements to tutorial, including update for NUnit 2.0.  Credit to Andrew Enfield.
 
 
 Changes in NUnitAsp 1.2.1:
 Produced by Jim Little.
 * NUnit 2.0 support.  Thanks to R. Owen Rogers and Drew Noakes for their submissions.
-* NUnit 2.0 migration guide.
-* Compilation FAQ question.
-* Minor documentation fixes.
+* NUnit 2.0 migration guide.  Credit to Jim Little.
+* Compilation FAQ question.  Credit to Jim Little.
+* Minor documentation fixes.  Credit to Jim Little.
 
 
 Changes in NUnitAsp 1.2:
 Produced by Jim Little.
-* Documentation.  Lots of it.
-* Added support for pop-up windows in AnchorTester (thanks to Jacob Lawlor)
-* 404 errors no longer occur when retrieving links to document fragments (http://foo.com/index.html#name).  The fragment link is ignored and the main page is retrieved.
-* Fixed attribute parsing so it ignores case.
-* Added support for changing browser user-agent.
-* Pages are no longer parsed unless strictly necessary.
-* Cleaned up build and distribution.  All necessary files are now included.
-* API documentation.  Many thanks to Mitchel Burns for figuring out how to generate the files.
+* Documentation.  Lots of it. Credit to Jim Little.
+* Added support for pop-up windows in AnchorTester.  Credit to Jacob Lawlor.
+* 404 errors no longer occur when retrieving links to document fragments (http://foo.com/index.html#name).  The fragment link is ignored and the main page is retrieved.  Credit to Jim Little.
+* Fixed attribute parsing so it ignores case.  Credit to Jim Little.
+* Added support for changing browser user-agent.  Credit to Jim Little.
+* Pages are no longer parsed unless strictly necessary.  Credit to Jim Little.
+* Cleaned up build and distribution.  All necessary files are now included.  Credit to Jim Little.
+* API documentation.  Credit to Mitchel Burns.
+
+Changes in NUnitAsp 1.1:
+Produced by Jim Little.
+* Changes not recorded in detail.  Sorry.
+* Added Anchor, DropDownList, and ValidationSummary.
+* Minor changes to usability.
+* Fixed a few defects.
+
+Changes in NUnitAsp 1.0:
+Produced by Jim Little.
+* Added concept of testers and ASP.NET parsing.  Credit to Jim Little.
+* Set up SourceForge site and CVS repository.  Credit to Brian Knowles.
+* Created automated build.  Credit to Brian Knowles and Jim Little.
+
+Initial version (not released):
+Produced by Brian Knowles.
+* Supported HTTP and basic GET/POST.
