@@ -33,6 +33,9 @@ namespace NUnitAspTestPages.AspTester
 		protected System.Web.UI.WebControls.LinkButton clearSelection;
 		protected System.Web.UI.WebControls.CheckBox auto;
 		protected System.Web.UI.WebControls.CheckBox multi;
+		protected System.Web.UI.WebControls.Button add;
+		protected System.Web.UI.WebControls.ListBox disabledList;
+		protected System.Web.UI.WebControls.Label temp;
 		protected System.Web.UI.WebControls.Label indexChanged;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -46,7 +49,7 @@ namespace NUnitAspTestPages.AspTester
 				list.SelectedIndex = 1;
 			}
 			list.AutoPostBack = auto.Checked;
-			list.SelectionMode = multi.Checked? ListSelectionMode.Multiple : ListSelectionMode.Single;
+			list.SelectionMode = multi.Checked ? ListSelectionMode.Multiple : ListSelectionMode.Single;
 		}
 
 		protected void clearSelection_Click(object sender, EventArgs args)
@@ -80,8 +83,9 @@ namespace NUnitAspTestPages.AspTester
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.list.SelectedIndexChanged += new System.EventHandler(this.index_Changed);
 			this.Load += new System.EventHandler(this.Page_Load);
-			list.SelectedIndexChanged += new System.EventHandler(index_Changed);
+
 		}
 		#endregion
 	}

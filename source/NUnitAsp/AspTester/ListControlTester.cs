@@ -29,7 +29,7 @@ using System.Web.UI.WebControls;
 namespace NUnit.Extensions.Asp.AspTester
 {
 	/// <summary>
-	/// Tester for System.Web.UI.WebControls.DropDownList
+	/// Base class for list testers.
 	/// </summary>
 	public abstract class ListControlTester : AspControlTester
 	{
@@ -81,15 +81,18 @@ namespace NUnit.Extensions.Asp.AspTester
 			get
 			{
 				int i = 0;
-				foreach (XmlNode option in OptionList)
+				int selected = -1;
+				foreach (ListItemTester item in Items)
 				{
-					if (option.Attributes["selected"] != null)
+					if (item.Selected)
 					{
-						return i;
+						if (selected != -1) throw new MultipleSelectionException();
+						selected = i;
 					}
 					i++;
 				}
-				throw new NoSelectionException();
+				if (selected == -1) throw new NoSelectionException();
+				return selected;
 			}
 			set
 			{
@@ -102,26 +105,37 @@ namespace NUnit.Extensions.Asp.AspTester
 					throw new IllegalInputException(message);
 				} 
 
-				ChangeItemSelectState(items[value], true);
+				SetListSelection(items[value], true);
 			}
+		}
+
+		protected void SetListSelection(ListItemTester item, bool selected)
+		{
+			string name = Tag.Attribute("name");
+			foreach (XmlElement option in OptionList)
+			{
+				RemoveInputValue(option, name);
+			}
+			if (selected) EnterInputValue(item.Element, name, item.Value);
+			OptionalPostBack(Tag.OptionalAttribute("onchange"));
+		}
+
+		protected void ToggleItemSelection(ListItemTester item, bool selected)
+		{
+			if (selected) 
+			{
+				EnterInputValue(item.Element, Tag.Attribute("name"), item.Value);
+			}
+			else
+			{
+				RemoveInputValue(item.Element, Tag.Attribute("name"));
+			}
+			OptionalPostBack(Tag.OptionalAttribute("onchange"));
 		}
 
 		protected internal virtual void ChangeItemSelectState(ListItemTester item, bool selected)
 		{
-			string name = GetAttributeValue("name");
-			if (selected)
-			{
-				foreach (XmlElement option in OptionList)
-				{
-					RemoveInputValue(option, name);
-				}
-				EnterInputValue(item.Element, name, item.Value);
-			}
-			else
-			{
-				RemoveInputValue(item.Element, name);
-			}
-			OptionalPostBack(GetOptionalAttributeValue("onchange"));
+			SetListSelection(item, selected);
 		}
 
 		private XmlNodeList OptionList
@@ -133,7 +147,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		}
 
 		/// <summary>
-		/// The index of the drop-down list was set to a value that doesn't correspond to a
+		/// The index of the list was set to a value that doesn't correspond to a
 		/// list item.  Fix the test so that it sets the value correctly, or fix the production
 		/// code so that it generates the correct number of list items.
 		/// </summary>
@@ -145,13 +159,25 @@ namespace NUnit.Extensions.Asp.AspTester
 		}
 
 		/// <summary>
-		/// The test asked a drop-down list what item was selected when no items were selected.
+		/// The test asked a list what item was selected when no items were selected.
 		/// Fix the test so that it doesn't ask the question, or fix the production code so
 		/// that a list item is selected.
 		/// </summary>
 		public class NoSelectionException : ApplicationException
 		{
 			internal NoSelectionException() : base("None of the list items have been selected.")
+			{
+			}
+		}
+
+		/// <summary>
+		/// The test asked a list what item was selected when multiple items were selected.
+		/// Modify the test to look at the Selected property of individual list items, or
+		/// fix the production code so that only one item is selected.
+		/// </summary>
+		public class MultipleSelectionException : ApplicationException
+		{
+			internal MultipleSelectionException() : base("Multiple list items are selected.")
 			{
 			}
 		}

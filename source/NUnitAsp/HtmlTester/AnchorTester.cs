@@ -59,7 +59,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		{
 			get
 			{
-				return HttpUtility.HtmlDecode(GetAttributeValue("href"));
+				return HttpUtility.HtmlDecode(Tag.Attribute("href"));
 			}
 		}
 
@@ -71,7 +71,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		{
 			get
 			{
-				string onClick = GetOptionalAttributeValue("onclick");
+				string onClick = Tag.OptionalAttribute("onclick");
 				if (onClick == null) return null;
 
 				RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Singleline;

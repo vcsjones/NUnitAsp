@@ -54,14 +54,14 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return GetOptionalAttributeValue("checked") != null;
+				return Tag.HasAttribute("checked");
 			}
 			set
 			{
-				string inputName = GetAttributeValue("name");
+				string inputName = Tag.Attribute("name");
 				if (value == true) 
 				{
-					string checkBoxValue = GetOptionalAttributeValue("value");
+					string checkBoxValue = Tag.OptionalAttribute("value");
 					if (checkBoxValue == null) checkBoxValue = "on";
 					EnterInputValue(inputName, checkBoxValue);
 				}

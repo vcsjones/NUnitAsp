@@ -230,7 +230,7 @@ namespace NUnit.Extensions.Asp
 				if (xpath != null) selector = xpath;
 
 				XmlNodeList nodes = document.SelectNodes(selector);
-				if (nodes.Count > 1) throw new ApplicationException("Expected one node to match xpath '" + selector + "' but was " + nodes.Count);
+				if (nodes.Count > 1) throw new ApplicationException("Expected only one node to match xpath '" + selector + "' but " + nodes.Count + " nodes matched");
 				if (nodes.Count == 0) return null;
 				return (XmlElement)nodes[0];
 

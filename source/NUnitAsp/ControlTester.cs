@@ -63,25 +63,13 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		protected string GetAttributeValue(string name) 
-		{
-			return Tag.Attribute(name);
-		}
-
-		/// <summary>
-		/// Returns null if attribute not found
-		/// </summary>
-		protected string GetOptionalAttributeValue(string name)
-		{
-			return Tag.OptionalAttribute(name);
-		}
-
 		protected internal override string GetChildElementHtmlId(string aspId)
 		{
 			return container.GetChildElementHtmlId(aspId);
 		}
 
 //		private XmlElement Element 
+		/// Deprecated--do not use.
 		protected internal virtual XmlElement Element
 		{
 			get 

@@ -43,7 +43,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// </summary>
 		public void Click()
 		{
-			EnterInputValue(GetAttributeValue("name"), GetAttributeValue("value"));
+			EnterInputValue(Tag.Attribute("name"), Tag.Attribute("value"));
 			Submit();
 		}
 
@@ -54,7 +54,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return GetAttributeValue("value");
+				return Tag.Attribute("value");
 			}
 		}
 	}

@@ -48,7 +48,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return int.Parse(GetAttributeValue("size"));
+				return int.Parse(Tag.Attribute("size"));
 			}
 		}
 
@@ -59,7 +59,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				if (Element.Attributes["multiple"] != null)
+				if (Tag.HasAttribute("multiple"))
 				{
 					return ListSelectionMode.Multiple;
 				}
@@ -69,13 +69,13 @@ namespace NUnit.Extensions.Asp.AspTester
 
 		protected internal override void ChangeItemSelectState(ListItemTester item, bool selected)
 		{
-			if (!selected || SelectionMode == ListSelectionMode.Single)
+			if (SelectionMode == ListSelectionMode.Single)
 			{
-				base.ChangeItemSelectState(item, selected);
+				SetListSelection(item, selected);
 			}
 			else
 			{
-				EnterInputValue(item.Element, Element.GetAttribute("name"), item.Value);
+				ToggleItemSelection(item, selected);
 			}
 		}
 	}

@@ -47,19 +47,19 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		{
 			get 
 			{
-				return GetOptionalAttributeValue("checked") != null;
+				return Tag.HasAttribute("checked");
 			}
 			set 
 			{
 				if (value == true) 
 				{
-					string checkBoxValue = GetOptionalAttributeValue("value");
+					string checkBoxValue = Tag.OptionalAttribute("value");
 					if (checkBoxValue == null) checkBoxValue = "on";
-					EnterInputValue(GetAttributeValue("name"), checkBoxValue);
+					EnterInputValue(Tag.Attribute("name"), checkBoxValue);
 				}
 				else
 				{
-					RemoveInputValue(GetAttributeValue("name"));
+					RemoveInputValue(Tag.Attribute("name"));
 				}
 			}
 		}

@@ -46,7 +46,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			{
 				throw new ControlDisabledException(this);
 			}
-			PostBack(GetAttributeValue("href"));
+			PostBack(Tag.Attribute("href"));
 		}
 
 		/// <summary>

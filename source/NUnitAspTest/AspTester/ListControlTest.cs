@@ -34,7 +34,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		private ListControlTester disabledList;
 		private LinkButtonTester submit;
 		private LinkButtonTester clearSelection;
-		private CheckBoxTester autoPostBack;
+		protected CheckBoxTester autoPostBack;
 		private LabelTester indexChanged;
 
 		protected ListControlTester List
@@ -166,8 +166,8 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			Submit.Click();
 			AssertEquals("selected index (before modification)", 1, List.SelectedIndex);
 			List.SelectedIndex = 2;
-			AssertEquals("Yes", indexChanged.Text);
 			AssertEquals("selected index (after modification)", 2, List.SelectedIndex);
+			AssertEquals("index changed", "Yes", indexChanged.Text);
 		}
 
 		[Test]

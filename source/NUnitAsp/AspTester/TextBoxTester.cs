@@ -45,7 +45,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		public string Text {
 			set 
 			{
-				EnterInputValue(GetAttributeValue("name"), value);
+				EnterInputValue(Tag.Attribute("name"), value);
 			}
 			get
 			{
@@ -56,7 +56,7 @@ namespace NUnit.Extensions.Asp.AspTester
 				}
 				else 
 				{                                  
-					text = GetOptionalAttributeValue("value");
+					text = Tag.OptionalAttribute("value");
 				}
 
 				if (text == null) return "";
@@ -78,7 +78,7 @@ namespace NUnit.Extensions.Asp.AspTester
 				else 
 				{
 					Assertion.AssertEquals("tag name", "input", Tag.Name);
-					string type = GetAttributeValue("type");
+					string type = Tag.Attribute("type");
 					if (type == "password") return TextBoxMode.Password;
 					else 
 					{
@@ -99,7 +99,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			{
 				Assertion.Assert("max length is ignored on a TextBox when TextMode is MultiLine", TextMode != TextBoxMode.MultiLine);
 
-				string maxLength = GetOptionalAttributeValue("maxlength");
+				string maxLength = Tag.OptionalAttribute("maxlength");
 				if (maxLength == null || maxLength == "") return 0;
 				else return int.Parse(maxLength);
 			}

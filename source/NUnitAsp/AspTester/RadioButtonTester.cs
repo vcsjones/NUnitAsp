@@ -46,7 +46,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				string mangledGroupName = GetAttributeValue("name");
+				string mangledGroupName = Tag.Attribute("name");
 				return mangledGroupName.Substring(mangledGroupName.LastIndexOf(":") + 1);
 			}
 		}
@@ -76,7 +76,7 @@ namespace NUnit.Extensions.Asp.AspTester
 
 		private void UncheckWholeGroup()
 		{
-			string name = GetAttributeValue("name");
+			string name = Tag.Attribute("name");
 			string groupExpr = string.Format("//form//input[@type='radio'][@name='{0}']", name);
 
 			foreach (XmlElement radio in Element.SelectNodes(groupExpr))

@@ -100,6 +100,42 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("item #0 selected", true, List.Items[0].Selected);
 			AssertEquals("item #1 selected", true, List.Items[1].Selected);
 			AssertEquals("item #2 selected", true, List.Items[2].Selected);
+
+			List.Items[1].Selected = false;
+			Submit.Click();
+
+			AssertEquals("item #0 selected", true, List.Items[0].Selected);
+			AssertEquals("item #1 selected", false, List.Items[1].Selected);
+			AssertEquals("item #2 selected", true, List.Items[2].Selected);
+		
+			List.Items[1].Selected = true;
+			Submit.Click();
+		}
+
+		[Test]
+		public void TestPostBack_WhenMultipleSelected()
+		{
+			multiSelect.Checked = true;
+			Submit.Click();
+
+			AssertEquals("item #0", false, List.Items[0].Selected);
+			List.Items[0].Selected = true;
+			AssertEquals("item #0", false, List.Items[0].Selected);
+
+			AssertEquals("item #1", true, List.Items[1].Selected);
+			List.Items[1].Selected = false;
+			AssertEquals("item #1", true, List.Items[1].Selected);
+			
+			autoPostBack.Checked = true;		
+			Submit.Click();
+
+			AssertEquals("item #2", false, List.Items[2].Selected);		
+			List.Items[2].Selected = true;
+			AssertEquals("item #2", true, List.Items[2].Selected);		
+			
+			AssertEquals("item #2", true, List.Items[2].Selected);		
+			List.Items[2].Selected = false;
+			AssertEquals("item #2", false, List.Items[2].Selected);		
 		}
 
 		[Test]
@@ -111,6 +147,31 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("item #0 selected", true, List.Items[0].Selected);
 			AssertEquals("item #1 selected", true, List.Items[1].Selected);
 			AssertEquals("item #2 selected", true, List.Items[2].Selected);
+		}
+
+		[Test]
+		public void TestSelectedIndex_WhenMultiple()
+		{
+			TestSetItemsSelected_WhenMultipleSelect();
+
+			AssertEquals("item #0 selected", true, List.Items[0].Selected);
+			AssertEquals("item #1 selected", true, List.Items[1].Selected);
+			AssertEquals("item #2 selected", true, List.Items[2].Selected);
+
+			List.SelectedIndex = 0;
+			Submit.Click();
+
+			AssertEquals("item #0 selected", true, List.Items[0].Selected);
+			AssertEquals("item #1 selected", false, List.Items[1].Selected);
+			AssertEquals("item #2 selected", false, List.Items[2].Selected);
+		}
+
+		[Test]
+		[ExpectedException(typeof(ListControlTester.MultipleSelectionException))]
+		public void TestSelectedIndexChanged_WhenMultiple()
+		{
+			TestSetItemsSelected_WhenMultipleSelect();
+			int ignored = List.SelectedIndex;
 		}
 	}
 }
