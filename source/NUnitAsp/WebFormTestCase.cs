@@ -35,12 +35,14 @@ namespace NUnit.Extensions.Asp
 
 		protected override void SetUp() 
 		{
+			base.SetUp();
 			_browser = new Browser();
    		}
 
 		protected override void TearDown() 
 		{
 			_browser.Dispose();
+			base.TearDown();
 		}
 
 		protected XhtmlWebForm Page 
@@ -48,6 +50,14 @@ namespace NUnit.Extensions.Asp
 			get 
 			{
 				return Browser.CurrentPage;
+			}
+		}
+
+		protected AspWebForm CurrentWebForm
+		{
+			get 
+			{
+				return new AspWebForm(Browser);
 			}
 		}
 
@@ -61,6 +71,28 @@ namespace NUnit.Extensions.Asp
 			{
 				_browser = value;
 			}
+		}
+
+		protected static void AssertEquals(string[] a, string[] b)
+		{
+			AssertEquals("", a, b);
+		}
+
+		protected static void AssertEquals(string message, string[] a, string[] b)
+		{
+			string aFlat = flatten(a);
+			string bFlat = flatten(b);
+			Assertion.AssertEquals(message, aFlat, bFlat);
+		}
+
+		private static string flatten(string[] a)
+		{
+			string result = "{";
+			foreach (string element in a)
+			{
+				result += "<" + element + ">";
+			}
+			return result + "}";
 		}
 
 	}

@@ -9,8 +9,9 @@ namespace NUnit.Extensions.Asp.Test
 
 		public NUnitAspTestSuite() : base() 
 		{
-			AddTestSuite(typeof(BrowserTest));
-			AddTestSuite(typeof(XhtmlDataGridTest));
+//			AddTestSuite(typeof(BrowserTest));
+			AddTestSuite(typeof(AspDataGridTest));
+			AddTestSuite(typeof(AspLabelTest));
 		}
 
 		public static ITest Suite 

@@ -19,42 +19,39 @@
 '*******************************************************************************************************************/
 
 using System;
-using NUnit.Framework;
-using NUnit.Extensions.Asp;
+using System.Xml;
 
-namespace NUnit.Extensions.Asp.Test
+namespace NUnit.Extensions.Asp
 {
 
-	public class BrowserTest : WebFormTestCase {
+	public class AspUserControl : AspControl
+	{
+		private string aspId;
+		private Control container;
 
-		private const string BASE_URL = "http://localhost/NUnitAsp/NUnitAspTestPages/";
-
-		public BrowserTest(string name) : base(name) {
+		public AspUserControl(string aspId, Control container) : base(aspId, container)
+		{
+			this.aspId = aspId;
+			this.container = container;
 		}
 
-		protected override void SetUp() {
-			Browser = new Browser(BASE_URL + "BasicPage.html");
+		internal override XmlElement GetElement(string aspId)
+		{
+			return base.GetElement(HtmlId + "_" + aspId);
 		}
 
-//		public void TestRedirection() {
-//			Browser.GetPage("RedirectorPage.aspx");
-//			Page.AssertIdEquals("RedirecteePage");
-//		}
-//
-//		public void TestCookies() {
-//			Browser.GetPage("CookieDropPage.aspx");
-//			Assert(Browser.HasCookie("testcookie"));
-//			Browser.GetPage("CookieDisplayPage.aspx");
-//			Page.GetLabel("cookies").AssertTextEquals("testcookievalue");
-//		}
-//
-//		public void TestCookiesPreservedOverTime() {
-//			Browser.GetPage("CookieDropPage.aspx");
-//			Assert(Browser.HasCookie("testcookie"));
-//			Browser.GetPage("RedirectorPage.aspx");
-//			Browser.GetPage("CookieDisplayPage.aspx");
-//			Page.GetLabel("cookies").AssertTextEquals("testcookievalue");
-//		}
+		internal override bool HasElement(string aspId)
+		{
+			return base.HasElement(HtmlId + "_" + aspId);
+		}
+
+		public override string HtmlId
+		{
+			get
+			{
+				return aspId;
+			}
+		}
 
 	}
 }

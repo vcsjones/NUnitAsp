@@ -67,11 +67,6 @@ namespace NUnit.Extensions.Asp {
 			return new XhtmlLinkButton(browser, GetElement(aspId), aspId, Description);
 		}
 
-		public XhtmlDataGrid GetDataGrid(string aspId)
-		{
-			return new XhtmlDataGrid(browser, GetElement(aspId), aspId, Description);
-		}
-
 		internal XhtmlForm GetForm()
 		{
 			return new XhtmlForm(browser, GetElementByName("form"), Description);
@@ -124,7 +119,7 @@ namespace NUnit.Extensions.Asp {
 		{
 			get 
 			{
-				XmlAttribute id = GetElementByName("body").Attributes["id"];
+				XmlAttribute id = GetElementByName("form").Attributes["id"];
 				Assertion.AssertNotNull("There should be an 'id' attribute on the page's body element.", id);
 				return id.Value;
 			}

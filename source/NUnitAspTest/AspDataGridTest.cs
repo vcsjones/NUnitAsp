@@ -19,42 +19,68 @@
 '*******************************************************************************************************************/
 
 using System;
-using NUnit.Framework;
 using NUnit.Extensions.Asp;
 
 namespace NUnit.Extensions.Asp.Test
 {
 
-	public class BrowserTest : WebFormTestCase {
+	public class AspDataGridTest : WebFormTestCase
+	{
 
-		private const string BASE_URL = "http://localhost/NUnitAsp/NUnitAspTestPages/";
-
-		public BrowserTest(string name) : base(name) {
+		public AspDataGridTest(string name) : base(name)
+		{
 		}
 
-		protected override void SetUp() {
-			Browser = new Browser(BASE_URL + "BasicPage.html");
+		protected override void SetUp() 
+		{
+			base.SetUp();
+			Browser.GetPage("http://localhost/NUnitAsp/NUnitAspTestPages/AspDataGridTestPage.aspx");
 		}
 
-//		public void TestRedirection() {
-//			Browser.GetPage("RedirectorPage.aspx");
-//			Page.AssertIdEquals("RedirecteePage");
-//		}
-//
-//		public void TestCookies() {
-//			Browser.GetPage("CookieDropPage.aspx");
-//			Assert(Browser.HasCookie("testcookie"));
-//			Browser.GetPage("CookieDisplayPage.aspx");
-//			Page.GetLabel("cookies").AssertTextEquals("testcookievalue");
-//		}
-//
-//		public void TestCookiesPreservedOverTime() {
-//			Browser.GetPage("CookieDropPage.aspx");
-//			Assert(Browser.HasCookie("testcookie"));
-//			Browser.GetPage("RedirectorPage.aspx");
-//			Browser.GetPage("CookieDisplayPage.aspx");
-//			Page.GetLabel("cookies").AssertTextEquals("testcookievalue");
-//		}
+		public void TestRowCount() 
+		{
+			AssertEquals("# of rows", 2, Grid1.RowCount);
+			AssertEquals("# of rows", 1, Grid2.RowCount);
+		}
+
+		public void TestRowCells()
+		{
+			AssertEquals("row 1", new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "1"}, Grid1.GetRow(0).Cells);
+			AssertEquals("row 2", new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "2"}, Grid1.GetRow(1).Cells);
+			AssertEquals("row 3", new string[] {"Link", "Cell 3, 1", "Cell 3, 2", "3"}, Grid2.GetRow(0).Cells);
+		}
+
+		public void TestNestedControls()
+		{
+			new AspLinkButton("link1", Grid1.GetRow(1)).Click();
+			AssertEquals("1,2", ClickResult.Text);
+			new AspLinkButton("link2", Grid2.GetRow(0)).Click();
+			AssertEquals("2,3", ClickResult.Text);
+		}
+
+		private AspDataGrid Grid1
+		{
+			get
+			{
+				return new AspDataGrid("dataGrid1", CurrentWebForm);
+			}
+		}
+
+		private AspDataGrid Grid2
+		{
+			get
+			{
+				return new AspDataGrid("dataGrid2", CurrentWebForm);
+			}
+		}
+
+		private AspLabel ClickResult
+		{
+			get
+			{
+				return new AspLabel("clickResult", CurrentWebForm);
+			}
+		}
 
 	}
 }

@@ -97,6 +97,16 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "AspDataGridTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspLabelTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -108,11 +118,6 @@
                 />
                 <File
                     RelPath = "NUnitAspTestSuite.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "XhtmlDataGridTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

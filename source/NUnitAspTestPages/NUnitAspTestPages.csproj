@@ -87,59 +87,41 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "AspDataGridTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AspDataGridTestPage.aspx.cs"
+                    DependentUpon = "AspDataGridTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspDataGridTestPage.aspx.resx"
+                    DependentUpon = "AspDataGridTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "AspLabelTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AspLabelTestPage.aspx.cs"
+                    DependentUpon = "AspLabelTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspLabelTestPage.aspx.resx"
+                    DependentUpon = "AspLabelTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "BasicPage.html"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "CookieDisplayPage.aspx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "CookieDisplayPage.aspx.cs"
-                    DependentUpon = "CookieDisplayPage.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "CookieDisplayPage.aspx.resx"
-                    DependentUpon = "CookieDisplayPage.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "CookieDropPage.aspx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "CookieDropPage.aspx.cs"
-                    DependentUpon = "CookieDropPage.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "CookieDropPage.aspx.resx"
-                    DependentUpon = "CookieDropPage.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "DataGridTestBed.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "DataGridTestBed.ascx.cs"
-                    DependentUpon = "DataGridTestBed.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DataGridTestBed.ascx.resx"
-                    DependentUpon = "DataGridTestBed.ascx.cs"
-                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Global.asax"
@@ -157,58 +139,8 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "LinkButtonPage.aspx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "LinkButtonPage.aspx.cs"
-                    DependentUpon = "LinkButtonPage.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "LinkButtonPage.aspx.resx"
-                    DependentUpon = "LinkButtonPage.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "NUnitAspTestPages.csproj.webinfo"
                     BuildAction = "None"
-                />
-                <File
-                    RelPath = "RedirecteePage.html"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "RedirectorPage.aspx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "RedirectorPage.aspx.cs"
-                    DependentUpon = "RedirectorPage.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "RedirectorPage.aspx.resx"
-                    DependentUpon = "RedirectorPage.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "TestBed.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "TestBed.aspx.cs"
-                    DependentUpon = "TestBed.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TestBed.aspx.resx"
-                    DependentUpon = "TestBed.aspx.cs"
-                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Web.config"

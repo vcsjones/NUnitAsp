@@ -19,44 +19,20 @@
 '*******************************************************************************************************************/
 
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 
-namespace NUnitAspTestPages
+namespace NUnit.Extensions.Asp
 {
 
-	public class TestBed : System.Web.UI.Page
+	public class AspButton : AspControl
 	{
-		private void Page_Load(object sender, System.EventArgs e)
+		public AspButton(string aspId, Control container) : base(aspId, container)
 		{
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		public void Click()
 		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
+			EnterInputValue(GetAttributeValue("name"), GetAttributeValue("value"));
+			Submit();
 		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-			this.Load += new System.EventHandler(this.Page_Load);
-
-		}
-		#endregion
 	}
 }

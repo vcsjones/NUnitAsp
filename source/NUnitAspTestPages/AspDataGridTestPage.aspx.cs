@@ -19,25 +19,48 @@
 '*******************************************************************************************************************/
 
 using System;
+using System.Collections;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Web;
+using System.Web.SessionState;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
 namespace NUnitAspTestPages
 {
 
-	public abstract class DataGridTestBed : System.Web.UI.UserControl
+	public class AspDataGridTestPage : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.DataGrid DataGrid1;
+		protected System.Web.UI.WebControls.DataGrid dataGrid1;
+		protected System.Web.UI.WebControls.DataGrid dataGrid2;
+		protected System.Web.UI.WebControls.Label clickResult;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			RowData row1 = new RowData(1);
-			RowData row2 = new RowData(2);
-			DataGrid1.DataSource = new RowData[] {row1, row2};
-			DataGrid1.DataBind();
+			RowData row1;
+			RowData row2;
+
+			row1 = new RowData(1);
+			row2 = new RowData(2);
+			dataGrid1.DataSource = new RowData[] {row1, row2};
+			dataGrid1.DataBind();
+
+			row1 = new RowData(3);
+			dataGrid2.DataSource = new RowData[] {row1};
+			dataGrid2.DataBind();
+		}
+
+		protected void link1_Clicked(object sender, EventArgs args)
+		{
+			clickResult.Text = "1," + ((LinkButton)sender).CommandArgument;
+		}
+
+		protected void link2_Clicked(object sender, EventArgs args)
+		{
+			clickResult.Text = "2," + ((LinkButton)sender).CommandArgument;
 		}
 
 		private class RowData
@@ -47,6 +70,14 @@ namespace NUnitAspTestPages
 			public RowData(int rowNum) 
 			{
 				this.rowNum = rowNum;
+			}
+
+			public string RowNumber
+			{
+				get
+				{
+					return rowNum.ToString();
+				}
 			}
 
 			public string Column1
@@ -67,7 +98,6 @@ namespace NUnitAspTestPages
 
 		}
 
-
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
@@ -78,11 +108,12 @@ namespace NUnitAspTestPages
 			base.OnInit(e);
 		}
 		
-		///		Required method for Designer support - do not modify
-		///		the contents of this method with the code editor.
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
-		{
+		{    
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}

@@ -57,6 +57,16 @@ namespace NUnit.Extensions.Asp
 			_client.Dispose();
 		}
 
+		internal XmlDocument CurrentDocument
+		{
+			get 
+			{
+				if (_pageDocument == null) throw new NoPageException();
+				return _pageDocument;
+			}
+		}
+			
+
 		public XhtmlWebForm CurrentPage 
 		{
 			
@@ -85,8 +95,11 @@ namespace NUnit.Extensions.Asp
 
 		internal XhtmlWebForm SubmitForm() 
 		{
-			string url = _page.GetForm().Action;
-			string method = _page.GetForm().Method;
+			return SubmitForm(_page.GetForm().Action, _page.GetForm().Method);
+		}
+
+		internal XhtmlWebForm SubmitForm(string url, string method)
+		{
 			try 
 			{
 				DateTime startTime = DateTime.Now;
@@ -322,5 +335,11 @@ namespace NUnit.Extensions.Asp
 			return result;
 		}
 
+		private class NoPageException : ApplicationException
+		{
+			internal NoPageException() : base("No pages have been loaded by the browser")
+			{
+			}
+		}
 	}
 }
