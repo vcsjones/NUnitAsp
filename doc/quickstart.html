@@ -1,7 +1,13 @@
 <html>
   <head>
-    <title>NUnitAsp - ASP.NET unit testing - Consulting</title>
+    <title>NUnitAsp - ASP.NET unit testing - Quick Start Guide</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<style>
+			.highlight {
+				background-color: yellow;
+				font-weight: bold;
+			}
+		</style>
   </head>
   <body>
 		<p class="title">NUnitAsp
@@ -59,7 +65,7 @@
 
 						<h2>Daily Use Checklist</h2>
 
-						<p>Follow this checklist when creating NUnitAsp tests.  Easily-forgotten requirements are marked with asterisks.</p>
+						<p>Follow this checklist when creating NUnitAsp tests.  Easily-forgotten requirements are <span class="highlight">highlighted</span>.</p>
 
 						<ul>
 							<li><b>In your test projects:</b>
@@ -74,8 +80,8 @@
 								<li>Include your Tester packages.  You'll usually want the ASP testers by default.  To include these in C#, add the line <code>using NUnit.Extensions.Asp.AspTester;</code> to the top of the file.</li>
 								<li>Extend NUnitAspTestCase.</li>
 								<li>Declare common testers that are used by more than one test case.</li>
-								<li><b>Override SetUp() rather than using the [SetUp] attribute.</b>
-								<li><b>Override TearDown() rather than using the [TearDown] attribute.</b>
+								<li><span class="highlight">Override SetUp() rather than using the [SetUp] attribute.</span>
+								<li><span class="highlight">Override TearDown() rather than using the [TearDown] attribute.</span>
 								<li>If you declared common testers, initialize them in SetUp().</li>
 							</ul></li>
 
@@ -83,18 +89,18 @@
 							<li><b>In your test cases:</b>
 							<ul>
 								<li>Declare and initialize testers that are specific to the test case.
-								<li><b>Call Browser.GetPage() before using any testers.</b>  (You can also put the call to Browser.GetPage() in SetUp(), if all test cases use the same URL.)
+								<li><span class="highlight">Call Browser.GetPage() before using any testers.</span>  (You can also put the call to Browser.GetPage() in SetUp(), if all test cases use the same URL.)
 							</ul></li>
 
 							<br />
 							<li><b>In your ASP.NET web pages</b>, make sure you're XHTML compliant:
 							<ul>
-								<li><b>Modify the DOCTYPE tag to reference the NUnitAsp DTD:</b>
+								<li><span class="highlight">Modify the DOCTYPE tag to reference the NUnitAsp DTD:</span>
 									<br />
 									<code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd"&gt;</code>
 								</li>
-								<li><b>Make sure the <code>&lt;HTML&gt;</code> and <code>&lt;/HTML&gt;</code> tags are upper-case.</b>
-								<li><b>Close all stand-alone tags.</b>  (Particularly "meta" and "br".  Visual Studio .NET likes to remove the closing slash on these tags.)</li>
+								<li><span class="highlight">Make sure the <code>&lt;HTML&gt;</code> and <code>&lt;/HTML&gt;</code> tags are upper-case.</span>
+								<li><span class="highlight">Close all stand-alone tags.</span>  (Particularly "meta" and "br".  Visual Studio .NET likes to remove the closing slash on these tags.)</li>
 								<li>Close all tag pairs.</li>
 								<li>Use entities, such as "&amp;amp;" instead of "&" and "&amp;lt;" instead of "&lt;", when you want to display HTML characters.</li>
 								<li>Put quotes around HTML attributes.</li>
