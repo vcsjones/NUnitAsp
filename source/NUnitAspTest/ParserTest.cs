@@ -30,9 +30,10 @@ namespace NUnit.Extensions.Asp.Test
 	public class ParserTest : NUnitAspTestCase
 	{
 		[Test]
-		[Ignore("Parser doesn't support this yet")]
 		public void TestMalformedDocument()
 		{
+			// NOTE: Still need to fix <meta> tags and other unclosed tags.
+
 			CheckBoxTester control = new CheckBoxTester("control", CurrentWebForm);
 			Browser.GetPage(BaseUrl + "MalformedTestPage.aspx");
 			AssertVisibility(control, true);

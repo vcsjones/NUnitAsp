@@ -2,6 +2,7 @@ using System;
 using System.Xml;
 using System.Collections.Specialized;
 using System.Web;
+using System.Text.RegularExpressions;
 
 namespace NUnit.Extensions.Asp
 {
@@ -25,7 +26,7 @@ namespace NUnit.Extensions.Asp
 					if (document == null)
 					{
 						document = new XmlDocument();
-						document.LoadXml(pageText);
+						document.LoadXml(ConvertToXhtml(pageText));
 						ParseDefaultFormVariables();
 					}
 					return document;
@@ -36,6 +37,28 @@ namespace NUnit.Extensions.Asp
 					throw e;
 				}
 			}
+		}
+
+		private string ConvertToXhtml(string html)
+		{
+			// fix <DOCTYPE> tag
+			html = Regex.Replace(html, "[<][!]DOCTYPE.*[>]", "<!DOCTYPE HTML PUBLIC \"-//w3c//dtd xhtml 1.0 transitional//en\" \"http://localhost/nunitasp/web/dtd/xhtml1-transitional.dtd\">", RegexOptions.IgnoreCase);
+
+			// fix lowercase <HTML> tag
+			html = Regex.Replace(html, "<html>", "<HTML>");
+			html = Regex.Replace(html, "</html>", "</HTML>");
+
+			// fix unclosed tags
+//			html = Regex.Replace(html, "<(INPUT|IMG|META|LINK|BASE|BGSOUND|BR|P|HR|LI|DT|DD)([^<]+)(\"| |')>", "<$1$2$3 />", RegexOptions.IgnoreCase);
+			html = Regex.Replace(html, "<br>", "<br />", RegexOptions.IgnoreCase);
+
+			// fix nowrap="nowrap" attributes (DataGrids)
+			html = Regex.Replace(html, "nowrap=\"nowrap\"", "  nowrap=\"TRUE\"  ", RegexOptions.IgnoreCase);
+
+			// fix nowrap attributes
+			html = Regex.Replace(html, "nowrap([^=])", "  nowrap=\"true\"$1  ", RegexOptions.IgnoreCase);
+
+			return html;
 		}
 
 		internal string FormVariables
