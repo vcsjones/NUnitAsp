@@ -61,11 +61,9 @@
 			<references>
 			</references>
 		</csc>
-		<copy todir="${build.dir}\NUnitAspTestPages">
-			<fileset basedir="${source.dir}\NUnitAspTestPages">
-				<includes name="Web.config" />
-				<includes name="**/*.aspx" />
-				<includes name="**/*.ascx" />
+		<copy todir="${testPagesBuild.dir}">
+			<fileset basedir="${bin.dir}">
+				<includes name="*" />
 			</fileset>
 		</copy>
 	</target>

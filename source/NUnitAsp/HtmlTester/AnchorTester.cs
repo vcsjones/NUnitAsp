@@ -74,7 +74,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 			}
 		}
 
-			public override string HtmlId
+		public override string HtmlId
 		{
 			get
 			{

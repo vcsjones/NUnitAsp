@@ -22,7 +22,6 @@ using System;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
-
 	public class ButtonTester : ControlTester
 	{
 		public ButtonTester(string aspId, Control container) : base(aspId, container)
