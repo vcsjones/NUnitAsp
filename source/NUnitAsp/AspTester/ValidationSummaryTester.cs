@@ -1,6 +1,7 @@
+#region Copyright (c) 2002, 2003, Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Little
+' Copyright (c) 2002, 2003 Brian Knowles, Jim Little
 ' Originally written by David Paxson.  Copyright assigned to Brian Knowles and Jim Little
 ' on the nunitasp-devl@lists.sourceforge.net mailing list on 28 Aug 2002.
 '
@@ -19,6 +20,7 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
 using System.Xml;
@@ -35,7 +37,8 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// </summary>
 		/// <param name="aspId">The ID of the control to link to.</param>
 		/// <param name="container">The control that contains the control to link to</param>
-		public ValidationSummaryTester(string aspId, Control container) : base(aspId, container)
+		public ValidationSummaryTester(string aspId, Control container) 
+		: base(aspId, container)
 		{
 		}
 
@@ -57,11 +60,10 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
-
-		private string [] ReadBulletedMessages()
+		private string[] ReadBulletedMessages()
 		{
 			XmlNodeList nodes = Element.SelectNodes(".//ul/li");
-			string [] messages = new string[nodes.Count];
+			string[] messages = new string[nodes.Count];
 			for (int i = 0; i < nodes.Count; i++)
 			{
 				messages[i] = nodes[i].InnerXml;
