@@ -127,6 +127,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "NUnitAdapter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "NUnitAspTestCase.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -152,17 +157,7 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "WebAssertion.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "WebAssertionTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "WebFormTestCase.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

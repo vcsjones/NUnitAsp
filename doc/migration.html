@@ -29,78 +29,159 @@
           <div class="content">
             <h1>Migration Guide</h1>
 
-            <p>In version 1.6, NUnitAsp stopped requiring NUnit.  This change has many benefits, but it isn't backwards compatible.  If you want to use NUnitAsp v1.6, you must upgrade your tests.</p>
+            <p>In version 1.6, NUnitAsp stopped requiring NUnit.  This change has many benefits, but it isn't backwards compatible.  Fortunately, there's an easy fix that will enable your tests to continue running.</p>
 
             <p>Why did we do this?  The main reason is that, prior to this change, each version of NUnitAsp only worked with one specific version of NUnit.  Whenever a new version of NUnit came out, there was a time lag&mdash;often several months&mdash;before a new version of NUnitAsp came out to support it.  And whenever you upgraded your copy of NUnitAsp, you also had to upgrade your copy of NUnit at the same time, which you might not have wanted to do.</p>
 
             <p>This change also gives you more choice in testing tools.  NUnitAsp v1.6 works with NUnit, as always, but it should also work with other tools, like MbUnit.  As a side benefit, this change also allowed us to make some simplifications to NUnitAsp's API that we've been wanting to make for a while.</p>
 
-            <p>We've made every effort to make migrating easy.  We've provided migration information as a two-step process.  We start with a quick fix that will keep your tests running.  Then we describe how to change individual tests to the new style over time.</p>
-
 
             <h2>Changes in v1.6</h2>
 
-            <p>Let's start by talking about the changes in NUnitAsp v1.6.</p>
+            <p>These are the breaking changes in NUnitAsp v1.6.</p>
 
             <ul>
-              <li><b>WebFormTestCase:</b>  We no longer require test classes to extend our WebFormTestCase.  In fact, it no longer exists.</li>
+              <li><b>WebFormTestCase:</b>  We no longer require test classes to extend WebFormTestCase.  You'll probably want to, though, as it provides some convenient methods.</li>
 
-              <br /><li><b>[SetUp] and [TearDown]:</b>  You can now use the [SetUp] and [TearDown] attributes in your tests.</li>
+              <br /><li><b>Browser:</b>  The Browser property is optional.  Now you may use the <a href="api/NUnit.Extensions.Asp.HttpClient.Default.html">HttpClient.Default</a> property.</li>
 
-              <br /><li><b>Browser:</b>  The Browser property (which used to be defined by WebFormTestCase) has been replaced by the static <a href="api/NUnit.Extensions.Asp.HttpClient.Default.html">HttpClient.Default</a> property.</li>
-
-              <br /><li><b>CurrentWebForm:</b>  We no longer require CurrentWebForm when constructing testers.  We have a <a href="api/NUnit.Extensions.Asp.ControlTesterConstructor1.html">new constructor</a> that just takes an ASP ID.  We think this will make tests a lot easier to read and write.</li>
+              <br /><li><b>CurrentWebForm:</b>  The CurrentWebForm property is optional.  Instead, we have a <a href="api/NUnit.Extensions.Asp.ControlTesterConstructor1.html">new constructor</a> that just takes an ASP ID.  We think this will make tests a lot easier to read and write.</li>
             </ul>
 
-            <p>Here's an example of a test written for NUnitAsp 1.5:</p>
+
+            <h2>Quick Migration</h2>
+
+            <p>To get your code up and running with NUnitAsp v1.6, compile the included NUnitAdapter.cs file into the assembly that contains your tests.  In Visual Studio .NET, this means copying the file into the project that contains your tests and telling Visual Studio to "include" it.  NUnitAdapter.cs is located in the "bin" directory of the NUnitAsp download package.</p>
+
+            <p>With NUnitAdapter.cs, you may freely mix old-style NUnitAsp tests with new-style NUnitAsp 1.6 tests.</p>
+
+
+            <h2>Complete Migration <em>(Optional)</em></h2>
+
+            <p>If you don't want to have an NUnitAsp file in your project, you may eliminate it.  These conversion steps are <em>entirely optional.</em>  The Quick Migration described above achieves the same result.</p>
+
+            <p>Start with the quick migration above and make sure your tests still pass.  Then apply the conversions below to taste.</p>
+
+
+            <h3>Replace CurrentWebForm</h3>
+
+            <p>Remove any "CurrentWebForm" parameters from tester constructors.</p>
+
+            <p class="code">
+              LabelTester label = <span class="keyword">new</span> LabelTester("label", CurrentWebForm);
+            </p>
+
+            <p>Becomes:</p>
+
+            <p class="code">
+              LabelTester label = <span class="keyword">new</span> LabelTester("label");
+            </p>
+
+
+            <h3>Replace Browser</h3>
+
+            <p>Replace any uses of the "Browser" parameter with "HttpClient.Default".</p>
+
+            <p class="code">
+              Browser.GetPage("http://localhost/example/example.aspx");
+            </p>
+
+            <p>Becomes:</p>
+
+            <p class="code">
+              HttpClient.Default.GetPage("http://localhost/example/example.aspx");
+            </p>
+
+
+            <h3>Replace Assertion and WebAssertion</h3>
+
+            <p>Replace calls to inherited Assertion and WebAssertion methods with calls to Assert and WebAssert.</p>
+
+            <p class="code">
+              AssertVisibility(label, true);
+              <br />AssertEquals("label", "hello", label.Text);
+              <br />AssertEquals("datagrid", <span class="keyword">new string</span>[][] {<span class="keyword">new string</span>[] {"hello"}}, datagrid.Cells);
+            </p>
+
+            <p>Becomes:</p>
+
+            <p class="code">
+              WebAssert.Visible(label);
+              <br />Assert.AreEqual("hello", label.Text, "label");
+              <br />WebAssert.AreEqual(<span class="keyword">new string</span>[][] {<span class="keyword">new string</span>[] {"hello"}}, datagrid.Cells, "datagrid");
+            </p>
+
+
+            <h3>Use attributes instead of SetUp() and TearDown() <em>(Not Recommended)</em></h3>
+
+            <p>You can use the [SetUp] and [TearDown] attributes instead of our SetUp() and TearDown() methods if you want.  We don't recommend doing this because our methods automatically reset the HttpClient for you before every test, which prevents obscure bugs.  If you use [SetUp] instead, you'll need to remember to do this in every test fixture.</p>
+
+            <p>Start by removing WebFormTestCase inheritance.  (You'll need to finish the conversion steps above first.)  If you have SetUp() or TearDown() methods, remove the "override" keyword from those methods and add the [SetUp] or [TearDown] attribute instead.  Inside your [SetUp] method, reset HttpClient by instantiating a new default as shown in the example below.</p>
+
+            <p>If you don't have a [SetUp] method, you need to add one to reset HttpClient.Default.  (See the second example below.)</p>
 
             <p class="code">
               [TestFixture]
-              <br /><span class="keyword">public class</span> Before : WebFormTestCase
+              <br /><span class="keyword">public class</span> MyTest : WebFormTestCase
               <br />{
-              <br />&nbsp;&nbsp;[Test]
-              <br />&nbsp;&nbsp;<span class="keyword">public void</span> Example()
+              <br />&nbsp;&nbsp;<span class="keyword">protected override void</span> SetUp()
               <br />&nbsp;&nbsp;{
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;LabelTester label = <span class="keyword">new</span> LabelTester("label", CurrentWebForm);
-              <br />
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/example/example.aspx");
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;AssertEquals("Hi!", label);
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// (etc)</span>
               <br />&nbsp;&nbsp;}
               <br />}
             </p>
 
-            <p>And here's the same example with NUnitAsp 1.6:</p>
+            <p>Becomes:</p>
 
             <p class="code">
               [TestFixture]
-              <br /><span class="keyword">public class</span> After
+              <br /><span class="keyword">public class</span> MyTest
               <br />{
-              <br />&nbsp;&nbsp;[Test]
-              <br />&nbsp;&nbsp;<span class="keyword">public void</span> Example()
+              <br />&nbsp;&nbsp;[SetUp]
+              <br />&nbsp;&nbsp;<span class="keyword">public void</span> SetUp()
               <br />&nbsp;&nbsp;{
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;LabelTester label = <span class="keyword">new</span> LabelTester("label");
-              <br />
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;HttpClient.Default.GetPage("http://localhost/example/example.aspx");
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;Assert.AreEqual("Hi!", label);
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;HttpClient.Default = new HttpClient();
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// (etc)</span>
               <br />&nbsp;&nbsp;}
               <br />}
             </p>
 
-            <p>The new constructor also lends itself to inline tester instantiation:</p>
+            <p>If you don't have a [SetUp] method, you need to add one:</p>
 
             <p class="code">
-              &nbsp;&nbsp;[Test]
-              <br />&nbsp;&nbsp;<span class="keyword">public void</span> Example()
+              [TestFixture]
+              <br /><span class="keyword">public class</span> MyTest : WebFormTestCase
+              <br />{
+              <br />&nbsp;&nbsp;<span class="keyword">protected override void</span> TearDown()
               <br />&nbsp;&nbsp;{
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;HttpClient.Default.GetPage("http://localhost/example/example.aspx");
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;Assert.AreEqual("Hi!", <span class="keyword">new</span> LabelTester("label"));
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// (etc)</span>
               <br />&nbsp;&nbsp;}
+              <br />}
             </p>
 
+            <p>Becomes:</p>
 
-            <h2>Migration Process</h2>
+            <p class="code">
+              [TestFixture]
+              <br /><span class="keyword">public class</span> MyTest
+              <br />{
+              <br />&nbsp;&nbsp;[SetUp]
+              <br />&nbsp;&nbsp;<span class="keyword">public void</span> SetUp()
+              <br />&nbsp;&nbsp;{
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;HttpClient.Default = new HttpClient();
+              <br />&nbsp;&nbsp;}
+              <br />
+              <br />&nbsp;&nbsp;[TearDown]
+              <br />&nbsp;&nbsp;<span class="keyword">public void</span> TearDown()
+              <br />&nbsp;&nbsp;{
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// (etc)</span>
+              <br />&nbsp;&nbsp;}
+              <br />}
+            </p>
 
-            <p>To quickly get your code up and running with NUnitAsp v1.6, simply copy the WebFormTestCase.cs and WebAssertion.cs files into your project.  These files are located in the "bin" directory of the NUnitAsp download package.  These are the files that were removed in v1.6.</p>
+            <h3>NUnitAdapter.cs</h3>
+
+            <p>Once you've made the changes above for all classes, you may delete NUnitAdapter.cs from your project.</p>
 
 
 
@@ -172,7 +253,7 @@
             </ul>
             -->
 
-            <p class="end">Last updated for v1.5.</p>
+            <p class="end">Last updated for v1.6.</p>
           </div>
         </td>
       </tr>

@@ -285,7 +285,6 @@ namespace NUnit.Extensions.Asp.Test
 			}
 		}
 
-	
 		private void AssertArrayRenders(string expected, string[][] one, string[][] two)
 		{
 			try

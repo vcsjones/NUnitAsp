@@ -1,7 +1,7 @@
-#region Copyright (c) 2003 Brian Knowles, Jim Shore
+#region Copyright (c) 2003, 2005 Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2003, Brian Knowles, Jim Shore
+' Copyright (c) 2003, 2005 Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -55,7 +55,7 @@ namespace NUnit.Extensions.Asp.Test
 			Browser.Credentials = CredentialCache.DefaultCredentials;
 			Browser.GetPage(TEST_URL);
 
-			Assertion.AssertEquals("userId", WindowsIdentity.GetCurrent().Name, userId.Text);
+			AssertEquals("userId", WindowsIdentity.GetCurrent().Name, userId.Text);
 		}
 
 		public void TestUrlCredentials()

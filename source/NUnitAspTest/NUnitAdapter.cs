@@ -1,7 +1,7 @@
-#region Copyright (c) 2002-2004 by Brian Knowles and Jim Shore
+#region Copyright (c) 2002, 2003 by Brian Knowles and Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002-2004 by Brian Knowles and Jim Shore
+' Copyright (c) 2002, 2003 by Brian Knowles and Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -20,12 +20,105 @@
 '******************************************************************************************************************/
 #endregion
 
+#region Instructions
+/********************************************************************************************************************
+ * 
+ * This file allows NUnitAsp to be used with NUnit.  To use, copy this file 
+ * into your test project.  For additional information, see the NUnitAsp
+ * documentation in your download package, or visit
+ * http://nunitasp.sourceforge.net.
+ * 
+ *******************************************************************************************************************/
+#endregion
+
 using System;
 using NUnit.Framework;
+using System.Xml;
+using NUnit.Extensions.Asp.AspTester;
 using System.Globalization;
 
-namespace NUnit.Extensions.Asp
-{
+namespace NUnit.Extensions.Asp 
+{ 
+	/// <summary>
+	/// Base class for NUnitAsp test fixtures.  Extend this class to use NUnitAsp.
+	/// </summary>
+	[TestFixture]
+	public abstract class WebFormTestCase : WebAssertion
+	{
+		private bool setupCalled = false;
+
+		/// <summary>
+		/// Do not call.  For use by NUnit only.
+		/// </summary>
+		[SetUp]
+		public void MasterSetUp() 
+		{
+			setupCalled = true;
+			HttpClient.Default = new HttpClient();
+			SetUp();
+		}
+
+		/// <summary>
+		/// Executed before each test method is run.  Override in subclasses to do subclass
+		/// set up.  NOTE: The [SetUp] attribute cannot be used in subclasses because it is already
+		/// in use.
+		/// </summary>
+		protected virtual void SetUp()
+		{
+		}
+
+		/// <summary>
+		/// Do not call.  For use by NUnit only.
+		/// </summary>
+		[TearDown]
+		public void MasterTearDown()
+		{
+			TearDown();
+		}
+
+		/// <summary>
+		/// Executed after each test method is run.  Override in subclasses to do subclass
+		/// clean up.  NOTE: [TearDown] attribute cannot be used in subclasses because it is
+		/// already in use.
+		/// </summary>
+		protected virtual void TearDown()
+		{
+		}
+
+		/// <summary>
+		/// The web form currently loaded by the browser.
+		/// </summary>
+		protected WebForm CurrentWebForm
+		{
+			get 
+			{
+				AssertSetUp();
+				return new WebForm(HttpClient.Default);
+			}
+		}
+
+		/// <summary>
+		/// The web browser.
+		/// </summary>
+		protected HttpClient Browser 
+		{
+			get 
+			{
+				AssertSetUp();
+				return HttpClient.Default;
+			}
+		}
+
+		private void AssertSetUp()
+		{
+			if (!setupCalled) 
+			{
+				Fail("A required setup method in WebFormTestCase was not called.  This is probably because you used the [SetUp] attribute in a subclass of WebFormTestCase.  That is not supported.  Override the SetUp() method instead.");
+			}
+		}
+	}
+
+
 	/// <summary>
 	/// The data type of a column (use with AssertSortOrder)
 	/// </summary>
