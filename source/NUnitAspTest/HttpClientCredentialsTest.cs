@@ -35,37 +35,64 @@ namespace NUnit.Extensions.Asp.Test
 {
 	public class HttpClientCredentialsTest : NUnitAspTestCase
 	{
+		private const string TEST_URL = BaseUrl + "Credentials/CredentialsTest.aspx";
+
 		protected override void SetUp()
 		{
 			base.SetUp();
-            SetFolderToNTLMAuthentication("Credentials");
+			SetFolderToNTLMAuthentication("Credentials");
 		}
 
 		public void TestNoCredentials()
 		{
-            string errorMessage = "Unauthorised Access status '401' was expected";
-			try
-			{
-				Browser.GetPage(BaseUrl + "Credentials/CredentialsTest.aspx");
-                Fail(errorMessage);
-            }
-			catch (HttpClient.BadStatusException e)
-			{
-				Assert(errorMessage, e.Message.IndexOf("(status code: 401)") > 0);
-			}
-
+			AssertUnauthorized(TEST_URL);
 		}
 
 		public void TestCredentials()
 		{
 			LabelTester userId = new LabelTester("userId", CurrentWebForm);
 
-            Browser.Credentials = CredentialCache.DefaultCredentials;
-			Browser.GetPage(BaseUrl + "Credentials/CredentialsTest.aspx");
+			Browser.Credentials = CredentialCache.DefaultCredentials;
+			Browser.GetPage(TEST_URL);
 
 			Assertion.AssertEquals("userId", WindowsIdentity.GetCurrent().Name, userId.Text);
 		}
 
+		public void TestUrlCredentials()
+		{
+			// The sole purpose of this test is to ensure that the URL username and password
+			// are correctly parsed into the Browser.Credentials field. While two previous
+			// tests test the actual authentication. 
+			string username = "FakeUser";
+			string password = "WrongPassword";
+
+			// We don't want to hardcode 'localhost' and absolute path in more than one place
+			string url = TEST_URL.Replace("http://", "http://" + username + ":" + password + "@");
+			Browser.Credentials = null;
+			AssertUnauthorized(url);
+
+			AssertNotNull("Browser.Credentials is null", Browser.Credentials);
+			NetworkCredential credential = Browser.Credentials.GetCredential(Browser.CurrentUrl, "basic");
+
+			AssertNotNull("cannot get network credential", credential);
+			AssertEquals("username", username, credential.UserName);
+			AssertEquals("password", password, credential.Password);
+		}
+
+
+		private void AssertUnauthorized(string url)
+		{
+			string errorMessage = "Unauthorised Access status '401' was expected";
+			try
+			{
+				Browser.GetPage(url);
+				Fail(errorMessage);
+			}
+			catch (HttpClient.BadStatusException e)
+			{
+				Assert(errorMessage, e.Status == HttpStatusCode.Unauthorized);
+			}
+		}
 
 		private void SetFolderToNTLMAuthentication(string folderName)
 		{
@@ -85,7 +112,7 @@ namespace NUnit.Extensions.Asp.Test
 			SetEntryProperty(targetFolder, "AuthAnonymous", false);
 			SetEntryProperty(targetFolder, "AuthBasic", false);
 			SetEntryProperty(targetFolder, "AuthNTLM", true);
-            targetFolder.CommitChanges();
+			targetFolder.CommitChanges();
 		}
 
 		private void SetEntryProperty(DirectoryEntry entry, string propertyName, object newValue)
