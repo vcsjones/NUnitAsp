@@ -8,7 +8,7 @@ To do:
 
 Changes in CVS:
 Produced by Jim Shore and Levi Khatskevitch.
-
+* Added an ImageButtonTester.Click overload that takes no arguments.  Credit to Kyle Heon.
 
 
 Changes in NUnitAsp 1.4.1:

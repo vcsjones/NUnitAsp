@@ -49,5 +49,13 @@ namespace NUnit.Extensions.Asp.AspTester
 			EnterInputValue( name + ".y", y.ToString() );
 			Submit();
 		}
+
+		/// <summary>
+		/// Click the button at no particular location. Same as Click(0, 0).
+		/// </summary>
+		public void Click()
+		{
+			Click(0,0);
+		}
 	}
 }
