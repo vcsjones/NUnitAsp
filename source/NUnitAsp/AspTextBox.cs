@@ -34,8 +34,13 @@ namespace NUnit.Extensions.Asp
 		}
 
 		public string Text {
-			set {
+			set 
+			{
 				EnterInputValue(GetAttributeValue("name"), value);
+			}
+			get
+			{
+				return GetOptionalAttributeValue("value");
 			}
 		}
 

@@ -24,13 +24,16 @@ using System.Text;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 
-namespace NUnit.Extensions.Asp {
+namespace NUnit.Extensions.Asp 
+{
 
-	public class XhtmlWebForm {
+	public class XhtmlWebForm 
+	{
 		private Browser browser;
 		private XmlDocument page;
 
-		internal XhtmlWebForm(Browser browser, string pageBody) {
+		internal XhtmlWebForm(Browser browser, string pageBody) 
+		{
 			this.browser = browser;
 			page = new XmlDocument();
 			page.LoadXml(pageBody);
@@ -65,6 +68,11 @@ namespace NUnit.Extensions.Asp {
 		public XhtmlLinkButton GetLinkButton(string aspId) 
 		{
 			return new XhtmlLinkButton(browser, GetElement(aspId), aspId, Description);
+		}
+
+		public XhtmlDataGrid GetDataGrid(string aspId)
+		{
+			return new XhtmlDataGrid(browser, GetElement(aspId), aspId, Description);
 		}
 
 		internal XhtmlForm GetForm()
@@ -119,7 +127,7 @@ namespace NUnit.Extensions.Asp {
 		{
 			get 
 			{
-				XmlAttribute id = GetElementByName("form").Attributes["id"];
+				XmlAttribute id = GetElementByName("body").Attributes["id"];
 				Assertion.AssertNotNull("There should be an 'id' attribute on the page's body element.", id);
 				return id.Value;
 			}
@@ -133,3 +141,4 @@ namespace NUnit.Extensions.Asp {
 	}
 
 }
+

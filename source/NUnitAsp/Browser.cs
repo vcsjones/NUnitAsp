@@ -157,6 +157,7 @@ namespace NUnit.Extensions.Asp
 			AddFormTextValuesToHeader("//input[@type='file']");
 			AddFormTextValuesToHeader("//input[@type='password']");
 			AddFormTextValuesToHeader("//input[@type='text']");
+			AddFormTextValuesToHeader("//input[@type='radio'][@checked]");
 			AddFormTextAreaValuesToHeader();
 			AddFormSelectValuesToHeader();
 			AddCookiesToHeader(_headers);

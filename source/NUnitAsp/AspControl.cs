@@ -49,7 +49,7 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		private string GetOptionalAttributeValue(string name)
+		protected string GetOptionalAttributeValue(string name)
 		{
 			return Element.GetAttribute(name);
 		}

@@ -33,7 +33,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get 
 			{
-				return Element.InnerText;
+				return Element.InnerXml;
 			}
 		}
 	}

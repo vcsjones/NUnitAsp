@@ -127,6 +127,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "AspRadioButton.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AspTextBox.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -163,6 +168,11 @@
                 />
                 <File
                     RelPath = "XhtmlCheckBox.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "XhtmlDataGrid.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
