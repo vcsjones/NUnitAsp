@@ -97,6 +97,11 @@
                     AssemblyName = "nunit.framework"
                     HintPath = "..\..\lib\NUnit2.0\bin\nunit.framework.dll"
                 />
+                <Reference
+                    Name = "System.DirectoryServices"
+                    AssemblyName = "System.DirectoryServices"
+                    HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.DirectoryServices.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -113,6 +118,11 @@
                 />
                 <File
                     RelPath = "HtmlTagTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HttpClientCredentialsTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

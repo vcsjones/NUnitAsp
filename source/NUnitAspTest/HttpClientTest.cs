@@ -83,7 +83,7 @@ namespace NUnit.Extensions.Asp.Test
 		[Test]
 		public void TestGetWithUrlEncoding()
 		{
-			Browser.GetPage(TestUrl + "?testparm=some+%2b+text");
+			Browser.GetPage(TestUrl + "?testparm=some+%2b+text#fragment");
 			AssertEquals("some + text", testParm.Text);
 		}
 

@@ -21,28 +21,25 @@
 #endregion
 
 using System;
-using System.Collections.Specialized;
 using System.IO;
 using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Xml;
-using System.Xml.XPath;
-using System.Collections;
+
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp 
 {
 	/// <summary>
-	/// A web client, capable of communicating with a web server.
+	/// A web client, capable of communicating with a web server using the .NET HttpWebRequest class.
+	/// This allows authentication credentials to be added easily to web requests so we can test
+	/// role based pages for users.
 	/// </summary>
 	public class HttpClient
 	{
 		private TimeSpan serverTime = new TimeSpan(0);
 		private Uri currentUrl = null;
 		private WebPage currentPage = null;
+		private ICredentials credentials = null;
 		private CookieContainer cookies = new CookieContainer();
 
 		/// <summary>
@@ -51,7 +48,7 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		public string UserAgent = "NUnitAsp";
 
- 		/// <summary>
+		/// <summary>
 		/// The language-tag elements to send to the server.  These are used to set the
 		/// Request.UserLanguages array in the target page.
 		/// </summary>
@@ -63,12 +60,12 @@ namespace NUnit.Extensions.Asp
 		/// <param name="url">The URL of the page to get.</param>
 		public void GetPage(string url) 
 		{
-			DoHttp(url, "get", "");
+			DoWebRequest(url, "GET", string.Empty);
 		}
 
 		internal void SubmitForm(string url, string method)
 		{
-			DoHttp(url, method, currentPage.FormVariables);
+			DoWebRequest(url, method, currentPage.FormVariables);
 		}
 
 		internal void SetFormVariable(string name, string value) 
@@ -79,6 +76,20 @@ namespace NUnit.Extensions.Asp
 		internal void ClearFormVariable(string name)
 		{
 			currentPage.ClearFormVariable(name);
+		}
+
+		/// <summary>
+		/// Credentials that are used to authenticate HTTP requests. Can be used with
+		/// both "basic" and "Windows Integrated" (NTLM) authentication methods. 
+		/// When username and password are set in the URL (i.e. "http://user:pass@myhost")
+		/// this property is automatically set to those credentials. Set this property to
+		/// <code>CredentialCache.DefaultCredentials</code> to use your current Windows
+		/// login.
+		/// </summary>
+		public ICredentials Credentials
+		{
+			get { return credentials; }
+			set { credentials = value; }
 		}
 
 		/// <summary>
@@ -125,7 +136,7 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// The total time this object has spent waiting for web servers to respond.
 		/// </summary>
-		public TimeSpan ElapsedServerTime 
+		public TimeSpan ElapsedServerTime
 		{
 			get 
 			{
@@ -133,75 +144,114 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		private void DoHttp(string url, string method, string formVariables) 
+		private void DoWebRequest(string url, string method, string formVariables)
 		{
-			UpdateCurrentUrl(url);
+			bool isPost = method.ToLower() == "post";
+			if (!isPost && method.ToLower() != "get")
+			{
+				throw new ArgumentException("Unknown HTTP method: " + method, "method");
+			}
+			UpdateCurrentUrl(url, !isPost, formVariables);
+
+			ICredentials urlCredentials = GetUrlCredentials();
+			if (urlCredentials != null)
+			{
+				credentials = urlCredentials;
+			}
+
 			HttpWebRequest request = CreateRequest(method, formVariables);
-			SupportBasicAuth(request);
-			HttpResponse response = SendRequest(request);
-			ParseHttpResponse(response);
-			if (response.IsRedirect) GetPage(response.RedirectUrl);
+			if (isPost)
+			{
+				WriteRequestBody(request, formVariables);
+			}
+			HttpWebResponse response = SendRequest(request);
+			if (response.StatusCode == HttpStatusCode.Redirect)
+			{
+				GetPage(GetRedirectUrl(response));
+			}
+			else
+			{
+				ReadHttpResponse(response);
+			}
 		}
 
-		private void UpdateCurrentUrl(string url)
-		{
-			url = TrimFragmentIdentifier(url);
-			if (currentUrl == null) currentUrl = new Uri(url);
-			else currentUrl = new Uri(currentUrl, url);
-		}
-
-		/// <summary>
-		/// A "fragment identifier" is the part of a URL that comes after a "#".  You don't
-		/// see them too often.  It's a link within a document and web servers won't 
-		/// recognize a URL that includes it.  This method strips off the fragment identifier, as 
-		/// well as the pound sign (#) that precedes it.
-		/// </summary>
 		private string TrimFragmentIdentifier(string url)
 		{
+			// A "fragment identifier" is the part of a URL that comes after a "#".  You don't
+			// see them too often.  It's a link within a document and web servers won't 
+			// recognize a URL that includes it.  This strips off the fragment identifier, as 
+			// well as the pound sign (#) that precedes it.
 			int fragmentLocation = url.IndexOf('#');
-			if (fragmentLocation < 0) return url;
-			else return url.Substring(0, fragmentLocation);
+
+			if (fragmentLocation < 0)
+			{
+				return url;
+			}
+			else
+			{
+				return url.Substring(0, fragmentLocation);
+			}
+		}
+
+		private void UpdateCurrentUrl(string url, bool isGet, string formVariables)
+		{
+			if (currentUrl == null)
+			{
+				currentUrl = new Uri(TrimFragmentIdentifier(url));
+			}
+			else
+			{
+				currentUrl = new Uri(currentUrl, TrimFragmentIdentifier(url));
+			}
+			if (isGet && formVariables != string.Empty)
+			{
+				UriBuilder target = new UriBuilder(currentUrl);
+
+				target.Query += "?" + formVariables;
+				currentUrl = target.Uri;
+			}
 		}
 
 		private HttpWebRequest CreateRequest(string method, string formVariables)
 		{
-			HttpWebRequest request = null;
-			if (method.ToLower() == "get") 
-			{
-				UriBuilder target = new UriBuilder(currentUrl);
-				if (formVariables != "") 
-				{
-					target.Query += "?" + formVariables;
-				}
+			HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(currentUrl);
 
-				request = (HttpWebRequest)HttpWebRequest.Create(target.Uri);
-				request.Method = "GET";
-				request.UserAgent = UserAgent;
-				request.AllowAutoRedirect = false;
-				request.CookieContainer = new CookieContainer();
-				request.CookieContainer.Add(target.Uri, cookies.GetCookies(target.Uri));
-			} 
-			else if (method.ToLower() == "post")
+			request.Method = method.ToUpper();
+			request.CookieContainer = cookies;
+			request.UserAgent = UserAgent;
+			request.AllowAutoRedirect = false;
+
+			if (credentials != null)
 			{
-				request = (HttpWebRequest)HttpWebRequest.Create(currentUrl);
-				request.Method = "POST";
-				request.AllowAutoRedirect = false;
-				request.UserAgent = UserAgent;
-				request.CookieContainer = new CookieContainer();
-				request.CookieContainer.Add( currentUrl, cookies.GetCookies( currentUrl));
-				request.ContentType = "application/x-www-form-urlencoded";
-				request.ContentLength = formVariables.Length;
-				StreamWriter sw = new StreamWriter(request.GetRequestStream());
-				sw.Write(formVariables);
-				sw.Close();
+				request.PreAuthenticate = true;
+				request.Credentials = credentials;
 			}
-			else
-			{
-				Assertion.Fail("Unknown HTTP method: " + method);
-			}
+
 			AddUserLanguageHeaders(request);
-
 			return request;
+		}
+
+		private void WriteRequestBody(HttpWebRequest request, string formVariables)
+		{
+			request.ContentType = "application/x-www-form-urlencoded";
+			request.ContentLength = formVariables.Length;
+
+			using (StreamWriter writer = 
+					   new StreamWriter(request.GetRequestStream()))
+			{
+				writer.Write(formVariables);
+			}
+		}
+
+		private string GetRedirectUrl(HttpWebResponse response)
+		{
+			string location = response.Headers["Location"];
+			if (location == null)
+			{
+				throw new ApplicationException(
+					"Expected Location header in HTTP response");
+			}
+			return location;
 		}
 
 		private	void AddUserLanguageHeaders(HttpWebRequest request)
@@ -218,128 +268,64 @@ namespace NUnit.Extensions.Asp
 			request.Headers.Add("Accept-Language", languages);
 		}
 
-		private void SupportBasicAuth(HttpWebRequest request)
+		private ICredentials GetUrlCredentials()
 		{
-			if (currentUrl.UserInfo != null && !currentUrl.UserInfo.Equals("")) 
+			if (currentUrl.UserInfo == null || currentUrl.UserInfo == string.Empty)
 			{
-				int delimiter = currentUrl.UserInfo.IndexOf(":");
-				if (delimiter > 0) 
-				{
-					request.PreAuthenticate = true;
-					string user = currentUrl.UserInfo.Substring(0, delimiter);
-					string pwd = currentUrl.UserInfo.Substring(delimiter + 1);
-					request.Credentials  = new NetworkCredential(user, pwd);
-				}
+				return null;
 			}
+			int delimiter = currentUrl.UserInfo.IndexOf(":");
+			if (delimiter == -1)
+			{
+				return null;
+			}
+			string user = currentUrl.UserInfo.Substring(0, delimiter);
+			string pwd = currentUrl.UserInfo.Substring(delimiter + 1);
+			return new NetworkCredential(user, pwd);
 		}
 
-		private HttpResponse SendRequest(HttpWebRequest request)
+		private HttpWebResponse SendRequest(HttpWebRequest request)
 		{
-			HttpWebResponse response = null;
 			try 
 			{
 				DateTime start = DateTime.Now;
-				response = (HttpWebResponse) request.GetResponse();
+				HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 				serverTime += (DateTime.Now - start);
+
+				return response;
 			} 
-			catch (WebException wx) 
+			catch (WebException e) 
 			{ 
-				response = (HttpWebResponse)wx.Response;
-				if (response == null) throw wx;
+				if (e.Response == null)
+				{
+					throw;
+				}
+				return (HttpWebResponse)e.Response;
 			}
-			return new HttpResponse(response);
 		}
 
-		private void ParseHttpResponse(HttpResponse response)
+		private void ReadHttpResponse(HttpWebResponse response)
 		{
-			if (response.IsNotFound) throw new NotFoundException(currentUrl);
-			if (!response.IsOkay) 
+			if (response.StatusCode == HttpStatusCode.NotFound)
 			{
-				Console.WriteLine(response.Body);
+				throw new NotFoundException(currentUrl);
+			}
+
+			string body;
+			using (StreamReader reader = 
+					   new StreamReader(response.GetResponseStream()))
+			{
+				body = reader.ReadToEnd();
+			}
+
+			if (response.StatusCode != HttpStatusCode.OK)
+			{
+				Console.WriteLine(body);
 				throw new BadStatusException(response.StatusCode);
 			}
-			currentPage = new WebPage(response.Body);
-			ParseCookies(response.Cookies);
+			currentPage = new WebPage(body);
 		}
 
-		private void ParseCookies(CookieCollection newCookies) 
-		{
-			if (newCookies == null) return;
-			cookies.Add(currentUrl, newCookies);
-		}
-
-		private class HttpResponse
-		{
-			private HttpWebResponse response;
-			public string Body;
-
-			public HttpResponse() { }
-
-			public HttpResponse(HttpWebResponse response) 
-			{
-				this.response = response;
-				StreamReader reader = new StreamReader(response.GetResponseStream());
-				Body = reader.ReadToEnd();
-			}
-
-			public WebHeaderCollection Headers 
-			{
-				get 
-				{
-					return response.Headers;
-				}
-			}
-
-			public CookieCollection Cookies 
-			{
-				get 
-				{
-					return response.Cookies;
-				}
-			}
-
-			public int StatusCode
-			{
-				get
-				{
-					return (int)response.StatusCode;
-				}
-			}
-
-			public bool IsRedirect
-			{
-				get
-				{
-					return StatusCode == 302;
-				}
-			}
-
-			public bool IsNotFound
-			{
-				get
-				{
-					return StatusCode == 404;
-				}
-			}
-
-			public bool IsOkay
-			{
-				get
-				{
-					return IsRedirect || (StatusCode == 200);
-				}
-			}
-
-			public string RedirectUrl
-			{
-				get
-				{
-					string location = response.Headers["Location"];
-					Assertion.AssertNotNull("Expected Location header in HTTP response", location);
-					return location;
-				}
-			}
-		}
 
 		/// <summary>
 		/// A request has been made that requires a page to have been loaded, but no
@@ -370,8 +356,20 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		public class BadStatusException : ApplicationException
 		{
-			internal BadStatusException(int status) : base("Server returned error (status code: " + status + "}.  HTML copied to standard output.")
+			private HttpStatusCode status;
+
+			public HttpStatusCode Status
 			{
+				get
+				{
+					return status;
+				}
+			}
+
+			internal BadStatusException(HttpStatusCode status) : 
+				base("Server returned error (status code: " + (int)status + ").  HTML copied to standard output.")
+			{
+				this.status = status;
 			}
 		}
 	}

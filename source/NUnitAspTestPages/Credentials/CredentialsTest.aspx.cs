@@ -21,26 +21,42 @@
 #endregion
 
 using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
-namespace NUnit.Extensions.Asp.Test
+namespace NUnitAspTestPages.Credentials
 {
-	public abstract class NUnitAspTestCase : WebFormTestCase
+	/// <summary>
+	/// Summary description for CredentialsTest.
+	/// </summary>
+	public class CredentialsTest : System.Web.UI.Page
 	{
-		protected const string BasePath = "/NUnitAsp/source/NUnitAspTestPages";
-		protected const string BaseUrl = "http://localhost" + BasePath + "/";
-		private DateTime startTime;
+		protected Label userId;
 
-		protected override void SetUp()
+		private void Page_Load(object sender, System.EventArgs e)
 		{
-			base.SetUp();
-			startTime = DateTime.Now;
+			// Put user code to initialize the page here
+			userId.Text = User.Identity.Name;
 		}
 
-		protected override void TearDown()
+		#region Web Form Designer generated code
+		override protected void OnInit(EventArgs e)
 		{
-			TimeSpan elapsedTime = DateTime.Now - startTime;
-			TimeSpan overheadTime = elapsedTime - Browser.ElapsedServerTime;
-			base.TearDown();
+			//
+			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
+			//
+			InitializeComponent();
+			base.OnInit(e);
 		}
+
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{    
+			this.Load += new System.EventHandler(this.Page_Load);
+		}
+		#endregion
 	}
 }

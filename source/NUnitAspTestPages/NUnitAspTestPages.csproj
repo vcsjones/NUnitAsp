@@ -381,6 +381,21 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Credentials\CredentialsTest.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Credentials\CredentialsTest.aspx.cs"
+                    DependentUpon = "CredentialsTest.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Credentials\CredentialsTest.aspx.resx"
+                    DependentUpon = "CredentialsTest.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "HtmlTester\AnchorTestPage.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

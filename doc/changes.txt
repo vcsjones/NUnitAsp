@@ -24,6 +24,7 @@ Produced by Jim Shore and Levi Khatskevitch.
 * Added Enabled and Disabled properties to appropriate controls.  Credit to Levi Khatskevitch.
 * Added Text property to ButtonTester.  Credit to Levi Khatskevitch.
 * Fixed Enabled property in CheckboxTester for Framework 1.0.  Credit to Levi Khatskevitch.
+* Added support for Windows Integrated authentication (NTLM). Credit to Mark Smithson.
 
 (Note: Jim Shore was named Jim Little before the release of version 1.4.)
 
