@@ -4,7 +4,8 @@ Produced by Jim Little.
 * Added support for multiline text boxes.  Thanks to (luKa) for his submission.
 * Updated installation guide for error caused by XMLSpy.  Credit to Peter Wijntjes.
 * Many improvements to tutorial, including update for NUnit 2.0.  Credit to Andrew Enfield.
-* Removed NUnit from bin folder and added "Install NUnit" to install docs.
+* Removed NUnit from bin folder and added "Install NUnit" to install docs.  Credit to Jim Little.
+* Removed non-critical NAnt files from distribution.  Credit to Jim Little.
 
 
 Changes in NUnitAsp 1.2.1:
@@ -26,6 +27,7 @@ Produced by Jim Little.
 * Cleaned up build and distribution.  All necessary files are now included.  Credit to Jim Little.
 * API documentation.  Credit to Mitchel Burns.
 
+
 Changes in NUnitAsp 1.1:
 Produced by Jim Little.
 * Changes not recorded in detail.  Sorry.
@@ -33,11 +35,13 @@ Produced by Jim Little.
 * Minor changes to usability.
 * Fixed a few defects.
 
+
 Changes in NUnitAsp 1.0:
 Produced by Jim Little.
 * Added concept of testers and ASP.NET parsing.  Credit to Jim Little.
 * Set up SourceForge site and CVS repository.  Credit to Brian Knowles.
 * Created automated build.  Credit to Brian Knowles and Jim Little.
+
 
 Initial version (not released):
 Produced by Brian Knowles.

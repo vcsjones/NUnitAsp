@@ -124,6 +124,7 @@
 				<excludes name="source\**\bin\**" />
 				<excludes name="sample\**\obj\**" />
 				<excludes name="sample\**\bin\**" />
+				<excludes name="${nunit.dir}\Nunit.msi" />
 			</fileset>
 		</zip>
 	</target>
