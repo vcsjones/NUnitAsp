@@ -233,6 +233,7 @@ namespace NUnit.Extensions.Asp
 			request.CookieContainer = cookies;
 			request.UserAgent = UserAgent;
 			request.AllowAutoRedirect = true;
+			request.MaximumAutomaticRedirections = MAX_REDIRECTS;
 
 			if (Credentials != null)
 			{

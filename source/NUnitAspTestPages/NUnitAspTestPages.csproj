@@ -154,6 +154,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "InfiniteRedirector.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "InfiniteRedirector.aspx.cs"
+                    DependentUpon = "InfiniteRedirector.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "InfiniteRedirector.aspx.resx"
+                    DependentUpon = "InfiniteRedirector.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "MalformedRedirector.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

@@ -27,6 +27,7 @@ Produced by Jim Shore and Levi Khatskevitch.
 * Added support for Windows Integrated authentication (NTLM). Credit to Mark Smithson.
 * Added CurrentUrl property to Browser.  Credit to Jim Shore.
 * Added Cookies property to Browser.  Credit to Levi Khatskevitch.
+* Better handling of infinite redirection loops.  Credit to Levi Khatskevitch.
 
 (Note: Jim Shore was named Jim Little before the release of version 1.4.)
 

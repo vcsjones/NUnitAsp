@@ -63,7 +63,7 @@ namespace NUnitAspTestPages
 
 		private void Redirect()
 		{
-			Response.Redirect("RedirectionTarget.aspx");
+			Response.Redirect("RedirectionTarget.aspx#fragment");
 		}
 
 		private void SetCookie()

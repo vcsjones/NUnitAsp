@@ -102,6 +102,12 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEquals(BaseUrl + "RedirectionTarget.aspx", Browser.CurrentUrl.AbsoluteUri);
 		}
 
+		[Test, ExpectedException(typeof(HttpClient.TooManyRedirectsException))]
+		public void TestInfiniteRedirect()
+		{
+			Browser.GetPage(BaseUrl + "InfiniteRedirector.aspx");
+		}
+
 		[Test]
 		public void TestRedirectWhenRedirectorPageIsUnparseable()
 		{
