@@ -47,6 +47,14 @@ namespace NUnit.Extensions.Asp.AspTester
 			Submit();
 		}
 
+		public string Text
+		{
+			get
+			{
+				return Element.InnerText;
+			}
+		}
+
 		private class ParseException : ApplicationException
 		{
 			internal ParseException(string message) : base(message)
