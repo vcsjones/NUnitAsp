@@ -1,4 +1,4 @@
-Changes in current version:
+Changes in NUnitAsp 1.3:
 Produced by Jim Little.
 * Browser.ElapsedServerTime now works.  Credit to Jim Little.
 * Added support for multiline text boxes.  Thanks to (luKa) for his submission.
@@ -6,7 +6,7 @@ Produced by Jim Little.
 * Many improvements to tutorial, including update for NUnit 2.0.  Credit to Andrew Enfield.
 * Trimmed number of third-party files included in distribution.  Credit to Jim Little.
 * Fixed defect which caused NUnitAsp to forget that checkboxes were checked.  Credit to Jim Little.
-* Partial fix to the XHTML requirement (everything but unclosed tags).  Credit to Rick Currence.
+* Significantly reduced XHTML requirement.  Credit to Rick Currence.
 
 
 Changes in NUnitAsp 1.2.1:
