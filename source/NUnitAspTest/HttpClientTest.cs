@@ -82,6 +82,12 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
 		}
 
+		public void TestRedirectWhenRedirectorPageIsUnparseable()
+		{
+			Browser.GetPage(BaseUrl + "MalformedRedirector.aspx");
+			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
+		}
+
 		public void TestCookies()
 		{
 			Browser.GetPage(TestUrl);

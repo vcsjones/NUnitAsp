@@ -14,7 +14,6 @@ namespace NUnit.Extensions.Asp
 		internal WebPage(string htmlPage)
 		{
 			pageText = htmlPage;
-			ParseDefaultFormVariables();
 		}
 
 		internal XmlDocument Document
@@ -27,6 +26,7 @@ namespace NUnit.Extensions.Asp
 					{
 						document = new XmlDocument();
 						document.LoadXml(pageText);
+						ParseDefaultFormVariables();
 					}
 					return document;
 				}

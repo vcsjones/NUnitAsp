@@ -138,6 +138,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "MalformedRedirector.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "MalformedRedirector.aspx.cs"
+                    DependentUpon = "MalformedRedirector.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MalformedRedirector.aspx.resx"
+                    DependentUpon = "MalformedRedirector.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "NUnitAspTestPages.csproj.webinfo"
                     BuildAction = "None"
                 />
