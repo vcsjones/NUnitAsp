@@ -27,9 +27,9 @@ namespace NUnit.Extensions.Asp
 
 	public class AspWebForm : Control
 	{
-		Browser browser;
+		HttpBrowser browser;
 
-		public AspWebForm(Browser browser)
+		public AspWebForm(HttpBrowser browser)
 		{
 			this.browser = browser;
 		}

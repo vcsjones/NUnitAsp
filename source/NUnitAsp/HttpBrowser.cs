@@ -32,7 +32,7 @@ using System.Collections;
 namespace NUnit.Extensions.Asp 
 {
 
-	public class Browser : System.IDisposable 
+	public class HttpBrowser : System.IDisposable 
 	{
 		private XmlDocument _pageDocument;
 		private string _pageDocumentText;
@@ -40,15 +40,6 @@ namespace NUnit.Extensions.Asp
 		private Hashtable _cookies = new Hashtable();
 		private NameValueCollection _headers;
 		private TimeSpan _serverTime = new TimeSpan(0);
-
-		public Browser() 
-		{
-		}
-
-		public Browser(string url) 
-		{
-			GetPage(url);
-		}
 
 		public void Dispose() 
 		{
@@ -77,6 +68,7 @@ namespace NUnit.Extensions.Asp
 			}
 			catch (WebException e) 
 			{
+				if (e.Response == null) throw e;
 				throw new WebException("Error getting page...\n" + DumpErrorPage(e.Response.GetResponseStream()), e);
 			}
 		}
@@ -305,16 +297,6 @@ namespace NUnit.Extensions.Asp
 			{
 				return _serverTime;
 			}
-		}
-
-		public string DumpCookies() 
-		{
-			string result = "";
-			foreach (object key in _cookies.Keys) 
-			{
-				result += string.Format("[{0}]: [{1}]", key, _cookies["key"]);
-			}
-			return result;
 		}
 
 		private class NoPageException : ApplicationException

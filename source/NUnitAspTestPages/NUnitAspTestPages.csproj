@@ -139,8 +139,40 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "HttpBrowserTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "HttpBrowserTestPage.aspx.cs"
+                    DependentUpon = "HttpBrowserTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HttpBrowserTestPage.aspx.resx"
+                    DependentUpon = "HttpBrowserTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "NUnitAspTestPages.csproj.webinfo"
                     BuildAction = "None"
+                />
+                <File
+                    RelPath = "RedirectionTarget.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "RedirectionTarget.aspx.cs"
+                    DependentUpon = "RedirectionTarget.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RedirectionTarget.aspx.resx"
+                    DependentUpon = "RedirectionTarget.aspx.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Web.config"

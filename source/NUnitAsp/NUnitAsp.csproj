@@ -157,12 +157,12 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Browser.cs"
+                    RelPath = "Control.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Control.cs"
+                    RelPath = "HttpBrowser.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
