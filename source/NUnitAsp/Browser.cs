@@ -49,7 +49,6 @@ namespace NUnit.Extensions.Asp
 
 		public Browser(string url) 
 		{
-			_client.BaseAddress = GetBaseAddress(url);
 			GetPage(url);
 		}
 
@@ -74,6 +73,7 @@ namespace NUnit.Extensions.Asp
 				AddCookiesToHeader(_client.Headers);
 				DateTime startTime = DateTime.Now;
 				byte[] response = _client.DownloadData(url);
+				_client.BaseAddress = GetBaseAddress(url);
 				_serverTime += (DateTime.Now - startTime);
 				LoadPage(response);
 			}
@@ -97,6 +97,7 @@ namespace NUnit.Extensions.Asp
 			}
 			catch (WebException e) 
 			{
+				if (e.Response == null) throw e;
 				throw new WebException("Error submitting form...\n" + DumpErrorPage(e.Response.GetResponseStream()), e);
 			}
 		}

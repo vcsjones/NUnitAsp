@@ -19,81 +19,33 @@
 '*******************************************************************************************************************/
 
 using System;
-using NUnit.Framework;
 using System.Xml;
+using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp
 {
 
-	public abstract class XhtmlElement
+	public class XhtmlCheckBox : XhtmlElement
 	{
 
-		private Browser browser;
-		private XmlElement element;
-		private string aspId;
-		private string containerDescription;
-
-		internal XhtmlElement(Browser browser, XmlElement element, string aspId, string containerDescription)
+		internal XhtmlCheckBox(Browser browser, XmlElement element, string aspId, string containerDescription)
+			: base(browser, element, aspId, containerDescription)
 		{
-			this.browser = browser;
-			this.element = element;
-			this.aspId = aspId;
-			this.containerDescription = containerDescription;
+		}
+
+		protected override string ElementType 
+		{
+			get 
+			{
+				return "checkbox";
+			}
+		}
+
+		public void AssertChecked(bool expected)
+		{
+			string expectedValue = expected ? "checked" : "";
+			AssertEquals(expectedValue, GetAttributeValue("checked"));
 		}
 	
-		protected void AssertEquals(object expected, object actual) 
-		{
-			Assertion.AssertEquals(Description, expected, actual);
-		}
-
-		protected void AssertEquals(string subElementDescription, object expected, object actual)
-		{
-			Assertion.AssertEquals(subElementDescription + " in " + Description, expected, actual);
-		}
-
-		protected string GetAttributeValue(string name) 
-		{
-			return element.GetAttribute(name);
-		}
-
-		protected Browser Browser 
-		{
-			get 
-			{
-				return browser;
-			}
-		}
-
-		protected XmlElement Element
-		{
-			get 
-			{
-				return element;
-			}
-		}
-
-		protected string HtmlId 
-		{
-			get 
-			{
-				return GetAttributeValue("id");
-			}
-		}
-
-		protected string Description 
-		{
-			get 
-			{
-				string elementType = this.GetType().Name;
-				return string.Format("{0} '{1}' in {2}", ElementType, aspId, containerDescription);
-			}
-		}
-
-		protected abstract string ElementType 
-		{
-			get;
-		}
-
 	}
-
 }

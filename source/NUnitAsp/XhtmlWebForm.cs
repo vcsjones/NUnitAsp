@@ -52,6 +52,11 @@ namespace NUnit.Extensions.Asp {
 			return new XhtmlLabel(browser, GetElement(aspId), aspId, Description);
 		}
 
+		public XhtmlCheckBox GetCheckBox(string aspId)
+		{
+			return new XhtmlCheckBox(browser, GetElement(aspId), aspId, Description);
+		}
+
 		public XhtmlTextBox GetTextBox(string aspId) 
 		{
 			return new XhtmlTextBox(browser, GetElement(aspId), aspId, Description);

@@ -44,7 +44,16 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		public XhtmlLinkButton LinkButton(int rowNumberWithHeaderStartingAtZero, string buttonId) 
+		public XhtmlCheckBox GetCheckBox(int rowNumberWithHeaderStartingAtZero, string buttonId)
+		{
+			string id = string.Format("{0}__ctl{1}_{2}", HtmlId, rowNumberWithHeaderStartingAtZero + 1, buttonId);
+			string message = string.Format("Element '{0}' (aka '{1}') should be on {2}", buttonId, id, Description);
+			XmlElement checkbox = Element.OwnerDocument.GetElementById(id);
+			Assertion.Assert(message, checkbox != null);
+			return new XhtmlCheckBox(Browser, checkbox, buttonId, Description);
+		}
+
+		public XhtmlLinkButton GetLinkButton(int rowNumberWithHeaderStartingAtZero, string buttonId) 
 		{
 			string id = string.Format("{0}__ctl{1}_{2}", HtmlId, rowNumberWithHeaderStartingAtZero + 1, buttonId);
 			string message = string.Format("Element '{0}' (aka '{1}') should be on {2}", buttonId, id, Description);
