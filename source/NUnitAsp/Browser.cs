@@ -35,7 +35,7 @@ namespace NUnit.Extensions.Asp
 	public class Browser : System.IDisposable 
 	{
 
-		private WebPage _page;
+		private XhtmlWebForm _page;
 		private XmlDocument _pageDocument;
 		private string _pageDocumentText;
 		private WebClient _client = new WebClient();
@@ -73,7 +73,7 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		public WebPage CurrentPage 
+		public XhtmlWebForm CurrentPage 
 		{
 			
 			get 
@@ -98,12 +98,12 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		internal WebPage SubmitForm() {
+		internal XhtmlWebForm SubmitForm() {
 			string formName = _pageDocument.GetElementsByTagName("form")[0].Attributes["id"].Value;
 			return SubmitForm(formName);
 		}
 
-		internal WebPage SubmitForm(string formId) 
+		internal XhtmlWebForm SubmitForm(string formId) 
 		{
 			string url = _page.GetFormAction(formId);
 			string method = _page.GetFormMethod(formId);
@@ -127,7 +127,7 @@ namespace NUnit.Extensions.Asp
 			UTF8Encoding decoder = new UTF8Encoding();
 			_pageDocumentText = decoder.GetString(output);
 			_pageDocument = new XmlDocument();
-			_page = new WebPage(this, output);
+			_page = new XhtmlWebForm(this, output);
 			try 
 			{
 				_pageDocument.LoadXml(_pageDocumentText);

@@ -20,35 +20,37 @@
 
 using System;
 using System.Xml;
-using NUnit.Framework;
-using System.Text.RegularExpressions;
 
 namespace NUnit.Extensions.Asp
 {
 
-	public class LinkButton : XhtmlElement
+	public class XhtmlWebUserControl : XhtmlWebForm
 	{
 
-		internal LinkButton(Browser browser, XmlElement element, string id, string containerDescription)
-			: base(browser, element, id, containerDescription)
+		private string id;
+		private string htmlId;
+		private string containerDescription;
+
+		internal XhtmlWebUserControl(XhtmlWebForm page, string id, string htmlId, string containerDescription) : base(page)
 		{
+			this.id = id;
+			this.htmlId = htmlId;
+			this.containerDescription = containerDescription;
 		}
 
-		public WebPage Click() {
-			string id = AttributeValue("id");
-			string postBackCall = AttributeValue("href");
-			string postBackPattern = @"__doPostBack\('(?<target>.*?)',''\)";
+		protected override string HtmlId(string id) 
+		{
+			return this.htmlId + "_" + id;
+		}
 
-			Match match = Regex.Match(postBackCall, postBackPattern, RegexOptions.IgnoreCase);
-			string message = string.Format("{0} doesn't look like a link button", Description);
-			Assertion.Assert(message, match.Success);
-
-			string target = match.Groups["target"].Captures[0].Value;
-
-			Browser.EnterInputValue("__EVENTTARGET", target);
-			Browser.EnterInputValue("__EVENTARGUMENT", "");
-			return Browser.SubmitForm();
+		protected override string Description 
+		{
+			get 
+			{
+				return string.Format("user control '{0}' in {1}", id, containerDescription);
+			}
 		}
 
 	}
+
 }

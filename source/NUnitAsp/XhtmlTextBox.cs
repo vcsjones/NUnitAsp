@@ -20,37 +20,39 @@
 
 using System;
 using System.Xml;
+using System.Web.UI.WebControls;
+using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp
 {
 
-	public class UserControl : WebPage
+	public class XhtmlTextBox : XhtmlElement
 	{
 
-		private string id;
-		private string htmlId;
-		private string containerDescription;
-
-		internal UserControl(WebPage page, string id, string htmlId, string containerDescription) : base(page)
+		internal XhtmlTextBox(Browser browser, XmlElement element, string id, string containerDescription)
+			: base(browser, element, id, containerDescription)
 		{
-			this.id = id;
-			this.htmlId = htmlId;
-			this.containerDescription = containerDescription;
 		}
 
-		protected override string HtmlId(string id) 
-		{
-			return this.htmlId + "_" + id;
+		public string Text {
+			set {
+				Browser.EnterInputValue(AttributeValue("name"), value);
+			}
 		}
 
-		protected override string Description 
+		public void AssertTextMode(TextBoxMode expectedMode) 
+		{
+			AssertEquals(expectedMode, TextMode);
+		}
+
+		private TextBoxMode TextMode 
 		{
 			get 
 			{
-				return string.Format("user control '{0}' in {1}", id, containerDescription);
+				if (AttributeValue("type") == "password") return TextBoxMode.Password;
+				else return TextBoxMode.SingleLine;
 			}
 		}
 
 	}
-
 }

@@ -26,11 +26,11 @@ using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp {
 
-	public class WebPage {
+	public class XhtmlWebForm {
 		private Browser browser;
 		private XmlDocument page;
 
-		internal WebPage(Browser browser, byte[] pageBody) {
+		internal XhtmlWebForm(Browser browser, byte[] pageBody) {
 			this.browser = browser;
 			UTF8Encoding decoder = new UTF8Encoding();
 			string text = decoder.GetString(pageBody);
@@ -38,35 +38,35 @@ namespace NUnit.Extensions.Asp {
 			page.LoadXml(text);
 		}
 
-		protected WebPage(WebPage page) 
+		protected XhtmlWebForm(XhtmlWebForm page) 
 		{
 			this.browser = page.browser;
 			this.page = page.page;
 		}
 
-		public UserControl UserControl(string id) 
+		public XhtmlWebUserControl UserControl(string id) 
 		{
-			return new UserControl(this, id, HtmlId(id), Description);
+			return new XhtmlWebUserControl(this, id, HtmlId(id), Description);
 		}
 
-		public Label Label(string id) 
+		public XhtmlLabel Label(string id) 
 		{
-			return new Label(browser, Element(id), id, Description);
+			return new XhtmlLabel(browser, Element(id), id, Description);
 		}
 
-		public TextBox TextBox(string id) 
+		public XhtmlTextBox TextBox(string id) 
 		{
-			return new TextBox(browser, Element(id), id, Description);
+			return new XhtmlTextBox(browser, Element(id), id, Description);
 		}
 
-		public LinkButton LinkButton(string id) 
+		public XhtmlLinkButton LinkButton(string id) 
 		{
-			return new LinkButton(browser, Element(id), id, Description);
+			return new XhtmlLinkButton(browser, Element(id), id, Description);
 		}
 
-		public DataGrid DataGrid(string id)
+		public XhtmlDataGrid DataGrid(string id)
 		{
-			return new DataGrid(browser, Element(id), id, HtmlId(id), Description);
+			return new XhtmlDataGrid(browser, Element(id), id, HtmlId(id), Description);
 		}
 
 		public void AssertIdEquals(string expected) 

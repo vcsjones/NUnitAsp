@@ -24,10 +24,10 @@ using System.Xml;
 namespace NUnit.Extensions.Asp
 {
 
-	public class Label : XhtmlElement
+	public class XhtmlLabel : XhtmlElement
 	{
 
-		internal Label(Browser browser, XmlElement element, string id, string containerDescription)
+		internal XhtmlLabel(Browser browser, XmlElement element, string id, string containerDescription)
 			: base(browser, element, id, containerDescription)
 		{
 		}

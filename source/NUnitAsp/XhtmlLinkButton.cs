@@ -20,38 +20,34 @@
 
 using System;
 using System.Xml;
-using System.Web.UI.WebControls;
 using NUnit.Framework;
+using System.Text.RegularExpressions;
 
 namespace NUnit.Extensions.Asp
 {
 
-	public class TextBox : XhtmlElement
+	public class XhtmlLinkButton : XhtmlElement
 	{
 
-		internal TextBox(Browser browser, XmlElement element, string id, string containerDescription)
+		internal XhtmlLinkButton(Browser browser, XmlElement element, string id, string containerDescription)
 			: base(browser, element, id, containerDescription)
 		{
 		}
 
-		public string Text {
-			set {
-				Browser.EnterInputValue(AttributeValue("name"), value);
-			}
-		}
+		public XhtmlWebForm Click() {
+			string id = AttributeValue("id");
+			string postBackCall = AttributeValue("href");
+			string postBackPattern = @"__doPostBack\('(?<target>.*?)',''\)";
 
-		public void AssertTextMode(TextBoxMode expectedMode) 
-		{
-			AssertEquals(expectedMode, TextMode);
-		}
+			Match match = Regex.Match(postBackCall, postBackPattern, RegexOptions.IgnoreCase);
+			string message = string.Format("{0} doesn't look like a link button", Description);
+			Assertion.Assert(message, match.Success);
 
-		private TextBoxMode TextMode 
-		{
-			get 
-			{
-				if (AttributeValue("type") == "password") return TextBoxMode.Password;
-				else return TextBoxMode.SingleLine;
-			}
+			string target = match.Groups["target"].Captures[0].Value;
+
+			Browser.EnterInputValue("__EVENTTARGET", target);
+			Browser.EnterInputValue("__EVENTARGUMENT", "");
+			return Browser.SubmitForm();
 		}
 
 	}

@@ -43,7 +43,7 @@ namespace NUnit.Extensions.Asp
 			_browser.Dispose();
 		}
 
-		protected WebPage Page 
+		protected XhtmlWebForm Page 
 		{
 			get 
 			{
