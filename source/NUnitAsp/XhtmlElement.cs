@@ -51,7 +51,7 @@ namespace NUnit.Extensions.Asp
 			Assertion.AssertEquals(subElementDescription + " in " + Description, expected, actual);
 		}
 
-		protected string AttributeValue(string name) 
+		protected string GetAttributeValue(string name) 
 		{
 			return element.Attributes[name].Value;
 		}

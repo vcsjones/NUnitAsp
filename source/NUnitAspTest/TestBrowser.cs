@@ -25,7 +25,7 @@ namespace NUnit.Extensions.Asp.Test
 			Browser.GetPage("CookieDropPage.aspx");
 			Assert(Browser.HasCookie("testcookie"));
 			Browser.GetPage("CookieDisplayPage.aspx");
-			Page.Label("cookies").AssertTextEquals("testcookievalue");
+			Page.GetLabel("cookies").AssertTextEquals("testcookievalue");
 		}
 
 		public void TestCookiesPreservedOverTime() {
@@ -33,15 +33,15 @@ namespace NUnit.Extensions.Asp.Test
 			Assert(Browser.HasCookie("testcookie"));
 			Browser.GetPage("RedirectorPage.aspx");
 			Browser.GetPage("CookieDisplayPage.aspx");
-			Page.Label("cookies").AssertTextEquals("testcookievalue");
+			Page.GetLabel("cookies").AssertTextEquals("testcookievalue");
 		}
 
 		public void TestLinkButton() {
 			Browser.GetPage("LinkButtonPage.aspx");
 			Page.AssertIdEquals("LinkButton");
-			Page.Label("status").AssertTextEquals("unclicked");
-			Page.LinkButton("link").Click();
-			Page.Label("status").AssertTextEquals("clicked");
+			Page.GetLabel("status").AssertTextEquals("unclicked");
+			Page.GetLinkButton("link").Click();
+			Page.GetLabel("status").AssertTextEquals("clicked");
 		}
 
 		public void TestEmbeddedControls() {

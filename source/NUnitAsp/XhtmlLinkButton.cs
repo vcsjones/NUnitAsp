@@ -35,8 +35,8 @@ namespace NUnit.Extensions.Asp
 		}
 
 		public XhtmlWebForm Click() {
-			string id = AttributeValue("id");
-			string postBackCall = AttributeValue("href");
+			string id = GetAttributeValue("id");
+			string postBackCall = GetAttributeValue("href");
 			string postBackPattern = @"__doPostBack\('(?<target>.*?)',''\)";
 
 			Match match = Regex.Match(postBackCall, postBackPattern, RegexOptions.IgnoreCase);

@@ -16,50 +16,33 @@
 ' CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 ' DEALINGS IN THE SOFTWARE.
 '
-'******************************************************************************************************************/
+'*******************************************************************************************************************/
 
 using System;
-using NUnit.Framework;
 using System.Xml;
 
-namespace NUnit.Extensions.Asp 
+namespace NUnit.Extensions.Asp
 {
-	public abstract class WebFormTestCase : TestCase 
+
+	internal class XhtmlForm : XhtmlElement
 	{
-
-		private Browser _browser;
-
-		public WebFormTestCase(string name) : base(name) 
+		internal XhtmlForm(Browser browser, XmlElement element, string id, string containerDescription) : base(browser, element, id, containerDescription)
 		{
 		}
 
-		protected override void SetUp() 
-		{
-			_browser = new Browser();
-   		}
-
-		protected override void TearDown() 
-		{
-			_browser.Dispose();
-		}
-
-		protected XhtmlWebForm Page 
+		internal string Action 
 		{
 			get 
 			{
-				return Browser.CurrentPage;
+				return GetAttributeValue("action");
 			}
 		}
 
-		protected Browser Browser 
+		internal string Method
 		{
-			get 
+			get
 			{
-				return _browser;
-			}
-			set 
-			{
-				_browser = value;
+				return GetAttributeValue("method");
 			}
 		}
 

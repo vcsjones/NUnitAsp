@@ -105,8 +105,8 @@ namespace NUnit.Extensions.Asp
 
 		internal XhtmlWebForm SubmitForm(string formId) 
 		{
-			string url = _page.GetFormAction(formId);
-			string method = _page.GetFormMethod(formId);
+			string url = _page.GetForm(formId).Action;
+			string method = _page.GetForm(formId).Method;
 			try 
 			{
 				DateTime startTime = DateTime.Now;

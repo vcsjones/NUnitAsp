@@ -36,7 +36,7 @@ namespace NUnit.Extensions.Asp
 
 		public string Text {
 			set {
-				Browser.EnterInputValue(AttributeValue("name"), value);
+				Browser.EnterInputValue(GetAttributeValue("name"), value);
 			}
 		}
 
@@ -49,7 +49,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get 
 			{
-				if (AttributeValue("type") == "password") return TextBoxMode.Password;
+				if (GetAttributeValue("type") == "password") return TextBoxMode.Password;
 				else return TextBoxMode.SingleLine;
 			}
 		}
