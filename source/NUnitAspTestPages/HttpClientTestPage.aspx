@@ -19,6 +19,8 @@
 			<asp:LinkButton ID="postBack" OnClick="postBack_Click" Runat="server">Post Back</asp:LinkButton>
 			<br />
 			<asp:LinkButton ID="dropCookieWithExpiry" OnClick="dropCookieWithExpiry_Click" Runat="server">Drop Cookie with Expiry</asp:LinkButton>
+			<br />
+			<a ID="followLink" HRef="HttpClientTestPage.aspx" Runat="server">Follow Link</a>
 			<p>Test Parameter: [<asp:Label ID="testParm" Runat="server"></asp:Label>]
 				<br />
 				Test Cookie: [<asp:Label ID="cookie" Runat="server"></asp:Label>]
@@ -28,6 +30,8 @@
 				User Agent: [<asp:Label ID="userAgent" Runat="server"></asp:Label>]
 				<br />
 				User Languages: [<asp:label ID="userLanguages" Runat="server"></asp:label>]
+				<br />
+				Referring URL: [<asp:label ID="urlReferrer" Runat="server"></asp:label>]
 			</p>
 		</form>
 	</body>

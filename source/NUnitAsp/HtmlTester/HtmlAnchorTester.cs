@@ -51,7 +51,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 			string popupLink = PopupLink;
 			if (popupLink != null)
 			{
-				Browser.GetPage(popupLink);
+				Browser.FollowLink(popupLink);
 				return;
 			}
 			string hRef = HRef;
@@ -60,7 +60,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 				PostBack(hRef);
 				return;
 			}
-			Browser.GetPage(hRef);
+			Browser.FollowLink(hRef);
 		}
 		
 		/// <summary>

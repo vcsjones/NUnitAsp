@@ -21,10 +21,12 @@
 #endregion
 
 using System;
+using System.Net;
+
 using NUnit.Framework;
 using NUnit.Extensions.Asp;
-using System.Net;
 using NUnit.Extensions.Asp.AspTester;
+using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.Test
 {
@@ -39,8 +41,10 @@ namespace NUnit.Extensions.Asp.Test
 		private LinkButtonTester dropCookieAndRedirect;
 		private LinkButtonTester dropCookieWithExpiry;
 		private LinkButtonTester postBack;
+		private HtmlAnchorTester followLink;
 		private LabelTester cookie;
 		private LabelTester testParm;
+		private LabelTester urlReferrer;
 
 		protected override void SetUp()
 		{
@@ -50,8 +54,10 @@ namespace NUnit.Extensions.Asp.Test
 			dropCookieAndRedirect = new LinkButtonTester("dropCookieAndRedirect", CurrentWebForm);
 			dropCookieWithExpiry = new LinkButtonTester("dropCookieWithExpiry", CurrentWebForm);
 			postBack = new LinkButtonTester("postBack", CurrentWebForm);
+			followLink = new HtmlAnchorTester("followLink", CurrentWebForm, true);
 			cookie = new LabelTester("cookie", CurrentWebForm);
 			testParm = new LabelTester("testParm", CurrentWebForm);
+			urlReferrer = new LabelTester("urlReferrer", CurrentWebForm);
 		}
 
 		[Test]
@@ -229,6 +235,46 @@ namespace NUnit.Extensions.Asp.Test
 				string expectedMessage = "[ApplicationException]: This is an ASP.NET exception message";
 				Assert("incorrect exception message", e.Message.IndexOf(expectedMessage) >= 0);
 			}
+		}
+
+		[Test]
+		public void TestGetPageDoesNotTrackReferrer()
+		{
+			Browser.GetPage(TestUrl);
+			// one more time
+			Browser.GetPage(TestUrl);
+
+			AssertNull(Browser.UrlReferrer);
+			AssertEquals("Not Set", urlReferrer.Text);
+		}
+
+		[Test]
+		public void TestFollowLinkDoesTrackReferrer()
+		{
+			Browser.GetPage(TestUrl);
+			followLink.Click();
+
+			AssertEquals(Browser.CurrentUrl, Browser.UrlReferrer);
+			AssertEquals(TestUrl, urlReferrer.Text);
+		}
+
+		[Test]
+		public void TestPostBackDoesTrackReferrer()
+		{
+			Browser.GetPage(TestUrl);
+			postBack.Click();
+
+			AssertEquals(Browser.CurrentUrl, Browser.UrlReferrer);
+			AssertEquals(TestUrl, urlReferrer.Text);
+		}
+
+		[Test]
+		public void TestCanExplicitlySetUrlReferrer()
+		{
+			Browser.UrlReferrer = new Uri("http://somewhere/something");
+			Browser.GetPage(TestUrl);
+
+			AssertEquals("http://somewhere/something", urlReferrer.Text);
 		}
 
 		private CookieCollection GetActiveCookies()

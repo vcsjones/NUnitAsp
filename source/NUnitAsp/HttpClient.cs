@@ -72,6 +72,13 @@ namespace NUnit.Extensions.Asp
 		public IWebProxy Proxy = null;
 
 		/// <summary>
+		/// URL containing the hyperlink or form that caused the browser to
+		/// load the current url (null if none).  Fragments aren't included
+		/// (the part of the URL that comes after a '#').
+		/// </summary>
+		public Uri UrlReferrer = null;
+
+		/// <summary>
 		/// URL the browser most recently retrieved (null if none).  Fragments aren't
 		/// included (the part of the URL that comes after a '#').
 		/// </summary>
@@ -99,13 +106,20 @@ namespace NUnit.Extensions.Asp
 		/// Retrieves a page from a web server.
 		/// </summary>
 		/// <param name="url">The URL of the page to get.</param>
-		public void GetPage(string url) 
+		public void GetPage(string url)
 		{
 			DoWebRequest(url, "GET", string.Empty);
 		}
 
+		internal void FollowLink(string url)
+		{
+			TrackUrlReferrer();
+			GetPage(url);
+		}
+
 		internal void SubmitForm(WebForm form)
 		{
+			TrackUrlReferrer();
 			DoWebRequest(form.Action, form.Method, currentPage.FormVariables);
 		}
 
@@ -245,6 +259,11 @@ namespace NUnit.Extensions.Asp
 			request.AllowAutoRedirect = true;
 			request.MaximumAutomaticRedirections = MAX_REDIRECTS;
 
+			if (UrlReferrer != null)
+			{
+				request.Referer = UrlReferrer.AbsoluteUri;
+			}
+
 			if (Credentials != null)
 			{
 				request.PreAuthenticate = true;
@@ -305,6 +324,11 @@ namespace NUnit.Extensions.Asp
 			string user = currentUrl.UserInfo.Substring(0, delimiter);
 			string pwd = currentUrl.UserInfo.Substring(delimiter + 1);
 			Credentials = new NetworkCredential(user, pwd);
+		}
+
+		private void TrackUrlReferrer()
+		{
+			UrlReferrer = CurrentUrl;
 		}
 
 		private HttpWebResponse SendRequest(HttpWebRequest request)

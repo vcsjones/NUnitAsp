@@ -15,24 +15,28 @@ namespace NUnitAspTestPages
 
 	public class HttpBrowserTestPage : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.LinkButton redirect;
-		protected System.Web.UI.WebControls.LinkButton dropCookie;
-		protected System.Web.UI.WebControls.LinkButton dropCookieAndRedirect;
-		protected System.Web.UI.WebControls.LinkButton dropCookieWithExpiry;
+		protected LinkButton redirect;
+		protected LinkButton dropCookie;
+		protected LinkButton dropCookieAndRedirect;
+		protected LinkButton dropCookieWithExpiry;
+		protected LinkButton postBack;
+
 		protected Label cookie;
 		protected Label postBackStatus;
-		protected System.Web.UI.WebControls.LinkButton postBack;
 		protected Label testParm;
 		protected Label userAgent;
 		protected Label userLanguages;
+		protected Label urlReferrer;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			SetCookieLabel();
+
 			postBackStatus.Text = "Not Clicked";
 			testParm.Text = Request["testparm"];
 			userAgent.Text = Request.UserAgent;
 			userLanguages.Text = UserLanguages();
+			urlReferrer.Text = UrlReferrer();
 		}
 
 		protected void redirect_Click(object sender, EventArgs args)
@@ -95,6 +99,12 @@ namespace NUnitAspTestPages
 				languages += "[" + language + "]";
 			}
 			return languages;
+		}
+
+		private string UrlReferrer()
+		{
+			if (Request.UrlReferrer == null) return "Not Set";
+			return Request.UrlReferrer.AbsoluteUri;
 		}
 
 		#region Web Form Designer generated code
