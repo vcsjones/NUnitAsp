@@ -738,7 +738,7 @@
               <br />
               <br />&nbsp;&nbsp;&nbsp;<span class="keyword">string</span>[][] expected = <span class="keyword">new string</span>[][]
               <br />&nbsp;&nbsp;&nbsp;{
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new string</span>[] {&quot;Dr. Seuss&quot;, &quot;One Guest, Two Guest!  Guest Book, Best Book!&quot;}
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new string</span>[] {&quot;Dr. Seuss&quot;, &quot;One Guest, Two Guest!  Guest Book, Best Book!&quot;},
               <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new string</span>[] {&quot;Dr. Freud&quot;, &quot;That's quite a slip you have there.&quot;}
               <br />&nbsp;&nbsp;&nbsp;};
               <br />&nbsp;&nbsp;&nbsp;AssertEquals("book", expected, book.TrimmedCells);
@@ -759,7 +759,7 @@
               <br />&nbsp;&nbsp;&nbsp;</span><span class="emph">DataTable table = (DataTable)Session["GuestBookData"];
               <br />&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (table == <span class="keyword">null</span>)
               <br />&nbsp;&nbsp;&nbsp;{</span><span class="demph">
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DataTable table = new DataTable();
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strike>DataTable</strike> table = new DataTable();
               <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;table.Columns.Add(new DataColumn("Name", typeof(string)));
               <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;table.Columns.Add(new DataColumn("Comments", typeof(string)));
               <br />&nbsp;&nbsp;&nbsp;</span><span class="emph">}</span><span class="demph">
@@ -813,7 +813,7 @@
               <br />
               <br />&nbsp;&nbsp;&nbsp;string[][] expected = new string[][]
               <br />&nbsp;&nbsp;&nbsp;{
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new string[] {"Dr. Seuss", "One Guest, Two Guest!  Guest Book, Best Book!"}
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new string[] {"Dr. Seuss", "One Guest, Two Guest!  Guest Book, Best Book!"},
               <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new string[] {"Dr. Freud", "That's quite a slip you have there."}
               <br />&nbsp;&nbsp;&nbsp;};
               <br />&nbsp;&nbsp;&nbsp;AssertEquals("book", expected, book.TrimmedCells);
@@ -846,7 +846,7 @@
               <br />
               <br />&nbsp;&nbsp;&nbsp;string[][] expected = new string[][]
               <br />&nbsp;&nbsp;&nbsp;{
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new string[] {"Dr. Seuss", "One Guest, Two Guest!  Guest Book, Best Book!"}
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new string[] {"Dr. Seuss", "One Guest, Two Guest!  Guest Book, Best Book!"},
               <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new string[] {"Dr. Freud", "That's quite a slip you have there."}
               <br />&nbsp;&nbsp;&nbsp;};
               <br />&nbsp;&nbsp;&nbsp;AssertEquals("book", expected, book.TrimmedCells);
