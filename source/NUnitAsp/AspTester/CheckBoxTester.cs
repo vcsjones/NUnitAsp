@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.Xml;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
@@ -62,6 +63,17 @@ namespace NUnit.Extensions.Asp.AspTester
 				}
 			}
 		}	
+
+		/// <summary>
+		/// Gets the text label associated with the checkbox.
+		/// </summary>
+		public string Text
+		{
+			get
+			{
+				return Element.NextSibling.InnerText;
+			}
+		}
 
 		protected override bool IsDisabled
 		{

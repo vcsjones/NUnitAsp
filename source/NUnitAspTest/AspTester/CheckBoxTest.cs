@@ -66,6 +66,11 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			disabledCheckBox.Checked = true;
 		}
 
+		public void TestText()
+		{
+			AssertEquals("text", "Test me", checkBox.Text);
+		}
+
 		public void TestEnabled_True()
 		{
 			AssertEquals("enabled", true, checkBox.Enabled);
