@@ -38,14 +38,14 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
-		public string[][] Cells
+		public string[][] TrimmedCells
 		{
 			get
 			{
 				string[][] result = new string[RowCount][];
 				for (int i = 0; i < RowCount; i++)
 				{
-					result[i] = GetRow(i).Cells;
+					result[i] = GetRow(i).TrimmedCells;
 				}
 				return result;
 			}
@@ -91,7 +91,7 @@ namespace NUnit.Extensions.Asp.AspTester
 				}
 			}
 
-			public string[] Cells
+			public string[] TrimmedCells
 			{
 				get
 				{
@@ -100,7 +100,7 @@ namespace NUnit.Extensions.Asp.AspTester
 					for (int i = 0; i < cells.Count; i++) 
 					{
 						XmlElement cell = (XmlElement)cells[i];
-						cellText[i] = cell.InnerText;
+						cellText[i] = cell.InnerText.Trim();
 					}
 					return cellText;
 				}
