@@ -1,57 +1,84 @@
 <html>
-<head><title>NUnitAsp Installation Guide</title></head>
-<body>
-<h1 align="center">NUnitAsp Installation Guide</h1>
+  <head>
+    <title>NUnitAsp - ASP.NET unit testing - Consulting</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+		<p class="title">NUnitAsp
+		<br /><small>ASP.NET unit testing</small></p>
 
-<p>This guide describes how to install NUnitAsp.  It assumes that you are using Windows 2000 or Windows XP and Microsoft Internet Information Server as your web server.  NUnitAsp will work with any server that supports ASP.NET, but you'll have to modify these instructions to work in your environment.  If you do, please let us know what you did!  We'll expand this guide to include your information.
+		<table class="layout">
+			<tr>
+				<td>
+					<div class="menu">
+						<p><a href="download.html"><b>Download</b></a></p>
+						<p>
+							<a href="index.html">Overview</a>
+							<br /><a href="documentation.html">Documentation</a>
+							<br /><a href="support.html">Support</a>
+							<br /><a href="consulting.html">Training and Consulting</a>
+						</p>
+						<p><a href="contribute.html">Contribute</p>
+						<p><A href="http://sourceforge.net/projects/nunitasp/"><IMG src=
+						"http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" border="0" alt="SourceForge Logo"></A></p>
+					</div>
+				</td>
+				<td>
+					<div class="content">
+						<h1>Installation Guide</h1>
 
-<p>This guide was last updated for NUnitAsp v1.2.</p>
+						<p>This guide describes how to install NUnitAsp.  It assumes that you are using Windows 2000 or Windows XP and Microsoft Internet Information Server as your web server.  NUnitAsp will work with any server that supports ASP.NET, but you'll have to modify these instructions to work in your environment.  If you do, please let us know what you did!  We'll expand this guide to include your information.
 
-<h2>Installation</h2>
+						<p>This guide was last updated for NUnitAsp v1.2.</p>
 
-<p>Installing NUnitAsp requires only a few steps:</p>
+						<h2>Installation</h2>
 
-<p>
-<ol type="I">
-	<li><b>Download and unzip NUnitAsp.</b>
-	<li><b>Create an NUnitAsp virtual directory in IIS</b></li>
-	<li><b>Test the installation</b>
-</ol>
-</p>
+						<p>Installing NUnitAsp requires only a few steps:</p>
 
-<p>Here's a more detailed description of these steps:</p>
+						<p>
+						<ol type="I">
+							<li><b>Download and unzip NUnitAsp.</b>
+							<li><b>Create an NUnitAsp virtual directory in IIS</b></li>
+							<li><b>Test the installation</b>
+						</ol>
+						</p>
 
-<p>
-<ol type="I">
-	<li><b>Download and unzip NUnitAsp.</b>
-	<ol>
-		<li>NUnitAsp may be downloaded from the NUnitAsp home page, <a href="http://nunitasp.sourceforge.net">nunitasp.sourceforge.net</a>.</li>
-		<li>Unzip the NUnitAsp package into a directory of your choice, such as "C:\Program Files\NUnitAsp"</li>
-	</ol></li>
+						<p>Here's a more detailed description of these steps:</p>
 
-	<br />
-	<li><b>Create an NUnitAsp virtual directory in IIS</b></li>
-	<ol>
-		<li>Right-click "My Computer" and select "Manage"</li>
-		<li>Expand "Services and Applications" -> "Internet Information Services" -> "Default Web Site"</li>
-		<li>Right-click "Default Web Site" and select "New" -> "Virtual Directory"</li>
-		<li>Enter the following information into the Virtual Directory Creation Wizard:
-		<ul>
-			<li>Alias: NUnitAsp</li>
-			<li>Directory: <b><i>installation directory</i></b> (For example, if you unzipped NUnitAsp into "C:\Program Files\NUnitAsp", you would enter "C:\Program Files\NUnitAsp" here.)</li>
-			<li>Access Permissions: "Read" should be checked.  The other options should not be checked.</li>
-		</ul></li>
-	</ol></li>
+						<p>
+						<ol type="I">
+							<li><b>Download and unzip NUnitAsp.</b>
+							<ol>
+								<li>NUnitAsp may be downloaded from the NUnitAsp home page, <a href="http://nunitasp.sourceforge.net">nunitasp.sourceforge.net</a>.</li>
+								<li>Unzip the NUnitAsp package into a directory of your choice, such as "C:\Program Files\NUnitAsp"</li>
+							</ol></li>
 
-	<br />
-	<li><b>Test Installation</b>
-	<ol>
-		<li>Verify that you can visit <a href="http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd">http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd</a>.</li>
-	</ol></li>
-</ol>
-</p>
+							<br />
+							<li><b>Create an NUnitAsp virtual directory in IIS.</b></li>
+							<ol>
+								<li>Right-click "My Computer" and select "Manage"</li>
+								<li>Expand "Services and Applications" -> "Internet Information Services" -> "Default Web Site"</li>
+								<li>Right-click "Default Web Site" and select "New" -> "Virtual Directory"</li>
+								<li>Enter the following information into the Virtual Directory Creation Wizard:
+								<ul>
+									<li>Alias: NUnitAsp</li>
+									<li>Directory: <b><i>installation directory</i></b> (For example, if you unzipped NUnitAsp into "C:\Program Files\NUnitAsp", you would enter "C:\Program Files\NUnitAsp" here.)</li>
+									<li>Access Permissions: "Read" should be checked.  The other options should not be checked.</li>
+								</ul></li>
+							</ol></li>
 
-<p><small>(End of Installation Guide)</small></p>
+							<br />
+							<li><b>Test Installation.</b>
+							<ol>
+								<li>Verify that you can visit <a href="http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd">http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd</a>.</li>
+							</ol></li>
+						</ol>
+						</p>
 
-</body>
+						<p class="end">(End of Installation Guide)</p>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
 </html>

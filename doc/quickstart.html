@@ -1,109 +1,112 @@
 <html>
-<head><title>NUnitAsp Quick Start Guide</title></head>
-<body>
-<h1 align="center">NUnitAsp Quick Start Guide</h1>
+  <head>
+    <title>NUnitAsp - ASP.NET unit testing - Consulting</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+		<p class="title">NUnitAsp
+		<br /><small>ASP.NET unit testing</small></p>
 
-<p>This guide contains a brief description of how to use NUnitAsp and a daily use checklist.  It assumes that you are familiar with NUnit, ASP.NET, and unit testing in general.  For a more detailed tutorial, see the <a href="tutorial/index.html">NUnitAsp Tutorial</a> instead.  It also assumes that you're using C#, Windows, Microsoft Internet Information Server, and Visual Studio .NET.  NUnitAsp will work in other environments, but you'll need to modify these directions for your environment.  If you do, please let us know how you did it!  We'll expand this guide to include your information.
+		<table class="layout">
+			<tr>
+				<td>
+					<div class="menu">
+						<p><a href="download.html"><b>Download</b></a></p>
+						<p>
+							<a href="index.html">Overview</a>
+							<br /><a href="documentation.html">Documentation</a>
+							<br /><a href="support.html">Support</a>
+							<br /><a href="consulting.html">Training and Consulting</a>
+						</p>
+						<p><a href="contribute.html">Contribute</p>
+						<p><A href="http://sourceforge.net/projects/nunitasp/"><IMG src=
+						"http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" border="0" alt="SourceForge Logo"></A></p>
+					</div>
+				</td>
+				<td>
+					<div class="content">
+						<h1>Quick Start Guide</h1>
 
-<p>This guide was last updated for NUnitAsp v1.2.</p>
+						<p>This guide contains a brief description of how to use NUnitAsp and a daily use checklist.  It assumes that you are familiar with NUnit, ASP.NET, and unit testing in general.  For a more detailed tutorial, see the <a href="tutorial/index.html">NUnitAsp Tutorial</a> instead.  It also assumes that you're using C#, Windows, Microsoft Internet Information Server, and Visual Studio .NET.  NUnitAsp will work in other environments, but you'll need to modify these directions for your environment.  If you do, please let us know how you did it!  We'll expand this guide to include your information.
 
-
-<h2>About NUnitAsp</h2>
-
-<p>NUnitAsp is an extension to NUnit that adds the ability to test ASP.NET web pages.  It uses standard NUnit tests and special "Tester" classes that correspond to the ASP.NET controls you already know.  It works by downloading web pages from your web server, just like a user would, then parsing the HTML page so you can use the Tester objects to tell what was on it.</p>
-
-<p>When you test an ASP.NET web page, you'll create NUnit test fixtures and test cases as normal.  Each of your test cases will contain three parts.  First, you'll instantiate "Tester" objects that correspond to the controls on the page you're testing.  Second, you'll tell NUnitAsp's "Browser" object to visit the page being tested.  Finally, you'll use the tester objects along with standard NUnit assertions to test the page.</p>
-
-<p>
-<table border="0" bgcolor="black" align="center">
-  <tr>
-	<td><table border="0" bgcolor="white">
-		<tr>
-		  <td><code> <font color="blue">public void</font> TestExample()
-			  <br />
-			  {
-			  <br />
-			  &nbsp;&nbsp;&nbsp;<font color="green">// First, instantiate "Tester" objects:</font>
-			  <br />
-			  &nbsp;&nbsp;&nbsp;LabelTester label = <font color="blue">new</font> LabelTester("textLabel", CurrentWebForm);
-			  <br />
-			  &nbsp;&nbsp;&nbsp;LinkButtonTester link = <font color="blue">new</font> LinkButtonTester("linkButton", CurrentWebForm);
-			  <br />
-			  <br />
-			  &nbsp;&nbsp;&nbsp;<font color="green">// Second, visit the page being tested:</font>
-			  <br />
-			  &nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/example/example.aspx");
+						<p>This guide was last updated for NUnitAsp v1.2.</p>
 
 
-			  <br />
-			  <br />
-			  &nbsp;&nbsp;&nbsp;<font color="green">// Third, use tester objects and assertions to test the page:</font>
-			  <br />
-			  &nbsp;&nbsp;&nbsp;AssertEquals("label before click", "Link has not been clicked.", label.Text);
-			  <br />
-			  &nbsp;&nbsp;&nbsp;link.Click();
-			  <br />
-			  &nbsp;&nbsp;&nbsp;AssertEquals("label after click", "Link has been clicked.",
-			  label.Text);
-			  <br />
-			  } </code>
-		  </td>
-		</tr>
-	  </table>
-	</td>
-  </tr>
-</table>
-</p>
+						<h2>About NUnitAsp</h2>
+
+						<p>NUnitAsp is an extension to NUnit that adds the ability to test ASP.NET web pages.  It uses standard NUnit tests and special "Tester" classes that correspond to the ASP.NET controls you already know.  It works by downloading web pages from your web server, just like a user would, then parsing the HTML page so you can use the Tester objects to tell what was on it.</p>
+
+						<p>When you test an ASP.NET web page, you'll create NUnit test fixtures and test cases as normal.  Each of your test cases will contain three parts.  First, you'll instantiate "Tester" objects that correspond to the controls on the page you're testing.  Second, you'll tell NUnitAsp's "Browser" object to visit the page being tested.  Finally, you'll use the tester objects along with standard NUnit assertions to test the page.</p>
 
 
+						<p class="code">
+							<span class="keyword">public void</span> TestExample()
+							<br />{
+							<br />&nbsp;&nbsp;&nbsp;<span class="comment">// First, instantiate "Tester" objects:</span>
+							<br />&nbsp;&nbsp;&nbsp;LabelTester label = <span class="keyword">new</span> LabelTester("textLabel", CurrentWebForm);
+							<br />&nbsp;&nbsp;&nbsp;LinkButtonTester link = <span class="keyword">new</span> LinkButtonTester("linkButton", CurrentWebForm);
+							<br />
+							<br />&nbsp;&nbsp;&nbsp;<span class="comment">// Second, visit the page being tested:</span>
+							<br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/example/example.aspx");
+							<br />
+							<br />&nbsp;&nbsp;&nbsp;<span class="comment">// Third, use tester objects and assertions to test the page:</span>
+							<br />&nbsp;&nbsp;&nbsp;AssertEquals("label before click", "Link has not been clicked.", label.Text);
+							<br />&nbsp;&nbsp;&nbsp;link.Click();
+							<br />&nbsp;&nbsp;&nbsp;AssertEquals("label after click", "Link has been clicked.", label.Text);
+							<br />}
+						</p>
 
-<h2>Daily Use Checklist</h2>
 
-<p>Follow this checklist when creating NUnitAsp tests.  Easily-forgotten requirements are listed in bold.</p>
+						<h2>Daily Use Checklist</h2>
 
-<ul>
-	<li><b>In your test projects:</b>
-	<ul>
-		<li>Include a reference to NUnitAsp.dll.  You can find it in the "build" directory of your installation.  (For example, if you unzipped NUnitAsp into "C:\Program Files\NUnitAsp", NUnitAsp.dll is located at "C:\Program Files\NUnitAsp\build\NUnitAsp.dll".)</li>
-	</ul></li>
+						<p>Follow this checklist when creating NUnitAsp tests.  Easily-forgotten requirements are listed in bold.</p>
 
-	<br />
-	<li><b>In your test fixtures:</b>
-	<ul>
-		<li>Include the NUnitAsp framework package.  In C#, add the line <tt>using NUnit.Extensions.Asp;</tt> to the top of the file.</li>
-		<li>Include your Tester packages.  You'll usually want the ASP testers by default.  To include these in C#, add the line <tt>using NUnit.Extensions.Asp.AspTester;</tt> to the top of the file.</li>
-		<li>Extend NUnitAspTestCase.</li>
-		<li>Declare common testers that are used by more than one test case.</li>
-		<li>Create an empty constructor that takes "string name" as a parameter and passes it to the base class.</li>
-		<li><b>If you override SetUp(), call base.SetUp().</b>
-		<li>If you declared common testers, initialize them in SetUp().</li>
-	</ul></li>
+						<ul>
+							<li><b>In your test projects:</b>
+							<ul>
+								<li>Include a reference to NUnitAsp.dll.  You can find it in the "build" directory of your installation.  (For example, if you unzipped NUnitAsp into <code>"C:\Program Files\NUnitAsp"</code>, NUnitAsp.dll is located at <code>"C:\Program Files\NUnitAsp\build\NUnitAsp.dll"</code>.)</li>
+							</ul></li>
 
-	<br />
-	<li><b>In your test cases:</b>
-	<ul>
-		<li>Declare and initialize testers that are specific to the test case.
-		<li><b>Call Browser.GetPage() before using any testers.</b>  (You can also put the call to Browser.GetPage() in SetUp(), if all test cases use the same URL.)
-	</ul></li>
+							<br />
+							<li><b>In your test fixtures:</b>
+							<ul>
+								<li>Include the NUnitAsp framework package.  In C#, add the line <code>using NUnit.Extensions.Asp;</code> to the top of the file.</li>
+								<li>Include your Tester packages.  You'll usually want the ASP testers by default.  To include these in C#, add the line <code>using NUnit.Extensions.Asp.AspTester;</code> to the top of the file.</li>
+								<li>Extend NUnitAspTestCase.</li>
+								<li>Declare common testers that are used by more than one test case.</li>
+								<li>Create an empty constructor that takes "string name" as a parameter and passes it to the base class.</li>
+								<li><b>If you override SetUp(), call base.SetUp().</b>
+								<li>If you declared common testers, initialize them in SetUp().</li>
+							</ul></li>
 
-	<br />
-	<li><b>In your ASP.NET web pages</b>, make sure you're XHTML compliant:
-	<ul>
-		<li><b>Modify the DOCTYPE tag to reference the NUnitAsp DTD:</b>
-			<br />
-			<tt>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd"&gt;</tt>
-		</li>
-		<li><b>Make sure the <tt>&lt;HTML&gt;</tt> and <tt>&lt;/HTML&gt;</tt> tags are upper-case.</b>
-		<li><b>Close all stand-alone tags.</b>  (Particularly "meta" and "br".  Visual Studio .NET likes to remove the closing slash on these tags.)</li>
-		<li>Close all tag pairs.</li>
-		<li>Use entities, such as "&amp;amp;" instead of "&" and "&amp;lt;" instead of "&lt;", when you want to display HTML characters.</li>
-		<li>Put quotes around HTML attributes.</li>
-		<li>Always include a value for HTML attributes.  For example, use <tt>&lt;td nowrap="true"&gt;</tt> instead of <tt>&lt;td nowrap&gt;</tt>
-		<li>Nest HTML tags instead of overlapping them.  For example, use <tt>&lt;b&gt;&lt;i&gt;text&lt;/i&gt;&lt;/b&gt;</tt> instead of <tt>&lt;b&gt;&lt;i&gt;text&lt;/b&gt;&lt;/i&gt;</tt>
-	</ul></li>
-</ul>
+							<br />
+							<li><b>In your test cases:</b>
+							<ul>
+								<li>Declare and initialize testers that are specific to the test case.
+								<li><b>Call Browser.GetPage() before using any testers.</b>  (You can also put the call to Browser.GetPage() in SetUp(), if all test cases use the same URL.)
+							</ul></li>
 
-<p><small>(End of QuickStart Guide)</small></p>
+							<br />
+							<li><b>In your ASP.NET web pages</b>, make sure you're XHTML compliant:
+							<ul>
+								<li><b>Modify the DOCTYPE tag to reference the NUnitAsp DTD:</b>
+									<br />
+									<code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd"&gt;</code>
+								</li>
+								<li><b>Make sure the <code>&lt;HTML&gt;</code> and <code>&lt;/HTML&gt;</code> tags are upper-case.</b>
+								<li><b>Close all stand-alone tags.</b>  (Particularly "meta" and "br".  Visual Studio .NET likes to remove the closing slash on these tags.)</li>
+								<li>Close all tag pairs.</li>
+								<li>Use entities, such as "&amp;amp;" instead of "&" and "&amp;lt;" instead of "&lt;", when you want to display HTML characters.</li>
+								<li>Put quotes around HTML attributes.</li>
+								<li>Always include a value for HTML attributes.  For example, use <code>&lt;td nowrap="true"&gt;</code> instead of <code>&lt;td nowrap&gt;</code>
+								<li>Nest HTML tags instead of overlapping them.  For example, use <code>&lt;b&gt;&lt;i&gt;text&lt;/i&gt;&lt;/b&gt;</code> instead of <code>&lt;b&gt;&lt;i&gt;text&lt;/b&gt;&lt;/i&gt;</code>
+							</ul></li>
+						</ul>
 
-</body>
+						<p class="end">by Jim Little</p>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
 </html>

@@ -11,6 +11,14 @@ a:active	{ color: red; }
 a:hover		{ color: red; }
 
 h1 {
+	font-size: 1.5em;
+	font-weight: bold;
+	margin-top: 0;
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+h2 {
 	font-size: 1.2em;
 	font-weight: bold;
 	margin-top: 1.5em;
@@ -19,6 +27,9 @@ h1 {
 
 table {
 	font-size: 12px;
+}
+
+table.content {
 	border-collapse: collapse;
 	margin-left: 3em;
 	margin-right: 3em;
@@ -32,8 +43,11 @@ th {
 }
 
 td {
-	text-align: left;
 	vertical-align: top;
+}
+
+td.content {
+	text-align: left;
 	border: 0.1em solid black;
 	padding: 0.25em 1em 0.25em 0.25em;
 }
@@ -43,19 +57,26 @@ code {
 	text-align: left;
 }
 
+li {
+	text-align: left;
+}
+
 .title {
 	font-size: 1.9em;
 	font-weight: bold;
 	text-align: center;
 }
 
-.navigator {
+.menu {
 	font-size: 1.1em;
 	white-space: nowrap;
+	float: left;
+	margin-right: 1em;
 }
 
 .content {
 	text-align: justify;
+	float: left;
 }
 
 .code, .html {
@@ -94,12 +115,6 @@ code {
 
 .attribute {
 	color: red;
-}
-
-.question {
-	margin-top: 1.5em;
-  font-size: 1.2em;
-  font-weight: bold;
 }
 
 .end {
