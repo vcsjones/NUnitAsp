@@ -4,7 +4,7 @@
   
   <property name="source.dir" value="source" />
   <property name="sgml.dir" value="${source.dir}\NUnitAsp\Sgml" />
-  <property name="nunit.dir" value="lib\NUnit2.0" />
+  <property name="nunit.dir" value="lib\NUnit" />
   <property name="build.dir" value="build" />
   <property name="bin.dir" value="${build.dir}\bin" />
   <property name="testPagesBuild.dir" value="${source.dir}\NUnitAspTestPages\bin" />
@@ -16,6 +16,7 @@
   <property name="dll.path" value="${bin.dir}\NUnitAsp.dll" />
   <property name="testdll.path" value="${bin.dir}\NUnitAspTest.dll" />
   <property name="webdll.path" value="${bin.dir}\NUnitAspTestPages.dll" />
+  <property name="nunit-msi.path" value="${nunit.dir}\Nunit-V2.1.4.msi" />
   
   <!--*****
   * build_dir
@@ -46,13 +47,13 @@
         <excludes name="source\**\bin\**" />
         <excludes name="sample\**\obj\**" />
         <excludes name="sample\**\bin\**" />
-        <excludes name="${nunit.dir}\Nunit.msi" />
+        <excludes name="${nunit-msi.path}" />
       </fileset>
     </copy>
 
     <mkdir dir="${release.dir}\bin" />
     <copy todir="${release.dir}\bin" file="${bin.dir}\NUnitAsp.dll" />
-    <copy todir="${release.dir}\bin" file="${nunit.dir}\Nunit.msi" />
+    <copy todir="${release.dir}\bin" file="${nunit-msi.path}" />
     
     <mkdir dir="${release.dir}\doc\api" />
     <copy todir="${release.dir}\doc\api">
@@ -136,7 +137,7 @@
   * test
   *****-->  
   <target name="test" depends="build" description="Test project">
-    <exec program="${nunit.dir}\nunit-console.exe" commandline="/assembly:${testdll.path}" />
+    <exec program="${nunit.dir}\nunit-console.exe" commandline="${testdll.path}" />
   </target>
       
   <!--*****
