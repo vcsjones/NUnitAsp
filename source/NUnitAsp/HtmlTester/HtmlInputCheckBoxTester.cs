@@ -30,8 +30,6 @@ namespace NUnit.Extensions.Asp.HtmlTester
 	/// </summary>
 	public class HtmlInputCheckBoxTester : HtmlControlTester
 	{
-		private bool runAtServer;
-
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.
 		/// </summary>
@@ -40,9 +38,9 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// source code, look for the tag that the control is nested in.  That's probably the
 		/// control's container.  Use CurrentWebForm if the control is just nested in the form tag.)</param>
 		/// <param name="runAtServer">Tells tester whether the control under test is running on the server side.</param>
-		public HtmlInputCheckBoxTester(String aspId, Tester container, bool runAtServer) : base(aspId, container) 
+		public HtmlInputCheckBoxTester(String aspId, Tester container, bool runAtServer) :
+			base(aspId, container, runAtServer) 
 		{
-			this.runAtServer = runAtServer;
 		}
 
 		public bool Checked 
@@ -63,15 +61,6 @@ namespace NUnit.Extensions.Asp.HtmlTester
 				{
 					RemoveInputValue(Tag.Attribute("name"));
 				}
-			}
-		}
-
-		public override string HtmlId
-		{
-			get
-			{
-				if (runAtServer) return base.HtmlId;
-				else return AspId;
 			}
 		}
 	}

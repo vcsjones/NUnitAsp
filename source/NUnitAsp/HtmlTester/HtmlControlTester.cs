@@ -29,9 +29,20 @@ namespace NUnit.Extensions.Asp.HtmlTester
 	/// </summary>
 	public abstract class HtmlControlTester : ControlTester
 	{
-		protected HtmlControlTester(string aspId, Tester container) :
+		private bool runAtServer;
+
+		/// <summary>
+		/// Create the tester and link it to an ASP.NET control.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to test (look in the page's ASP.NET source code for the ID).</param>
+		/// <param name="container">A tester for the control's container.  (In the page's ASP.NET
+		/// source code, look for the tag that the control is nested in.  That's probably the
+		/// control's container.  Use CurrentWebForm if the control is just nested in the form tag.)</param>
+		/// <param name="runAtServer">Tells tester whether the control under test is running on the server side.</param>
+		protected HtmlControlTester(string aspId, Tester container, bool runAtServer) :
 			base(aspId, container)
 		{
+			this.runAtServer = runAtServer;
 		}
 
 		/// <summary>
@@ -42,6 +53,26 @@ namespace NUnit.Extensions.Asp.HtmlTester
 			get
 			{
 				return IsDisabled;
+			}
+		}
+	
+		/// <summary>
+		/// The HTML ID of the control being tested.  It corresponds to the
+		/// ID of the HTML tag rendered by the server.  It's useful for looking at 
+		/// raw HTML while debugging.
+		/// </summary>
+		public override string HtmlId
+		{
+			get
+			{
+				if (runAtServer)
+				{
+					return base.HtmlId;
+				}
+				else
+				{
+					return AspId;
+				}
 			}
 		}
 	}
