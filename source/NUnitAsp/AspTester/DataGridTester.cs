@@ -128,10 +128,17 @@ namespace NUnit.Extensions.Asp.AspTester
 
         protected internal override string GetChildElementHtmlId(string aspId)
 		{
-			int rowNumber = int.Parse(aspId);
-			return HtmlId + "__ctl" + (rowNumber + 1);
+			try 
+			{
+				int rowNumber = int.Parse(aspId);
+				return HtmlId + "__ctl" + (rowNumber + 1);
+			}
+			catch (FormatException) 
+			{
+				throw new ContainerMustBeRowException(aspId, this);
+			}
 		}
-
+		
 		/// <summary>
 		/// Tests a row within a data grid.
 		/// </summary>
@@ -189,6 +196,28 @@ namespace NUnit.Extensions.Asp.AspTester
 				Assertion.Assert("There is no column #" + columnNumberZeroBased + " in " + HtmlIdAndDescription, columnNumberZeroBased >= 0 && columnNumberZeroBased < cells.Count);
 				return (XmlElement)cells[columnNumberZeroBased];
 			}
+		}
+	}
+
+	/// <summary>
+	/// The container of the control being tested was a DataGridTester, but it should be a 
+	/// Row.  Change "new MyTester("foo", datagrid)" to 
+	/// "new MyTester("foo", datagrid.getRow(rowNum))".
+	/// </summary>
+	public class ContainerMustBeRowException : ApplicationException 
+	{
+		internal ContainerMustBeRowException(string aspId, DataGridTester dataGrid) 
+			: base(GetMessage(aspId, dataGrid))
+		{
+		}
+
+		private static string GetMessage(string aspId, DataGridTester dataGrid) 
+		{
+			return String.Format(
+				"Tester '{0}' has DataGridTester '{1}' as its container. That isn't allowed. "
+				+ "It should be a DataGridTester.Row. When constructing {0}, pass '{1}.getRow(#)' "
+				+ "as the container argument.",
+				aspId, dataGrid.AspId);
 		}
 	}
 }

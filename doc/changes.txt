@@ -6,6 +6,7 @@ To Do:
   - FAQ: lstHospitals.Items[2].Selected = true ; should be lstHospitals.SelectedIndex = 2;
 * Report missing DTD more clearly (currently gives 404 Not Found)
 * Support NUnit 2.1
+* FAQ: Creating testers for data grid cells
 
 
 Changes in CVS:

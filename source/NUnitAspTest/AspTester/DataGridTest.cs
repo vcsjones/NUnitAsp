@@ -76,6 +76,12 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("2,3", clickResult.Text);
 		}
 
+		[ExpectedException(typeof(ContainerMustBeRowException))]
+		public void TestNestedControlsWhenContainerIsIncorrect()
+		{
+			new LinkButtonTester("link1", grid1).Click();
+		}
+
 		public void TestHeaderRow()
 		{
 			string[] expected = new string[] {"", "Column1", "Column2", "SpaceColumn", "RowNumber"};
@@ -101,5 +107,6 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		{
 			grid1.Sort(5);
 		}
+
 	}
 }
