@@ -1,4 +1,4 @@
-To Do:
+a To Do:
 * Update contribution documentation: Contributors should check CVS first!
 * Fix common error: TestdpValues.Items.FindByText("Not Running").Selected = "True"
   - FAQ: lstHospitals.Items[2].Selected = true ; should be lstHospitals.SelectedIndex = 2;
@@ -27,7 +27,7 @@ Produced by Jim Shore and Levi Khatskevitch.
 * Fixed exception when clicking buttons inside UserControl.  Credit to Levi Khatskevitch.
 * CheckBoxTester.Checked can now be set to false.  Credit to Simon Jackson.
 * Added Text property to CheckBoxTester.  Credit to Levi Khatskevitch.
-* Removed all XHTML and DTD requirements. Credit to Chris Lovett, Simon Jackson and Levi Khatskevitch.
+* Removed all XHTML and DTD requirements.  Credit to Chris Lovett, Simon Jackson and Levi Khatskevitch.
 * Added run-time exception to correct mis-use of DataGridTester as a container.  Credit to Jim Shore.
 * Finished tutorial.  Credit to Jim Shore.
 * Added support for List display mode in ValidationSummaryTester.  Credit to Leonardo Susatyo.
