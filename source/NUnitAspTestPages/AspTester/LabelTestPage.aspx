@@ -12,6 +12,12 @@
 		<form id="AspLabelTestPage" method="post" runat="server">
 			<asp:Label ID="textLabel" runat="server"></asp:Label>
 			<br />[<asp:Label ID="spaceLabel" Runat="server">foo </asp:Label>]
+			<br />
+			<br /><asp:Label ID="formattedLabel" Runat="server">a <i>HTML</i> tag</asp:Label>
+			<br />
+			<asp:Label ID="outerLabel" Runat="server">
+				<asp:Label ID="innerLabel" Runat="server">foo</asp:Label>
+			</asp:Label>
 		</form>
 	</body>
 </HTML>

@@ -43,5 +43,18 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			LabelTester spaceLabel = new LabelTester("spaceLabel", CurrentWebForm);
 			AssertEquals("space", "foo ", spaceLabel.Text);
 		}
+
+		public void TestFormatted()
+		{
+			LabelTester formattedLabel = new LabelTester("formattedLabel", CurrentWebForm);
+			AssertEquals("formatted", "a <i>HTML</i> tag", formattedLabel.Text);
+		}
+
+		public void TestNested()
+		{
+			LabelTester outerLabel = new LabelTester("outerLabel", CurrentWebForm);
+			LabelTester innerLabel = new LabelTester("innerLabel", outerLabel);
+			AssertEquals("inner", "foo", innerLabel.Text);
+		}
 	}
 }
