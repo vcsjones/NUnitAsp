@@ -61,6 +61,7 @@ namespace NUnit.Extensions.Asp
 			ParseFormTextValues("//input[@type='password']");
 			ParseFormTextValues("//input[@type='text']");
 			ParseFormTextValues("//input[@type='radio'][@checked]");
+			ParseFormCheckBoxValues();
 			ParseFormTextAreaValues();
 			ParseFormSelectValues();
 		}
@@ -95,6 +96,22 @@ namespace NUnit.Extensions.Asp
 				if ((name != null) && (aValue != null)) 
 				{
 					SetFormVariable(name.Value, aValue.Value);
+				}
+			}
+		}
+
+		private void ParseFormCheckBoxValues() 
+		{
+			XmlAttribute name;
+			XmlNodeList nodes = Document.SelectNodes("//input[@type='checkbox'][@checked]");
+			if (nodes == null) return;
+
+			foreach (XmlNode item in nodes) 
+			{
+				name = item.Attributes["name"];
+				if (name != null) 
+				{
+					SetFormVariable(name.Value, "checked");
 				}
 			}
 		}

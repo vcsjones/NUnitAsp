@@ -35,10 +35,14 @@ namespace NUnitAspTestPages.AspTester
 	{
 		protected System.Web.UI.WebControls.LinkButton submit;
 		protected System.Web.UI.WebControls.DropDownList list;
+		protected System.Web.UI.WebControls.DropDownList emptyList;
+		protected System.Web.UI.WebControls.LinkButton clearSelection;
 		protected System.Web.UI.WebControls.CheckBox auto;
+		protected System.Web.UI.WebControls.Label indexChanged;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			indexChanged.Text = "No";
 			if (!IsPostBack)
 			{
 				list.Items.Add(new ListItem("one", "1"));
@@ -47,11 +51,22 @@ namespace NUnitAspTestPages.AspTester
 				list.SelectedIndex = 1;
 			}
 			list.AutoPostBack = auto.Checked;
+			list.SelectedIndexChanged += new EventHandler(index_Changed);
 		}
 
 		protected void clearSelection_Click(object sender, EventArgs args)
 		{
 			list.ClearSelection();
+		}
+
+		protected void add_Click(object sender, EventArgs args)
+		{
+			list.Items.Add(DateTime.Now.ToString());
+		}
+
+		protected void index_Changed(object sender, EventArgs args)
+		{
+			indexChanged.Text = "Yes";
 		}
 
 		#region Web Form Designer generated code

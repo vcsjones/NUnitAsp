@@ -37,5 +37,13 @@ namespace NUnit.Extensions.Asp.Test
 			Browser.GetPage(BaseUrl + "MalformedTestPage.aspx");
 			AssertVisibility(control, true);
 		}
+
+		[Test]
+		public void TestParseFormVariables_Checkbox()
+		{
+			Browser.GetPage(BaseUrl + "FormVariableTestPage.aspx");
+			new ButtonTester("submit", CurrentWebForm).Click();
+			Assert("should be checked", new CheckBoxTester("checkbox", CurrentWebForm).Checked);
+		}
 	}
 }

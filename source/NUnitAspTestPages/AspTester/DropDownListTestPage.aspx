@@ -10,11 +10,21 @@
 	</HEAD>
 	<body>
 		<form id="DropDownListTestPage" method="post" runat="server">
-			Test List: <asp:DropDownList id="list" runat="server"></asp:DropDownList> <asp:CheckBox ID="auto" Runat="server" Checked="False" Text="Auto Post-Back"></asp:CheckBox>
-			<br />Empty List: <asp:DropDownList ID="emptyList" Runat="server"></asp:DropDownList>
+			<p>
+				Test List:
+				<asp:DropDownList id="list" runat="server"></asp:DropDownList>
+				<br /><asp:CheckBox ID="auto" Runat="server" Checked="False" Text="Auto Post-Back"></asp:CheckBox>
+				<br />Selected Index Changed: <asp:Label ID="indexChanged" Runat="server"></asp:Label>
+				<br /><asp:Button ID="add" Runat="server" Text="Add Item to List" OnClick="add_Click"></asp:Button>
+				<br /><asp:LinkButton ID="clearSelection" onclick="clearSelection_Click" Runat="server">Clear Selection</asp:LinkButton>
+			</p>
+			
+			<hr />
+			<p>Empty List: <asp:DropDownList ID="emptyList" Runat="server"></asp:DropDownList></p>
+			
+			<hr />
 			<p>
 				<asp:LinkButton ID="submit" Runat="server">Submit</asp:LinkButton>
-				<br /><asp:LinkButton ID="clearSelection" onclick="clearSelection_Click" Runat="server">Clear Selection</asp:LinkButton>
 			</p>
 		</form>
 	</body>

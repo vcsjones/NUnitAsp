@@ -107,6 +107,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "FormVariableTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FormVariableTestPage.aspx.cs"
+                    DependentUpon = "FormVariableTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "FormVariableTestPage.aspx.resx"
+                    DependentUpon = "FormVariableTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Global.asax"
                     BuildAction = "Content"
                 />

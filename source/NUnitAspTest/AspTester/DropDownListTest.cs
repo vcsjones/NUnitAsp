@@ -31,6 +31,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		private LinkButtonTester submit;
 		private LinkButtonTester clearSelection;
 		private CheckBoxTester autoPostBack;
+		private LabelTester indexChanged;
 
 		protected override void SetUp()
 		{
@@ -40,6 +41,8 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			submit = new LinkButtonTester("submit", CurrentWebForm);
 			clearSelection = new LinkButtonTester("clearSelection", CurrentWebForm);
 			autoPostBack = new CheckBoxTester("auto", CurrentWebForm);
+			indexChanged = new LabelTester("indexChanged", CurrentWebForm);
+
 			Browser.GetPage(BaseUrl + "/AspTester/DropDownListTestPage.aspx");
 		}
 
@@ -75,11 +78,13 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 
 		public void TestSetSelectedIndex()
 		{
-			AssertEquals("selected index (before modification)", 1, list.SelectedIndex);
+			AssertEquals(1, list.SelectedIndex);
 			list.SelectedIndex = 2;
-			AssertEquals("selected index (after modification)", 1, list.SelectedIndex);
+			AssertEquals("No", indexChanged.Text);
+			AssertEquals(1, list.SelectedIndex);
 			submit.Click();
-            AssertEquals("selected index (after click)", 2, list.SelectedIndex);
+			AssertEquals("Yes", indexChanged.Text);
+			AssertEquals(2, list.SelectedIndex);
 		}
 
 		public void TestImmediatePostBack()
@@ -88,6 +93,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			submit.Click();
 			AssertEquals("selected index (before modification)", 1, list.SelectedIndex);
 			list.SelectedIndex = 2;
+			AssertEquals("Yes", indexChanged.Text);
 			AssertEquals("selected index (after modification)", 2, list.SelectedIndex);
 		}
 
@@ -160,6 +166,16 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			{
 				// expected
 			}
+		}
+
+		public void TestSelectedIndexChangedEvent_WhenItemAddedToList()
+		{
+			ButtonTester addItem = new ButtonTester("add", CurrentWebForm);
+			
+			autoPostBack.Checked = true;
+			submit.Click();
+			addItem.Click();
+			AssertEquals("No", indexChanged.Text);
 		}
 	}
 }
