@@ -33,8 +33,9 @@ Produced by Jim Shore and Levi Khatskevitch.
 * CheckBoxTester.Checked can now be set to false.  Credit to Simon Jackson.
 * Added Text property to CheckBoxTester.  Credit to Levi Khatskevitch.
 * Removed all XHTML and DTD requirements. Credit to Chris Lovett, Simon Jackson and Levi Khatskevitch.
+* Added run-time exception to correct mis-use of DataGridTester as a container.  Credit to Jim Shore.
 
-(Note: Jim Shore was named Jim Little before the release of version 1.4.)
+(Note: Jim Shore was known as Jim Little before the release of version 1.4.)
 
 
 Changes in NUnitAsp 1.3:

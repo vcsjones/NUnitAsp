@@ -71,7 +71,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return Element.NextSibling.InnerText;
+				return Element.NextSibling.InnerXml;
 			}
 		}
 

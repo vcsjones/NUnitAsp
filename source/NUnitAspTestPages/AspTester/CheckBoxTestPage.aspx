@@ -12,6 +12,8 @@
 		<form id="CheckBoxTestPage" method="post" runat="server">
 			<asp:CheckBox id="checkBox" runat="server" Text="Test me"></asp:CheckBox>
 			<br /><asp:CheckBox id="disabled" Enabled="False" runat="server" Text="I'm disabled"></asp:CheckBox>
+			<br /><asp:CheckBox ID="noText" runat="server"></asp:CheckBox><span>not part of checkbox...</span>
+			<br /><asp:CheckBox ID="formattedText" Runat="server" Text="<b>bold!</b>"></asp:CheckBox>
 			<br /><asp:LinkButton ID="submit" Runat="server">Submit</asp:LinkButton>
 		</form>
 	</body>

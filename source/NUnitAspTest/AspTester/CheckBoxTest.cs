@@ -71,6 +71,17 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("text", "Test me", checkBox.Text);
 		}
 
+		[Ignore("make this pass before release")]
+		public void TestTextWhenNone()
+		{
+			AssertEquals("no text", "", new CheckBoxTester("noText", CurrentWebForm).Text);
+		}
+
+		public void TestFormattedText()
+		{
+			AssertEquals("formatted text", "<b>bold!</b>", new CheckBoxTester("formattedText", CurrentWebForm).Text);
+		}
+
 		public void TestEnabled_True()
 		{
 			AssertEquals("enabled", true, checkBox.Enabled);

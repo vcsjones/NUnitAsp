@@ -33,10 +33,15 @@ namespace NUnitAspTestPages.AspTester
 {
 	public class CheckBoxTestPage : System.Web.UI.Page
 	{
+		protected System.Web.UI.WebControls.CheckBox disabled;
+		protected System.Web.UI.WebControls.LinkButton submit;
+		protected System.Web.UI.WebControls.CheckBox noText;
+		protected System.Web.UI.WebControls.CheckBox formattedText;
 		protected System.Web.UI.WebControls.CheckBox checkBox;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			if (formattedText.Text != "<b>bold!</b>") throw new ApplicationException("CheckBox.Text doesn't include formatting!");
 		}
 
 		#region Web Form Designer generated code
