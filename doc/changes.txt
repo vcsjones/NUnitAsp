@@ -3,6 +3,9 @@ To do:
 * Address InnerText vs. InnerXml.  Remove HtmlTag.BodyNoTags.
 * Review form variables' use of Element/Tag (Tag should be protected, not internal or public)
 * Exceptions need to be organized
+* Explanatory message: UserControlTester.FindControl should throw exception explaining control nesting
+* Add links to third-party NUnitAsp articles
+* Make these HttpClient methods public: SetFormVariable, ClearFormVariable, SubmitForm
 
 
 Changes in CVS:
@@ -16,6 +19,9 @@ Produced by Jim Shore and Levi Khatskevitch.
 * Added simple ASP.NET error page parsing to display meaningful exceptions in tests.  Credit to Levi Khatskevitch.
 * Added FAQ: How to test redirection.  Credit to Jim Shore.
 * Added FAQ: Support for frames/pop-up windows/Javascript/HTML controls.  Credit to Jim Shore.
+* Removed [TestFixture] attribute from WebFormTestCase.  Credit to Jim Shore.
+* Made more methods public or protected to aid creation of custom testers.  Credit to Jim Shore.
+
 
 Changes in NUnitAsp 1.4.1:
 Produced by Jim Shore and Levi Khatskevitch.

@@ -75,7 +75,10 @@ namespace NUnit.Extensions.Asp
 			browser.SubmitForm(this);
 		}
 
-		private HtmlTag Tag
+		/// <summary>
+		/// The HTML tag this tester corresponds to.
+		/// </summary>
+		protected HtmlTag Tag
 		{
 			get
 			{
@@ -90,7 +93,10 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		internal string Action
+		/// <summary>
+		/// The "action" attribute of this form.
+		/// </summary>
+		protected internal string Action
 		{
 			get
 			{
@@ -98,7 +104,10 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		internal string Method
+		/// <summary>
+		/// The "method" attribute of this form.
+		/// </summary>
+		protected internal string Method
 		{
 			get
 			{
