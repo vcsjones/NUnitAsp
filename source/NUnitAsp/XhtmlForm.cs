@@ -26,8 +26,16 @@ namespace NUnit.Extensions.Asp
 
 	internal class XhtmlForm : XhtmlElement
 	{
-		internal XhtmlForm(Browser browser, XmlElement element, string id, string containerDescription) : base(browser, element, id, containerDescription)
+		internal XhtmlForm(Browser browser, XmlElement element, string containerDescription) : base(browser, element, "(unknown id)", containerDescription)
 		{
+		}
+
+		protected override string ElementType 
+		{
+			get 
+			{
+				return "form";
+			}
 		}
 
 		internal string Action 

@@ -29,11 +29,18 @@ namespace NUnit.Extensions.Asp
 	public class XhtmlLinkButton : XhtmlElement
 	{
 
-		internal XhtmlLinkButton(Browser browser, XmlElement element, string id, string containerDescription)
-			: base(browser, element, id, containerDescription)
+		internal XhtmlLinkButton(Browser browser, XmlElement element, string aspId, string containerDescription)
+			: base(browser, element, aspId, containerDescription)
 		{
 		}
 
+		protected override string ElementType 
+		{
+			get 
+			{
+				return "link button";
+			}
+		}
 		public XhtmlWebForm Click() {
 			string id = GetAttributeValue("id");
 			string postBackCall = GetAttributeValue("href");

@@ -29,18 +29,24 @@ namespace NUnit.Extensions.Asp
 	{
 
 		private XmlNodeList rows;
-		private string htmlId;
 
-		internal XhtmlDataGrid(Browser browser, XmlElement element, string id, string htmlId, string containerDescription)
-			: base(browser, element, id, containerDescription)
+		internal XhtmlDataGrid(Browser browser, XmlElement element, string aspId, string containerDescription)
+			: base(browser, element, aspId, containerDescription)
 		{
-			this.htmlId = htmlId;
 			rows = Element.GetElementsByTagName("tr");
+		}
+
+		protected override string ElementType 
+		{
+			get 
+			{
+				return "data grid";
+			}
 		}
 
 		public XhtmlLinkButton LinkButton(int rowNumberWithHeaderStartingAtZero, string buttonId) 
 		{
-			string id = string.Format("{0}__ctl{1}_{2}", htmlId, rowNumberWithHeaderStartingAtZero + 1, buttonId);
+			string id = string.Format("{0}__ctl{1}_{2}", HtmlId, rowNumberWithHeaderStartingAtZero + 1, buttonId);
 			string message = string.Format("Element '{0}' (aka '{1}') should be on {2}", buttonId, id, Description);
 			XmlElement linkButton = Element.OwnerDocument.GetElementById(id);
 			Assertion.Assert(message, linkButton != null);

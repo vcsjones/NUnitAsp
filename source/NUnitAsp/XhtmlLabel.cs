@@ -27,9 +27,17 @@ namespace NUnit.Extensions.Asp
 	public class XhtmlLabel : XhtmlElement
 	{
 
-		internal XhtmlLabel(Browser browser, XmlElement element, string id, string containerDescription)
-			: base(browser, element, id, containerDescription)
+		internal XhtmlLabel(Browser browser, XmlElement element, string aspId, string containerDescription)
+			: base(browser, element, aspId, containerDescription)
 		{
+		}
+
+		protected override string ElementType 
+		{
+			get 
+			{
+				return "label";
+			}
 		}
 
 		public void AssertTextEquals(string expectedText) 

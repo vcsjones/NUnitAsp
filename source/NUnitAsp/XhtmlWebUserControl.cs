@@ -38,7 +38,7 @@ namespace NUnit.Extensions.Asp
 			this.containerDescription = containerDescription;
 		}
 
-		protected override string GetHtmlId(string id) 
+		protected override string CreateHtmlId(string id) 
 		{
 			return this.htmlId + "_" + id;
 		}

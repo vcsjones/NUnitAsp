@@ -47,30 +47,15 @@ namespace NUnit.Extensions.Asp
 		{
 		}
 
-		//Create a browser with anonymous credentials.
 		public Browser(string url) 
 		{
 			_client.BaseAddress = GetBaseAddress(url);
 			GetPage(url);
 		}
 
-		//Create a browser with the provided credentials.
-		public Browser(string url, string user, string password, string domain) : this(url) 
-		{
-			_client.Credentials = new NetworkCredential(user, password, domain);																		  
-		}
-
 		public void Dispose() 
 		{
 			_client.Dispose();
-		}
-
-		public NameValueCollection QueryString 
-		{
-			get 
-			{
-				return _client.QueryString;
-			}
 		}
 
 		public XhtmlWebForm CurrentPage 
@@ -98,15 +83,10 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		internal XhtmlWebForm SubmitForm() {
-			string formName = _pageDocument.GetElementsByTagName("form")[0].Attributes["id"].Value;
-			return SubmitForm(formName);
-		}
-
-		internal XhtmlWebForm SubmitForm(string formId) 
+		internal XhtmlWebForm SubmitForm() 
 		{
-			string url = _page.GetForm(formId).Action;
-			string method = _page.GetForm(formId).Method;
+			string url = _page.GetForm().Action;
+			string method = _page.GetForm().Method;
 			try 
 			{
 				DateTime startTime = DateTime.Now;
@@ -212,7 +192,7 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		public void EnterInputValue(string inputName, string inputValue) 
+		internal void EnterInputValue(string inputName, string inputValue) 
 		{
 			_headers.Remove(inputName);
 			_headers.Add(inputName, inputValue);
@@ -323,7 +303,7 @@ namespace NUnit.Extensions.Asp
 			return _cookies.ContainsKey(cookieName);
 		}
 
-		public TimeSpan ServerTime 
+		public TimeSpan ElapsedServerTime 
 		{
 			get 
 			{
@@ -331,12 +311,14 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		public void DumpCookies() 
+		public string DumpCookies() 
 		{
+			string result = "";
 			foreach (object key in _cookies.Keys) 
 			{
-				Console.WriteLine("[{0}]: [{1}]", key, _cookies["key"]);
+				result += string.Format("[{0}]: [{1}]", key, _cookies["key"]);
 			}
+			return result;
 		}
 
 	}

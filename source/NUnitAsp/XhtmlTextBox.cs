@@ -29,9 +29,17 @@ namespace NUnit.Extensions.Asp
 	public class XhtmlTextBox : XhtmlElement
 	{
 
-		internal XhtmlTextBox(Browser browser, XmlElement element, string id, string containerDescription)
-			: base(browser, element, id, containerDescription)
+		internal XhtmlTextBox(Browser browser, XmlElement element, string aspId, string containerDescription)
+			: base(browser, element, aspId, containerDescription)
 		{
+		}
+
+		protected override string ElementType 
+		{
+			get 
+			{
+				return "text box";
+			}
 		}
 
 		public string Text {

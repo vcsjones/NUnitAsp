@@ -44,34 +44,34 @@ namespace NUnit.Extensions.Asp {
 			this.page = page.page;
 		}
 
-		public XhtmlWebUserControl GetUserControl(string id) 
+		public XhtmlWebUserControl GetUserControl(string aspId) 
 		{
-			return new XhtmlWebUserControl(this, id, GetHtmlId(id), Description);
+			return new XhtmlWebUserControl(this, aspId, CreateHtmlId(aspId), Description);
 		}
 
-		public XhtmlLabel GetLabel(string id) 
+		public XhtmlLabel GetLabel(string aspId) 
 		{
-			return new XhtmlLabel(browser, GetElement(id), id, Description);
+			return new XhtmlLabel(browser, GetElement(aspId), aspId, Description);
 		}
 
-		public XhtmlTextBox GetTextBox(string id) 
+		public XhtmlTextBox GetTextBox(string aspId) 
 		{
-			return new XhtmlTextBox(browser, GetElement(id), id, Description);
+			return new XhtmlTextBox(browser, GetElement(aspId), aspId, Description);
 		}
 
-		public XhtmlLinkButton GetLinkButton(string id) 
+		public XhtmlLinkButton GetLinkButton(string aspId) 
 		{
-			return new XhtmlLinkButton(browser, GetElement(id), id, Description);
+			return new XhtmlLinkButton(browser, GetElement(aspId), aspId, Description);
 		}
 
-		public XhtmlDataGrid GetDataGrid(string id)
+		public XhtmlDataGrid GetDataGrid(string aspId)
 		{
-			return new XhtmlDataGrid(browser, GetElement(id), id, GetHtmlId(id), Description);
+			return new XhtmlDataGrid(browser, GetElement(aspId), aspId, Description);
 		}
 
-		internal XhtmlForm GetForm(string id)
+		internal XhtmlForm GetForm()
 		{
-			return new XhtmlForm(browser, GetElement(id), id, Description);
+			return new XhtmlForm(browser, GetElementByName("form"), Description);
 		}
 
 		public void AssertIdEquals(string expected) 
@@ -79,16 +79,16 @@ namespace NUnit.Extensions.Asp {
 			Assertion.AssertEquals("page id", expected, Id);
 		}
 
-		public void AssertElementVisibility(string id, bool expectedVisibility) 
+		public void AssertElementVisibility(string aspId, bool expectedVisibility) 
 		{
 			string not = expectedVisibility ? " " : " not ";
-			string message = string.Format("Element '{0}' (aka '{1}') should{2}be on {3}", id, GetHtmlId(id), not, Description);
-			Assertion.Assert(message, expectedVisibility == HasElement(id));
+			string message = string.Format("Element '{0}' (aka '{1}') should{2}be on {3}", aspId, CreateHtmlId(aspId), not, Description);
+			Assertion.Assert(message, expectedVisibility == HasElement(aspId));
 		}
 
-		protected virtual string GetHtmlId(string id) 
+		protected virtual string CreateHtmlId(string aspId) 
 		{
-			return id;
+			return aspId;
 		}
 
 		protected virtual string Description 
@@ -99,24 +99,29 @@ namespace NUnit.Extensions.Asp {
 			}
 		}
 
-		private bool HasElement(string id) 
+		private bool HasElement(string aspId) 
 		{
-			return (page.GetElementById(GetHtmlId(id)) != null);
+			return (page.GetElementById(CreateHtmlId(aspId)) != null);
 		}
 
-		private XmlElement GetElement(string id) 
+		private XmlElement GetElement(string aspId) 
 		{
-			AssertElementVisibility(id, true);
-			return page.GetElementById(GetHtmlId(id));
+			AssertElementVisibility(aspId, true);
+			return page.GetElementById(CreateHtmlId(aspId));
 		}
 
-		protected string Id {
-			get {
-				XmlNodeList xmlNodes = page.GetElementsByTagName("body");
-				Assertion.AssertEquals("number of lowercase <body> elements", 1, xmlNodes.Count);
+		private XmlElement GetElementByName(string name)
+		{
+			XmlNodeList elements = page.GetElementsByTagName(name);
+			Assertion.AssertEquals("# of " + name + "elements", 1, elements.Count);
+			return (XmlElement)elements[0];
+		}
 
-				XmlNode body = xmlNodes[0];
-				XmlAttribute id = body.Attributes["id"];
+		private string Id 
+		{
+			get 
+			{
+				XmlAttribute id = GetElementByName("body").Attributes["id"];
 				Assertion.AssertNotNull("There should be an 'id' attribute on the page's body element.", id);
 				return id.Value;
 			}

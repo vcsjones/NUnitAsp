@@ -30,14 +30,14 @@ namespace NUnit.Extensions.Asp
 
 		private Browser browser;
 		private XmlElement element;
-		private string id;
+		private string aspId;
 		private string containerDescription;
 
-		internal XhtmlElement(Browser browser, XmlElement element, string id, string containerDescription)
+		internal XhtmlElement(Browser browser, XmlElement element, string aspId, string containerDescription)
 		{
 			this.browser = browser;
 			this.element = element;
-			this.id = id;
+			this.aspId = aspId;
 			this.containerDescription = containerDescription;
 		}
 	
@@ -72,13 +72,26 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		protected string HtmlId 
+		{
+			get 
+			{
+				return GetAttributeValue("id");
+			}
+		}
+
 		protected string Description 
 		{
 			get 
 			{
 				string elementType = this.GetType().Name;
-				return string.Format("{0} '{1}' in {2}", elementType, id, containerDescription);
+				return string.Format("{0} '{1}' in {2}", ElementType, aspId, containerDescription);
 			}
+		}
+
+		protected abstract string ElementType 
+		{
+			get;
 		}
 
 	}
