@@ -2,6 +2,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<body>
+		<ul>
+			<li>test one</li>
+			<li>test two</li>
+		</ul>
 		<form id="ValidatorTestPage" method="post" runat="server">
 			<asp:TextBox ID="textbox" runat="server" />
 			<asp:RequiredFieldValidator ControlToValidate="textbox" EnableClientScript="False" Text="*" Display="Dynamic" ErrorMessage="Text box must not be empty" runat="server" id="RequiredFieldValidator1" />

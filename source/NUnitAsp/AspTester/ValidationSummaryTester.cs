@@ -61,7 +61,7 @@ namespace NUnit.Extensions.Asp.AspTester
 
 		private XmlNodeList SelectMessageNodes()
 		{
-			return Element.SelectNodes("//ul/li");
+			return Element.SelectNodes(".//ul/li");
 		}
 	}
 }
