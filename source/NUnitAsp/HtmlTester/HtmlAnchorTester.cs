@@ -27,12 +27,12 @@ using System.Web;
 namespace NUnit.Extensions.Asp.HtmlTester
 {
 	/// <summary>
-	/// This class is obsolete and will be dropped in future releases
-	/// of NUnitAsp. Please use <see cref="HtmlAnchorTester"/> instead.
+	/// Tester for System.Web.UI.HtmlControls.HtmlAnchor
 	/// </summary>
-	[Obsolete("Please use HtmlAnchorTester instead")]
-	public class AnchorTester : HtmlAnchorTester
+	public class HtmlAnchorTester : HtmlControlTester
 	{
+		private bool runAtServer;
+
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.
 		/// </summary>
@@ -41,8 +41,76 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// source code, look for the tag that the control is nested in.  That's probably the
 		/// control's container.  Use CurrentWebForm if the control is just nested in the form tag.)</param>
 		/// <param name="runAtServer">Tells tester whether the control under test is running on the server side.</param>
-		public AnchorTester(string aspId, Tester container, bool runAtServer) : base(aspId, container, runAtServer)
+		public HtmlAnchorTester(string aspId, Tester container, bool runAtServer) : base(aspId, container)
 		{
+			this.runAtServer = runAtServer;
+		}
+
+		/// <summary>
+		/// Click the link.  Supports postback and pop-up windows.
+		/// </summary>
+		public void Click()
+		{
+			string popupLink = PopupLink;
+			if (popupLink != null)
+			{
+				Browser.GetPage(popupLink);
+				return;
+			}
+			string hRef = HRef;
+			if (IsPostBack(hRef))
+			{
+				PostBack(hRef);
+				return;
+			}
+			Browser.GetPage(hRef);
+		}
+		
+		/// <summary>
+		/// The HRef of the link.
+		/// </summary>
+		public string HRef
+		{
+			get
+			{
+				return HttpUtility.HtmlDecode(Tag.Attribute("href"));
+			}
+		}
+
+		/// <summary>
+		/// The HRef of the pop-up window's link.  Null if this anchor doesn't have 
+		/// a recognizable pop-up link.
+		/// </summary>
+		public string PopupLink
+		{
+			get
+			{
+				string onClick = Tag.OptionalAttribute("onclick");
+				if (onClick == null) return null;
+
+				RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
+				Match match = Regex.Match(onClick, "window.open\\('(?<link>.*?)'", options);
+				if (match.Captures.Count == 1)
+				{
+					return match.Groups["link"].Value;
+				}
+
+				if (match.Captures.Count == 0) return null;
+				else
+				{
+					string message = string.Format("Found more than one 'window.open' call in onclick attribute of {0}, but only expected to find one", HtmlIdAndDescription);
+					throw new ParseException(message);
+				}
+			}
+		}
+
+		public override string HtmlId
+		{
+			get
+			{
+				if (runAtServer) return base.HtmlId;
+				else return AspId;
+			}
 		}
 	}
 }

@@ -31,10 +31,17 @@ using System.Web.UI.HtmlControls;
 
 namespace NUnit.Extensions.Asp.Test.HtmlTester
 {
-	public class AnchorTestPage : System.Web.UI.Page
+	public class HtmlAnchorTestPage : System.Web.UI.Page
 	{
+		protected HtmlAnchor serverLink;
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+		}
+
+		private void serverLink_ServerClick(object sender, System.EventArgs e)
+		{
+			Server.Transfer("../RedirectionTarget.aspx");
 		}
 
 		#region Web Form Designer generated code
@@ -53,9 +60,9 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.ID = "AnchorTestPage";
+			this.ID = "HtmlAnchorTestPage";
 			this.Load += new System.EventHandler(this.Page_Load);
-
+			this.serverLink.ServerClick += new System.EventHandler(this.serverLink_ServerClick);
 		}
 		#endregion
 	}

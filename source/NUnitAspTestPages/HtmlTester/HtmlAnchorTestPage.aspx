@@ -1,15 +1,15 @@
-<%@ Page language="c#" Codebehind="AnchorTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnit.Extensions.Asp.Test.HtmlTester.AnchorTestPage" %>
+<%@ Page language="c#" Codebehind="HtmlAnchorTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnit.Extensions.Asp.Test.HtmlTester.HtmlAnchorTestPage" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
-		<title>AnchorTestPage</title>
+		<title>HtmlAnchorTestPage</title>
 		<meta name="GENERATOR" Content="Microsoft Visual Studio 7.0" />
 		<meta name="CODE_LANGUAGE" Content="C#" />
 		<meta name="vs_defaultClientScript" content="JavaScript" />
 		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
 	</HEAD>
 	<body>
-		<form id="AnchorTestPage" method="post" runat="server">
+		<form id="HtmlAnchorTestPage" method="post" runat="server">
 			<!-- NOTE: href attribute of this anchor is capitalized to test case insensitivity of HTML parser -->
 			<a id="testLink" Href="../RedirectionTarget.aspx?a=a&amp;b=b">Click Here</a>
 			<br />
@@ -21,6 +21,8 @@
 			<!-- NOTE: id attribute of this anchor is capitalized to test case insensitivity of HTML parser -->
 			<a ID="disabledLink" disabled="disabled" href="../RedirectionTarget.aspx?a=a&amp;b=b">
 				Disabled Link</a>
+			<br />
+			<a id="serverLink" runat="server">Server-Side Link</a>
 		</form>
 	</body>
 </HTML>

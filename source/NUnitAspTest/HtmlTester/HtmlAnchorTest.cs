@@ -1,6 +1,7 @@
+#region Copyright (c) 2002-2004, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2002-2004, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -17,6 +18,7 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
 using NUnit.Extensions.Asp.HtmlTester;
@@ -24,19 +26,21 @@ using NUnit.Extensions.Asp.HtmlTester;
 namespace NUnit.Extensions.Asp.Test.HtmlTester
 {
 
-	public class AnchorTest : NUnitAspTestCase
+	public class HtmlAnchorTest : NUnitAspTestCase
 	{
-		private AnchorTester testLink;
-		private AnchorTester popupLink;
-		private AnchorTester disabledLink;
+		private HtmlAnchorTester testLink;
+		private HtmlAnchorTester popupLink;
+		private HtmlAnchorTester serverLink;
+		private HtmlAnchorTester disabledLink;
 
 		protected override void SetUp()
 		{
 			base.SetUp();
-			testLink = new AnchorTester("testLink", CurrentWebForm, true);
-			popupLink = new AnchorTester("popupLink", CurrentWebForm, false);
-			disabledLink = new AnchorTester("disabledLink", CurrentWebForm, false);
-			Browser.GetPage(BaseUrl + "HtmlTester/AnchorTestPage.aspx");
+			testLink = new HtmlAnchorTester("testLink", CurrentWebForm, true);
+			popupLink = new HtmlAnchorTester("popupLink", CurrentWebForm, false);
+			serverLink = new HtmlAnchorTester("serverLink", CurrentWebForm, false);
+			disabledLink = new HtmlAnchorTester("disabledLink", CurrentWebForm, false);
+			Browser.GetPage(BaseUrl + "HtmlTester/HtmlAnchorTestPage.aspx");
 		}
 
 		public void TestHRef()
@@ -64,6 +68,12 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		{
 			disabledLink.Click();
 			// Yes, you can click disabled link (at least in IE)
+			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
+		}
+
+		public void TestServerClick()
+		{
+			serverLink.Click();
 			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
 		}
 

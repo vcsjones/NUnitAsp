@@ -13,6 +13,8 @@ Produced by Jim Shore and Levi Khatskevitch.
 * Added CLS compliance (except for certain members).  Credit to Levi Khatskevitch and Michael Ridgway.
 * Added HTTP proxy support to the Browser (HttpClient) object.  Credit to Torin Ford.
 * Clarified API documentation for all classes.  Credit to Jim Shore.
+* Added postback (server-side click) support.  Credit to Rick Spiewak.
+* Renamed AnchorTester HTML control tester to HtmlAnchorTester.  Credit to Levi Khatskevitch.
 
 
 Changes in NUnitAsp 1.4.1:

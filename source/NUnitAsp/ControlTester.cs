@@ -210,9 +210,9 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		private bool IsPostBack(string candidate)
+		protected bool IsPostBack(string candidate)
 		{
-			return (candidate != null) && (candidate.StartsWith("__doPostBack"));
+			return (candidate != null) && (candidate.IndexOf("__doPostBack") != -1);
 		}
 
 		private void SetInputHiddenValue(string name, string value)

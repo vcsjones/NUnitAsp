@@ -490,19 +490,19 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "HtmlTester\AnchorTestPage.aspx"
+                    RelPath = "HtmlTester\HtmlAnchorTestPage.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "HtmlTester\AnchorTestPage.aspx.cs"
-                    DependentUpon = "AnchorTestPage.aspx"
+                    RelPath = "HtmlTester\HtmlAnchorTestPage.aspx.cs"
+                    DependentUpon = "HtmlAnchorTestPage.aspx"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "HtmlTester\AnchorTestPage.aspx.resx"
-                    DependentUpon = "AnchorTestPage.aspx.cs"
+                    RelPath = "HtmlTester\HtmlAnchorTestPage.aspx.resx"
+                    DependentUpon = "HtmlAnchorTestPage.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

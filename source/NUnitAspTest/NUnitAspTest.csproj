@@ -227,7 +227,7 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "HtmlTester\AnchorTest.cs"
+                    RelPath = "HtmlTester\HtmlAnchorTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
