@@ -26,6 +26,7 @@ Produced by Jim Shore and Levi Khatskevitch.
 * Added support for List display mode in ValidationSummaryTester.  Credit to Leonardo Susatyo.
 * Fixed common error: list.Items.FindByText("My Text").Selected = True.  Credit to Levi Khatskevitch.
 * Added multi-select capable ListBoxTester class.  Credit to Levi Khatskevitch.
+* Updated API documentation and made it part of build.  Credit to John Sobolewski and Jim Shore.
 
 (Note: Jim Shore was known as Jim Little before the release of version 1.4.)
 
