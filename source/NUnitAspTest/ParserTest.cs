@@ -29,11 +29,11 @@ namespace NUnit.Extensions.Asp.Test
 	[TestFixture]
 	public class ParserTest : NUnitAspTestCase
 	{
-		[Ignore("Parser doesn't support this yet")]
 		[Test]
+//		[Ignore("Parser doesn't support this yet")]
 		public void TestMalformedDocument()
 		{
-			CheckBoxTester control = new CheckBoxTester("tester", CurrentWebForm);
+			CheckBoxTester control = new CheckBoxTester("control", CurrentWebForm);
 			Browser.GetPage(BaseUrl + "MalformedTestPage.aspx");
 			AssertVisibility(control, true);
 		}

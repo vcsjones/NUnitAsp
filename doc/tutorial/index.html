@@ -30,7 +30,9 @@
 
 						<p>NUnitAsp is based on the principle that testing web pages should use the same concepts as creating them. When you use NUnitAsp, you will be using classes and IDs similar to those you used when creating the web page you are testing.</p>
 
-						<p>In this tutorial, we'll walk you through the process of creating a simple one-page web application and tests. We assume you're using Visual Studio .NET and Internet Information Server. The "Guestbook" solution we create in this tutorial is located in the \samples directory of the NUnitAsp download. Advanced users may get started more quickly by jumping straight to the <a href="../quickstart.html">QuickStart Guide</a>.</p>
+						<p>In this tutorial, we'll walk you through the process of creating a simple one-page web application and tests. We assume you're using C#, Visual Studio .NET, and Internet Information Server.  You don't have to use C#, VS.NET, or IIS&mdash;any .NET language, IDE, and ASP.NET web server will work&mdash;but the sample application was written using those tools.  If you're using something else, mentally translate the examples to what you're using.</p>
+
+						<p>The "Guestbook" solution we create in this tutorial is located in the \samples directory of the NUnitAsp download. Advanced users may get started more quickly by jumping straight to the <a href="../quickstart.html">QuickStart Guide</a>.</p>
 
 						<p>This tutorial was last updated for NUnitAsp v1.2.</p>
 
@@ -105,7 +107,7 @@
 
 						<p>Now we're ready to start testing. That's right, we're going to write our tests <i>first</i>.  It's a style of programming called "Test-Driven Development," and it's part of the Extreme Programming methodology that programs like NUnit were created to support.  In test-driven development, you create tests for features that you want, then write production code to make the tests pass.  By doing so, you increase test coverage and reduce the amount of unnecessary production code.
 
-						<p>In our case, the feature we want is a guest book.  Testing every aspect of a guest book would take far too long, but we can test to see if the web page even exists.  That's a broad test, but we can refine from there.  We don't want to take too long between running tests -- the goal is to check our code frequently so we always know we're on the right track.
+						<p>In our case, the feature we want is a guest book.  We could write tests to cover every aspect of a guest book, but that would take far too long, and we'd probably forget something.  Instead, we'll start by just testing if the guest book web page exists.  By itself, that's not a very useful test, but it's a small step in the right direction.  We can refine from there.  We don't want to take too long between running tests&mdash;the goal is to check our code frequently so we always know we're on the right track.
 
 						<p>First we'll modify our empty test to load the Web page we're going to write.  WebFormTestCase, our parent class, provides a "Browser" object for getting web pages. Call "Browser.GetPage(<i>web page url</i>)" to load the page.  We also changed the name of the test to something a little more meaningful.</p>
 
@@ -145,8 +147,8 @@
 								<td>Make sure the &lt;HTML&gt; and &lt;/HTML&gt; tags are upper-case.
 							</tr>
 							<tr>
-								<td>The '<i>tag 1</i>' start tag on line '<i>##</i>' does not match the end tag of <i>tag 2</i>', line '<i>##</i>'</td>
-								<td>Close all stand-alone tags -- particularly "meta" and "br".</td>
+								<td>The '<i>tag 1</i>' start tag on line '<i>##</i>' does not match the end tag of '<i>tag 2</i>', line '<i>##</i>'</td>
+								<td>Close all stand-alone tags&mdash;particularly "meta" and "br".</td>
 							</tr>
 						</table>
 
@@ -200,13 +202,13 @@
 
 						<h2>Test the Layout</h2>
 
-						<p>The next thing we'll test is the layout of our page.  We don't test the look of our web page &mdash; we don't want to have to update our tests every time someone changes a font &mdash; but we do test the functionality.  The first step towards doing that is just making sure the right components are on the page.</p>
+						<p>The next thing we'll test is the layout of our page.  We don't test the look of our web page&mdash;we don't want to have to update our tests every time someone changes a font&mdash;but we do test the functionality.  The first step towards doing that is just making sure the right components are on the page.</p>
 
 						<p>In our guest book application, we just want four components: a text field for entering a name, a text field for entering a comment, a button to submit the data, and a datagrid for displaying what people have entered.</p>
 
 						<p class="figure">Hand-drawn sketch of screen layout here</p>
 
-						<p>To test these components, we have to create NUnitAsp "tester" objects.  A tester is an object that corresponds to an ASP.NET control you want to test.  You can instantiate the tester at any time &mdash; even before the page is loaded, if you like.  When you instantiate it, you tell the tester what the name of the ASP.NET control it's supposed to test and where it's located.  Since we're going to test four controls on our guest book, we need to create four tester objects.</p>
+						<p>To test these components, we have to create NUnitAsp "tester" objects.  A tester is an object that corresponds to an ASP.NET control you want to test.  You can instantiate the tester at any time&mdash;even before the page is loaded, if you like.  When you instantiate it, you tell the tester the ID of the ASP.NET control it's supposed to test and where it's located.  Since we're going to test four controls on our guest book, we need to create four tester objects.</p>
 
 						<div class="code">
 							<span class="demph">public void TestLayout()
@@ -388,7 +390,7 @@
 							</table>
 						</p>
 
-						<p>Stop and take another look at that code.  It's the heart of what NUnitAsp is all about.  Although you're not actually working with an ASP.NET page &mdash; actually, the page you got was raw HTML &mdash; you can manipulate the controls on it with simple ASP.NET-like properties and methods.  Pretty cool, and very easy.</p>
+						<p>Stop and take another look at that code.  It's the heart of what NUnitAsp is all about.  Although you're not actually working with an ASP.NET page&mdash;actually, the page you got was raw HTML&mdash;you can manipulate the controls on it with simple ASP.NET-like properties and methods.  Pretty cool, and very easy.</p>
 
 						<p>Run the test.  It passes, unsurprisingly.  We're filling in the text and clicking 'save,' but we're not actually asserting anything.  Let's fix that.  We'll start by asserting that the name and comment fields are reset to be blank after you save.</p>
 
