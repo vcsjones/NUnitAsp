@@ -10,11 +10,11 @@
 	</HEAD>
 	<body>
 		<form id="AspDataGridTestPage" method="post" runat="server">
-			<asp:datagrid id="dataGrid1" runat="server" AllowSorting="True" OnSortCommand="dataGrid1_Sort">
+			<asp:datagrid id="dataGrid1" runat="server" AllowSorting="True" OnItemCommand="dataGrid1_ItemCommand" OnSortCommand="dataGrid1_Sort">
 				<Columns>
 					<asp:TemplateColumn>
 						<ItemTemplate>
-							<asp:LinkButton id="link1" onclick="link1_Clicked" CommandArgument='<%#DataBinder.Eval(Container.DataItem, "RowNumber")%>' Runat="server">Link</asp:LinkButton>
+							<asp:LinkButton id="link1" CommandName="click" CommandArgument='<%#DataBinder.Eval(Container.DataItem, "RowNumber")%>' Runat="server">Link</asp:LinkButton>
 						</ItemTemplate>
 					</asp:TemplateColumn>
 				</Columns>

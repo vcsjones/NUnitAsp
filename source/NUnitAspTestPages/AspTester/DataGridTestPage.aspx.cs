@@ -55,19 +55,22 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			dataGrid2.DataBind();
 		}
 
-		protected void link1_Clicked(object sender, EventArgs args)
+		protected void dataGrid1_ItemCommand(object source, DataGridCommandEventArgs e)
 		{
-			clickResult.Text = "1," + ((LinkButton)sender).CommandArgument;
-		}
-
-		protected void link2_Clicked(object sender, EventArgs args)
-		{
-			clickResult.Text = "2," + ((LinkButton)sender).CommandArgument;
+			if (e.CommandName == "click")
+			{
+				clickResult.Text = "1," + e.CommandArgument;
+			}
 		}
 
 		protected void dataGrid1_Sort(object sender, DataGridSortCommandEventArgs args)
 		{
 			headerResult.Text = args.SortExpression;
+		}
+
+		protected void link2_Clicked(object sender, EventArgs args)
+		{
+			clickResult.Text = "2," + ((LinkButton)sender).CommandArgument;
 		}
 
 		private class RowData
