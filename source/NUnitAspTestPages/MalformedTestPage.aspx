@@ -13,7 +13,6 @@
 			This page has malformed XHTML.
 			<br>
 			The DOCTYPE tag is missing a URL, the meta tags are missing their closing slash 
-			(actually, they're not, because that's not supported yet, but they should be), 
 			and the br tag is missing its closing slash.
 			<br>
 			<br>

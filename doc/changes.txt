@@ -1,6 +1,3 @@
-TO DO: Make parser problems more transparent; add FAQ entry.
-
-
 Changes in CVS:
 Produced by Jim Little.
 * Updated installation guide in response to user comments.  Credit to Jim Little.
@@ -13,6 +10,7 @@ Produced by Jim Little.
 * Added support for sorting data grids.  Credit to Clifton F. Vaughn and Jim Little.
 * Fixed HTML in tutorial.  Credit to Dominique Plante.
 * Fixed nested controls to work with .NET v1.1.  Credit to Levi Khatskevitch.
+* Clarified action to take when parse error occurs.  Credit to Jim Little.
 
 
 Changes in NUnitAsp 1.3:
