@@ -25,7 +25,7 @@ using System;
 namespace NUnit.Extensions.Asp.AspTester
 {
 	/// <summary>
-	/// Base class for all ASP.NET server controls.  Extend this class
+	/// Base class for testing all ASP.NET server controls.  Extend this class
 	/// if you're creating a tester for a custom control.
 	/// </summary>
 	public abstract class AspControlTester : ControlTester

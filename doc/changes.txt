@@ -5,6 +5,7 @@ To do:
 * Explanatory message: UserControlTester.FindControl should throw exception explaining control nesting
 * Make these HttpClient methods public: SetFormVariable, ClearFormVariable, SubmitForm
 * FAQ: No change to "get" without postback
+* Look into HtmlAgilityPack
 
 
 Changes in NUnitAsp 1.5.1:
