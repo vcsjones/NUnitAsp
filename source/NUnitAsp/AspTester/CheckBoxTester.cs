@@ -59,5 +59,13 @@ namespace NUnit.Extensions.Asp.AspTester
 				}
 			}
 		}	
+
+		protected override bool IsDisabled
+		{
+			get
+			{
+				return Element.ParentNode.Attributes["disabled"] != null;
+			}
+		}
 	}
 }

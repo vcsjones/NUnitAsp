@@ -33,13 +33,6 @@ namespace NUnit.Extensions.Asp.HtmlTester
 			base(aspId, container)
 		{
 		}
-		protected override bool IsDisabled
-		{
-			get
-			{
-				return Disabled;
-			}
-		}
 
 		/// <summary>
 		/// Gets or sets a value indicating wheither the control is disabled.
@@ -48,7 +41,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		{
 			get
 			{
-				return Element.Attributes["disabled"] != null;
+				return IsDisabled;
 			}
 		}
 	}

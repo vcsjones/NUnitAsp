@@ -38,11 +38,6 @@ namespace NUnit.Extensions.Asp
 		private string aspId;
 		private Control container;
 
-		protected abstract bool IsDisabled
-		{
-			get;
-		}
-
 		internal ControlTester(string aspId, Control container)
 		{
 			this.aspId = aspId;
@@ -147,6 +142,14 @@ namespace NUnit.Extensions.Asp
 			get
 			{
 				return container.GetChildElementHtmlId(aspId);
+			}
+		}
+
+		protected virtual bool IsDisabled
+		{
+			get
+			{
+				return Element.Attributes["disabled"] != null;
 			}
 		}
 

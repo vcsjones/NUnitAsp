@@ -34,14 +34,6 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 		}
 
-		protected override bool IsDisabled
-		{
-			get
-			{
-				return !Enabled;
-			}
-		}
-
 		/// <summary>
 		/// Gets or sets a value indicating wheither the control is enabled.
 		/// </summary>
@@ -49,7 +41,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return Element.Attributes["disabled"] == null;
+				return !IsDisabled;
 			}
 		}
 	}

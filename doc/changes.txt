@@ -8,7 +8,7 @@ To Do:
 
 
 Changes in CVS:
-Produced by Jim Little.
+Produced by Jim Little and Levi Khatskevitch.
 * Updated installation guide in response to user comments.  Credit to Jim Little.
 * Added support for https: protocol.  Credit to Daniel Granath.
 * Added support for basic authentication.  Credit to Daniel Granath.
@@ -20,9 +20,9 @@ Produced by Jim Little.
 * Fixed HTML in tutorial.  Credit to Dominique Plante.
 * Fixed nested controls to work with .NET v1.1.  Credit to Levi Khatskevitch.
 * Clarified action to take when parse error occurs.  Credit to Jim Little.
-* Added Enabled and IsDisabled properties to appropriate controls.  Credit to Levi Khatskevitch.
+* Added Enabled and Disabled properties to appropriate controls.  Credit to Levi Khatskevitch.
 * Added Text property to ButtonTester.  Credit to Levi Khatskevitch.
-* 
+* Fixed Enabled property in CheckboxTester for Framework 1.0.  Credit to Levi Khatskevitch.
 
 
 Changes in NUnitAsp 1.3:
