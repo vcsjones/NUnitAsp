@@ -1,5 +1,6 @@
 To do:
 * FAQ: How to test redirection
+* FAQ: How to test HTTPS
 * Address InnerText vs. InnerXml.  Remove HtmlTag.BodyNoTags.
 * Review form variables' use of Element/Tag (Tag should be protected, not internal or public)
 * Exceptions need to be organized
@@ -10,7 +11,9 @@ Changes in CVS:
 Produced by Jim Shore and Levi Khatskevitch.
 * Added an ImageButtonTester.Click overload that takes no arguments.  Credit to Kyle Heon.
 * Added CLS compliance (except for certain members).  Credit to Levi Khatskevitch and Michael Ridgway.
-* Added HTTP proxy support to the Browser (HttpClient) object.  Credit to Torin Ford
+* Added HTTP proxy support to the Browser (HttpClient) object.  Credit to Torin Ford.
+* Clarified API documentation for all classes.  Credit to Jim Shore.
+
 
 Changes in NUnitAsp 1.4.1:
 Produced by Jim Shore and Levi Khatskevitch.

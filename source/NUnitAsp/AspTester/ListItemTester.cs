@@ -86,7 +86,6 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
-
 		/// <summary>
 		/// Returns a string that represents the current ListItemTester.
 		/// </summary>

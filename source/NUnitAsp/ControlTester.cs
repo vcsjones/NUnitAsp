@@ -44,7 +44,7 @@ namespace NUnit.Extensions.Asp
 		/// <param name="container">A tester for the control's container.  (In the page's ASP.NET
 		/// source code, look for the tag that the control is nested in.  That's probably the
 		/// control's container.  Use CurrentWebForm if the control is just nested in the form tag.)</param>
-		protected internal ControlTester(string aspId, Tester container)
+		internal ControlTester(string aspId, Tester container)
 		{
 			this.AspId = aspId;
 			this.container = container;

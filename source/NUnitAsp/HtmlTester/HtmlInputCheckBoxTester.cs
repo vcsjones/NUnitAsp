@@ -1,7 +1,7 @@
-#region Copyright (c) 2003, Brian Knowles, Jim Shore
+#region Copyright (c) 2003-2004, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2003, Brian Knowles, Jim Shore
+' Copyright (c) 2003-2004, Brian Knowles, Jim Shore
 ' Originally by Andrew Enfield; copyright transferred on nunitasp-devl mailing list, May 2003
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -33,11 +33,12 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		private bool runAtServer;
 
 		/// <summary>
-		/// Create the tester and connect it to the specified ASP.NET control.
+		/// Create the tester and link it to an ASP.NET control.
 		/// </summary>
-		/// <param name="aspId">The ASP ID of the control to be tested (i.e., the control to which this tester should be linked).</param>
-		/// <param name="container">The control that contains the control to be tested.</param>
-		/// <param name="runAtServer">True if the control to be tested has the 'runAtServer="true"' attribute.</param>
+		/// <param name="aspId">The ID of the control to test (look in the page's ASP.NET source code for the ID).</param>
+		/// <param name="container">A tester for the control's container.  (In the page's ASP.NET
+		/// source code, look for the tag that the control is nested in.  That's probably the
+		/// control's container.  Use CurrentWebForm if the control is just nested in the form tag.)</param>
 		public HtmlInputCheckBoxTester(String aspId, Tester container, bool runAtServer) : base(aspId, container) 
 		{
 			this.runAtServer = runAtServer;

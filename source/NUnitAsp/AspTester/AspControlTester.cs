@@ -1,7 +1,7 @@
-#region Copyright (c) 2002, 2003 Brian Knowles, Jim Shore
+#region Copyright (c) 2002-2004 Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2002-2004 Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -25,7 +25,8 @@ using System;
 namespace NUnit.Extensions.Asp.AspTester
 {
 	/// <summary>
-	/// Base class for all testers in AspTester namespace
+	/// Base class for all ASP.NET server controls.  Extend this class
+	/// if you're creating a tester for a custom control.
 	/// </summary>
 	public abstract class AspControlTester : ControlTester
 	{
