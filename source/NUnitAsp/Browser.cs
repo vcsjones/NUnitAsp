@@ -107,7 +107,7 @@ namespace NUnit.Extensions.Asp
 			UTF8Encoding decoder = new UTF8Encoding();
 			_pageDocumentText = decoder.GetString(output);
 			_pageDocument = new XmlDocument();
-			_page = new XhtmlWebForm(this, output);
+			_page = new XhtmlWebForm(this, _pageDocumentText);
 			try 
 			{
 				_pageDocument.LoadXml(_pageDocumentText);

@@ -30,12 +30,10 @@ namespace NUnit.Extensions.Asp {
 		private Browser browser;
 		private XmlDocument page;
 
-		internal XhtmlWebForm(Browser browser, byte[] pageBody) {
+		internal XhtmlWebForm(Browser browser, string pageBody) {
 			this.browser = browser;
-			UTF8Encoding decoder = new UTF8Encoding();
-			string text = decoder.GetString(pageBody);
 			page = new XmlDocument();
-			page.LoadXml(text);
+			page.LoadXml(pageBody);
 		}
 
 		protected XhtmlWebForm(XhtmlWebForm page) 
