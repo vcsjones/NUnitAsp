@@ -30,6 +30,15 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// </summary>
 	public class CheckBoxTester : AspControlTester
 	{
+		private XmlElement Label
+		{
+			get
+			{
+				return (XmlElement)Element.ParentNode
+					.SelectSingleNode("label[@for=\"" + HtmlId + "\"]");
+			}
+		}
+
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.
 		/// </summary>
@@ -71,7 +80,9 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return Element.NextSibling.InnerXml;
+				XmlElement label = Label;
+				if (label == null) return "";
+				return label.InnerXml;
 			}
 		}
 
