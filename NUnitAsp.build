@@ -22,9 +22,9 @@
 	</target>
 
 	<!--*****
-	* package
+	* deploy
 	*****-->
-	<target name="package" depends="build" description="Build project and create deployable directory structure">
+	<target name="deploy" depends="build" description="Copies build files to correct locations for deployment">
 		<copy todir="bin">
 			<fileset basedir="${bin.dir}">
 				<includes name="NUnitAsp.dll" />
@@ -121,15 +121,21 @@
 	<!--*****
 	* dist
 	*****-->	
-	<target name="dist" depends="test" description="Creates a releasable .zip file">
+	<target name="zip" depends="deploy, test" description="Creates a releasable .zip file">
 		<zip zipfile="${build.dir}\NUnitAsp.zip">
 			<fileset>
 				<includes name="**" />
+				<excludes name="**\*.user" />
+				<excludes name="**\*.webinfo" />
+				<excludes name="**\*.suo" />
+				<excludes name="**\*.snk" />
+				<excludes name="**\.*" />
 				<excludes name="build\**" />
 				<excludes name="source\**\obj\**" />
 				<excludes name="source\**\bin\**" />
-				<excludes name="**\*.user" />
-				<excludes name="**\*.webinfo" />
+				<excludes name="sample\**\obj\**" />
+				<excludes name="sample\**\bin\**" />
+				<excludes name="**\NUnit2.0\**" />
 			</fileset>
 		</zip>
 	</target>
@@ -140,10 +146,8 @@
 	<target name="clean" description="Deletes all build files">
 		<!-- Hack to avoid failure if dir not there -->
 		<mkdir dir="${build.dir}" failonerror="false" />
-		<mkdir dir="bin" failonerror="false" />
 		
 		<delete dir="${build.dir}" />
-		<delete dir="bin" />
 		<delete>
 			<fileset>
 				<includes name="source/**/bin/**/*" />

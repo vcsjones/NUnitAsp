@@ -1,7 +1,8 @@
-NUnitAsp
-
-Changes in this version:
+Changes in NUnitAsp 1.2:
 * Documentation.  Lots of it.
 * Added support for pop-up windows in AnchorTester (thanks to Jacob Lawlor)
 * 404 errors no longer occur when retrieving links to document fragments (http://foo.com/index.html#name).  The fragment link is ignored and the main page is retrieved.
 * Fixed attribute parsing so it ignores case.
+* Added support for changing browser user-agent.
+* Pages are no longer parsed unless strictly necessary.
+* Cleaned up build and distribution.  All necessary files are now included.

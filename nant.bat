@@ -1,0 +1,1 @@
+lib\nant\bin\nant %*
