@@ -33,7 +33,6 @@ using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp 
 {
-
 	/// <summary>
 	/// A web client, capable of communicating with a web server.
 	/// </summary>
@@ -43,6 +42,12 @@ namespace NUnit.Extensions.Asp
 		private Hashtable cookies = new Hashtable();
 		private Uri currentUrl = null;
 		private WebPage currentPage = null;
+
+		/// <summary>
+		/// The user-agent string to send to the server.  Useful if you want to pretend to
+		/// be a specific browser.
+		/// </summary>
+		public string UserAgent = "NUnitAsp";
 
 		/// <summary>
 		/// Retrieves a page from a web server.
@@ -186,7 +191,7 @@ namespace NUnit.Extensions.Asp
 			StreamWriter writer = new StreamWriter(stream, Encoding.ASCII);
 			writer.NewLine = "\r\n";
 			writer.WriteLine("{0} {1} HTTP/1.0", method.ToUpper(), url);
-			writer.WriteLine("User-Agent: NUnitAsp");
+			writer.WriteLine("User-Agent: {0}", UserAgent);
 			writer.WriteLine("Cookie: {0}", CreateCookieString());
 			if (method.ToLower() == "get") 
 			{

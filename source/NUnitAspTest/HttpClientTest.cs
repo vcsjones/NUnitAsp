@@ -132,6 +132,17 @@ namespace NUnit.Extensions.Asp.Test
 			}
 		}
 
+		public void TestUserAgent()
+		{
+			LabelTester userAgent = new LabelTester("userAgent", CurrentWebForm);
+
+			Browser.GetPage(TestUrl);
+			AssertEquals("default user agent", "NUnitAsp", userAgent.Text);
+			Browser.UserAgent = "Foo Explorer/4.2";
+			Browser.GetPage(TestUrl);
+			AssertEquals("modified user agent", "Foo Explorer/4.2", userAgent.Text);
+		}
+
 		private void AssertCookieNotSet()
 		{
 			AssertEquals("Not Set", cookie.Text);

@@ -22,12 +22,14 @@ namespace NUnitAspTestPages
 		protected Label postBackStatus;
 		protected System.Web.UI.WebControls.LinkButton postBack;
 		protected Label testParm;
+		protected Label userAgent;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			SetCookieLabel();
 			postBackStatus.Text = "Not Clicked";
 			testParm.Text = Request["testparm"];
+			userAgent.Text = Request.UserAgent;
 		}
 
 		protected void redirect_Click(object sender, EventArgs args)
