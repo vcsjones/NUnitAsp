@@ -319,7 +319,7 @@ namespace NUnit.Extensions.Asp
 				case HttpStatusCode.NotFound:
 					throw new NotFoundException(currentUrl);
 				case HttpStatusCode.Redirect:
-					throw new TooManyRedirectsException(GetRedirectUrl(response));
+					throw new RedirectLoopException(GetRedirectUrl(response));
 			}
 
 			string body;
@@ -381,14 +381,14 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// Too many HTTP redirects were detected. Check for infinite redirection loop.
 		/// </summary>
-		public class TooManyRedirectsException : ApplicationException
+		public class RedirectLoopException : ApplicationException
 		{
 			/// <summary>
 			/// The target URL of the failed redirect
 			/// </summary>
 			public readonly string TargetUrl;
 
-			internal TooManyRedirectsException(string targetUrl) : base(GetMessage(targetUrl))
+			internal RedirectLoopException(string targetUrl) : base(GetMessage(targetUrl))
 			{
 				TargetUrl = targetUrl;
 			}
@@ -396,7 +396,7 @@ namespace NUnit.Extensions.Asp
 			private static string GetMessage(string targetUrl)
 			{
 				return string.Format(
-					"Maximum number of redirections ({0}) exceeded while redirecting to {1}",
+					"Redirect loop detected: more than {0} redirections.  Most recent redirect was to {1}",
 					MAX_REDIRECTS, targetUrl);
 			}
 		}
