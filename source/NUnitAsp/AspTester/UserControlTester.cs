@@ -45,6 +45,11 @@ namespace NUnit.Extensions.Asp.AspTester
 			return base.HasChildElement(HtmlId + "_" + aspId);
 		}
 
+		internal override string GetChildElementHtmlId(string aspId)
+		{
+			return base.GetChildElementHtmlId(HtmlId + "_" + aspId);
+		}
+
 		public override string HtmlId
 		{
 			get

@@ -46,6 +46,11 @@ namespace NUnit.Extensions.Asp.AspTester
 			return element;
 		}
 
+		internal override string GetChildElementHtmlId(string aspId)
+		{
+			return aspId;
+		}
+
 		private XmlElement GetElementInternal(string aspId)
 		{
 			return browser.CurrentPage.GetElementById(aspId);

@@ -60,7 +60,7 @@ namespace NUnit.Extensions.Asp
 		protected static void AssertVisibility(ControlTester tester, bool expectedVisibility)
 		{
 			string not = expectedVisibility ? "" : " not";
-			string message = String.Format("{0} should{1} be visible ({0} is {2})", tester.AspId, not, tester.Description);
+			string message = String.Format("{0} control should{1} be visible (HTML ID: {2}; ASP location: {3})", tester.AspId, not, tester.HtmlId, tester.Description);
 			Assert(message, tester.Visible == expectedVisibility);
 		}
 

@@ -72,6 +72,11 @@ namespace NUnit.Extensions.Asp.AspTester
 			return container.HasChildElement(aspId);
 		}
 
+		internal override string GetChildElementHtmlId(string aspId)
+		{
+			return container.GetChildElementHtmlId(aspId);
+		}
+
 		internal virtual XmlElement Element
 		{
 			get 
@@ -109,7 +114,8 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return GetOptionalAttributeValue("id");
+//				return GetOptionalAttributeValue("id");
+				return container.GetChildElementHtmlId(aspId);
 			}
 		}
 
