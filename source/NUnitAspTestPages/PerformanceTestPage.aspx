@@ -232,25 +232,23 @@
 
 						<p>Let's take a closer look at the first declaration:</p>
 
-						<p>
-							<table>
-								<tr>
-									<th>Code Fragment</th>
-									<th>Meaning</th>
-								</tr>
-								<tr>
-									<td><code><b>TextBoxTester name = <span class="keyword">new</span> TextBoxTester</b><span class="demph">("name", CurrentWebForm);</span></code></td><td>The object named 'name' will test a text box.</td>
-								</tr>
-								<tr>
-									<td><code><span class="demph">TextBoxTester name = new TextBoxTester(</span><b>"name"</b><span class="demph">, CurrentWebForm);</span></code></td>
-									<td>The ASP.NET id of the text box is "name."</td>
-								</tr>
-								<tr>
-									<td><code><span class="demph">TextBoxTester name = new TextBoxTester("name", </span><b>CurrentWebForm</b><span class="demph">);</span></code></td>
-									<td>Look for the control on the web form currently loaded by the browser.</td>
-								</tr>
-							</table>
-						</p>
+						<table>
+							<tr>
+								<th>Code Fragment</th>
+								<th>Meaning</th>
+							</tr>
+							<tr>
+								<td><code><b>TextBoxTester name = <span class="keyword">new</span> TextBoxTester</b><span class="demph">("name", CurrentWebForm);</span></code></td><td>The object named 'name' will test a text box.</td>
+							</tr>
+							<tr>
+								<td><code><span class="demph">TextBoxTester name = new TextBoxTester(</span><b>"name"</b><span class="demph">, CurrentWebForm);</span></code></td>
+								<td>The ASP.NET id of the text box is "name."</td>
+							</tr>
+							<tr>
+								<td><code><span class="demph">TextBoxTester name = new TextBoxTester("name", </span><b>CurrentWebForm</b><span class="demph">);</span></code></td>
+								<td>Look for the control on the web form currently loaded by the browser.</td>
+							</tr>
+						</table>
 
 						<p>Now that we have the testers, we can assert that their controls are visible on the page.</p>
 
@@ -272,26 +270,24 @@
 
 						<p>We've just told NUnitAsp to assert that the four controls are visible on the page.</p>
 
-						<p>
-							<table>
-								<tr>
-									<th>Code Fragment</th>
-									<th>Meaning</th>
-								</tr>
-								<tr>
-									<td><code><b>AssertVisibility</b><span class="demph">(name, true);</span></code></td>
-									<td>Call the method in WebFormTestCase that checks control visibility.</td>
-								</tr>
-								<tr>
-									<td><code><span class="demph">AssertVisibility(</span><b>name</b><span class="demph">, true);</span></code></td>
-									<td>Check the visibility using the 'name' tester.  The tester knows its control is a TextBox whose ID is 'name.'</td>
-								</tr>
-								<tr>
-									<td><code><span class="demph">AssertVisibility(name, </span><span class="keyword">true</span>);</code></td>
-									<td>The control should be visible.</td>
-								</tr>
-							</table>
-						</p>
+						<table>
+							<tr>
+								<th>Code Fragment</th>
+								<th>Meaning</th>
+							</tr>
+							<tr>
+								<td><code><b>AssertVisibility</b><span class="demph">(name, true);</span></code></td>
+								<td>Call the method in WebFormTestCase that checks control visibility.</td>
+							</tr>
+							<tr>
+								<td><code><span class="demph">AssertVisibility(</span><b>name</b><span class="demph">, true);</span></code></td>
+								<td>Check the visibility using the 'name' tester.  The tester knows its control is a TextBox whose ID is 'name.'</td>
+							</tr>
+							<tr>
+								<td><code><span class="demph">AssertVisibility(name, </span><span class="keyword">true</span>);</code></td>
+								<td>The control should be visible.</td>
+							</tr>
+						</table>
 
 						<p>Go ahead and run the tests.  You should get an error from NUnitAsp:</p>
 
@@ -301,13 +297,11 @@
 
 						<p>This error message tells you three things:</p>
 
-						<p>
-							<ul>
-								<li>The 'name' control wasn't visible</li>
-								<li>In the browser's 'View Source' HTML, the control is named 'name'</li>
-								<li>In the ASP.NET source code, the control is a text box named 'name' and it's on a form named 'GuestBook'</li>
-							</ul>
-						</p>
+						<ul>
+							<li>The 'name' control wasn't visible</li>
+							<li>In the browser's 'View Source' HTML, the control is named 'name'</li>
+							<li>In the ASP.NET source code, the control is a text box named 'name' and it's on a form named 'GuestBook'</li>
+						</ul>
 
 						<p>In this simple example, all that information seems redundant.  However, in ASP.NET, controls can be nested within other controls.  The ID you give a control in ASP.NET can change into a completely different ID in HTML.  The information in the error message will help you track down all the information you need to solve problems.</p>
 
@@ -376,24 +370,22 @@
 
 						<p>We've created a new test named 'TestSave().'  It's has the same tester set up and page load that TestLayout() does, but then it does something different: It assigns values to the web page and presses the 'Save' button.</p>
 
-						<p>
-							<table>
-								<tr>
-									<th>Code Fragment</th>
-									<th>Meaning</th>
-								</tr>
-								<tr>
-									<td><code>name.Text = &quot;Dr. Seuss&quot;;</code></td><td>Set the text of the 'name' text box to 'Dr. Seuss.'</td>
-								</tr>
-								<tr>
-									<td><code>comments.Text = &quot;One Guest, Two Guest!  Guest Book, Best Book!&quot;;</code></td><td>Set the text of the 'comments' text box.</td>
-								</tr>
-								<tr>
-									<td><code>save.Click();</code></td>
-									<td>Click the 'save' button</td>
-								</tr>
-							</table>
-						</p>
+						<table>
+							<tr>
+								<th>Code Fragment</th>
+								<th>Meaning</th>
+							</tr>
+							<tr>
+								<td><code>name.Text = &quot;Dr. Seuss&quot;;</code></td><td>Set the text of the 'name' text box to 'Dr. Seuss.'</td>
+							</tr>
+							<tr>
+								<td><code>comments.Text = &quot;One Guest, Two Guest!  Guest Book, Best Book!&quot;;</code></td><td>Set the text of the 'comments' text box.</td>
+							</tr>
+							<tr>
+								<td><code>save.Click();</code></td>
+								<td>Click the 'save' button</td>
+							</tr>
+						</table>
 
 						<p>Stop and take another look at that code.  It's the heart of what NUnitAsp is all about.  Although you're not actually working with an ASP.NET page &mdash; actually, the page you got was raw HTML &mdash; you can manipulate the controls on it with simple ASP.NET-like properties and methods.  Pretty cool, and very easy.</p>
 
@@ -418,26 +410,24 @@
 
 						<p>The AssertEquals() method is just a standard NUnit assertion, but here's the breakdown in case you're not familiar with it:</p>
 
-						<p>
 						<table>
-								<tr>
-									<th>Code Fragment</th>
-									<th>Meaning</th>
-								</tr>
-								<tr>
-									<td><code><span class="emph">AssertEquals</span><span class="demph">(&quot;name&quot;, &quot;&quot;, name.Text);</span></code></td><td>Assert that two objects are equal.</td>
-								</tr>
-								<tr>
-									<td><code><span class="demph">AssertEquals(</span><span class="emph">&quot;name&quot;</span><span class="demph">, &quot;&quot;, name.Text);</span></code></td><td>The text to use in the failure message.</td>
-								</tr>
-								<tr>
-									<td><code><span class="demph">AssertEquals(&quot;name&quot;, </span><span class="emph">&quot;&quot;</span><span class="demph">, name.Text);</span></code></td><td>The expected results (an empty string).</td>
-								</tr>
-								<tr>
-									<td><code><span class="demph">AssertEquals(&quot;name&quot;, &quot;&quot;, </span><span class="emph">name.Text</span><span class="demph">);</span></code></td><td>The actual results (the text in the 'name' text box).</td>
-								</tr>
+							<tr>
+								<th>Code Fragment</th>
+								<th>Meaning</th>
+							</tr>
+							<tr>
+								<td><code><span class="emph">AssertEquals</span><span class="demph">(&quot;name&quot;, &quot;&quot;, name.Text);</span></code></td><td>Assert that two objects are equal.</td>
+							</tr>
+							<tr>
+								<td><code><span class="demph">AssertEquals(</span><span class="emph">&quot;name&quot;</span><span class="demph">, &quot;&quot;, name.Text);</span></code></td><td>The text to use in the failure message.</td>
+							</tr>
+							<tr>
+								<td><code><span class="demph">AssertEquals(&quot;name&quot;, </span><span class="emph">&quot;&quot;</span><span class="demph">, name.Text);</span></code></td><td>The expected results (an empty string).</td>
+							</tr>
+							<tr>
+								<td><code><span class="demph">AssertEquals(&quot;name&quot;, &quot;&quot;, </span><span class="emph">name.Text</span><span class="demph">);</span></code></td><td>The actual results (the text in the 'name' text box).</td>
+							</tr>
 						</table>
-						</p>
 
 						<p>When you run the test, it fails!</p>
 
@@ -471,18 +461,16 @@
 
 						<p>Corresponds to a data grid table that looks like this:</p>
 
-						<p>
-							<table>
-								<tr>
-									<td>Dr. Seuss</td>
-									<td>One Guest, Two Guest!  Guest Book, Best Book!</td>
-								</tr>
-								<tr>
-									<td>Dr. Freud</td>
-									<td>Nice slip you have there.</td>
-								</tr>
-							</table>
-						</p>
+						<table>
+							<tr>
+								<td>Dr. Seuss</td>
+								<td>One Guest, Two Guest!  Guest Book, Best Book!</td>
+							</tr>
+							<tr>
+								<td>Dr. Freud</td>
+								<td>Nice slip you have there.</td>
+							</tr>
+						</table>
 
 						<p>Unsurprisingly, DataGridTester has a method that returns the data grid's contents in an array like that.  WebFormTestCase also provides several assertion methods that allow you to assert things about the contents of this kind of array.  We'll use that to assert that the guest book contains Dr. Seuss' comments after he presses the 'Save' button.</p>
 
