@@ -147,6 +147,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "AspTester\ButtonTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AspTester\CheckBoxTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -168,6 +173,11 @@
                 />
                 <File
                     RelPath = "AspTester\LabelTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\LinkButtonTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

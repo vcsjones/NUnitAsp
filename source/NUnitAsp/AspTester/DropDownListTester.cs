@@ -29,7 +29,7 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// <summary>
 	/// Tester for System.Web.UI.WebControls.DropDownList
 	/// </summary>
-	public class DropDownListTester : ControlTester
+	public class DropDownListTester : AspControlTester
 	{
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.

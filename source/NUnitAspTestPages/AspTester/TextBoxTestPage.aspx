@@ -12,6 +12,7 @@
 		<form id="TextBoxTestPage" method="post" runat="server">
 			<asp:TextBox id="textBox" runat="server"></asp:TextBox>
 			<asp:TextBox ID="multiline" Runat="server" TextMode="MultiLine">default</asp:TextBox>
+			<asp:TextBox ID="disabled" Runat="server" Enabled="False"></asp:TextBox>
 			<asp:Button ID="postback" Text="postback" Runat="server"></asp:Button>
 		</form>
 	</body>

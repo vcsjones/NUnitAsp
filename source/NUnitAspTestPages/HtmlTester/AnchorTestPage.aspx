@@ -16,6 +16,9 @@
 			some_Win = window.open('../RedirectionTarget.aspx','some_Popup',
 			'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=400,top='+y+',left='+x);" href="#">
 				Popup Link</a>
+			<br />
+			<a id="disabledLink" disabled="disabled" href="../RedirectionTarget.aspx?a=a&amp;b=b">
+				Disabled Link</a>
 		</form>
 	</body>
 </HTML>

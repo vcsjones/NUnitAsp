@@ -27,7 +27,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 	/// <summary>
 	/// Tester for System.Web.UI.HtmlControls.HtmlAnchor
 	/// </summary>
-	public class AnchorTester : ControlTester
+	public class AnchorTester : HtmlControlTester
 	{
 		private bool runAtServer;
 

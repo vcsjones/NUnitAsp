@@ -25,7 +25,7 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// <summary>
 	/// Tester for System.Web.UI.WebControls.Panel
 	/// </summary>
-	public class PanelTester : ControlTester
+	public class PanelTester : AspControlTester
 	{
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.

@@ -1,3 +1,4 @@
+#region Copyright (c) 2002, 2003 Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
 ' Copyright (c) 2002, Brian Knowles, Jim Little
@@ -17,57 +18,38 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
-using NUnit.Extensions.Asp.AspTester;
 
-namespace NUnit.Extensions.Asp.Test.AspTester
+namespace NUnit.Extensions.Asp.HtmlTester
 {
-	public class CheckBoxTest : NUnitAspTestCase
+	/// <summary>
+	/// Base class for all testers in HtmlTester namespace
+	/// </summary>
+	public abstract class HtmlControlTester : ControlTester
 	{
-		private CheckBoxTester checkBox;
-		private CheckBoxTester disabledCheckBox;
-		private LinkButtonTester submit;
-		
-		protected override void SetUp()
+		internal HtmlControlTester(string aspId, Control container) :
+			base(aspId, container)
 		{
-			base.SetUp();
-			checkBox = new CheckBoxTester("checkBox", CurrentWebForm);
-			disabledCheckBox = new CheckBoxTester("disabled", CurrentWebForm);
-			submit = new LinkButtonTester("submit", CurrentWebForm);
-			Browser.GetPage(BaseUrl + "/AspTester/CheckBoxTestPage.aspx");
 		}
-
-		public void TestCheck()
+		protected override bool IsDisabled
 		{
-			Assert("should not be checked", !checkBox.Checked);
-			checkBox.Checked = true;
-			Assert("still shouldn't be checked - not submitted", !checkBox.Checked);
-			submit.Click();
-			Assert("should be checked", checkBox.Checked);
-		}
-
-		public void TestCheck_WhenDisabled()
-		{
-			try
+			get
 			{
-				disabledCheckBox.Checked = true;
-				Fail("Expected ControlDisabledException");
-			}
-			catch (ControlDisabledException e)
-			{
-				Console.WriteLine(e.Message);
+				return Disabled;
 			}
 		}
 
-		public void TestEnabled_True()
+		/// <summary>
+		/// Gets or sets a value indicating wheither the control is disabled.
+		/// </summary>
+		public bool Disabled
 		{
-			AssertEquals("enabled", true, checkBox.Enabled);
-		}
-
-		public void TestEnabled_False()
-		{
-			AssertEquals("enabled", false, disabledCheckBox.Enabled);
+			get
+			{
+				return Element.Attributes["disabled"] != null;
+			}
 		}
 	}
 }

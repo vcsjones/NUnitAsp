@@ -30,12 +30,14 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 	public class ImageButtonTest : NUnitAspTestCase
 	{
 		private ImageButtonTester button;
+		private ImageButtonTester disabledButton;
 		private LabelTester clickResult;
 
 		protected override void SetUp() 
 		{
 			base.SetUp();
 			button = new ImageButtonTester("ImageButton1", CurrentWebForm);
+			disabledButton = new ImageButtonTester("Disabled", CurrentWebForm);
 			clickResult = new LabelTester("clickResult", CurrentWebForm);
 
 			Browser.GetPage(BaseUrl + "AspTester/ImageButtonTestPage.aspx");
@@ -46,5 +48,29 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			button.Click(2, 3);
 			AssertEquals("result", "2, 3", clickResult.Text);
 		}
+
+		public void TestClick_WhenDisabled()
+		{
+			try
+			{
+				disabledButton.Click(2, 3);
+				Fail("Expected ControlDisabledException");
+			}
+			catch (ControlDisabledException e)
+			{
+				Console.WriteLine(e.Message);
+			}
+		}
+
+		public void TestEnabled_True()
+		{
+			AssertEquals("enabled", true, button.Enabled);
+		}
+
+		public void TestEnabled_False()
+		{
+			AssertEquals("enabled", false, disabledButton.Enabled);
+		}
+
 	}
 }

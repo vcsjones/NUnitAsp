@@ -1,3 +1,4 @@
+#region Copyright (c) 2003, Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
 ' Copyright (c) 2002, Brian Knowles, Jim Little
@@ -17,6 +18,7 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
 using NUnit.Extensions.Asp.AspTester;
@@ -27,18 +29,38 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 	{
 		private TextBoxTester textBox;
 		private TextBoxTester multiline;
+		private TextBoxTester disabled;
 		private ButtonTester postback;
 
 		protected override void SetUp()
 		{
 			textBox = new TextBoxTester("textBox", CurrentWebForm);
 			multiline = new TextBoxTester("multiline", CurrentWebForm);
+			disabled = new TextBoxTester("disabled", CurrentWebForm);
 			postback = new ButtonTester("postback", CurrentWebForm);
 
 			Browser.GetPage(BaseUrl + "AspTester/TextBoxTestPage.aspx");
 		}
 
-		public void TestTextWhenEmpty()
+		public void TestEnabled_True()
+		{
+			AssertEquals("enabled", true, textBox.Enabled);
+		}
+
+		public void TestEnabled_False()
+		{
+			AssertEquals("enabled", false, disabled.Enabled);
+		}
+
+		public void TestText()
+		{
+			AssertEquals("empty text box", "", textBox.Text);
+			textBox.Text = "some text";
+			postback.Click();
+			AssertEquals("text", "some text", textBox.Text);
+		}
+
+		public void TestText_WhenEmpty()
 		{
 			AssertEquals("empty text box", "", textBox.Text);
 			multiline.Text = "";
@@ -46,12 +68,25 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("empty multiline text box", "", multiline.Text);
 		}
 
-		public void TestMultiline()
+		public void TestText_WhenMultiline()
 		{
 			AssertEquals("default multiline", "default", multiline.Text);
 			multiline.Text="new text";
 			postback.Click();
 			AssertEquals("multiline text box setting", "new text", multiline.Text);
+		}
+
+		public void TestText_WhenDisabled()
+		{
+			try
+			{
+				disabled.Text = "some text";
+				Fail("Expected ControlDisabledException");
+			}
+			catch (ControlDisabledException e)
+			{
+				Console.WriteLine(e.Message);
+			}
 		}
 	}
 }

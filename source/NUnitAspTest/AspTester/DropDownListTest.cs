@@ -1,3 +1,4 @@
+#region Copyright (c) 2003, Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
 ' Copyright (c) 2002, Brian Knowles, Jim Little
@@ -17,10 +18,11 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
-using NUnit.Extensions.Asp.AspTester;
 using System.Web.UI.WebControls;
+using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
@@ -28,6 +30,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 	{
 		private DropDownListTester list;
 		private DropDownListTester emptyList;
+		private DropDownListTester disabledList;
 		private LinkButtonTester submit;
 		private LinkButtonTester clearSelection;
 		private CheckBoxTester autoPostBack;
@@ -38,12 +41,23 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			base.SetUp();
 			list = new DropDownListTester("list", CurrentWebForm);
 			emptyList = new DropDownListTester("emptyList", CurrentWebForm);
+			disabledList = new DropDownListTester("disabledList", CurrentWebForm);
 			submit = new LinkButtonTester("submit", CurrentWebForm);
 			clearSelection = new LinkButtonTester("clearSelection", CurrentWebForm);
 			autoPostBack = new CheckBoxTester("auto", CurrentWebForm);
 			indexChanged = new LabelTester("indexChanged", CurrentWebForm);
 
 			Browser.GetPage(BaseUrl + "/AspTester/DropDownListTestPage.aspx");
+		}
+
+		public void TestEnabled_True()
+		{
+			AssertEquals("enabled", true, list.Enabled);
+		}
+
+		public void TestEnabled_False()
+		{
+			AssertEquals("enabled", false, disabledList.Enabled);
 		}
 
 		public void TestSelectedIndex()
@@ -85,6 +99,19 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			submit.Click();
 			AssertEquals("Yes", indexChanged.Text);
 			AssertEquals(2, list.SelectedIndex);
+		}
+
+		public void TestSetSelectedIndex_WhenDisabled()
+		{
+			try
+			{
+				disabledList.SelectedIndex = 1;
+				Fail("Expected ControlDisabledException");
+			}
+			catch (ControlDisabledException e)
+			{
+				Console.WriteLine(e.Message);
+			}
 		}
 
 		public void TestImmediatePostBack()

@@ -26,7 +26,7 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// <summary>
 	/// Tester for System.Web.UI.WebControls.Label
 	/// </summary>
-	public class LabelTester : ControlTester
+	public class LabelTester : AspControlTester
 	{
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.

@@ -23,6 +23,7 @@
 			<input id="checkCheckedNotServer" name="checkCheckedNotServer" type="checkbox" checked="" /><br> <!-- the 'checked' attribute must have an '=' and quotes so the NUnitASP XML parser doesn't choke -->
 			<input id="checkVaryServer" type="checkbox" runat="server" NAME="checkVaryServer"><br>
 			<input id="checkVaryNotServer" name="checkVaryNotServer" type="checkbox"><br>
+			<input id="checkDisabled" name="checkDisabled" type="checkbox" disabled="disabled"><br>
 			<asp:LinkButton ID="submit" Runat="server">Submit</asp:LinkButton></form>
 	</body>
 </HTML>

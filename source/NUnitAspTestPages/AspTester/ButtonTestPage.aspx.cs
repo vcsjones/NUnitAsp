@@ -1,6 +1,8 @@
+#region Copyright (c) 2003, Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Little
+' Copyright (c) 2003, Brian Knowles, Jim Little
+' Originally by Clifton F. Vaughn; copyright transferred on nunitasp-devl mailing list, May 2003
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -17,57 +19,43 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
-using NUnit.Extensions.Asp.AspTester;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
-namespace NUnit.Extensions.Asp.Test.AspTester
+namespace NUnitAspTestPages.AspTester
 {
-	public class CheckBoxTest : NUnitAspTestCase
+	public class ButtonTestPage : Page
 	{
-		private CheckBoxTester checkBox;
-		private CheckBoxTester disabledCheckBox;
-		private LinkButtonTester submit;
+		protected Button button;
+		protected Button disabled;
+		protected Label clickResult;
+	
+		#region Web Form Designer generated code
+		override protected void OnInit(EventArgs e)
+		{
+			//
+			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
+			//
+			InitializeComponent();
+			base.OnInit(e);
+		}
 		
-		protected override void SetUp()
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
 		{
-			base.SetUp();
-			checkBox = new CheckBoxTester("checkBox", CurrentWebForm);
-			disabledCheckBox = new CheckBoxTester("disabled", CurrentWebForm);
-			submit = new LinkButtonTester("submit", CurrentWebForm);
-			Browser.GetPage(BaseUrl + "/AspTester/CheckBoxTestPage.aspx");
+			this.button.Click += new EventHandler(this.button_Click);
 		}
+		#endregion
 
-		public void TestCheck()
+		private void button_Click(object sender, EventArgs e)
 		{
-			Assert("should not be checked", !checkBox.Checked);
-			checkBox.Checked = true;
-			Assert("still shouldn't be checked - not submitted", !checkBox.Checked);
-			submit.Click();
-			Assert("should be checked", checkBox.Checked);
-		}
-
-		public void TestCheck_WhenDisabled()
-		{
-			try
-			{
-				disabledCheckBox.Checked = true;
-				Fail("Expected ControlDisabledException");
-			}
-			catch (ControlDisabledException e)
-			{
-				Console.WriteLine(e.Message);
-			}
-		}
-
-		public void TestEnabled_True()
-		{
-			AssertEquals("enabled", true, checkBox.Enabled);
-		}
-
-		public void TestEnabled_False()
-		{
-			AssertEquals("enabled", false, disabledCheckBox.Enabled);
+			clickResult.Text = "Clicked";
 		}
 	}
 }

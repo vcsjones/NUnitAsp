@@ -26,7 +26,7 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// <summary>
 	/// Tester for System.Web.UI.WebControls.ImageButton
 	/// </summary>
-	public class ImageButtonTester : ControlTester
+	public class ImageButtonTester : AspControlTester
 	{
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.

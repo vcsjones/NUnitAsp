@@ -30,7 +30,7 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// <summary>
 	/// Tester for System.Web.UI.WebControls.DataGrid
 	/// </summary>
-	public class DataGridTester : ControlTester
+	public class DataGridTester : AspControlTester
 	{
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.
@@ -135,7 +135,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// <summary>
 		/// Tests a row within a data grid.
 		/// </summary>
-		public class Row : ControlTester
+		public class Row : AspControlTester
 		{
 			private int rowNumber;
 			private DataGridTester container;

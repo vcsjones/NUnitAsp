@@ -28,7 +28,7 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// <summary>
 	/// Tester for System.Web.UI.WebControls.ValidationSummary
 	/// </summary>
-	public class ValidationSummaryTester : ControlTester
+	public class ValidationSummaryTester : AspControlTester
 	{
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.

@@ -23,6 +23,13 @@
 			<p>Empty List: <asp:DropDownList ID="emptyList" Runat="server"></asp:DropDownList></p>
 			
 			<hr />
+			<p>Disabled List: 
+			<asp:DropDownList ID="disabledList" Enabled="False" Runat="server">
+				<asp:ListItem Text="One" Value="1" Selected="True" />
+				<asp:ListItem Text="Two" Value="2" />
+			</asp:DropDownList></p>
+			
+			<hr />
 			<p>
 				<asp:LinkButton ID="submit" Runat="server">Submit</asp:LinkButton>
 			</p>

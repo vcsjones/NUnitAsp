@@ -28,7 +28,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 	/// <summary>
 	/// Tester for the System.Web.UI.HtmlControls.HtmlInputCheckBox control.
 	/// </summary>
-	public class HtmlInputCheckBoxTester : ControlTester
+	public class HtmlInputCheckBoxTester : HtmlControlTester
 	{
 		private bool runAtServer;
 

@@ -26,7 +26,7 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// <summary>
 	/// Tester for System.Web.UI.WebControls.LinkButton
 	/// </summary>
-	public class LinkButtonTester : ControlTester
+	public class LinkButtonTester : AspControlTester
 	{
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.
@@ -42,6 +42,10 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// </summary>
 		public void Click()
 		{
+			if (!Enabled)
+			{
+				throw new ControlDisabledException(this);
+			}
 			PostBack(GetAttributeValue("href"));
 		}
 

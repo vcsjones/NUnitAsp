@@ -165,6 +165,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "AspTester\AspControlTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AspTester\ButtonTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -226,6 +231,11 @@
                 />
                 <File
                     RelPath = "HtmlTester\AnchorTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlControlTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

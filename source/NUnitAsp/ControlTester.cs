@@ -38,6 +38,11 @@ namespace NUnit.Extensions.Asp
 		private string aspId;
 		private Control container;
 
+		protected abstract bool IsDisabled
+		{
+			get;
+		}
+
 		internal ControlTester(string aspId, Control container)
 		{
 			this.aspId = aspId;
@@ -145,13 +150,23 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		private void EnsureEnabled()
+		{
+			if (IsDisabled)
+			{
+				throw new ControlDisabledException(this);
+			}
+		}
+
 		protected internal override void EnterInputValue(string name, string value)
 		{
+			EnsureEnabled();
 			container.EnterInputValue(name, value);
 		}
 
 		protected internal override void RemoveInputValue(string name)
 		{
+			EnsureEnabled();
 			container.RemoveInputValue(name);
 		}
 
@@ -192,8 +207,8 @@ namespace NUnit.Extensions.Asp
             // Workaround for .NET v1.1
             target = target.Replace('$', ':'); 
 
-			EnterInputValue("__EVENTTARGET", target);
-			EnterInputValue("__EVENTARGUMENT", "argument");
+			container.EnterInputValue("__EVENTTARGET", target);
+			container.EnterInputValue("__EVENTARGUMENT", "argument");
 			Submit();
 		}
 	}
@@ -202,6 +217,24 @@ namespace NUnit.Extensions.Asp
 	{
 		internal ParseException(string message) : base(message)
 		{
+		}
+	}
+
+	/// <summary>
+	/// The test is trying to perform a UI operation on a disabled control
+	/// </summary>
+	public class ControlDisabledException : InvalidOperationException
+	{
+		public ControlDisabledException(ControlTester control) :
+			base(GetMessage(control))
+		{
+		}
+
+		private static string GetMessage(ControlTester control)
+		{
+			return string.Format(
+				"Control {0} (HTML ID: {1}; ASP location: {2}) is disabled",
+				control.AspId, control.HtmlId, control.Description);
 		}
 	}
 }

@@ -11,6 +11,7 @@
 	<body>
 		<form id="ImageButtonTestPage" method="post" runat="server">
 			<asp:ImageButton id="ImageButton1" runat="server"></asp:ImageButton>
+			<br /><asp:ImageButton id="Disabled" Enabled="False" runat="server" />
 			<br /><asp:Label id="clickResult" runat="server">Label</asp:Label>
 		</form>
 	</body>

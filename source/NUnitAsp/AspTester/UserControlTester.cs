@@ -26,7 +26,7 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// <summary>
 	/// Tester for System.Web.UI.UserControl
 	/// </summary>
-	public class UserControlTester : ControlTester
+	public class UserControlTester : AspControlTester
 	{
 		private string aspId;
 		private Control container;

@@ -37,6 +37,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		private HtmlInputCheckBoxTester checkCheckedNotServer;
 		private HtmlInputCheckBoxTester checkVaryServer;
 		private HtmlInputCheckBoxTester checkVaryNotServer;
+		private HtmlInputCheckBoxTester checkDisabled;
 
 		private LinkButtonTester submit;
 
@@ -50,6 +51,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 			checkCheckedNotServer = new HtmlInputCheckBoxTester("checkCheckedNotServer", CurrentWebForm, false);
 			checkVaryServer = new HtmlInputCheckBoxTester("checkVaryServer", CurrentWebForm, true);
 			checkVaryNotServer = new HtmlInputCheckBoxTester("checkVaryNotServer", CurrentWebForm, false);
+			checkDisabled = new HtmlInputCheckBoxTester("checkDisabled", CurrentWebForm, false);
 
 			submit = new LinkButtonTester("submit", CurrentWebForm);
 
@@ -84,6 +86,29 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 			Assert("checkVaryNotServer still shouldn't be checked - not submitted (but won't change anyway)", !checkVaryNotServer.Checked);
 			submit.Click();
 			Assert("checkVaryNotServer still shouldn't be checked - plain (non ASP.NET) controls don't automatically remember state", !checkVaryNotServer.Checked);
+		}
+
+		public void TestCheck_WhenDisabled()
+		{
+			try
+			{
+				checkDisabled.Checked = true;
+				Fail("Expected ControlDisabledException");
+			}
+			catch (ControlDisabledException e)
+			{
+				Console.WriteLine(e.Message);
+			}
+		}
+
+		public void TestDisabled_True()
+		{
+			AssertEquals("enabled", true, checkDisabled.Disabled);
+		}
+
+		public void TestDisabled_False()
+		{
+			AssertEquals("enabled", false, checkVaryServer.Disabled);
 		}
 	}
 }

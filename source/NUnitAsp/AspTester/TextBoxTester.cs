@@ -28,7 +28,7 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// <summary>
 	/// Tester for System.Web.UI.WebControls.TextBox
 	/// </summary>
-	public class TextBoxTester : ControlTester
+	public class TextBoxTester : AspControlTester
 	{
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.

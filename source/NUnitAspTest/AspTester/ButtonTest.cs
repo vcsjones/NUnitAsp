@@ -1,6 +1,8 @@
+#region Copyright (c) 2003, Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Little
+' Copyright (c) 2003, Brian Knowles, Jim Little
+' Originally by Clifton F. Vaughn; copyright transferred on nunitasp-devl mailing list, May 2003
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -17,41 +19,42 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
+using NUnit.Extensions.Asp;
 using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
-	public class CheckBoxTest : NUnitAspTestCase
+	public class ButtonTest : NUnitAspTestCase
 	{
-		private CheckBoxTester checkBox;
-		private CheckBoxTester disabledCheckBox;
-		private LinkButtonTester submit;
-		
-		protected override void SetUp()
+		private ButtonTester button;
+		private ButtonTester disabledButton;
+		private LabelTester clickResult;
+
+		protected override void SetUp() 
 		{
 			base.SetUp();
-			checkBox = new CheckBoxTester("checkBox", CurrentWebForm);
-			disabledCheckBox = new CheckBoxTester("disabled", CurrentWebForm);
-			submit = new LinkButtonTester("submit", CurrentWebForm);
-			Browser.GetPage(BaseUrl + "/AspTester/CheckBoxTestPage.aspx");
+			button = new ButtonTester("button", CurrentWebForm);
+			disabledButton = new ButtonTester("disabled", CurrentWebForm);
+			clickResult = new LabelTester("clickResult", CurrentWebForm);
+
+			Browser.GetPage(BaseUrl + "AspTester/ButtonTestPage.aspx");
 		}
 
-		public void TestCheck()
+
+		public void TestClick()
 		{
-			Assert("should not be checked", !checkBox.Checked);
-			checkBox.Checked = true;
-			Assert("still shouldn't be checked - not submitted", !checkBox.Checked);
-			submit.Click();
-			Assert("should be checked", checkBox.Checked);
+			button.Click();
+			AssertEquals("result", "Clicked", clickResult.Text);
 		}
 
-		public void TestCheck_WhenDisabled()
+		public void TestClick_WhenDisabled()
 		{
 			try
 			{
-				disabledCheckBox.Checked = true;
+				disabledButton.Click();
 				Fail("Expected ControlDisabledException");
 			}
 			catch (ControlDisabledException e)
@@ -62,12 +65,17 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 
 		public void TestEnabled_True()
 		{
-			AssertEquals("enabled", true, checkBox.Enabled);
+			AssertEquals("enabled", true, button.Enabled);
 		}
 
 		public void TestEnabled_False()
 		{
-			AssertEquals("enabled", false, disabledCheckBox.Enabled);
+			AssertEquals("enabled", false, disabledButton.Enabled);
+		}
+
+		public void TestText()
+		{
+			AssertEquals("text", "Button", button.Text);
 		}
 	}
 }

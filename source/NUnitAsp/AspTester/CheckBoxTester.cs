@@ -25,7 +25,7 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// <summary>
 	/// Tester for System.Web.UI.WebControls.CheckBox
 	/// </summary>
-	public class CheckBoxTester : ControlTester
+	public class CheckBoxTester : AspControlTester
 	{
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.

@@ -1,3 +1,4 @@
+#region Copyright (c) 2002, 2003 Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
 ' Copyright (c) 2002, Brian Knowles, Jim Little
@@ -17,6 +18,7 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
 
@@ -25,7 +27,7 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// <summary>
 	/// Tester for System.Web.UI.WebControls.Button
 	/// </summary>
-	public class ButtonTester : ControlTester
+	public class ButtonTester : AspControlTester
 	{
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.
@@ -43,6 +45,17 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			EnterInputValue(GetAttributeValue("name"), GetAttributeValue("value"));
 			Submit();
+		}
+
+		/// <summary>
+		/// Get the text on the button
+		/// </summary>
+		public string Text
+		{
+			get
+			{
+				return GetAttributeValue("value");
+			}
 		}
 	}
 }
