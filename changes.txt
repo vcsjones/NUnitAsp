@@ -6,3 +6,4 @@ Changes in NUnitAsp 1.2:
 * Added support for changing browser user-agent.
 * Pages are no longer parsed unless strictly necessary.
 * Cleaned up build and distribution.  All necessary files are now included.
+* API documentation.  Many thanks to Mitchel Burns for figuring out how to generate the files.
