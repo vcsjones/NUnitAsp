@@ -57,10 +57,10 @@ namespace NUnit.Extensions.Asp.Test
 		[Test]
 		public void TestGetAndPostPage()
 		{
-			AssertEquals("current url", null, Browser.CurrentUrl);
+			AssertNull("current url should be null", Browser.CurrentUrl);
 			Browser.GetPage(TestUrl);
 			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
-			AssertEquals("current url", TestUrl, Browser.CurrentUrl);
+			AssertEquals("current url", TestUrl, Browser.CurrentUrl.AbsoluteUri);
 			postBack.Click();
 			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
 			AssertEquals("Clicked", new LabelTester("postBackStatus", CurrentWebForm).Text);
@@ -80,15 +80,17 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			Browser.GetPage(TestUrl + "#fragment");
 			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
-			AssertEquals("current url", TestUrl, Browser.CurrentUrl);
+			AssertEquals("current url", TestUrl, Browser.CurrentUrl.AbsoluteUri);
 		}
 
 		[Test]
 		public void TestGetWithUrlEncoding()
 		{
-			Browser.GetPage(TestUrl + "?testparm=some+%2b+text#fragment");
+			string query = "?testparm=some+%2b+text";
+			Browser.GetPage(TestUrl + query + "#fragment");
+
 			AssertEquals("some + text", testParm.Text);
-			AssertEquals("current url", TestUrl + "?testparm=some+%2b+text", Browser.CurrentUrl);
+			AssertEquals("current url", TestUrl + query, Browser.CurrentUrl.AbsoluteUri);
 		}
 
 		[Test]
@@ -97,6 +99,7 @@ namespace NUnit.Extensions.Asp.Test
 			Browser.GetPage(TestUrl);
 			redirect.Click();
 			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
+			AssertEquals(BaseUrl + "RedirectionTarget.aspx", Browser.CurrentUrl.AbsoluteUri);
 		}
 
 		[Test]
@@ -203,7 +206,7 @@ namespace NUnit.Extensions.Asp.Test
 
 		private CookieCollection GetActiveCookies()
 		{
-			return Browser.Cookies.GetCookies(new Uri(Browser.CurrentUrl));
+			return Browser.Cookies.GetCookies(Browser.CurrentUrl);
 		}
 
 		private void AssertCookieNotSet()

@@ -63,18 +63,17 @@ namespace NUnit.Extensions.Asp
 		/// URL the browser most recently retrieved (null if none).  Fragments aren't
 		/// included (the part of the URL that comes after a '#').
 		/// </summary>
-		public string CurrentUrl 
+		public Uri CurrentUrl 
 		{
 			get 
 			{
-				if (currentUrl == null) return null;
-				return currentUrl.AbsoluteUri;
+				return currentUrl;
 			}
 		}
 
 		/// <summary>
 		/// The cookies sent to the server.  These are usually set by the server but
-                /// your test can add cookies to the container and they'll be sent too.
+		/// your test can add cookies to the container and they'll be sent too.
 		/// </summary>
 		public CookieContainer Cookies
 		{
