@@ -37,6 +37,7 @@
 				<includes name="nunit.framework.dll" />
 				<includes name="nunit-gui.exe*" />
 				<includes name="nunit-console.exe*" />
+				<includes name="nunit.util.dll" />
 			</fileset>
 		</copy>
 		

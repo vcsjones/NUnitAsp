@@ -393,7 +393,7 @@
 						<p>Run the test.  It passes, unsurprisingly.  We're filling in the text and clicking 'save,' but we're not actually asserting anything.  Let's fix that.  We'll start by asserting that the name and comment fields are reset to be blank after you save.</p>
 
 						<div class="code">
-							<br /><span class="demph">public void TestSave()
+							<span class="demph">public void TestSave()
 							<br />{
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester comments = new TextBoxTester("comments", CurrentWebForm);
@@ -480,7 +480,7 @@
 						<p>Unsurprisingly, DataGridTester has a method that returns the data grid's contents in an array like that.  WebFormTestCase also provides several assertion methods that allow you to assert things about the contents of this kind of array.  We'll use that to assert that the guest book contains Dr. Seuss' comments after he presses the 'Save' button.</p>
 
 						<div class="code">
-							<br /><span class="demph">public void TestSave()
+							<span class="demph">public void TestSave()
 							<br />{
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester comments = new TextBoxTester("comments", CurrentWebForm);
