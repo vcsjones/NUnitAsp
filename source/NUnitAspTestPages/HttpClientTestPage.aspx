@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="HttpBrowserTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnitAspTestPages.HttpBrowserTestPage" %>
+<%@ Page language="c#" Codebehind="HttpClientTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnitAspTestPages.HttpBrowserTestPage" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://localhost/NUnitAsp/dtd/xhtml1-transitional.dtd">
 <HTML>
 	<head>
@@ -13,7 +13,11 @@
 			<asp:LinkButton ID="redirect" OnClick="redirect_Click" Runat="server">Redirect</asp:LinkButton>
 			<br /><asp:LinkButton ID="dropCookie" OnClick="dropCookie_Click" Runat="server">Drop Cookie</asp:LinkButton>
 			<br /><asp:LinkButton ID="dropCookieAndRedirect" OnClick="dropCookieAndRedirect_Click" Runat="server">Drop Cookie and Redirect</asp:LinkButton>
-			<p>Test Cookie: [<asp:Label ID="cookie" Runat="server"></asp:Label>]</p>
+			<br /><asp:LinkButton ID="postBack" OnClick="postBack_Click" Runat="server">Post Back</asp:LinkButton>
+			<p>Test Parameter: [<asp:Label ID="testParm" Runat="server"></asp:Label>]
+			<br />Test Cookie: [<asp:Label ID="cookie" Runat="server"></asp:Label>]
+			<br />Post Back link: [<asp:Label ID="postBackStatus" Runat="server">Not Clicked</asp:Label>]
+			</p>
 		</form>
 	</body>
 </HTML>

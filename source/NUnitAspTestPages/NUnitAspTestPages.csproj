@@ -139,19 +139,19 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "HttpBrowserTestPage.aspx"
+                    RelPath = "HttpClientTestPage.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "HttpBrowserTestPage.aspx.cs"
-                    DependentUpon = "HttpBrowserTestPage.aspx"
+                    RelPath = "HttpClientTestPage.aspx.cs"
+                    DependentUpon = "HttpClientTestPage.aspx"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "HttpBrowserTestPage.aspx.resx"
-                    DependentUpon = "HttpBrowserTestPage.aspx.cs"
+                    RelPath = "HttpClientTestPage.aspx.resx"
+                    DependentUpon = "HttpClientTestPage.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

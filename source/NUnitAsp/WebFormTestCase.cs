@@ -26,7 +26,7 @@ namespace NUnit.Extensions.Asp
 {
 	public abstract class WebFormTestCase : TestCase 
 	{
-		private HttpBrowser browser;
+		private HttpClient browser;
 		private AspWebForm form;
 
 		public WebFormTestCase(string name) : base(name) 
@@ -36,15 +36,9 @@ namespace NUnit.Extensions.Asp
 		protected override void SetUp() 
 		{
 			base.SetUp();
-			browser = new HttpBrowser();
+			browser = new HttpClient();
 			form = new AspWebForm(browser);
    		}
-
-		protected override void TearDown() 
-		{
-			browser.Dispose();
-			base.TearDown();
-		}
 
 		protected AspWebForm CurrentWebForm
 		{
@@ -54,7 +48,7 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		protected HttpBrowser Browser 
+		protected HttpClient Browser 
 		{
 			get 
 			{

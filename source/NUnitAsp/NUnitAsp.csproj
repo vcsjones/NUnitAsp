@@ -162,7 +162,7 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "HttpBrowser.cs"
+                    RelPath = "HttpClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

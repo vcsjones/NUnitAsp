@@ -33,6 +33,7 @@ namespace NUnit.Extensions.Asp.Test
 		private AspLinkButton redirect;
 		private AspLinkButton dropCookie;
 		private AspLinkButton dropCookieAndRedirect;
+		private AspLinkButton postBack;
 		private AspLabel cookie;
 
 		public HttpBrowserTest(string name) : base(name)
@@ -45,20 +46,32 @@ namespace NUnit.Extensions.Asp.Test
 			redirect = new AspLinkButton("redirect", CurrentWebForm);
 			dropCookie = new AspLinkButton("dropCookie", CurrentWebForm);
 			dropCookieAndRedirect = new AspLinkButton("dropCookieAndRedirect", CurrentWebForm);
+			postBack = new AspLinkButton("postBack", CurrentWebForm);
 			cookie = new AspLabel("cookie", CurrentWebForm);
 		}
 
-		public void TestGetPage()
+		public void TestGetAndPostPage()
 		{
 			Browser.GetPage(TestUrl);
 			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
+			postBack.Click();
+			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
+			AssertEquals("Clicked", new AspLabel("postBackStatus", CurrentWebForm).Text);
+		}
+
+		public void TestRelativeGet()
+		{
+			Browser.GetPage(TestUrl);
+			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
+			Browser.GetPage("RedirectionTarget.aspx");
+			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
 		}
 
 		public void TestGetNonExistentPage()
 		{
 			try
 			{
-				Browser.GetPage("foodle");
+				Browser.GetPage(TestUrl + "/foodle.html");
 				Fail("Expected exception");
 			}
 			catch(WebException)
@@ -79,6 +92,7 @@ namespace NUnit.Extensions.Asp.Test
 			Browser.GetPage(TestUrl);
 			AssertCookieNotSet();
 			dropCookie.Click();
+			Browser.GetPage(TestUrl);
 			AssertCookieSet();
 		}
 

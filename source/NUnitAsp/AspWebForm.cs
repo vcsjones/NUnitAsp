@@ -27,9 +27,9 @@ namespace NUnit.Extensions.Asp
 
 	public class AspWebForm : Control
 	{
-		HttpBrowser browser;
+		HttpClient browser;
 
-		public AspWebForm(HttpBrowser browser)
+		public AspWebForm(HttpClient browser)
 		{
 			this.browser = browser;
 		}
@@ -48,12 +48,12 @@ namespace NUnit.Extensions.Asp
 
 		private XmlElement GetElementInternal(string aspId)
 		{
-			return browser.CurrentDocument.GetElementById(aspId);
+			return browser.CurrentPage.GetElementById(aspId);
 		}
 
 		internal override void EnterInputValue(string name, string value)
 		{
-			browser.EnterInputValue(name, value);
+			browser.SetFormVariable(name, value);
 		}
 
 		internal override void Submit()
@@ -73,7 +73,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				XmlNodeList formNodes = browser.CurrentDocument.GetElementsByTagName("form");
+				XmlNodeList formNodes = browser.CurrentPage.GetElementsByTagName("form");
 				Assertion.AssertEquals("page form elements", 1, formNodes.Count);
 				return (XmlElement)formNodes[0];
 			}

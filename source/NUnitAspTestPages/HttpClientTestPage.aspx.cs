@@ -16,11 +16,16 @@ namespace NUnitAspTestPages
 	{
 		protected System.Web.UI.WebControls.LinkButton redirect;
 		protected System.Web.UI.WebControls.LinkButton dropCookie;
+		protected System.Web.UI.WebControls.LinkButton dropCookieAndRedirect;
 		protected Label cookie;
+		protected Label postBackStatus;
+		protected Label testParm;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			SetCookieLabel();
+			postBackStatus.Text = "Not Clicked";
+			testParm.Text = Request["testparm"];
 		}
 
 		protected void redirect_Click(object sender, EventArgs args)
@@ -28,26 +33,30 @@ namespace NUnitAspTestPages
 			Redirect();
 		}
 
-		private void Redirect()
-		{
-			Response.Redirect("RedirectionTarget.aspx");
-		}
-
 		protected void dropCookie_Click(object sender, EventArgs args)
 		{
 			SetCookie();
-			SetCookieLabel();
-		}
-
-		private void SetCookie()
-		{
-			Response.SetCookie(new HttpCookie("TestCookie", "TestCookieValue"));
 		}
 	
 		protected void dropCookieAndRedirect_Click(object sender, EventArgs args)
 		{
 			SetCookie();
 			Redirect();
+		}
+
+		protected void postBack_Click(object sender, EventArgs args)
+		{
+			postBackStatus.Text = "Clicked";
+		}
+
+		private void Redirect()
+		{
+			Response.Redirect("RedirectionTarget.aspx");
+		}
+
+		private void SetCookie()
+		{
+			Response.SetCookie(new HttpCookie("TestCookie", "TestCookieValue"));
 		}
 
 		private void SetCookieLabel()
