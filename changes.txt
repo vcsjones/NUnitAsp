@@ -4,6 +4,7 @@ Produced by Jim Little.
 * Added support for multiline text boxes.  Thanks to (luKa) for his submission.
 * Updated installation guide for error caused by XMLSpy.  Credit to Peter Wijntjes.
 * Many improvements to tutorial, including update for NUnit 2.0.  Credit to Andrew Enfield.
+* Removed NUnit from bin folder and added "Install NUnit" to install docs.
 
 
 Changes in NUnitAsp 1.2.1:

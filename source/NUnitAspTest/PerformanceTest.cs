@@ -29,7 +29,7 @@ namespace NUnit.Extensions.Asp.Test
 	public class PerformanceTest : NUnitAspTestCase
 	{
 		private const int expectedTestsPerSecond = 2;
-		private const long speedOfMinimumComputer = 997576;
+		private const long speedOfMinimumComputer = 997576;		// determined empirically; do not change
 
 		[Test]
 		public void TestPerformance() 

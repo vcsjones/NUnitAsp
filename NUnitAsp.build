@@ -3,7 +3,7 @@
 	<description>NUnitAsp - ASP.NET Unit Testing</description>
 	
 	<property name="source.dir" value="source" />
-	<property name="nunit.dir" value="lib\NUnit2.0\bin" />
+	<property name="nunit.dir" value="lib\NUnit2.0" />
 	<property name="build.dir" value="build" />
 	<property name="bin.dir" value="${build.dir}\bin" />
 	<property name="testPagesBuild.dir" value="${source.dir}\NUnitAspTestPages\bin" />
@@ -27,20 +27,8 @@
 	<target name="deploy" depends="build" description="Copies build files to correct locations for deployment">
 		<mkdir dir="bin" failonerror="false" />
 		<delete dir="bin" />
-		<copy todir="bin">
-			<fileset basedir="${bin.dir}">
-				<includes name="NUnitAsp.dll" />
-			</fileset>
-		</copy>
-		<copy todir="bin">
-			<fileset basedir="${nunit.dir}">
-				<includes name="nunit.framework.dll" />
-				<includes name="nunit-gui.exe*" />
-				<includes name="nunit-console.exe*" />
-				<includes name="nunit.util.dll" />
-			</fileset>
-		</copy>
-		
+		<copy todir="bin" file="${bin.dir}\NUnitAsp.dll" />
+		<copy todir="bin" file="${nunit.dir}\Nunit.msi" />
 	</target>
 	
 	<!--*****
