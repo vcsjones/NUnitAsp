@@ -33,11 +33,11 @@ namespace NUnitAspTestPages
 {
 	public class AspLabelTestPage : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.Label label1;
+		protected System.Web.UI.WebControls.Label textLabel;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			label1.Text="foo";
+			textLabel.Text="foo";
 		}
 
 		#region Web Form Designer generated code

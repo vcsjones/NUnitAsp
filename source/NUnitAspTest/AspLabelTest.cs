@@ -29,10 +29,22 @@ namespace NUnit.Extensions.Asp.Test
 		{
 		}
 
+		protected override void SetUp()
+		{
+			base.SetUp();
+			Browser.GetPage(BaseUrl + "AspLabelTestPage.aspx");
+		}
+
 		public void TestText() 
 		{
-			Browser.GetPage("http://localhost/NUnitAsp/NUnitAspTestPages/AspLabelTestPage.aspx");
-			AssertEquals("text", "foo", new AspLabel("label1", CurrentWebForm).Text);
+			AspLabel textLabel = new AspLabel("textLabel", CurrentWebForm);
+			AssertEquals("text", "foo", textLabel.Text);
+		}
+
+		public void TestSpace()
+		{
+			AspLabel spaceLabel = new AspLabel("spaceLabel", CurrentWebForm);
+			AssertEquals("space", "foo ", spaceLabel.Text);
 		}
 	}
 }

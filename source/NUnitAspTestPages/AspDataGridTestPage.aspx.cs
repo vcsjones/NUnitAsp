@@ -96,6 +96,14 @@ namespace NUnitAspTestPages
 				}
 			}
 
+			public string SpaceColumn
+			{
+				get
+				{
+					return "Space: ";
+				}
+			}
+
 		}
 
 		#region Web Form Designer generated code

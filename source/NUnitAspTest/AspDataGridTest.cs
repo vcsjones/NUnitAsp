@@ -54,17 +54,17 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			string[][] expected = new string[][]
 			{
-				new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "1"}, 
-				new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "2"}, 
+				new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "Space: ", "1"}, 
+				new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "Space: ", "2"}, 
 			};
 			AssertEquals("cells", expected, grid1.Cells);				
 		}
 
 		public void TestRowCells()
 		{
-			AssertEquals("row 1", new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "1"}, grid1.GetRow(0).Cells);
-			AssertEquals("row 2", new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "2"}, grid1.GetRow(1).Cells);
-			AssertEquals("row 3", new string[] {"Link", "Cell 3, 1", "Cell 3, 2", "3"}, grid2.GetRow(0).Cells);
+			AssertEquals("row 1", new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "Space: ", "1"}, grid1.GetRow(0).Cells);
+			AssertEquals("row 2", new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "Space: ", "2"}, grid1.GetRow(1).Cells);
+			AssertEquals("row 3", new string[] {"Link", "Cell 3, 1", "Cell 3, 2", "Space: ", "3"}, grid2.GetRow(0).Cells);
 		}
 
 		public void TestNestedControls()
