@@ -25,7 +25,7 @@ namespace NUnit.Extensions.Asp.Test
 
 	public class NUnitAspTestCase : WebFormTestCase
 	{
-		protected const string BaseUrl = "http://localhost/NUnitAsp/NUnitAspTestPages/";
+		protected const string BaseUrl = "http://localhost/NUnitAsp/source/NUnitAspTestPages/";
 		private DateTime startTime;
 
 		public NUnitAspTestCase(string name) : base(name)

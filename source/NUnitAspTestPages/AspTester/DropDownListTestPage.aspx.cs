@@ -19,27 +19,60 @@
 '*******************************************************************************************************************/
 
 using System;
-using System.Text.RegularExpressions;
+using System.Collections;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Web;
+using System.Web.SessionState;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 
-namespace NUnit.Extensions.Asp.AspTester
+namespace NUnitAspTestPages.AspTester
 {
-	public class LinkButtonTester : ControlTester
+	public class DropDownListTestPage : System.Web.UI.Page
 	{
-		public LinkButtonTester(string aspId, Control container) : base(aspId, container)
+		protected System.Web.UI.WebControls.LinkButton submit;
+		protected System.Web.UI.WebControls.DropDownList list;
+		protected System.Web.UI.WebControls.CheckBox auto;
+	
+		private void Page_Load(object sender, System.EventArgs e)
 		{
-		}
-
-		public void Click()
-		{
-			PostBack(GetAttributeValue("href"));
-		}
-
-		public string Text
-		{
-			get
+			if (!IsPostBack)
 			{
-				return Element.InnerXml;
+				list.Items.Add(new ListItem("one", "1"));
+				list.Items.Add(new ListItem("two", "2"));
+				list.Items.Add(new ListItem("three", "3"));
+				list.SelectedIndex = 1;
 			}
+			list.AutoPostBack = auto.Checked;
 		}
+
+		protected void clearSelection_Click(object sender, EventArgs args)
+		{
+			list.ClearSelection();
+		}
+
+		#region Web Form Designer generated code
+		override protected void OnInit(EventArgs e)
+		{
+			//
+			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
+			//
+			InitializeComponent();
+			base.OnInit(e);
+		}
+		
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{    
+			this.Load += new System.EventHandler(this.Page_Load);
+
+		}
+		#endregion
 	}
 }

@@ -21,6 +21,7 @@
 using System;
 using NUnit.Framework;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace NUnit.Extensions.Asp
 {
@@ -146,6 +147,45 @@ namespace NUnit.Extensions.Asp
 			container.Submit();
 		}
 
+		/// <summary>
+		/// Works properly even if candidatePostBackScript is null.
+		/// </summary>
+		protected void OptionalPostBack(string candidatePostBackScript)
+		{
+			if (IsPostBack(candidatePostBackScript))
+			{
+				PostBack(candidatePostBackScript);
+			}
+		}
+
+		private bool IsPostBack(string candidate)
+		{
+			return (candidate != null) && (candidate.StartsWith("__doPostBack"));
+		}
+
+		protected void PostBack(string postBackScript)
+		{
+			string postBackPattern = @"__doPostBack\('(?<target>.*?)','(?<argument>.*?)'\)";
+
+			Match match = Regex.Match(postBackScript, postBackPattern, RegexOptions.IgnoreCase);
+			if (!match.Success)
+			{
+				throw new ParseException("'" + postBackScript + "' doesn't match expected pattern for postback in " + HtmlIdAndDescription);
+			}
+
+			string target = match.Groups["target"].Captures[0].Value;
+			string argument = match.Groups["argument"].Captures[0].Value;
+
+			EnterInputValue("__EVENTTARGET", target);
+			EnterInputValue("__EVENTARGUMENT", "argument");
+			Submit();
+		}
 	}
 
+	public class ParseException : ApplicationException
+	{
+		internal ParseException(string message) : base(message)
+		{
+		}
+	}
 }

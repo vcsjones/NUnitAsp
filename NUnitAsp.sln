@@ -3,7 +3,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitAsp", "source\NUnitAsp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitAspTest", "source\NUnitAspTest\NUnitAspTest.csproj", "{9B344403-AB76-4420-BA97-115A147F7B7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitAspTestPages", "http://localhost/nunitasp/nunitasptestpages/NUnitAspTestPages.csproj", "{7D7986CC-8D3D-433E-94EC-35D753E894DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitAspTestPages", "http://localhost/NUnitAsp/source/NUnitAspTestPages/NUnitAspTestPages.csproj", "{7D7986CC-8D3D-433E-94EC-35D753E894DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution

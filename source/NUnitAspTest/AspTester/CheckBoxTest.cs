@@ -25,16 +25,28 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 {
 	public class CheckBoxTest : NUnitAspTestCase
 	{
+		private CheckBoxTester checkBox;
+		private LinkButtonTester submit;
+		
 		public CheckBoxTest(string name) : base(name)
 		{
 		}
 
-		public void TestNotChecked()
+		protected override void SetUp()
 		{
-			CheckBoxTester checkBox = new CheckBoxTester("checkBox", CurrentWebForm);
-
+			base.SetUp();
+			checkBox = new CheckBoxTester("checkBox", CurrentWebForm);
+			submit = new LinkButtonTester("submit", CurrentWebForm);
 			Browser.GetPage(BaseUrl + "/AspTester/CheckBoxTestPage.aspx");
+		}
+
+		public void TestCheck()
+		{
 			Assert("should not be checked", !checkBox.Checked);
+			checkBox.Checked = true;
+			Assert("still shouldn't be checked - not submitted", !checkBox.Checked);
+			submit.Click();
+			Assert("should be checked", checkBox.Checked);
 		}
 	}
 }

@@ -39,7 +39,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			{
 				if (value == true) 
 				{
-					EnterInputValue(GetAttributeValue("name"), GetAttributeValue("value"));
+					EnterInputValue(GetAttributeValue("name"), "on");
 				}
 				else
 				{

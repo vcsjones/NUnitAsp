@@ -180,7 +180,6 @@
                 />
                 <File
                     RelPath = "AspTester\DropDownListTestPage.aspx"
-                    SubType = "Form"
                     BuildAction = "Content"
                 />
                 <File
