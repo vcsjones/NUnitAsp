@@ -1,5 +1,5 @@
 <%@ Page language="c#" Codebehind="CheckBoxTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnitAspTestPages.AspTester.CheckBoxTestPage" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
 		<title>CheckBoxTestPage</title>
@@ -11,10 +11,15 @@
 	<body>
 		<form id="CheckBoxTestPage" method="post" runat="server">
 			<asp:CheckBox id="checkBox" runat="server" Text="Test me"></asp:CheckBox>
-			<br /><asp:CheckBox id="disabled" Enabled="False" runat="server" Text="I'm disabled"></asp:CheckBox>
-			<br /><asp:CheckBox ID="noText" runat="server"></asp:CheckBox><span>not part of checkbox...</span>
-			<br /><asp:CheckBox ID="formattedText" Runat="server" Text="<b>bold!</b>"></asp:CheckBox>
-			<br /><asp:LinkButton ID="submit" Runat="server">Submit</asp:LinkButton>
+			<br />
+			<asp:CheckBox id="disabled" Enabled="False" runat="server" Text="I'm disabled"></asp:CheckBox>
+			<br />
+			<asp:CheckBox ID="noText" runat="server"></asp:CheckBox><span>not part of 
+				checkbox...</span>
+			<br />
+			<asp:CheckBox ID="formattedText" Runat="server" Text="<b>bold!</b>"></asp:CheckBox>
+			<br />
+			<asp:LinkButton ID="submit" Runat="server">Submit</asp:LinkButton>
 		</form>
 	</body>
 </HTML>

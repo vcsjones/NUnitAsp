@@ -1,5 +1,5 @@
 <%@ Page language="c#" Codebehind="PerformanceTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnitAspTestPages.PerformanceTestPage" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
   <head>
     <title>NUnitAsp - ASP.NET unit testing: Tutorial</title>

@@ -1,5 +1,5 @@
 <%@ Page language="c#" Codebehind="UserControlTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnitAspTestPages.AspTester.UserControlTestPage" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
 	<head>
 		<title>UserControlTestPage</title>

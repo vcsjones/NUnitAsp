@@ -11,8 +11,11 @@
 	<body>
 		<form id="ButtonTestPage" method="post" runat="server">
 			<asp:Button id="button" text="Button" runat="server" />
-			<br /><asp:Button id="disabled" Enabled="False" Text="Disabled" runat="server" />
-			<br />Click result: <asp:Label id="clickResult" runat="server" />
+			<br />
+			<asp:Button id="disabled" Enabled="False" Text="Disabled" runat="server" />
+			<br />
+			Click result:
+			<asp:Label id="clickResult" runat="server" />
 		</form>
 	</body>
 </HTML>
