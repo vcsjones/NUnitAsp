@@ -1,0 +1,35 @@
+body {
+	font-family: Georgia, "Times New Roman", Times, "New York", serif;
+	background: white;
+	color: black
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: Verdana, Arial, Helvetica, Geneva, SunSans-Regular, sans-serif
+}
+
+td {
+	font-family: Verdana, Arial, Helvetica, Geneva, SunSans-Regular, sans-serif;
+	font-size: 80%;
+}
+
+input {
+	font-family: Verdana, Arial, Helvetica, Geneva, SunSans-Regular, sans-serif;
+}
+
+hr			{ color: gray }
+a:link		{ color: #0000cc; }
+a:visited	{ color: purple }
+a:active	{ color: #cc0000 }
+a:hover		{ color: #cc0000; }
+
+.NavBar {
+	background-color: #dfff80;
+	border-color: #999966;
+	border-style: none none solid none;
+	border-width: 2px;
+}
+
+/* color scheme */
+.N			{ color: #99cc00; }
+.Ant		{ color: #ff9900; }

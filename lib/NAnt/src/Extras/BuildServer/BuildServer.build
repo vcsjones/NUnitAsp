@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<project name="BuildServer" default="test">
+    <tstamp/>
+
+	<!-- project defaults -->
+    <property name="config" value="debug"/>
+	<property name="debug" value="true"/>
+    <property name="project.version" value="x.x"/>
+    <property name="project.name" value="BuildServer"/>
+    <property name="src.dir" value="src"/>
+    <property name="build.basedir" value="build"/>
+	<echo message="Building ${project.name}"/>
+
+	<target name="release" description="initialize for release build">
+		<property name="debug" value="false"/>
+		<property name="config" value="release"/>
+		<!-- TODO: use script to value from BuildServer/AssemblyInfo.cs -->
+	    <property name="project.version" value="1.0"/>
+	</target>
+
+    <target name="clean">
+        <delete dir="${build.basedir}" verbose="true" failonerror="false"/>
+        <delete dir="web\bin" verbose="true" failonerror="false"/>
+    </target>
+
+    <target name="build">
+	    <property name="build.dir" value="${build.basedir}\${config}"/>
+        <mkdir dir="${build.dir}"/>
+
+        <!-- copy nant assemblies to bin folder -->
+        <copy todir="web\bin">
+            <fileset basedir="..\..\..\bin"> <!-- change to ..\..\..\build to grab the latest built nant binaries -->
+                <includes name="*.dll"/>
+            </fileset>
+        </copy>
+
+		<!-- for some reason ASP.NET locks this file preventing the compiler from working -->
+		<delete file="web\bin\${project.name}.dll" failonerror="false"/>
+
+		<!-- compile BuildServer.dll -->
+        <csc target="library" output="${build.dir}\${project.name}.dll" debug="${debug}" doc="${build.dir}\${project.name}.xml">
+            <sources basedir="${src.dir}\${project.name}">
+                <includes name="**/*.cs"/>
+            </sources>
+            <references>
+                <includes name="web\bin\NAnt.Core.dll"/>
+            </references>
+            <arg value="/nowarn:1591"/>
+        </csc>
+
+		<!-- compile BuildServer.Tests.dll -->
+        <csc target="library" output="${build.dir}\${project.name}.Tests.dll" debug="${debug}">
+            <sources basedir="${src.dir}\${project.name}.Tests">
+                <includes name="**/*.cs"/>
+            </sources>
+            <references>
+                <includes name="${build.dir}\BuildServer.dll"/>
+                <includes name="web\bin\NUnitCore.dll"/>
+                <includes name="web\bin\NAnt.Core.dll"/>
+            </references>
+        </csc>		
+
+		<copy file="${build.dir}\${project.name}.dll" todir="web\bin"/>
+    </target>
+    
+	<target name="test" depends="build" description="run unit tests">
+        <nunit haltonerror="true" haltonfailure="true">
+            <formatter type="Xml"/>
+            <formatter type="Plain"/>
+            <test class="NAnt.BuildServer.Tests.AllTests" assembly="${build.dir}\${project.name}.Tests.dll" outfile="${build.dir}\${project.name}.Tests.Results" />
+        </nunit>
+    </target>
+
+    <target name="backup" depends="clean">
+	    <property name="backup.name" value="..\${project.name}-backup-${tstamp.date}-${tstamp.time}.zip" />
+		<zip zipfile="${backup.name}">
+			<fileset>
+				<includes name="**"/>
+			</fileset>
+		</zip>
+    </target>
+</project>

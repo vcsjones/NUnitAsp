@@ -1,0 +1,108 @@
+body {
+	font-family: Verdana, sans-serif;
+	font-size: 12px;
+	background: white;
+	color: black;
+}
+
+a:link		{ color: blue; }
+a:visited	{ color: purple }
+a:active	{ color: red; }
+a:hover		{ color: red; }
+
+h1 {
+	font-size: 1.2em;
+	font-weight: bold;
+	margin-top: 1.5em;
+	margin-bottom: -0.25em;
+}
+
+table {
+	font-size: 12px;
+	border-collapse: collapse;
+}
+
+th {
+	text-align: left;
+	text-decoration: underline;
+	font-variant: small-caps;
+	padding-right: 1em;
+}
+
+td {
+	text-align: left;
+	vertical-align: top;
+	border: 0.1em solid black;
+	padding: 0.25em 1em 0.25em 0.25em;
+}
+
+code {
+	font-family: monospace;
+	text-align: left;
+}
+
+.title {
+	font-size: 1.9em;
+	font-weight: bold;
+	text-align: center;
+}
+
+.navigator {
+	font-size: 1.1em;
+	white-space: nowrap;
+}
+
+.content {
+	text-align: justify;
+}
+
+.code, .html {
+	text-align: left;
+	font-family: monospace;
+	margin: 1.5em 10% 1.5em 10%;
+	border: 0.25em solid black;
+	padding: 0.5em;
+}
+
+.figure {
+	margin: 0em 1em 0em 1em;
+	font-size: .8em;
+}
+
+.keyword {
+	color: blue;
+}
+
+.comment {
+	color: green;
+}
+
+.asp {
+	color: black;
+	background-color: yellow;
+}
+
+.literal {
+	color: blue;
+}
+
+.tag {
+	color: brown;
+}
+
+.attribute {
+	color: red;
+}
+
+.question {
+	margin-top: 1.5em;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.end {
+	margin-top: 3em;
+	border-top: 1px solid black;
+	padding-top: 0.5em;	
+	font-size: 0.75em;
+}

@@ -78,7 +78,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			return (XmlElement)rows[rowNumber];
 		}
 
-		internal override string GetChildElementHtmlId(string aspId)
+        protected internal override string GetChildElementHtmlId(string aspId)
 		{
 			int rowNumber = int.Parse(aspId);
 			return HtmlId + "__ctl" + (rowNumber + 1);
@@ -95,12 +95,12 @@ namespace NUnit.Extensions.Asp.AspTester
 				this.container = container;
 			}
 
-			internal override string GetChildElementHtmlId(string inAspId)
+			protected internal override string GetChildElementHtmlId(string inAspId)
 			{
 				return HtmlId + "_" + inAspId;
 			}
 
-			internal override XmlElement Element
+			protected internal override XmlElement Element
 			{
 				get
 				{

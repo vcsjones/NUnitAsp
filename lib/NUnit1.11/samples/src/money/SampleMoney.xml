@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SampleMoney</name>
+    </assembly>
+    <members>
+        <member name="T:NUnit.Samples.Money.IMoney">
+            <summary>The common interface for simple Monies and MoneyBags.</summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.IMoney.Add(NUnit.Samples.Money.IMoney)">
+            <summary>Adds a money to this money.</summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.IMoney.AddMoney(NUnit.Samples.Money.Money)">
+            <summary>Adds a simple Money to this money. This is a helper method for
+            implementing double dispatch.</summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.IMoney.AddMoneyBag(NUnit.Samples.Money.MoneyBag)">
+            <summary>Adds a MoneyBag to this money. This is a helper method for
+            implementing double dispatch.</summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.IMoney.Multiply(System.Int32)">
+            <summary>Multiplies a money by the given factor.</summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.IMoney.Negate">
+            <summary>Negates this money.</summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.IMoney.Subtract(NUnit.Samples.Money.IMoney)">
+            <summary>Subtracts a money from this money.</summary>
+        </member>
+        <member name="P:NUnit.Samples.Money.IMoney.IsZero">
+            <value>True if this money is zero.</value>
+        </member>
+        <member name="T:NUnit.Samples.Money.Money">
+            <summary>A simple Money.</summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.Money.#ctor(System.Int32,System.String)">
+            <summary>Constructs a money from the given amount and
+            currency.</summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.Money.Add(NUnit.Samples.Money.IMoney)">
+            <summary>Adds a money to this money. Forwards the request to
+            the AddMoney helper.</summary>
+        </member>
+        <member name="T:NUnit.Samples.Money.MoneyBag">
+            <summary>A MoneyBag defers exchange rate conversions.</summary>
+            <remarks>For example adding 
+            12 Swiss Francs to 14 US Dollars is represented as a bag 
+            containing the two Monies 12 CHF and 14 USD. Adding another
+            10 Swiss francs gives a bag with 22 CHF and 14 USD. Due to 
+            the deferred exchange rate conversion we can later value a 
+            MoneyBag with different exchange rates.
+            
+            A MoneyBag is represented as a list of Monies and provides 
+            different constructors to create a MoneyBag.</remarks>
+        </member>
+        <member name="T:NUnit.Samples.Money.MoneyTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.SetUp">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestBagMultiply">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestBagNegate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestBagSimpleAdd">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestBagSubtract">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestBagSumAdd">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestIsZero">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestMixedSimpleAdd">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestMoneyBagEquals">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestMoneyBagHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestMoneyEquals">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestMoneyHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestNormalize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestNormalize2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestNormalize3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestNormalize4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestPrint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestSimpleAdd">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestSimpleBagAdd">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestSimpleMultiply">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestSimpleNegate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.Money.MoneyTest.TestSimpleSubtract">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -57,6 +57,15 @@ namespace NUnit.Extensions.Asp
 			string branchPattern = basicPattern + ">.*?<" + whiteSpace + "/" + whiteSpace + backReferenceToElementName + whiteSpace + ">";
 			RegexOptions options = RegexOptions.Singleline | RegexOptions.IgnoreCase;
 
+			// check for duplicate ids
+			string requiredValueTerminator = "['\"/>"+whiteSpace+"]+";
+			string duplicateIdPatttern = String.Format("id{0}={0}{1}{2}{3}", whiteSpace, optionalQuote, id, requiredValueTerminator);
+			MatchCollection idMatches = Regex.Matches(html, duplicateIdPatttern, options);
+			if (idMatches.Count>1)
+			{
+				throw new UniqueIdException(id);
+			}
+
 			MatchCollection matches = Regex.Matches(html, leafPattern, options);
 			if (matches.Count == 0)
 			{

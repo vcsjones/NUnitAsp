@@ -1,0 +1,1096 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NUnitTests</name>
+    </assembly>
+    <members>
+        <member name="T:NUnit.Tests.ActiveTestTest">
+            <summary>Testing the ActiveTest support.</summary>
+        </member>
+        <member name="M:NUnit.Tests.ActiveTestTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.ActiveTestTest.TestActiveRepeatedTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ActiveTestTest.TestActiveRepeatedTest0">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ActiveTestTest.TestActiveRepeatedTest1">
+            <summary>
+            	
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ActiveTestTest.TestActiveTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.ActiveTestTest.SuccessTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ActiveTestTest.SuccessTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.ActiveTestTest.SuccessTest.Success">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.AllTests">
+            <summary>TestSuite that runs all the sample Tests.</summary>
+        </member>
+        <member name="P:NUnit.Tests.AllTests.Suite">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.AssertionTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertEquals">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertEqualsNaNFails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertEqualsNull">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertNanEqualsFails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertNanEqualsNaNFails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertNegInfinityEqualsInfinity">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertPosInfinityEqualsInfinity">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertPosInfinityNotEquals">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertPosInfinityNotEqualsNegInfinity">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertSinglePosInfinityNotEqualsNegInfinity">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertSingle">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertByte">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertString">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertShort">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertNull">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertNullNotEqualsNull">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertSame">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestAssertSameFails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestFail">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestFailAssertNotNull">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.AssertionTest.TestSucceedAssertNotNull">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.ExceptionTestCaseTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExceptionTestCaseTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.ExceptionTestCaseTest.TestExceptionSubclass">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExceptionTestCaseTest.TestExceptionTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExceptionTestCaseTest.TestFailure">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExceptionTestCaseTest.TestNoException">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExceptionTestCaseTest.TestWrongException">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.ExceptionTestCaseTest.ThrowExceptionTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExceptionTestCaseTest.ThrowExceptionTestCase.#ctor(System.String,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:NUnit.Tests.ExceptionTestCaseTest.ThrowExceptionTestCase.Test">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.ExceptionTestCaseTest.ThrowRuntimeExceptionTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExceptionTestCaseTest.ThrowRuntimeExceptionTestCase.#ctor(System.String,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:NUnit.Tests.ExceptionTestCaseTest.ThrowRuntimeExceptionTestCase.Test">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.ExceptionTestCaseTest.ThrowNoExceptionTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExceptionTestCaseTest.ThrowNoExceptionTestCase.#ctor(System.String,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:NUnit.Tests.ExceptionTestCaseTest.ThrowNoExceptionTestCase.Test">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.ExpectExceptionTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExpectExceptionTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.ExpectExceptionTest.TestSingle">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExpectExceptionTest.TestList">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExpectExceptionTest.TestInvalid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.ExpectExceptionTest.InvalidExceptionTests">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExpectExceptionTest.InvalidExceptionTests.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.ExpectExceptionTest.InvalidExceptionTests.Test">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExpectExceptionTest.InvalidExceptionTests.TestWrongException">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.ExtensionTest">
+            <summary>
+            A test case testing the extensions to the Testing framework.
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExtensionTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.ExtensionTest.TestRunningErrorInTestSetup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExtensionTest.TestRunningErrorsInTestSetup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExtensionTest.TestSetupErrorDontTearDown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExtensionTest.TestSetupErrorInTestSetup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:NUnit.Tests.ExtensionTest.TornDown.fTornDown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExtensionTest.TornDown.#ctor(NUnit.Framework.ITest)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+        </member>
+        <member name="M:NUnit.Tests.ExtensionTest.TornDown.TearDown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.ExtensionTest.RunningSetupFailure">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExtensionTest.RunningSetupFailure.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExtensionTest.RunningSetupFailure.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.ExtensionTest.RunningSetupError">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExtensionTest.RunningSetupError.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExtensionTest.RunningSetupError.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.ExtensionTest.SetupFailTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ExtensionTest.SetupFailTest.#ctor(NUnit.Framework.ITest)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+        </member>
+        <member name="M:NUnit.Tests.ExtensionTest.SetupFailTest.SetUp">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.Failure">
+            <summary>
+            A test case testing the extensions to the Testing framework.
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.Failure.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.Failure.Test">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.InheritedTestCase">
+            <summary>Test class used in SuiteTest.</summary>
+        </member>
+        <member name="T:NUnit.Tests.OneTestCase">
+            <summary>Test class used in SuiteTest.</summary>
+        </member>
+        <member name="M:NUnit.Tests.OneTestCase.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.OneTestCase.NoTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.OneTestCase.TestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.OneTestCase.TestCase(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="arg"></param>
+        </member>
+        <member name="M:NUnit.Tests.InheritedTestCase.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.InheritedTestCase.Test2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.NoTestCaseClass">
+            <summary>Test class used in SuiteTest.</summary>
+        </member>
+        <member name="M:NUnit.Tests.NoTestCaseClass.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.NoTestCaseClass.TestSuccess">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.NoTestCases">
+            <summary>Test class used in SuiteTest.</summary>
+        </member>
+        <member name="M:NUnit.Tests.NoTestCases.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.NoTestCases.NoTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.NotPublicTestCase">
+            <summary>Test class used in SuiteTest.</summary>
+        </member>
+        <member name="M:NUnit.Tests.NotPublicTestCase.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.NotPublicTestCase.TestNotPublic">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.NotPublicTestCase.TestPublic">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.NotVoidTestCase">
+            <summary>Test class used in SuiteTest.</summary>
+        </member>
+        <member name="M:NUnit.Tests.NotVoidTestCase.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.NotVoidTestCase.TestNotVoid">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Tests.NotVoidTestCase.TestVoid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.OverrideTestCase">
+            <summary>Test class used in SuiteTest.</summary>
+        </member>
+        <member name="M:NUnit.Tests.OverrideTestCase.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.OverrideTestCase.TestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.RepeatedTestTest">
+            <summary>
+            Testing the RepeatedTest support.
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.RepeatedTestTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.RepeatedTestTest.TestRepeatedOnce">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.RepeatedTestTest.TestRepeatedMoreThanOnce">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.RepeatedTestTest.TestRepeatedZero">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.RepeatedTestTest.TestRepeatedNegative">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.RepeatedTestTest.SuccessTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.RepeatedTestTest.SuccessTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.RepeatedTestTest.SuccessTest.Success">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.Success">
+            <summary>A test case testing the testing framework.</summary>
+        </member>
+        <member name="M:NUnit.Tests.Success.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.Success.Test">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.SuiteTest">
+            <summary>A fixture for Testing the "auto" test suite feature.</summary>
+        </member>
+        <member name="F:NUnit.Tests.SuiteTest.fResult">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.SuiteTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.SuiteTest.SetUp">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.SuiteTest.Suite">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Tests.SuiteTest.TestAddTestSuite">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.SuiteTest.TestInheritedTests">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.SuiteTest.TestNoTestCaseClass">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.SuiteTest.TestNoTestCases">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.SuiteTest.TestNotExistingTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.SuiteTest.TestNotPublicTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.SuiteTest.TestNotVoidTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.SuiteTest.TestOneTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.SuiteTest.TestShadowedTests">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestCaseTest">
+            <summary>
+            A test case testing the testing framework.
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TestCaseToString">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TestError">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TestFailure">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TestRunAndTearDownFails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TestSetupFails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TestSuccess">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TestTearDownAfterError">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TestTearDownFails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TestTearDownSetupFails">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TestWasRun">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestCaseTest.TornDown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TornDown.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TornDown.TearDown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TornDown.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestCaseTest.ErrorTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.ErrorTestCase.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.ErrorTestCase.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestCaseTest.FailureTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.FailureTestCase.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.FailureTestCase.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestCaseTest.FailsTornDown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.FailsTornDown.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.FailsTornDown.TearDown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.FailsTornDown.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestCaseTest.SetupFailsTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.SetupFailsTestCase.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.SetupFailsTestCase.SetUp">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.SetupFailsTestCase.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestCaseTest.SuccessTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.SuccessTestCase.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.SuccessTestCase.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestCaseTest.TearDownFailsTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TearDownFailsTestCase.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TearDownFailsTestCase.TearDown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TearDownFailsTestCase.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestCaseTest.TearDownSetupFailsTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TearDownSetupFailsTestCase.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestCaseTest.TearDownSetupFailsTestCase.SetUp">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestImplementorTest">
+            <summary>
+            Test an implementor of NUnit.Framework.ITest other 
+            than TestCase or TestSuite
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestImplementorTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.TestImplementorTest.TestSuccessfulRun">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestImplementorTest.DoubleTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestImplementorTest.DoubleTestCase.#ctor(NUnit.Framework.TestCase)">
+            <summary>
+            
+            </summary>
+            <param name="testCase"></param>
+        </member>
+        <member name="M:NUnit.Tests.TestImplementorTest.DoubleTestCase.Run(NUnit.Framework.TestResult)">
+            <summary>
+            
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="P:NUnit.Tests.TestImplementorTest.DoubleTestCase.CountTestCases">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestImplementorTest.DoubleTestCase.ProtectedClass">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestImplementorTest.DoubleTestCase.ProtectedClass.#ctor(NUnit.Framework.TestCase)">
+            <summary>
+            
+            </summary>
+            <param name="testCase"></param>
+        </member>
+        <member name="M:NUnit.Tests.TestImplementorTest.DoubleTestCase.ProtectedClass.Protect">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestImplementorTest.NoOpTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestImplementorTest.NoOpTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.TestImplementorTest.NoOpTest.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestListenerTest">
+            <summary>Test class used in SuiteTest.</summary>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.AddError(NUnit.Framework.ITest,System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+            <param name="t"></param>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.AddFailure(NUnit.Framework.ITest,NUnit.Framework.AssertionFailedError)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+            <param name="t"></param>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.EndTest(NUnit.Framework.ITest)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.SetUp">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.StartTest(NUnit.Framework.ITest)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.TestError">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.TestFailure">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.TestStartStop">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestListenerTest.ErrorTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.ErrorTestCase.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.ErrorTestCase.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestListenerTest.FailTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.FailTestCase.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.FailTestCase.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.TestListenerTest.NoOpTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.NoOpTestCase.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.TestListenerTest.NoOpTestCase.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.ThreadTest">
+            <summary>A test case Testing the running of Tests across multiple
+            threads.</summary><remarks>
+            Demonstrates that running a test case across different threads
+            doesn't work yet.</remarks>
+        </member>
+        <member name="M:NUnit.Tests.ThreadTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Tests.ThreadTest.Suite">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Tests.ThreadTest.TestRemote">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ThreadTest.TestRunInThread">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ThreadTest.VerifyResults">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.ThreadTest.RunInThreadTestCase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ThreadTest.RunInThreadTestCase.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Tests.ThreadTest.RunInThreadTestCase.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Tests.WasRun">
+            <summary>A helper test case for Testing whether the Testing method
+            is run.</summary>
+        </member>
+    </members>
+</doc>

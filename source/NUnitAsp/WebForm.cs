@@ -40,7 +40,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			this.browser = browser;
 		}
 
-		internal override HttpClient Browser
+		protected internal override HttpClient Browser
 		{
 			get
 			{
@@ -53,14 +53,14 @@ namespace NUnit.Extensions.Asp.AspTester
 			return (GetElementInternal(htmlId) != null);
 		}
 
-		internal override XmlElement GetChildElement(string htmlId)
+		protected internal override XmlElement GetChildElement(string htmlId)
 		{
 			XmlElement element = GetElementInternal(htmlId);
 			if (element == null) throw new ElementNotVisibleException("Couldn't find " + htmlId + " on " + Description);
 			return element;
 		}
 
-		internal override string GetChildElementHtmlId(string aspId)
+		protected internal override string GetChildElementHtmlId(string aspId)
 		{
 			return aspId;
 		}
@@ -70,12 +70,12 @@ namespace NUnit.Extensions.Asp.AspTester
 			return browser.CurrentPage.GetElementById(aspId);
 		}
 
-		internal override void EnterInputValue(string name, string value)
+		protected internal override void EnterInputValue(string name, string value)
 		{
 			browser.SetFormVariable(name, value);
 		}
 
-		internal override void Submit()
+		protected internal override void Submit()
 		{
 			browser.SubmitForm(GetAttributeValue("action"), GetAttributeValue("method"));
 		}

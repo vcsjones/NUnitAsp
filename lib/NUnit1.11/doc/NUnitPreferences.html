@@ -1,0 +1,38 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>NUnit 2</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.75 [en] (Windows NT 5.0; U) [Netscape]">
+   <meta name="Author" content="Philip Craig">
+</head>
+<body>
+
+<h2>
+NUnit TestRunner Preferences</h2>
+  The TestRunners use a preferences file for preference settings.
+This file is stored in the isolated storage area for the user.
+The following preferences are supported:
+<br>&nbsp;
+<table BORDER cellspacing=0>
+
+<tr>
+<td><b>filterstack</b></td>
+
+<td>Filter NUnit internal methods in failure or error 
+      stack traces. Default value=          
+true.&nbsp;</td>
+</tr>
+
+<tr>
+<td><b>maxmessage</b></td>
+
+<td>The maximum output length. Default value=     500. Set maxmessage to -1
+to disable output truncation. Disabling the output truncation will result
+in long test runs when an AssertEquals method fails and the ToString()
+method results in massive output.&nbsp;</td>
+</tr>
+</table>
+
+</body>
+</html>

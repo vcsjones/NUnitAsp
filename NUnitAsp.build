@@ -3,8 +3,7 @@
 	<description>NUnitAsp - ASP.NET Unit Testing</description>
 	
 	<property name="source.dir" value="source" />
-	<property name="doc.dir" value="${source.dir}\doc" />
-	<property name="lib.dir" value="lib" />
+	<property name="nunit.dir" value="lib\NUnit1.11\bin" />
 	<property name="build.dir" value="build" />
 	<property name="bin.dir" value="${build.dir}\bin" />
 	<property name="testPagesBuild.dir" value="${source.dir}\NUnitAspTestPages\bin" />
@@ -13,46 +12,86 @@
 	<property name="testdll.path" value="${bin.dir}\NUnitAspTest.dll" />
 	<property name="webdll.path" value="${bin.dir}\NUnitAspTestPages.dll" />
 	
+	<!--*****
+	* build_dir
+	*****-->	
 	<target name="build_dir">
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${testPagesBuild.dir}" />
 		<mkdir dir="${bin.dir}" />
 	</target>
+
+	<!--*****
+	* package
+	*****-->
+	<target name="package" depends="build" description="Build project and create deployable directory structure">
+		<copy todir="bin">
+			<fileset basedir="${bin.dir}">
+				<includes name="NUnitAsp.dll" />
+			</fileset>
+		</copy>
+		<copy todir="bin">
+			<fileset basedir="${nunit.dir}">
+				<includes name="NUnitCore.dll" />
+				<includes name="NUnitGUI.exe" />
+				<includes name="NUnitConsole.exe" />
+			</fileset>
+		</copy>
+		
+	</target>
 	
-	<target name="build" depends="compile, copy_web" description="Build entire project">
+	<!--*****
+	* build
+	*****-->	
+	<target name="build" depends="compile" description="Build entire project">
 	</target>
 
+	<!--*****
+	* compile
+	*****-->	
 	<target name="compile" depends="compile_nunitasp, compile_nunitasptest, compile_nunitasptestpages">
 	</target>
 
+	<!--*****
+	* keypair
+	*****-->	
 	<target name="keypair">
-		<exec program="sn" commandline="-k NUnitAsp.snk" />
+		<exec program="sn" commandline="-k NUnitAsp.snk"/>
 	</target>
 
+	<!--*****
+	* compile_nunitasptest
+	*****-->	
 	<target name="compile_nunitasp" depends="build_dir, keypair">
-		<csc target="library" output="${dll.path}" doc="${build.dir}\api.xml" debug="true">
+		<csc target="library" output="${dll.path}" doc="${bin.dir}\NUnitAsp.xml" debug="true">
 			<sources basedir="${source.dir}\NUnitAsp">
 				<includes name="**\*.cs" />
 			</sources>
 			<references>
-				<includes name="${lib.dir}\*.dll" />
+				<includes name="${nunit.dir}\*.dll" />
 			</references>
-			<arg value="/nowarn:0679 /nowarn:1591"/>
+			<arg value="/nowarn:1591"/>
 		</csc>
 	</target>
 
+	<!--*****
+	* compile_nunitasptest
+	*****-->	
 	<target name="compile_nunitasptest" depends="build_dir">
 		<csc target="library" output="${testdll.path}" debug="true">
 			<sources basedir="${source.dir}\NUnitAspTest">
 				<includes name="**\*.cs" />
 			</sources>
 			<references>
-				<includes name="${lib.dir}\*.dll" />
+				<includes name="${nunit.dir}\*.dll" />
 				<includes name="${dll.path}" />
 			</references>
 		</csc>
 	</target>
 	
+	<!--*****
+	* compile_nunitasptestpages
+	*****-->	
 	<target name="compile_nunitasptestpages" depends="build_dir">
 		<csc target="library" output="${webdll.path}" debug="true">
 			<sources basedir = "${source.dir}\NUnitAspTestPages">
@@ -67,52 +106,46 @@
 			</fileset>
 		</copy>
 	</target>
-	
-	<target name="copy_web" depends="build_dir">
-		<copy todir="${build.dir}">
-			<fileset>
-				<includes name="readme.html" />
-				<includes name="website\**" />
-				<includes name="web\**" />
-			</fileset>
-		</copy>
-	</target>
-	
-	<target name="test" depends="build" description="Test project">
-		<exec program="${lib.dir}\nunitconsole" commandline="NUnit.Extensions.Asp.Test.NUnitAspTestSuite,${testdll.path}" />
-	</target>
-	
-	<target name="guitest" depend="build" description="Test project and display GUI with results">
-		<exec program="${lib.dir}\nunitgui" commandline="NUnit.Extensions.Asp.Test.NUnitAspTestSuite,${testdll.path}" />
-	</target>
 		
+	<!--*****
+	* test
+	*****-->	
+	<target name="test" depends="build" description="Test project">
+		<nunit>
+			<test class="NUnit.Extensions.Asp.Test.NUnitAspTestSuite" assembly="${testdll.path}" />
+		</nunit>
+	</target>
+			
+	<!--*****
+	* dist
+	*****-->	
 	<target name="dist" depends="test" description="Creates a releasable .zip file">
 		<zip zipfile="${build.dir}\NUnitAsp.zip">
 			<fileset>
-				<includes name="readme.html" />
-				<includes name="website\**" />
-				<includes name="${dll.path}" />
-				<includes name="${lib.dir}\*" />
-				<includes name="${source.dir}\**" />
-				<includes name="web\**" />
-				<excludes name="**\obj\**" />
-				<excludes name="**\bin\**" />
+				<includes name="**" />
+				<excludes name="build\**" />
+				<excludes name="source\**\obj\**" />
+				<excludes name="source\**\bin\**" />
 				<excludes name="**\*.user" />
 				<excludes name="**\*.webinfo" />
 			</fileset>
 		</zip>
 	</target>
 	
+	<!--*****
+	* clean
+	*****-->	
 	<target name="clean" description="Deletes all build files">
 		<!-- Hack to avoid failure if dir not there -->
 		<mkdir dir="${build.dir}" failonerror="false" />
-		<mkdir dir="${testPagesBuild.dir}" failonerror="false" />
+		<mkdir dir="bin" failonerror="false" />
 		
 		<delete dir="${build.dir}" />
+		<delete dir="bin" />
 		<delete>
 			<fileset>
-				<includes name="**/bin/**/*" />
-				<includes name="**/obj/**/*" />
+				<includes name="source/**/bin/**/*" />
+				<includes name="source/**/obj/**/*" />
 			</fileset>
 		</delete>
 	</target>

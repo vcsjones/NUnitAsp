@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SampleSimpleCSharp</name>
+    </assembly>
+    <members>
+        <member name="T:NUnit.Samples.SimpleCSharpTest">
+            <summary>Some simple Tests.</summary>
+        </member>
+        <member name="F:NUnit.Samples.SimpleCSharpTest.fValue1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:NUnit.Samples.SimpleCSharpTest.fValue2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.SimpleCSharpTest.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:NUnit.Samples.SimpleCSharpTest.SetUp">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.SimpleCSharpTest.TestAdd">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.SimpleCSharpTest.TestDivideByZero">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Samples.SimpleCSharpTest.TestEquals">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:NUnit.Samples.SimpleCSharpTest.Suite">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -79,7 +79,7 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		internal override XmlElement GetChildElement(string htmlId)
+		protected internal override XmlElement GetChildElement(string htmlId)
 		{
 			return container.GetChildElement(htmlId);
 		}
@@ -89,12 +89,12 @@ namespace NUnit.Extensions.Asp
 			return container.HasChildElement(htmlId);
 		}
 
-		internal override string GetChildElementHtmlId(string aspId)
+		protected internal override string GetChildElementHtmlId(string aspId)
 		{
 			return container.GetChildElementHtmlId(aspId);
 		}
 
-		internal virtual XmlElement Element
+		protected internal virtual XmlElement Element
 		{
 			get 
 			{
@@ -102,7 +102,7 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		internal override HttpClient Browser
+		protected internal override HttpClient Browser
 		{
 			get
 			{
@@ -143,12 +143,12 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		internal override void EnterInputValue(string name, string value)
+		protected internal override void EnterInputValue(string name, string value)
 		{
 			container.EnterInputValue(name, value);
 		}
 
-		internal override void Submit()
+		protected internal override void Submit()
 		{
 			container.Submit();
 		}

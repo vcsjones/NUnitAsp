@@ -1,0 +1,231 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+	<head>
+		<TITLE>Changes in NUnit</TITLE>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+		<meta name="Author" content="Philip Craig">
+	</head>
+	<body>
+		<h1>
+			<b><font color="#00cc00">N</font><font color="#ff0000">U</font><font color="#000000">nit</font></b>
+			Changes</h1>
+		<hr WIDTH="100%">
+		<a NAME="Summary of">
+			<H2>
+			Changes in v1.11 (25 February 2002)</a></H2>
+		<h3>General</h3>
+		<UL>
+			<li>
+			.Net RTM Version.
+			<LI>
+			General code maintenance.
+  <LI>
+			Obsoleted classes that use Java specific concept of reloading.
+			<LI>
+				Added Reloading. GUI runner will release test assembly 
+  as soon as 
+				tests are completed. Tried as much as possible to introduce as few breaking 
+				changes and as few new requirements as possible. If you have built your 
+				own runners or have extended parts of the framework, you might want to look at 
+				the ReloadingChanges.txt. Many thanks to Bob Davison for his input and ideas on 
+				this topic, and to Ethan Smith for doing all the work on 
+				this release.</LI></UL>
+		<h3>GUI</h3>
+		<UL>
+			<LI>
+			Cosmetic Fixes.
+			<LI>
+			Fixed dynamic layout issues.
+			<LI>
+			New Progress Bar :)
+			<LI>
+				Changed scope of most GUI components to internal.</LI></UL>
+		<h2><a NAME="Summary of"></a>Changes in v1.10 (26&nbsp;June&nbsp;2001)</h2>
+<h3>General</h3>
+<ul><li> .Net beta 2 version.</li></ul>
+<h3>GUI</h3>
+<ul><li> Stack trace in GUI is filtered.</li></ul>
+<h2><a name="Summary of"></a>Changes in v1.9 (21&nbsp;Apr&nbsp;2001)</h2>
+		<h3>Framework</h3>
+		<ul>
+			<li>
+				<font size="3">Added TestSuite.Name property.</font></li></ul>
+		<h3>General</h3>
+		<ul>
+			<li>
+				<font size="3">Incorporated all JUnit 3.6 changes and bug fixes except for GUI 
+					changes.</font></li></ul>
+		<h3>GUI</h3>
+		<ul>
+			<li>
+				<font size="3">Stack trace shown in main window (thanks to Jim Newkirk).</font></li></ul>
+		<h3>Documentation</h3>
+		<ul>
+			<li>
+				<font size="3">Added documentation about the </font><A href="doc/NUnitPreferences.html">
+					<font size="3">preferences</font></A><font size="3"> supported by TestRunners. </font>
+			<li>
+				<font size="3">Updated the FAQ</font></li></ul>
+		<h2>Changes in v1.8 (7 Mar&nbsp;2001)</h2>
+		<h2></h2>
+		<h3>General</h3>
+		<ul>
+			<li>
+				Turned into a Visual Studio.Net solution. Updated to include enhancements 
+				ported from JUnit 3.5.</li></ul>
+		<h3>Framework</h3>
+		<ul>
+			<li>
+				Added TestSuite.addTestSuite(Class testClass)
+				<br>
+				This method allows to create a TestSuite with a class containing test cases 
+				directly.
+				<br>
+				Instead of writing <b>suite.addTest(new TestSuite(AssertTest.class)) </b>you 
+				can now write <b>suite.addTestSuite(AssertTest.class)</b>.</li></ul>
+		<h3>TestRunner</h3>
+		<ul>
+			<li>
+				The Text TestRunner now shows the summary at the very end so that you don't 
+				have to scroll back.</li></ul>
+		<p><br>
+		</p>
+		<h2>Changes in v1.7 (17 Nov 2000)</h2>
+		<h3>
+			General</h3>
+		<ul>
+			<li>
+				Updated to run with Beta 1 SDK, build 2204. Will no longer work with pre-beta 
+				build 1812.</li></ul>
+		<h3>
+			Documentation</h3>
+		<ul>
+			<li>
+				Minor documentation corrections. XML links improved.</li>
+		</ul>
+		<h3>Samples</h3>
+		<ul>
+			<li>
+				JScript sample corrected for 2204 compiler.</li></ul>
+		<h2>
+			<a NAME="Summary of"></a>Changes in v1.6 (4 Nov 2000)</h2>
+		<h3>
+			NUnit Framework</h3>
+		<ul>
+			<li>
+			Add an ExpectExceptionAttribute as an alternative to subclassing the 
+			ExceptionTestCase extension. See the test of it for usage. (Thanks to Joe 
+			Hildebrand)
+			<li>
+				All comments turned into .Net XML comments.</li></ul>
+		<h3>TestRunner</h3>
+		<ul>
+			<li>
+			Separate NUnitConsole.exe binary for batch tests (NUnit.exe for GUI)
+			<li>
+				NUnit WebService with XML results added.</li>
+		</ul>
+		<h3>
+			Documentation</h3>
+		<ul>
+			<li>
+				TestInfected, Cookbook and FAQ documentation converted to NUnit and C# 
+				examples.</li>
+		</ul>
+		<h3>Samples</h3>
+		<ul>
+			<li>
+				JScript example added.</li></ul>
+		<h2>Changes in v1.5 (15 Oct 2000)</h2>
+		<ul>
+			<li>
+			Red/green progress bar (from Jim Newkirk)
+			<li>
+			copy deployment, including resources (xcopy deployment is for wimps :-) )
+			<li>
+			b2r utility for compiling bitmaps and icons to resources during build.
+			<li>
+			Wider test browser and show details windows.
+			<li>
+				Incorporate JUnit 3.3.1 beta changes:
+				<ul>
+					<li>
+					- BaseRunner common base class for test runners (GUI not refactored yet)
+					<li>
+					- ActiveTestSuite for multithreaded test suites
+					<li>
+					- More complete internal tests
+					<li>
+						- Differing return codes for incorporating TextRunner into automated scripts</li></ul>
+			<li>
+				New screen shots on website.</li>
+		</ul>
+		<h2>Changes in v1.4.1 (7 Oct 2000)</h2>
+		<ul>
+			<li>
+			Icons for test suite browser. Run button runs tests, double clicking expands 
+			tests. (from Jim Newkirk)
+			<li>
+			Makefile rationalisation. DLL rationalisation. Makefile supports a non-debug 
+			optimised build.
+			<li>
+				Click on URL in About box to go to NUnit website.</li>
+		</ul>
+		<h2>Changes in v1.4 (27 Sep 2000)</h2>
+		<ul>
+			<li>
+			A menu with a test suite browser on it. Open the browser and double click 
+			anywhere in the tree of test suites to run everything under that point in the 
+			hierarchy. (from Jim Newkirk)
+			<li>
+				An About box.</li>
+		</ul>
+		<h2>Changes in v1.3 (23 Sep 2000)</h2>
+		A much improved GUI, courtesy of Ethan Smith and Jim Newkirk.<ul>
+			<li>
+			You can now browse to DLLs or EXEs. NUnit will identify all the classes that 
+			have TestSuites implemented and give a dropdown letting you choose which 
+			TestSuite to run.
+			<li>
+			Failures, Errors, and error and text outputs all have their own tabs.
+			<li>
+				Double-clicking on a failure shows a stack trace.</li>
+		</ul>
+		<h2>Changes in v1.2 (18 Sep 2000)</h2>
+		<ul>
+			<li>
+			First cut at a GUI, courtesy of Jim Newkirk
+			<li>
+			test target in the makefile builds and launches GUI.
+			<li>
+				Name changed to NUnit from NetUnit throughout.</li>
+		</ul>
+		<h2>Changes from v1.1 (9 Sep 2000)</h2>
+		<ul>
+			<li>
+				.Net style casing on all method names (thanks to Ethan Smith) Assertion.cs 
+				changed to Assert.cs to match class name.</li>
+		</ul>
+		<h2>Changes from v1.0 (1 Sep 2000)</h2>
+		<ul>
+			<li>
+			Converted to properties where sensible. Note that NUnit now looks for tests in 
+			a static property named Suite, not a method named suite().
+			<li>
+			Added some assembly info.
+			<li>
+			Added some readonly optimisations.
+			<li>
+			Fixed a bug where the shown identifier of failures and errors didn't increment 
+			in the output.
+			<li>
+			Added a VB test example. The power of .Net really showed here. No code changes 
+			were necessary to make the VB sample work.
+			<li>
+				Added the junit licence as required.
+				<hr WIDTH="100%">
+			</li>
+		</ul>
+	</body>
+</html>

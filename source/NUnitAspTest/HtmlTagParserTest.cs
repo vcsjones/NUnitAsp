@@ -105,18 +105,26 @@ namespace NUnit.Extensions.Asp.Test
 			RunTest("<tag />", null);
 		}
 
-		// Someone please try to get this test to pass!
-//		public void TestSameIdTwice()
-//		{
-//			try
-//			{
-//				RunTest("<tag1 id=testId /><tag2 id=testId />");
-//				Fail("Expected exception");
-//			}
-//			catch(HtmlTagParser.UniqueIdException)
-//			{
-//				Assert("correct behavior", true);
-//			}
-//		}
+		public void TestSameIdTwice()
+		{
+			try
+			{
+				RunTest("<tag1 id=testId /><tag2 id=testId />");
+				Fail("Expected exception");
+			}
+			catch(HtmlTagParser.UniqueIdException)
+			{
+				Assert("correct behavior", true);
+			}
+		}
+
+		public void TestSameIdPrefixTwice()
+		{
+			RunTest("<tag1 id=testId/><tag2 id=testId1/>", "<tag1 id=testId/>");
+			RunTest("<tag1 id=testId /><tag2 id=testId1 />", "<tag1 id=testId />");
+			RunTest("<tag1 id='testId'/><tag2 id='testId1'/>", "<tag1 id='testId'/>");
+			RunTest("<tag1 id=\"testId\"/><tag2 id=\"testId1\"/>", "<tag1 id=\"testId\"/>");
+			RunTest("<tag1 id=testId></tag1><tag2 id=testId1></tag2>", "<tag1 id=testId></tag1>");
+		}
 	}
 }

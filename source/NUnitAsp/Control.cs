@@ -13,15 +13,15 @@ namespace NUnit.Extensions.Asp
 	public abstract class Control
 	{
 		public abstract bool HasChildElement(string aspId);
-		internal abstract XmlElement GetChildElement(string htmlId);
-		internal abstract string GetChildElementHtmlId(string aspId);
-		internal abstract void EnterInputValue(string name, string value);
-		internal abstract void Submit();
+		protected internal abstract XmlElement GetChildElement(string htmlId);
+		protected internal abstract string GetChildElementHtmlId(string aspId);
+		protected internal abstract void EnterInputValue(string name, string value);
+		protected internal abstract void Submit();
 		public abstract string Description
 		{
 			get;
 		}
-		internal abstract HttpClient Browser
+		protected internal abstract HttpClient Browser
 		{
 			get;
 		}

@@ -35,7 +35,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			this.container = container;
 		}
 
-		internal override string GetChildElementHtmlId(string aspId)
+		protected internal override string GetChildElementHtmlId(string aspId)
 		{
 			return HtmlId + "_" + aspId;
 		}
