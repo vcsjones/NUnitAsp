@@ -159,5 +159,10 @@ namespace NUnit.Extensions.Asp
 			formVariables.Remove(name);
 			formVariables.Add(name, value);
 		}	
+
+		public override string ToString()
+		{
+			return pageText;
+		}
 	}
 }

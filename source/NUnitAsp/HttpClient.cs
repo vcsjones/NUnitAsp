@@ -61,6 +61,14 @@ namespace NUnit.Extensions.Asp
 			return cookies.ContainsKey(cookieName);
 		}
 
+		public string CurrentPageText
+		{
+			get
+			{
+				return currentPage.ToString();
+			}
+		}
+
 		internal XmlDocument CurrentPage
 		{
 			get 
