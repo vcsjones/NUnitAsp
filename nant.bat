@@ -1,16 +1,16 @@
 @echo off
-set _defaultToolDir=c:\windows\Microsoft.NET\Framework\v1.0.3705
+set _defaultToolDir=c:\windows\Microsoft.NET\Framework\v1.0.3705;C:\Program Files\Microsoft Visual Studio .NET\FrameworkSDK\bin
 echo .
 
 if not "%DotNetToolDir%"=="" goto :setPath
-echo Could not find DotNetToolDir environment variable
+echo Warning: Could not find DotNetToolDir environment variable
 echo .
 echo set DotNetToolDir=%_defaultToolDir%
 set DotNetToolDir=%_defaultToolDir%
 
 :setPath
 set _backupPath=%path%
-set path=%path%;%FrameworkSDKDir%\bin
+set path=%path%;%DotNetToolDir%
 
 set _command=lib\nant\bin\nant %*
 echo %_command%
