@@ -11,7 +11,7 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			AddTestSuite(typeof(AspDataGridTest));
 			AddTestSuite(typeof(AspLabelTest));
-			AddTestSuite(typeof(HttpBrowserTest));
+			AddTestSuite(typeof(HttpClientTest));
 		}
 
 		public static ITest Suite 

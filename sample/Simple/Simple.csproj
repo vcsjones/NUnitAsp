@@ -3,20 +3,20 @@
         ProjectType = "Local"
         ProductVersion = "7.0.9466"
         SchemaVersion = "1.0"
-        ProjectGuid = "{9B344403-AB76-4420-BA97-115A147F7B7D}"
+        ProjectGuid = "{25B3A460-5C87-4210-AE14-143A0417CB9D}"
     >
         <Build>
             <Settings
                 ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "NUnitAspTest"
+                AssemblyName = "Simple"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
                 OutputType = "Library"
-                RootNamespace = "NUnit.Extensions.Asp.Test"
+                RootNamespace = "Simple"
                 StartupObject = ""
             >
                 <Config
@@ -69,60 +69,30 @@
                 />
                 <Reference
                     Name = "System.XML"
-                    AssemblyName = "System.Xml"
+                    AssemblyName = "System.XML"
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.XML.dll"
                 />
                 <Reference
                     Name = "NUnitCore"
                     AssemblyName = "NUnitCore"
-                    HintPath = "..\..\lib\NUnitCore.dll"
+                    HintPath = "..\source\NUnitAsp\bin\Debug\NUnitCore.dll"
                 />
                 <Reference
                     Name = "NUnitAsp"
-                    Project = "{5D5FCC6A-44FE-4A25-8F20-B95E904866B0}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "System.Drawing"
-                    AssemblyName = "System.Drawing"
-                    HintPath = "..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Drawing.dll"
-                />
-                <Reference
-                    Name = "System.Windows.Forms"
-                    AssemblyName = "System.Windows.Forms"
-                    HintPath = "..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Windows.Forms.dll"
+                    AssemblyName = "NUnitAsp"
+                    HintPath = "..\source\NUnitAsp\bin\Debug\NUnitAsp.dll"
                 />
             </References>
         </Build>
         <Files>
             <Include>
                 <File
-                    RelPath = "AspDataGridTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspLabelTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "HttpClientTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "NUnitAspTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "NUnitAspTestSuite.cs"
+                    RelPath = "SimpleTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

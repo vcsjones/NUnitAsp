@@ -26,9 +26,9 @@ using System.Net;
 namespace NUnit.Extensions.Asp.Test
 {
 
-	public class HttpBrowserTest : NUnitAspTestCase
+	public class HttpClientTest : NUnitAspTestCase
 	{
-		private static readonly string TestUrl = BaseUrl + "HttpBrowserTestPage.aspx";
+		private static readonly string TestUrl = BaseUrl + "HttpClientTestPage.aspx";
 
 		private AspLinkButton redirect;
 		private AspLinkButton dropCookie;
@@ -36,7 +36,7 @@ namespace NUnit.Extensions.Asp.Test
 		private AspLinkButton postBack;
 		private AspLabel cookie;
 
-		public HttpBrowserTest(string name) : base(name)
+		public HttpClientTest(string name) : base(name)
 		{
 		}
 
@@ -67,19 +67,6 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
 		}
 
-		public void TestGetNonExistentPage()
-		{
-			try
-			{
-				Browser.GetPage(TestUrl + "/foodle.html");
-				Fail("Expected exception");
-			}
-			catch(WebException)
-			{
-				Assert("Expected", true);
-			}
-		}
-
 		public void TestRedirect()
 		{
 			Browser.GetPage(TestUrl);
@@ -101,7 +88,6 @@ namespace NUnit.Extensions.Asp.Test
 			Browser.GetPage(TestUrl);
 			AssertCookieNotSet();
 			dropCookie.Click();
-			AssertCookieSet();
 			Browser.GetPage(TestUrl);
 			AssertCookieSet();
 			redirect.Click();

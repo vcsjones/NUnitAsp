@@ -134,17 +134,8 @@ namespace NUnit.Extensions.Asp
 				response = request.GetResponse();
 				serverTime += (DateTime.Now - startTime);
 
-				string pageLengthHeader = response.Headers["Content-Length"];
-				if (pageLengthHeader == null) throw new DownloadException("No content length specified");
-				int pageLength = int.Parse(pageLengthHeader);
-				byte[] pageData = new byte[pageLength];
-
-				Stream pageStream = response.GetResponseStream();
-				int bytesRead = pageStream.Read(pageData, 0, pageLength);
-				if (bytesRead != pageLength) throw new DownloadException(string.Format("Expected {0} bytes but received {1}", pageLength, bytesRead));
-
-				UTF8Encoding decoder = new UTF8Encoding();
-				pageText = decoder.GetString(pageData);
+				StreamReader pageReader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+				pageText = pageReader.ReadToEnd();
 
 				return response.Headers.GetValues("Set-Cookie");
 			}
@@ -320,11 +311,5 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		public class DownloadException : ApplicationException
-		{
-			internal DownloadException(string message) : base(message)
-			{
-			}
-		}
 	}
 }

@@ -45,7 +45,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				return container.HasElement(aspId);
+				return container.HasChildElement(aspId);
 			}
 		}
 
@@ -62,21 +62,21 @@ namespace NUnit.Extensions.Asp
 			return attribute.Value;
 		}
 
-		internal override XmlElement GetElement(string aspId)
+		internal override XmlElement GetChildElement(string aspId)
 		{
-			return container.GetElement(aspId);
+			return container.GetChildElement(aspId);
 		}
 
-		public override bool HasElement(string aspId)
+		public override bool HasChildElement(string aspId)
 		{
-			return container.HasElement(aspId);
+			return container.HasChildElement(aspId);
 		}
 
 		internal virtual XmlElement Element
 		{
 			get 
 			{
-				return container.GetElement(aspId);
+				return container.GetChildElement(aspId);
 			}
 		}
 

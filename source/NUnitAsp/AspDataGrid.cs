@@ -62,9 +62,9 @@ namespace NUnit.Extensions.Asp
 			return (XmlElement)rows[rowNum + 1];
 		}
 
-		internal override XmlElement GetElement(string aspId)
+		internal override XmlElement GetChildElement(string aspId)
 		{
-			return base.GetElement(AspId + "_" + aspId);
+			return base.GetChildElement(AspId + "_" + aspId);
 		}
 
 		public class Row : AspControl
@@ -78,9 +78,9 @@ namespace NUnit.Extensions.Asp
 				this.container = container;
 			}
 
-			internal override XmlElement GetElement(string aspId)
+			internal override XmlElement GetChildElement(string aspId)
 			{
-				return base.GetElement(AspId + "_" + aspId);
+				return base.GetChildElement(AspId + "_" + aspId);
 			}
 
 			internal override XmlElement Element
@@ -106,13 +106,5 @@ namespace NUnit.Extensions.Asp
 				}
 			}
 		}
-
-		private class InvalidContainerException : ApplicationException
-		{
-			internal InvalidContainerException(string message) : base(message)
-			{
-			}
-		}
-
 	}
 }

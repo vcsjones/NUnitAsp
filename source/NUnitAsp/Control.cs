@@ -7,8 +7,8 @@ namespace NUnit.Extensions.Asp
 	public abstract class Control
 	{
 
-		public abstract bool HasElement(string aspId);
-		internal abstract XmlElement GetElement(string aspId);
+		public abstract bool HasChildElement(string aspId);
+		internal abstract XmlElement GetChildElement(string aspId);
 		internal abstract void EnterInputValue(string name, string value);
 		internal abstract void Submit();
 		public abstract string Description

@@ -35,14 +35,14 @@ namespace NUnit.Extensions.Asp
 			this.container = container;
 		}
 
-		internal override XmlElement GetElement(string aspId)
+		internal override XmlElement GetChildElement(string aspId)
 		{
-			return base.GetElement(HtmlId + "_" + aspId);
+			return base.GetChildElement(HtmlId + "_" + aspId);
 		}
 
-		public override bool HasElement(string aspId)
+		public override bool HasChildElement(string aspId)
 		{
-			return base.HasElement(HtmlId + "_" + aspId);
+			return base.HasChildElement(HtmlId + "_" + aspId);
 		}
 
 		public override string HtmlId

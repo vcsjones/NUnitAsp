@@ -34,12 +34,12 @@ namespace NUnit.Extensions.Asp
 			this.browser = browser;
 		}
 
-		public override bool HasElement(string aspId)
+		public override bool HasChildElement(string aspId)
 		{
 			return (GetElementInternal(aspId) != null);
 		}
 
-		internal override XmlElement GetElement(string aspId)
+		internal override XmlElement GetChildElement(string aspId)
 		{
 			XmlElement element = GetElementInternal(aspId);
 			if (element == null) throw new ElementNotVisibleException("Couldn't find " + aspId + " on " + Description);

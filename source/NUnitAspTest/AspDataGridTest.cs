@@ -26,6 +26,9 @@ namespace NUnit.Extensions.Asp.Test
 
 	public class AspDataGridTest : WebFormTestCase
 	{
+		private AspDataGrid grid1;
+		private AspDataGrid grid2;
+		private AspLabel clickResult;
 
 		public AspDataGridTest(string name) : base(name)
 		{
@@ -34,52 +37,42 @@ namespace NUnit.Extensions.Asp.Test
 		protected override void SetUp() 
 		{
 			base.SetUp();
+			grid1 = new AspDataGrid("dataGrid1", CurrentWebForm);
+			grid2 = new AspDataGrid("dataGrid2", CurrentWebForm);
+			clickResult = new AspLabel("clickResult", CurrentWebForm);
+
 			Browser.GetPage("http://localhost/NUnitAsp/NUnitAspTestPages/AspDataGridTestPage.aspx");
 		}
 
 		public void TestRowCount() 
 		{
-			AssertEquals("# of rows", 2, Grid1.RowCount);
-			AssertEquals("# of rows", 1, Grid2.RowCount);
+			AssertEquals("# of rows", 2, grid1.RowCount);
+			AssertEquals("# of rows", 1, grid2.RowCount);
+		}
+
+		public void TestCells()
+		{
+			string[][] expected = new string[][]
+			{
+				new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "1"}, 
+				new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "2"}, 
+			};
+			AssertEquals("cells", expected, grid1.Cells);				
 		}
 
 		public void TestRowCells()
 		{
-			AssertEquals("row 1", new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "1"}, Grid1.GetRow(0).Cells);
-			AssertEquals("row 2", new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "2"}, Grid1.GetRow(1).Cells);
-			AssertEquals("row 3", new string[] {"Link", "Cell 3, 1", "Cell 3, 2", "3"}, Grid2.GetRow(0).Cells);
+			AssertEquals("row 1", new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "1"}, grid1.GetRow(0).Cells);
+			AssertEquals("row 2", new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "2"}, grid1.GetRow(1).Cells);
+			AssertEquals("row 3", new string[] {"Link", "Cell 3, 1", "Cell 3, 2", "3"}, grid2.GetRow(0).Cells);
 		}
 
 		public void TestNestedControls()
 		{
-			new AspLinkButton("link1", Grid1.GetRow(1)).Click();
+			new AspLinkButton("link1", grid1.GetRow(1)).Click();
 			AssertEquals("1,2", ClickResult.Text);
-			new AspLinkButton("link2", Grid2.GetRow(0)).Click();
+			new AspLinkButton("link2", grid2.GetRow(0)).Click();
 			AssertEquals("2,3", ClickResult.Text);
-		}
-
-		private AspDataGrid Grid1
-		{
-			get
-			{
-				return new AspDataGrid("dataGrid1", CurrentWebForm);
-			}
-		}
-
-		private AspDataGrid Grid2
-		{
-			get
-			{
-				return new AspDataGrid("dataGrid2", CurrentWebForm);
-			}
-		}
-
-		private AspLabel ClickResult
-		{
-			get
-			{
-				return new AspLabel("clickResult", CurrentWebForm);
-			}
 		}
 
 	}
