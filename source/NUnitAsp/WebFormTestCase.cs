@@ -22,6 +22,7 @@ using System;
 using NUnit.Framework;
 using System.Xml;
 using NUnit.Extensions.Asp.AspTester;
+using System.Globalization;
 
 namespace NUnit.Extensions.Asp 
 {
@@ -180,8 +181,9 @@ namespace NUnit.Extensions.Asp
 					int bInt = int.Parse(b);
 					return aInt.CompareTo(bInt);
 				case DataType.DateTime:
-					DateTime aDate = DateTime.Parse(a);
-					DateTime bDate = DateTime.Parse(b);
+					IFormatProvider formatter = CultureInfo.InvariantCulture.DateTimeFormat;
+					DateTime aDate = DateTime.Parse(a, formatter);
+					DateTime bDate = DateTime.Parse(b, formatter);
 					return aDate.CompareTo(bDate);
 				default:
 					throw new ApplicationException("Unknown data type comparison: " + type);
