@@ -102,6 +102,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "AspCheckBox.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AspControl.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
