@@ -258,16 +258,16 @@ namespace NUnit.Extensions.Asp
 
 		private class HttpResponse
 		{
-			HttpWebResponse response;
+			private HttpWebResponse response;
 			public string Body;
 
 			public HttpResponse() { }
 
-			public HttpResponse(HttpWebResponse wr) 
+			public HttpResponse(HttpWebResponse response) 
 			{
-				this.response = wr;
-				StreamReader sr = new StreamReader(wr.GetResponseStream());
-				Body = sr.ReadToEnd();
+				this.response = response;
+				StreamReader reader = new StreamReader(response.GetResponseStream());
+				Body = reader.ReadToEnd();
 			}
 
 			public WebHeaderCollection Headers 
@@ -290,7 +290,7 @@ namespace NUnit.Extensions.Asp
 			{
 				get
 				{
-					return (int) response.StatusCode;
+					return (int)response.StatusCode;
 				}
 			}
 
@@ -323,7 +323,7 @@ namespace NUnit.Extensions.Asp
 				get
 				{
 					string location = response.Headers["Location"];
-					if (location == null) throw new ApplicationException("Expected Location header in HTTP response");
+					Assertion.AssertNotNull("Expected Location header in HTTP response", location);
 					return location;
 				}
 			}
