@@ -201,14 +201,24 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEquals("modified multiple user languages", "[en-us][en-gb]", userLanguages.Text);
 		}
 
+		private CookieCollection GetActiveCookies()
+		{
+			return Browser.Cookies.GetCookies(new Uri(Browser.CurrentUrl));
+		}
+
 		private void AssertCookieNotSet()
 		{
 			AssertEquals("Not Set", cookie.Text);
+			AssertNull("Must be null", GetActiveCookies()[TEST_COOKIE_NAME]);
 		}
 
 		private void AssertCookieSet()
 		{
 			AssertEquals(TEST_COOKIE_VALUE, cookie.Text);
+
+			Cookie theCookie = GetActiveCookies()[TEST_COOKIE_NAME];
+			AssertNotNull("Must not be null", theCookie);
+			AssertEquals(TEST_COOKIE_VALUE, theCookie.Value);
 		}
 	}
 }

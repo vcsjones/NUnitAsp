@@ -73,6 +73,17 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
+		/// Contains all cookies (per domain) that used and update with each HTTP request.
+		/// </summary>
+		public CookieContainer Cookies
+		{
+			get
+			{
+				return cookies;
+			}
+		}
+
+		/// <summary>
 		/// Retrieves a page from a web server.
 		/// </summary>
 		/// <param name="url">The URL of the page to get.</param>
