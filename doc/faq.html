@@ -45,16 +45,16 @@
 
 						<h2>Q: When I try to compile NUnitAsp, I get a &quot;cryptographic failure&quot; error.  What's wrong?</h2>
 
-						<p>A: The NUnitAsp DLL is <em>strong-named</em>, which means it is signed by a cryptographic key.  We don't include a key in the distribution, which means you'll get this error message if you try to compile:
+						<p>A: The NUnitAsp DLL is <em>strong-named,</em> which means it must be signed by a cryptographic key.  If you try to compile without a key, you'll get this error message:
 
 						<p class="code">Cryptographic failure while signing assembly 'C:\projects\NUnitAsp\source\NUnitAsp\obj\Debug\NUnitAsp.dll' -- 'The key container name 'NUnitAsp' does not exist'</p>
 
-						<p>We <em>do</em> provide a build script that will generate the key for you.  Just open a Visual Studio .NET command prompt and type 'nant' in the root NUnitAsp directory.</p>
+						<p>We don't include a key in the distribution, but the NUnitAsp build script automatically generates the correct kind of key for you.  Open a Visual Studio .NET command prompt and type 'nant' in the root NUnitAsp directory to run it.</p>
 
 
 						<h2>Q: I want to send you a patch.  What should I do?</h2>
 
-						<p>A: Great!  We appreciate your enthusiasm and support.  The best way you can help is to send us a test case that demonstrates your bug or feature.  In your patch, integrate your test case into the existing tests.  The easier it is for us to run your test, the sooner we'll get to your suggestion.  Once your patch is ready, upload it to the SourceForge <a href="http://sourceforge.net/tracker/?group_id=49940&atid=458032">patch manager</a>, and then post an explanation to the developer <a href="http://sourceforge.net/mail/?group_id=49940">mailing list</a>.</p>
+						<p>A: Great!  We appreciate your enthusiasm and support.  The best way you can help is to send us a test case that demonstrates your bug or feature.  In your patch, integrate your test case into the existing tests.  If you can, download the latest NUnitAsp code from CVS first (see the <a href="http://nunitasp.sourceforge.net/cgi-bin/wiki.pl?ReadOnlyCvsAccess">NUnitAsp Wiki</a> for more information).  The easier it is for us to run your test, the sooner we'll get to your suggestion.  Once your patch is ready, upload it to the SourceForge <a href="http://sourceforge.net/tracker/?group_id=49940&atid=458032">patch manager</a>, and then post an explanation to the developer <a href="http://sourceforge.net/mail/?group_id=49940">mailing list</a>.</p>
 
 						<p class="end">(End of FAQ)</p>
 					</div>
