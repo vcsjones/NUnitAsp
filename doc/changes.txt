@@ -3,8 +3,13 @@ To do:
 * Review form variables' use of Element/Tag (Tag should be protected, not internal or public)
 * Exceptions need to be organized
 * Explanatory message: UserControlTester.FindControl should throw exception explaining control nesting
-* Add links to third-party NUnitAsp articles
 * Make these HttpClient methods public: SetFormVariable, ClearFormVariable, SubmitForm
+
+
+Changes in CVS:
+Produced by Jim Shore and Levi Khatskevitch.
+* Added PostBack() overload that takes actual event target and argument.  Credit to Jim Shore.
+* Fixed parsing error that occurred when combining <style> tag with HTML comments.  Credit to Jim Shore.
 
 
 Changes in NUnitAsp 1.5:

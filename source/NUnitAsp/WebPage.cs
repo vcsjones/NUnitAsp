@@ -87,7 +87,7 @@ namespace NUnit.Extensions.Asp
 			SgmlReader reader = new SgmlReader();
 			try 
 			{
-				reader.InputStream = new StringReader(pageText);
+				reader.InputStream = new StringReader(FixHtmlToAvoidParseErrors(pageText));
 				reader.Dtd = ParseDtd(reader.NameTable);
 				reader.ErrorLog = Console.Error;
 				reader.DocType = "HTML";
@@ -115,6 +115,11 @@ namespace NUnit.Extensions.Asp
 			{
 				reader.Close();
 			}
+		}
+
+		private string FixHtmlToAvoidParseErrors(string html)
+		{
+			return Regex.Replace(html, "<style>\\s+<!--", "<style><!--");
 		}
 
 		private void ParseInitialFormValues() 

@@ -16,6 +16,9 @@ namespace NUnitAspTestPages
 	/// </summary>
 	public class FormVariableTestPage : System.Web.UI.Page
 	{
+		protected System.Web.UI.WebControls.CheckBox checkbox;
+		protected System.Web.UI.WebControls.Button submit;
+	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			// Put user code to initialize the page here
@@ -38,6 +41,7 @@ namespace NUnitAspTestPages
 		private void InitializeComponent()
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
+
 		}
 		#endregion
 	}

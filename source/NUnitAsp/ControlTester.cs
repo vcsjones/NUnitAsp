@@ -199,8 +199,8 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Like <see cref="PostBack"/>, but doesn't fail if the control doesn't
-		/// have an automatic post-back.
+		/// Like <see cref="PostBack"/>, but doesn't fail if <see cref="candidatePostBackScript"/>
+		/// doesn't contain a post-back script.
 		/// </summary>
 		protected void OptionalPostBack(string candidatePostBackScript)
 		{
@@ -211,8 +211,8 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Checks a URL to see if it is an automatic post-back script.
-		/// Typically you should use <see cref="OptionalPostBack"/> instead.
+		/// Checks a string to see if it contains a post-back script.
+		/// Typically you should just use <see cref="OptionalPostBack"/> instead.
 		/// </summary>
 		protected bool IsPostBack(string candidatePostBackScript)
 		{
@@ -226,10 +226,12 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Automatically post-back to the server--fails if there isn't an automatic
-		/// post-back for the tested control.
+		/// Trigger a post-back.  ASP.NET has a post-back idiom that often shows up
+		/// as a Javascript "__doPostBack" call.  This method exists to make it easy to write
+		/// testers for controls that do so.  Just take the string that contains the post-
+		/// back script and pass it to this method.  Use <see cref="optionalPostBack"/>
+		/// if the script isn't always present.
 		/// </summary>
-		/// <param name="postBackScript"></param>
 		protected void PostBack(string postBackScript)
 		{
 			string postBackPattern = @"__doPostBack\('(?<target>.*?)','(?<argument>.*?)'\)";
@@ -242,9 +244,17 @@ namespace NUnit.Extensions.Asp
 
 			string target = match.Groups["target"].Captures[0].Value;
 			string argument = match.Groups["argument"].Captures[0].Value;
+			PostBack(target.Replace('$', ':'), argument);
+		}
 
-			SetInputHiddenValue("__EVENTTARGET", target.Replace('$', ':'));
-			SetInputHiddenValue("__EVENTARGUMENT", argument);
+		/// <summary>
+		/// Trigger a post-back.  If you don't have a post-back script but need to trigger a
+		/// post-back, call this method with the appropriate event target and argument.
+		/// </summary>
+		protected void PostBack(string eventTarget, string eventArgument)
+		{
+			SetInputHiddenValue("__EVENTTARGET", eventTarget);
+			SetInputHiddenValue("__EVENTARGUMENT", eventArgument);
 			Submit();
 		}
 	}

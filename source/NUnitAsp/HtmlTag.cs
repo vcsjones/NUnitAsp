@@ -196,9 +196,13 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Returns all this tag's children of a particular type.  Don't cache them.
+		/// Returns the immediate children of this tag that match a particular type (such as &lt;tr&gt;).
+		/// Does not return "grand-children" -- i.e., calling <c>table.Children("tr")</c> will work, but
+		/// calling <c>table.Children("td")</c> will typically return nothing.
+		/// Don't cache the results of this call.
 		/// </summary>
-		/// <param name="tag">The type of tag to return</param>
+		/// <param name="tag">The type of tag to return.  Don't include angle brackets.</param>
+		/// <example>To get all rows in a table: <code>HtmlTag[] rows = table.Children("tr");</code></example>
 		/// <returns>The tags.</returns>
 		public HtmlTag[] Children(string tag)
 		{
