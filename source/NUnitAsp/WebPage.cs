@@ -5,7 +5,6 @@ using System.Web;
 
 namespace NUnit.Extensions.Asp
 {
-
 	internal class WebPage
 	{
 		private string pageText;

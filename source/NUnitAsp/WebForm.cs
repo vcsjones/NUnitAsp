@@ -25,6 +25,12 @@ using NUnit.Framework;
 namespace NUnit.Extensions.Asp.AspTester
 {
 
+	/// <summary>
+	/// A tester for an ASP.NET form.  Most of the methods in this class aren't meant to
+	/// be called by third parties.
+	/// 
+	/// The API for this class will change in future releases.  
+	/// </summary>
 	public class WebForm : Control
 	{
 		HttpClient browser;

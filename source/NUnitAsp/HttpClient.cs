@@ -33,6 +33,9 @@ using System.Collections;
 namespace NUnit.Extensions.Asp 
 {
 
+	/// <summary>
+	/// A web client, capable of communicating with a web server.
+	/// </summary>
 	public class HttpClient
 	{
 		private TimeSpan serverTime = new TimeSpan(0);
@@ -40,6 +43,10 @@ namespace NUnit.Extensions.Asp
 		private Uri currentUrl = null;
 		private WebPage currentPage = null;
 
+		/// <summary>
+		/// Retrieves a page from a web server.
+		/// </summary>
+		/// <param name="url">The URL of the page to get.</param>
 		public void GetPage(string url) 
 		{
 			DoHttp(url, "get", "");
@@ -55,11 +62,19 @@ namespace NUnit.Extensions.Asp
 			currentPage.SetFormVariable(name, value);
 		}
 
+		/// <summary>
+		/// Checks to see if a cookie has been set.
+		/// </summary>
+		/// <param name="cookieName">The name of the cookie.</param>
+		/// <returns>'true' if the cookie has been set.</returns>
 		public bool HasCookie(string cookieName) 
 		{
 			return cookies.ContainsKey(cookieName);
 		}
 
+		/// <summary>
+		/// The raw contents of the current page.
+		/// </summary>
 		public string CurrentPageText
 		{
 			get
@@ -77,6 +92,10 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// The amount of time this specific instance has spent waiting for web servers
+		/// to respond.
+		/// </summary>
 		public TimeSpan ElapsedServerTime 
 		{
 			get 
@@ -287,6 +306,11 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// A request has been made that requires a page to have been loaded, but no
+		/// page has been loaded yet.  Call GetPage() before calling the method that
+		/// threw this exception.
+		/// </summary>
 		public class NoPageException : ApplicationException
 		{
 			internal NoPageException() : base("No pages have been loaded by the browser")
@@ -294,6 +318,10 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// The requested URL was not found.  Correct the URL or determine what's wrong
+		/// with the server.
+		/// </summary>
 		public class NotFoundException : ApplicationException
 		{
 			internal NotFoundException(Uri url) : base("404 Not Found for " + url)
@@ -301,6 +329,10 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// The server returned an unexpected status code.  Determine what's wrong with
+		/// the server.
+		/// </summary>
 		public class BadStatusException : ApplicationException
 		{
 			internal BadStatusException(int status) : base("Server returned error (status code: " + status + "}.  HTML copied to standard output.")

@@ -23,6 +23,12 @@ using System.Text.RegularExpressions;
 
 namespace NUnit.Extensions.Asp
 {
+	/// <summary>
+	/// An HTML tag.
+	/// 
+	/// Not intended for third-party use.  The API for this class will change in 
+	/// future releases.  This class may not be present in future releases.
+	/// </summary>
 	public class HtmlTag
 	{
 		string html;

@@ -28,9 +28,12 @@ namespace NUnit.Extensions.Asp
 {
 	public enum DataType {String, DateTime, Int};
  
+	/// <summary>
+	/// An ASP.NET test case.  Extend this clss from your test cases to use NUnitAsp
+	/// in your tests.
+	/// </summary>
 	public abstract class WebFormTestCase : TestCase 
 	{
-
 		private HttpClient browser;
 		private WebForm form;
 
@@ -38,6 +41,10 @@ namespace NUnit.Extensions.Asp
 		{
 		}
 
+		/// <summary>
+		/// Executed before each test method is run.  If you override this method, BE
+		/// SURE to call <code>base.SetUp()</code>.  Otherwise your tests won't work.
+		/// </summary>
 		protected override void SetUp() 
 		{
 			base.SetUp();
@@ -45,6 +52,9 @@ namespace NUnit.Extensions.Asp
 			form = new WebForm(browser);
    		}
 
+		/// <summary>
+		/// The web form currently loaded by the browser.
+		/// </summary>
 		protected WebForm CurrentWebForm
 		{
 			get 
@@ -53,6 +63,9 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// The web browser.
+		/// </summary>
 		protected HttpClient Browser 
 		{
 			get 
@@ -61,6 +74,11 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// Asserts that a specific tester is on the current web page, with the "Visible"
+		/// parameter set to "true."  This method does not assert that the tester is actually
+		/// visible to the user.
+		/// </summary>
 		protected static void AssertVisibility(ControlTester tester, bool expectedVisibility)
 		{
 			string not = expectedVisibility ? "" : " not";
@@ -68,26 +86,43 @@ namespace NUnit.Extensions.Asp
 			Assert(message, tester.Visible == expectedVisibility);
 		}
 
+		/// <summary>
+		/// Asserts that two "rows" of strings are identical.
+		/// </summary>
 		protected static void AssertEquals(string[] expected, string[] actual)
 		{
 			AssertEquals(Flatten(expected), Flatten(actual));
 		}
 
+		/// <summary>
+		/// Asserts that two "rows" of strings are identical.
+		/// </summary>
 		protected static void AssertEquals(string message, string[] expected, string[] actual)
 		{
 			Assertion.AssertEquals(message, Flatten(expected), Flatten(actual));
 		}
 
+		/// <summary>
+		/// Asserts that two "tables" of strings are identical.
+		/// </summary>
 		protected static void AssertEquals(string[][] expected, string[][] actual)
 		{
 			AssertEquals(Flatten(expected), Flatten(actual));
 		}
 
+		/// <summary>
+		/// Asserts that two "tables" of strings are identical.
+		/// </summary>
 		protected static void AssertEquals(string message, string[][] expected, string[][] actual)
 		{
 			AssertEquals(Flatten(expected), Flatten(actual));
 		}
 
+		/// <summary>
+		/// Asserts that two "tables" of strings are identical, but permits ordering
+		/// differences.  Individual rows in the tables must match, but the order of the
+		/// rows may differ.
+		/// </summary>
 		protected static void AssertEqualsIgnoreOrder(string message, string[][] expected, string[][] actual)
 		{
 			if (expected.Length != actual.Length) Fail(message, expected, actual);
@@ -133,8 +168,13 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Null strings in data[][] are not allowed.
+		/// Asserts that the "rows" in a "table" of strings are sorted.
 		/// </summary>
+		/// <param name="message">A noun to display if the assertion fails.</param>
+		/// <param name="data">The table to check.</param>
+		/// <param name="column">The column that must be sorted.</param>
+		/// <param name="isAscending">'true' if the table should be sorted from low to high; 'false' if the table should be sorted from high to low.</param>
+		/// <param name="type">The type of data in the column that's sorted.</param>
 		public static void AssertSortOrder(string message, string[][] data, int column, bool isAscending, DataType type)
 		{
 			string lastCell = null;

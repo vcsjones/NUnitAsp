@@ -3,6 +3,7 @@
 	<description>NUnitAsp - ASP.NET Unit Testing</description>
 	
 	<property name="source.dir" value="source" />
+	<property name="doc.dir" value="${source.dir}\doc" />
 	<property name="lib.dir" value="lib" />
 	<property name="build.dir" value="build" />
 	<property name="bin.dir" value="${build.dir}\bin" />
@@ -24,15 +25,19 @@
 	<target name="compile" depends="compile_nunitasp, compile_nunitasptest, compile_nunitasptestpages">
 	</target>
 
-	<target name="compile_nunitasp" depends="build_dir">
-		<csc target="library" output="${dll.path}" debug="true">
+	<target name="keypair">
+		<exec program="sn" commandline="-k NUnitAsp.snk" />
+	</target>
+
+	<target name="compile_nunitasp" depends="build_dir, keypair">
+		<csc target="library" output="${dll.path}" doc="${build.dir}\api.xml" debug="true">
 			<sources basedir="${source.dir}\NUnitAsp">
 				<includes name="**\*.cs" />
 			</sources>
 			<references>
 				<includes name="${lib.dir}\*.dll" />
 			</references>
-			<arg value="/nowarn:0679"/>
+			<arg value="/nowarn:0679 /nowarn:1591"/>
 		</csc>
 	</target>
 

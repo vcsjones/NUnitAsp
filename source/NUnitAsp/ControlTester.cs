@@ -25,6 +25,12 @@ using System.Text.RegularExpressions;
 
 namespace NUnit.Extensions.Asp
 {
+	/// <summary>
+	/// Base class for all tag-based controls.  Extend this class if you're creating a
+	/// custom tester.
+	/// 
+	/// The API for this class will change in future releases.
+	/// </summary>
 	public abstract class ControlTester : Control
 	{
 		private string aspId;
