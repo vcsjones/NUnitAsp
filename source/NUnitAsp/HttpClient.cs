@@ -33,6 +33,8 @@ namespace NUnit.Extensions.Asp
 	/// </summary>
 	public class HttpClient
 	{
+		private const int MAX_REDIRECTS = 10;
+
 		private TimeSpan serverTime = new TimeSpan(0);
 		private Uri currentUrl = null;
 		private WebPage currentPage = null;
@@ -50,14 +52,14 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		public string[] UserLanguages = null;
 
-        /// <summary>
-        /// Username and password (null if none). Set automatically if the username and
-        /// password are supplied in the URL (i.e., "http://username:password@host").
-        /// Can be used with both "basic" and "Windows Integrated" (NTLM) authentication
-        /// methods. Set this property to <code>CredentialCache.DefaultCredentials</code> 
-        /// to use your current Windows login.
-        /// </summary>
-        public ICredentials Credentials = null;
+		/// <summary>
+		/// Username and password (null if none). Set automatically if the username and
+		/// password are supplied in the URL (i.e., "http://username:password@host").
+		/// Can be used with both "basic" and "Windows Integrated" (NTLM) authentication
+		/// methods. Set this property to <code>CredentialCache.DefaultCredentials</code> 
+		/// to use your current Windows login.
+		/// </summary>
+		public ICredentials Credentials = null;
 
 		/// <summary>
 		/// URL the browser most recently retrieved (null if none).  Fragments aren't
@@ -167,7 +169,7 @@ namespace NUnit.Extensions.Asp
 				throw new ArgumentException("Unknown HTTP method: " + method, "method");
 			}
 			UpdateCurrentUrl(url, !isPost, formVariables);
-            UpdateCredentialsFromUrl();
+			UpdateCredentialsFromUrl();
 
 			HttpWebRequest request = CreateRequest(method, formVariables);
 			if (isPost)
@@ -175,14 +177,8 @@ namespace NUnit.Extensions.Asp
 				WriteRequestBody(request, formVariables);
 			}
 			HttpWebResponse response = SendRequest(request);
-			if (response.StatusCode == HttpStatusCode.Redirect)
-			{
-				GetPage(GetRedirectUrl(response));
-			}
-			else
-			{
-				ReadHttpResponse(response);
-			}
+			currentUrl = GetUrlFromResponse(response);
+			ReadHttpResponse(response);
 		}
 
 		private string TrimFragmentIdentifier(string url)
@@ -224,6 +220,11 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		private Uri GetUrlFromResponse(HttpWebResponse response)
+		{
+			return new Uri(TrimFragmentIdentifier(response.ResponseUri.AbsoluteUri));
+		}
+
 		private HttpWebRequest CreateRequest(string method, string formVariables)
 		{
 			HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(currentUrl);
@@ -231,7 +232,7 @@ namespace NUnit.Extensions.Asp
 			request.Method = method.ToUpper();
 			request.CookieContainer = cookies;
 			request.UserAgent = UserAgent;
-			request.AllowAutoRedirect = false;
+			request.AllowAutoRedirect = true;
 
 			if (Credentials != null)
 			{
@@ -288,7 +289,7 @@ namespace NUnit.Extensions.Asp
 			string user = currentUrl.UserInfo.Substring(0, delimiter);
 			string pwd = currentUrl.UserInfo.Substring(delimiter + 1);
 			Credentials = new NetworkCredential(user, pwd);
-        }
+		}
 
 		private HttpWebResponse SendRequest(HttpWebRequest request)
 		{
@@ -312,9 +313,12 @@ namespace NUnit.Extensions.Asp
 
 		private void ReadHttpResponse(HttpWebResponse response)
 		{
-			if (response.StatusCode == HttpStatusCode.NotFound)
+			switch (response.StatusCode)
 			{
-				throw new NotFoundException(currentUrl);
+				case HttpStatusCode.NotFound:
+					throw new NotFoundException(currentUrl);
+				case HttpStatusCode.Redirect:
+					throw new TooManyRedirectsException(GetRedirectUrl(response));
 			}
 
 			string body;
@@ -361,20 +365,38 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		public class BadStatusException : ApplicationException
 		{
-			private HttpStatusCode status;
-
-			public HttpStatusCode Status
-			{
-				get
-				{
-					return status;
-				}
-			}
+			/// <summary>
+			/// The HTTP status code returned by the server
+			/// </summary>
+			private readonly HttpStatusCode Status;
 
 			internal BadStatusException(HttpStatusCode status) : 
 				base("Server returned error (status code: " + (int)status + ").  HTML copied to standard output.")
 			{
-				this.status = status;
+				Status = status;
+			}
+		}
+
+		/// <summary>
+		/// Too many HTTP redirects were detected. Check for infinite redirection loop.
+		/// </summary>
+		public class TooManyRedirectsException : ApplicationException
+		{
+			/// <summary>
+			/// The target URL of the failed redirect
+			/// </summary>
+			public readonly string TargetUrl;
+
+			internal TooManyRedirectsException(string targetUrl) : base(GetMessage(targetUrl))
+			{
+				TargetUrl = targetUrl;
+			}
+
+			private static string GetMessage(string targetUrl)
+			{
+				return string.Format(
+					"Maximum number of redirections ({0}) exceeded while redirecting to {1}",
+					MAX_REDIRECTS, targetUrl);
 			}
 		}
 	}
