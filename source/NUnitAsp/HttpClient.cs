@@ -1,3 +1,4 @@
+#region Copyright (c) 2002, 2003 Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
 ' Copyright (c) 2002, Brian Knowles, Jim Little
@@ -17,6 +18,7 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
 using System.Collections.Specialized;
@@ -108,8 +110,7 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// The amount of time this specific instance has spent waiting for web servers
-		/// to respond.
+		/// The total time this object has spent waiting for web servers to respond.
 		/// </summary>
 		public TimeSpan ElapsedServerTime 
 		{
@@ -119,47 +120,14 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		private void DoHttp(string url, string method, string formVariables)
+		private void DoHttp(string url, string method, string formVariables) 
 		{
-			TcpClient tcp = null;
 			UpdateCurrentUrl(url);
-
-			// This is an ugly, ugly hack, so it deserves comment.
-			// We've seen a weird, intermittent problem in which the server
-			// closes the connection in the middle of returning data to us.
-			// So the ugly ugly hack here is to simply retry, up to three times.
-			// A real fix is needed.  Please fix me.  Please!
-			int numTries = 0;
-			bool socketProblemOccurred = true;
-			while (socketProblemOccurred && numTries < 3)
-			{
-				try
-				{
-					socketProblemOccurred = false;
-					numTries++;
-					tcp = new TcpClient(currentUrl.Host, currentUrl.Port);
-					NetworkStream stream = tcp.GetStream();
-					SendHttpRequest(stream, method, formVariables);
-					HttpResponse response = ReadHttpResponse(stream);
-					tcp.Close();
-					ParseHttpResponse(response);
-					if (response.IsRedirect) GetPage(response.RedirectUrl);
-				}
-				catch (IOException e)
-				{
-					if (e.GetBaseException() is SocketException)
-					{
-						Console.WriteLine("Attempt #" + numTries + ": " + e);
-						socketProblemOccurred = true;
-					}
-					else throw e;
-				}
-				finally
-				{
-					if (tcp != null) tcp.Close();
-				}
-			}
-			if (socketProblemOccurred) throw new ApplicationException("Got socket exception three times in a row... giving up.  Somebody please fix this bug!");
+			HttpWebRequest request = CreateRequest(method, formVariables);
+			SupportBasicAuth(request);
+			HttpResponse response = SendRequest(request);
+			ParseHttpResponse(response);
+			if (response.IsRedirect) GetPage(response.RedirectUrl);
 		}
 
 		private void UpdateCurrentUrl(string url)
@@ -182,49 +150,72 @@ namespace NUnit.Extensions.Asp
 			else return url.Substring(0, fragmentLocation);
 		}
 
-		private void SendHttpRequest(NetworkStream stream, string method, string formVariables)
+		private HttpWebRequest CreateRequest(string method, string formVariables)
 		{
-			string url = currentUrl.ToString();
-			url = url.Replace(' ', '+');
-			if (method.ToLower() == "get" && formVariables != "") url += "?" + formVariables;
-
-			StreamWriter writer = new StreamWriter(stream, Encoding.ASCII);
-			writer.NewLine = "\r\n";
-			writer.WriteLine("{0} {1} HTTP/1.0", method.ToUpper(), url);
-			writer.WriteLine("User-Agent: {0}", UserAgent);
-			writer.WriteLine("Cookie: {0}", CreateCookieString());
+			HttpWebRequest request = null;
 			if (method.ToLower() == "get") 
 			{
-				writer.WriteLine();
-			}
+				UriBuilder target = new UriBuilder(currentUrl);
+				if (formVariables != "") 
+				{
+					target.Query += "?" + formVariables;
+				}
+
+				request = (HttpWebRequest)HttpWebRequest.Create(target.Uri);
+				request.Method = "GET";
+				request.UserAgent = UserAgent;
+				request.AllowAutoRedirect = false;
+				request.CookieContainer = new CookieContainer();
+				request.CookieContainer.SetCookies(target.Uri, CreateCookieString());
+			} 
 			else if (method.ToLower() == "post")
 			{
-				writer.WriteLine("Content-Type: application/x-www-form-urlencoded");
-				writer.WriteLine("Content-Length: {0}", formVariables.Length);
-				writer.WriteLine();
-				writer.WriteLine(formVariables);
+				request = (HttpWebRequest)HttpWebRequest.Create(currentUrl);
+				request.Method = "POST";
+				request.AllowAutoRedirect = false;
+				request.ContentType = "application/x-www-form-urlencoded";
+				request.ContentLength = formVariables.Length;
+				StreamWriter sw = new StreamWriter(request.GetRequestStream());
+				sw.Write(formVariables);
+				sw.Close();
 			}
 			else
 			{
-				throw new ApplicationException("Unknown method: '" + method + "'");
+				Assertion.Fail("Unknown HTTP method: " + method);
 			}
-			writer.Flush();
+			return request;
 		}
 
-		private HttpResponse ReadHttpResponse(NetworkStream stream)
+		private void SupportBasicAuth(HttpWebRequest request)
 		{
-			StreamReader reader = new StreamReader(stream, Encoding.UTF8);
-			HttpResponse response = new HttpResponse();
-
-			DateTime start = DateTime.Now;
-			response.SetStatus(reader.ReadLine());
-			for (string line = reader.ReadLine(); line != null && line != ""; line = reader.ReadLine()) 
+			if (currentUrl.UserInfo != null && !currentUrl.UserInfo.Equals("")) 
 			{
-				response.AddHeader(line);
+				int delimiter = currentUrl.UserInfo.IndexOf(":");
+				if (delimiter > 0) 
+				{
+					request.PreAuthenticate = true;
+					string user = currentUrl.UserInfo.Substring(0, delimiter);
+					string pwd = currentUrl.UserInfo.Substring(delimiter + 1);
+					request.Credentials  = new NetworkCredential(user, pwd);
+				}
 			}
-			response.Body = reader.ReadToEnd();
-			serverTime += (DateTime.Now - start);
-			return response;
+		}
+
+		private HttpResponse SendRequest(HttpWebRequest request)
+		{
+			HttpWebResponse response = null;
+			try 
+			{
+				DateTime start = DateTime.Now;
+				response = (HttpWebResponse) request.GetResponse();
+				serverTime += (DateTime.Now - start);
+			} 
+			catch (WebException wx) 
+			{ 
+				response = (HttpWebResponse)wx.Response;
+				if (response == null) throw wx;
+			}
+			return new HttpResponse(response);
 		}
 
 		private void ParseHttpResponse(HttpResponse response)
@@ -265,40 +256,41 @@ namespace NUnit.Extensions.Asp
 			return result;
 		}
 
-		private string GetBaseAddress(string url) 
-		{
-			Uri uri = new Uri(url);
-			return uri.AbsoluteUri;
-		}
-
 		private class HttpResponse
 		{
-			public int statusCode;
-			public NameValueCollection Headers = new NameValueCollection();
+			HttpWebResponse response;
 			public string Body;
 
-			public void AddHeader(string headerLine)
-			{
-				Regex headerRegex = new Regex(@"^(?<name>.*?):[ \t]+(?<value>.*)$");
-				if (!headerRegex.IsMatch(headerLine)) throw new ApplicationException("Expected '" + headerLine + "' to be a valid HTTP header");
-				Match header = headerRegex.Match(headerLine);
-				string name = header.Groups["name"].Captures[0].Value;
-				string value = header.Groups["value"].Captures[0].Value;
+			public HttpResponse() { }
 
-				Headers.Add(name, value);
+			public HttpResponse(HttpWebResponse wr) 
+			{
+				this.response = wr;
+				StreamReader sr = new StreamReader(wr.GetResponseStream());
+				Body = sr.ReadToEnd();
 			}
 
-			public void SetStatus(string statusLine)
+			public WebHeaderCollection Headers 
 			{
-				string[] elements = statusLine.Split();
-				statusCode = int.Parse(elements[1]);
+				get 
+				{
+					return response.Headers;
+				}
+			}
+
+			public CookieCollection Cookies 
+			{
+				get 
+				{
+					return response.Cookies;
+				}
 			}
 
 			public int StatusCode
 			{
 				get
 				{
-					return statusCode;
+					return (int) response.StatusCode;
 				}
 			}
 
@@ -306,7 +298,7 @@ namespace NUnit.Extensions.Asp
 			{
 				get
 				{
-					return statusCode == 302;
+					return StatusCode == 302;
 				}
 			}
 
@@ -314,7 +306,7 @@ namespace NUnit.Extensions.Asp
 			{
 				get
 				{
-					return statusCode == 404;
+					return StatusCode == 404;
 				}
 			}
 
@@ -322,7 +314,7 @@ namespace NUnit.Extensions.Asp
 			{
 				get
 				{
-					return IsRedirect || (statusCode == 200);
+					return IsRedirect || (StatusCode == 200);
 				}
 			}
 
@@ -330,7 +322,7 @@ namespace NUnit.Extensions.Asp
 			{
 				get
 				{
-					string location = Headers["Location"];
+					string location = response.Headers["Location"];
 					if (location == null) throw new ApplicationException("Expected Location header in HTTP response");
 					return location;
 				}

@@ -1,6 +1,8 @@
 Changes in CVS:
 Produced by Jim Little.
 * Updated installation guide in response to user comments.  Credit to Jim Little.
+* Added support for https: protocol.  Credit to Daniel Granath.
+* Added support for basic authentication.  Credit to Daniel Granath.
 
 
 Changes in NUnitAsp 1.3:
