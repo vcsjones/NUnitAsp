@@ -6,10 +6,6 @@ namespace GuestBookTests
 {
 	public class GuestBookTest : WebFormTestCase
 	{
-		public GuestBookTest(string name) : base (name)
-		{
-		}
-
 		public void TestLayout()
 		{
 			TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
