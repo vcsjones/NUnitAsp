@@ -31,6 +31,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		{
 			AddTestSuite(typeof(CheckBoxTest));
 			AddTestSuite(typeof(DataGridTest));
+			AddTestSuite(typeof(DropDownListTest));
 			AddTestSuite(typeof(LabelTest));
 			AddTestSuite(typeof(TextBoxTest));
 			AddTestSuite(typeof(ValidationSummaryTest));
