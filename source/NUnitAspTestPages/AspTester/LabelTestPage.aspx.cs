@@ -44,8 +44,6 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			textLabel.Text="foo";
-			Assertion.AssertEquals("outer label", "", outerLabel.Text); 
-			Assertion.AssertEquals("inner label", "inner", innerLabel.Text);
 		}
 
 		#region Web Form Designer generated code

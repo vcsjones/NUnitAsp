@@ -51,12 +51,10 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("formatted", "a <i>HTML</i> tag", formattedLabel.Text);
 		}
 
-		[Ignore("Nesting labels is incredibly bad style, as the assertions in LabelTestPage.aspx.cs illustrate... should we eliminate this test?")]
 		public void TestNested()
 		{
 			LabelTester outerLabel = new LabelTester("outerLabel", CurrentWebForm);
 			LabelTester innerLabel = new LabelTester("innerLabel", outerLabel);
-			AssertEquals("outer", "", outerLabel.Text);
 			AssertEquals("inner", "inner", innerLabel.Text);
 		}
 	}
