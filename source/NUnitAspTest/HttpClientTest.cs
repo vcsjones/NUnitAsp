@@ -57,8 +57,10 @@ namespace NUnit.Extensions.Asp.Test
 		[Test]
 		public void TestGetAndPostPage()
 		{
+			AssertEquals("current url", null, Browser.CurrentUrl);
 			Browser.GetPage(TestUrl);
 			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
+			AssertEquals("current url", TestUrl, Browser.CurrentUrl);
 			postBack.Click();
 			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
 			AssertEquals("Clicked", new LabelTester("postBackStatus", CurrentWebForm).Text);
@@ -78,6 +80,7 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			Browser.GetPage(TestUrl + "#fragment");
 			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
+			AssertEquals("current url", TestUrl, Browser.CurrentUrl);
 		}
 
 		[Test]
@@ -85,6 +88,7 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			Browser.GetPage(TestUrl + "?testparm=some+%2b+text#fragment");
 			AssertEquals("some + text", testParm.Text);
+			AssertEquals("current url", TestUrl + "?testparm=some+%2b+text", Browser.CurrentUrl);
 		}
 
 		[Test]

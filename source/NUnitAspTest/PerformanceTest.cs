@@ -39,7 +39,6 @@ namespace NUnit.Extensions.Asp.Test
 			TimeSpan expectedTime = new TimeSpan(0, 0, 0, 0, 1000 / expectedTestsPerSecond);
 			string failureMessage = String.Format("performance must be at least {0} but was {1} (adjusted for speed of computer)", expectedTime, actualTime);
 			Assert(failureMessage, actualTime <= expectedTime);
-			Console.WriteLine("Performance score: " + actualTime);
 		}
 
 		private TimeSpan AdjustForSpeedOfComputer(TimeSpan time)

@@ -1,7 +1,7 @@
 #region Copyright (c) 2002, 2003 Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Little
+' Copyright (c) 2002, 2003 Brian Knowles, Jim Little
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -24,35 +24,53 @@ using System;
 using System.IO;
 using System.Net;
 using System.Xml;
-
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp 
 {
 	/// <summary>
-	/// A web client, capable of communicating with a web server using the .NET HttpWebRequest class.
-	/// This allows authentication credentials to be added easily to web requests so we can test
-	/// role based pages for users.
+	/// A web client, capable of communicating with a web server.
 	/// </summary>
 	public class HttpClient
 	{
 		private TimeSpan serverTime = new TimeSpan(0);
 		private Uri currentUrl = null;
 		private WebPage currentPage = null;
-		private ICredentials credentials = null;
 		private CookieContainer cookies = new CookieContainer();
 
 		/// <summary>
-		/// The user-agent string to send to the server.  Useful if you want to pretend to
+		/// The user-agent string to send to the server. Useful if you want to pretend to
 		/// be a specific browser.
 		/// </summary>
 		public string UserAgent = "NUnitAsp";
 
 		/// <summary>
-		/// The language-tag elements to send to the server.  These are used to set the
-		/// Request.UserLanguages array in the target page.
+		/// The language-tag elements to send to the server (null if none). These appear 
+		/// in the Request.UserLanguages array in the target page.
 		/// </summary>
 		public string[] UserLanguages = null;
+
+        /// <summary>
+        /// Username and password (null if none). Set automatically if the username and
+        /// password are supplied in the URL (i.e., "http://username:password@host").
+        /// Can be used with both "basic" and "Windows Integrated" (NTLM) authentication
+        /// methods. Set this property to <code>CredentialCache.DefaultCredentials</code> 
+        /// to use your current Windows login.
+        /// </summary>
+        public ICredentials Credentials = null;
+
+		/// <summary>
+		/// URL the browser most recently retrieved (null if none).  Fragments aren't
+		/// included (the part of the URL that comes after a '#').
+		/// </summary>
+		public string CurrentUrl 
+		{
+			get 
+			{
+				if (currentUrl == null) return null;
+				return currentUrl.AbsoluteUri;
+			}
+		}
 
 		/// <summary>
 		/// Retrieves a page from a web server.
@@ -76,20 +94,6 @@ namespace NUnit.Extensions.Asp
 		internal void ClearFormVariable(string name)
 		{
 			currentPage.ClearFormVariable(name);
-		}
-
-		/// <summary>
-		/// Credentials that are used to authenticate HTTP requests. Can be used with
-		/// both "basic" and "Windows Integrated" (NTLM) authentication methods. 
-		/// When username and password are set in the URL (i.e. "http://user:pass@myhost")
-		/// this property is automatically set to those credentials. Set this property to
-		/// <code>CredentialCache.DefaultCredentials</code> to use your current Windows
-		/// login.
-		/// </summary>
-		public ICredentials Credentials
-		{
-			get { return credentials; }
-			set { credentials = value; }
 		}
 
 		/// <summary>
@@ -152,12 +156,7 @@ namespace NUnit.Extensions.Asp
 				throw new ArgumentException("Unknown HTTP method: " + method, "method");
 			}
 			UpdateCurrentUrl(url, !isPost, formVariables);
-
-			ICredentials urlCredentials = GetUrlCredentials();
-			if (urlCredentials != null)
-			{
-				credentials = urlCredentials;
-			}
+            UpdateCredentialsFromUrl();
 
 			HttpWebRequest request = CreateRequest(method, formVariables);
 			if (isPost)
@@ -195,15 +194,17 @@ namespace NUnit.Extensions.Asp
 
 		private void UpdateCurrentUrl(string url, bool isGet, string formVariables)
 		{
-			if (currentUrl == null)
+			url = TrimFragmentIdentifier(url);
+			if (currentUrl == null) 
 			{
-				currentUrl = new Uri(TrimFragmentIdentifier(url));
+				currentUrl = new Uri(url);
 			}
-			else
-			{
-				currentUrl = new Uri(currentUrl, TrimFragmentIdentifier(url));
+			else 
+			{	
+				currentUrl = new Uri(currentUrl, url);
 			}
-			if (isGet && formVariables != string.Empty)
+
+			if (isGet && formVariables != "")
 			{
 				UriBuilder target = new UriBuilder(currentUrl);
 
@@ -221,10 +222,10 @@ namespace NUnit.Extensions.Asp
 			request.UserAgent = UserAgent;
 			request.AllowAutoRedirect = false;
 
-			if (credentials != null)
+			if (Credentials != null)
 			{
 				request.PreAuthenticate = true;
-				request.Credentials = credentials;
+				request.Credentials = Credentials;
 			}
 
 			AddUserLanguageHeaders(request);
@@ -236,8 +237,7 @@ namespace NUnit.Extensions.Asp
 			request.ContentType = "application/x-www-form-urlencoded";
 			request.ContentLength = formVariables.Length;
 
-			using (StreamWriter writer = 
-					   new StreamWriter(request.GetRequestStream()))
+			using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
 			{
 				writer.Write(formVariables);
 			}
@@ -248,8 +248,7 @@ namespace NUnit.Extensions.Asp
 			string location = response.Headers["Location"];
 			if (location == null)
 			{
-				throw new ApplicationException(
-					"Expected Location header in HTTP response");
+				throw new ApplicationException("Expected Location header in HTTP response");
 			}
 			return location;
 		}
@@ -268,21 +267,17 @@ namespace NUnit.Extensions.Asp
 			request.Headers.Add("Accept-Language", languages);
 		}
 
-		private ICredentials GetUrlCredentials()
+		private void UpdateCredentialsFromUrl()
 		{
-			if (currentUrl.UserInfo == null || currentUrl.UserInfo == string.Empty)
-			{
-				return null;
-			}
+			if (currentUrl.UserInfo == null) return;
+
 			int delimiter = currentUrl.UserInfo.IndexOf(":");
-			if (delimiter == -1)
-			{
-				return null;
-			}
+			if (delimiter == -1) return;
+
 			string user = currentUrl.UserInfo.Substring(0, delimiter);
 			string pwd = currentUrl.UserInfo.Substring(delimiter + 1);
-			return new NetworkCredential(user, pwd);
-		}
+			Credentials = new NetworkCredential(user, pwd);
+        }
 
 		private HttpWebResponse SendRequest(HttpWebRequest request)
 		{
@@ -312,8 +307,7 @@ namespace NUnit.Extensions.Asp
 			}
 
 			string body;
-			using (StreamReader reader = 
-					   new StreamReader(response.GetResponseStream()))
+			using (StreamReader reader = new StreamReader(response.GetResponseStream()))
 			{
 				body = reader.ReadToEnd();
 			}

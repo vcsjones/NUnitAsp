@@ -1,7 +1,7 @@
-#region Copyright (c) 2002, 2003 Brian Knowles, Jim Little
+#region Copyright (c) 2003 Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Little
+' Copyright (c) 2003 Brian Knowles, Jim Little
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -26,16 +26,12 @@ using System.Web.UI.WebControls;
 
 namespace NUnitAspTestPages.Credentials
 {
-	/// <summary>
-	/// Summary description for CredentialsTest.
-	/// </summary>
 	public class CredentialsTest : System.Web.UI.Page
 	{
 		protected Label userId;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Put user code to initialize the page here
 			userId.Text = User.Identity.Name;
 		}
 

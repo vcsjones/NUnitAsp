@@ -1,7 +1,7 @@
-#region Copyright (c) 2002, 2003 Brian Knowles, Jim Little
+#region Copyright (c) 2003 Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Little
+' Copyright (c) 2003, Brian Knowles, Jim Little
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -38,51 +38,38 @@ namespace NUnit.Extensions.Asp.Test
 		protected override void SetUp()
 		{
 			base.SetUp();
-
-			// ensure that the Credentials folder allows only NTLM authentication
-			// access, so that the client will be authenticated.
-			AllowOnlyNTLMAuthFor("Credentials");
+            SetFolderToNTLMAuthentication("Credentials");
 		}
-
 
 		public void TestNoCredentials()
 		{
-			LabelTester userId = new LabelTester("userId", CurrentWebForm);
-
+            string errorMessage = "Unauthorised Access status '401' was expected";
 			try
 			{
 				Browser.GetPage(BaseUrl + "Credentials/CredentialsTest.aspx");
-			}
+                Fail(errorMessage);
+            }
 			catch (HttpClient.BadStatusException e)
 			{
-				Assert("Unauthorised Access status '401' was expected",
-					e.Message.IndexOf("(status code: 401)") > 0);
-				return;
+				Assert(errorMessage, e.Message.IndexOf("(status code: 401)") > 0);
 			}
 
-			Fail("Unauthorised Access status '401' was expected");
 		}
 
 		public void TestCredentials()
 		{
-			LabelTester userId = new LabelTester("userId",
-				CurrentWebForm);
+			LabelTester userId = new LabelTester("userId", CurrentWebForm);
 
-			// set to the default credentials (current process);
-			Browser.Credentials = CredentialCache.DefaultCredentials;
-
+            Browser.Credentials = CredentialCache.DefaultCredentials;
 			Browser.GetPage(BaseUrl + "Credentials/CredentialsTest.aspx");
-			Console.WriteLine(Thread.CurrentPrincipal.GetType().FullName);
 
-			IIdentity myIdentity = WindowsIdentity.GetCurrent();
-			Assertion.AssertEquals("userId", myIdentity.Name, userId.Text);
+			Assertion.AssertEquals("userId", WindowsIdentity.GetCurrent().Name, userId.Text);
 		}
 
 
-		private void AllowOnlyNTLMAuthFor(string folderName)
+		private void SetFolderToNTLMAuthentication(string folderName)
 		{
-			DirectoryEntry baseFolder = 
-				new DirectoryEntry("IIS://localhost/W3SVC/1/Root" + BasePath);
+			DirectoryEntry baseFolder = new DirectoryEntry("IIS://localhost/W3SVC/1/Root" + BasePath);
 
 			DirectoryEntry targetFolder;
 			string folderClass = "IIsWebDirectory";
@@ -95,27 +82,15 @@ namespace NUnit.Extensions.Asp.Test
 				targetFolder = baseFolder.Children.Add(folderName, folderClass);
 			}
 
-			bool entryChanged = false;
-			entryChanged |= SetEntryProperty(targetFolder, "AuthAnonymous", false);
-			entryChanged |= SetEntryProperty(targetFolder, "AuthBasic", false);
-			entryChanged |= SetEntryProperty(targetFolder, "AuthNTLM", true);
-
-			if (entryChanged)
-			{
-				targetFolder.CommitChanges();
-			}
+			SetEntryProperty(targetFolder, "AuthAnonymous", false);
+			SetEntryProperty(targetFolder, "AuthBasic", false);
+			SetEntryProperty(targetFolder, "AuthNTLM", true);
+            targetFolder.CommitChanges();
 		}
 
-		private bool SetEntryProperty(DirectoryEntry entry, 
-			string propertyName, object newValue)
+		private void SetEntryProperty(DirectoryEntry entry, string propertyName, object newValue)
 		{
-			if (object.Equals(entry.Properties[propertyName][0], newValue))
-			{
-				return false;
-			}
-
 			entry.Properties[propertyName][0] = newValue;
-			return true;
 		}
 	}
 }
