@@ -126,15 +126,7 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"3"},
 				new string[] {"4"}
 			};
-			try
-			{
-				AssertSortOrder("testData", testData, 0, true, DataType.String);
-			}
-			catch (AssertionFailedError)
-			{
-				return;
-			}
-			Fail("Expected assertion");
+			AssertSortOrderFails(testData, DataType.String);
 		}
 
 		public void TestAssertSortOrder_WhenNoData()
@@ -153,6 +145,28 @@ namespace NUnit.Extensions.Asp.Test
 			AssertSortOrder("testData", testData, 0, true, DataType.Int);
 		}
 
+		public void TestAssertSortOrder_WhenBlankNumber()
+		{
+			string[][] testData = new string[][]
+			{
+				new string[] {""},
+				new string[] {"9"},
+				new string[] {"10"},
+			};
+			AssertSortOrder("testData", testData, 0, true, DataType.Int);
+		}
+
+		public void TestAssertSortOrder_WhenBlankNumberAtEnd()
+		{
+			string[][] testData = new string[][]
+			{
+				new string[] {"9"},
+				new string[] {"10"},
+				new string[] {""},
+			};
+			AssertSortOrderFails(testData, DataType.Int);
+		}
+
 		public void TestAssertSortOrder_WhenDate()
 		{
 			string[][] testData = new string[][]
@@ -161,6 +175,41 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"7/16/2002"},
 			};
 			AssertSortOrder("testData", testData, 0, true, DataType.DateTime);
+		}
+
+		public void TestAssertSortOrder_WhenBlankDate()
+		{
+			string[][] testData = new string[][]
+			{
+				new string[] {""},
+				new string[] {"7/4/2002"},
+				new string[] {"7/16/2002"},
+			};
+			AssertSortOrder("testData", testData, 0, true, DataType.DateTime);
+		}
+
+		public void TestAssertSortOrder_WhenBlankDateAtEnd()
+		{
+			string[][] testData = new string[][]
+			{
+				new string[] {"7/4/2002"},
+				new string[] {"7/16/2002"},
+				new string[] {""},
+			};
+			AssertSortOrderFails(testData, DataType.DateTime);
+		}
+
+		private void AssertSortOrderFails(string[][] testData, DataType dataType)
+		{
+			try
+			{
+				AssertSortOrder("testData", testData, 0, true, dataType);
+			}
+			catch (AssertionFailedError)
+			{
+				return;
+			}
+			Fail("Expected assertion");
 		}
 	}
 }

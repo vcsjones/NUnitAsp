@@ -166,11 +166,16 @@ namespace NUnit.Extensions.Asp
 
 		private static int Compare(string a, string b, DataType type)
 		{
+			if (a == "" && b == "") return 0;
+			if (a == "") return -1;
+			if (b == "") return 1;
+
 			switch (type)
 			{
 				case DataType.String:
 					return a.CompareTo(b);
 				case DataType.Int:
+					if (a == "" && b == "") return 0;
 					int aInt = int.Parse(a);
 					int bInt = int.Parse(b);
 					return aInt.CompareTo(bInt);
