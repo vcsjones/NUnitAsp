@@ -37,7 +37,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// <param name="aspId">The ID of the control to link to.</param>
 		/// <param name="container">The control that contains the control to link to</param>
 		/// <param name="runAtServer">True if the control to link to has the 'runAt="server"' attribute.</param>
-		public AnchorTester(string aspId, Control container, bool runAtServer) : base(aspId, container)
+		public AnchorTester(string aspId, Tester container, bool runAtServer) : base(aspId, container)
 		{
 			this.runAtServer = runAtServer;
 		}

@@ -32,7 +32,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// </summary>
 		/// <param name="aspId">The ID of the control to link to.</param>
 		/// <param name="container">The control that contains the control to link to</param>
-		public PanelTester(string aspId, Control container) : base(aspId, container)
+		public PanelTester(string aspId, Tester container) : base(aspId, container)
 		{
 		}
 	}

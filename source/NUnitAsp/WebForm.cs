@@ -24,7 +24,7 @@ using System;
 using System.Xml;
 using NUnit.Framework;
 
-namespace NUnit.Extensions.Asp.AspTester
+namespace NUnit.Extensions.Asp
 {
 
 	/// <summary>
@@ -33,7 +33,7 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// 
 	/// The API for this class will change in future releases.  
 	/// </summary>
-	public class WebForm : Control
+	public class WebForm : Tester
 	{
 		HttpClient browser;
 
@@ -84,7 +84,23 @@ namespace NUnit.Extensions.Asp.AspTester
 
 		protected internal override void Submit()
 		{
-			browser.SubmitForm(GetAttributeValue("action"), GetAttributeValue("method"));
+			browser.SubmitForm(this);
+		}
+
+		internal string Action
+		{
+			get
+			{
+				return GetAttributeValue("action");
+			}
+		}
+
+		internal string Method
+		{
+			get
+			{
+				return GetAttributeValue("method");
+			}
 		}
 
 		public override string Description

@@ -120,17 +120,17 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Control.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "ControlTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "HttpClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Tester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

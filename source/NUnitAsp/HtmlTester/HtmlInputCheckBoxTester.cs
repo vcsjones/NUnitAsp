@@ -38,7 +38,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// <param name="aspId">The ASP ID of the control to be tested (i.e., the control to which this tester should be linked).</param>
 		/// <param name="container">The control that contains the control to be tested.</param>
 		/// <param name="runAtServer">True if the control to be tested has the 'runAtServer="true"' attribute.</param>
-		public HtmlInputCheckBoxTester(String aspId, Control container, bool runAtServer) : base(aspId, container) 
+		public HtmlInputCheckBoxTester(String aspId, Tester container, bool runAtServer) : base(aspId, container) 
 		{
 			this.runAtServer = runAtServer;
 		}

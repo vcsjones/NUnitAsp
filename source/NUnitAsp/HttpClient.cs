@@ -94,9 +94,9 @@ namespace NUnit.Extensions.Asp
 			DoWebRequest(url, "GET", string.Empty);
 		}
 
-		internal void SubmitForm(string url, string method)
+		internal void SubmitForm(WebForm form)
 		{
-			DoWebRequest(url, method, currentPage.FormVariables);
+			DoWebRequest(form.Action, form.Method, currentPage.FormVariables);
 		}
 
 		internal void SetFormVariable(string name, string value) 
@@ -137,7 +137,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				return currentPage.ToString();
+				return CurrentPage.ToString();
 			}
 		}
 

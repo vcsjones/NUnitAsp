@@ -29,7 +29,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 	/// </summary>
 	public abstract class HtmlControlTester : ControlTester
 	{
-		internal HtmlControlTester(string aspId, Control container) :
+		internal HtmlControlTester(string aspId, Tester container) :
 			base(aspId, container)
 		{
 		}

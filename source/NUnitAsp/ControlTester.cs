@@ -33,12 +33,12 @@ namespace NUnit.Extensions.Asp
 	/// 
 	/// The API for this class will change in future releases.
 	/// </summary>
-	public abstract class ControlTester : Control
+	public abstract class ControlTester : Tester
 	{
 		private string aspId;
-		private Control container;
+		private Tester container;
 
-		internal ControlTester(string aspId, Control container)
+		internal ControlTester(string aspId, Tester container)
 		{
 			this.aspId = aspId;
 			this.container = container;

@@ -26,13 +26,13 @@ using System.Xml;
 namespace NUnit.Extensions.Asp
 {
 	/// <summary>
-	/// Base class for all NUnitAsp controls.  To create your own tester 
+	/// Base class for all NUnitAsp testers.  To create your own tester 
 	/// classes, you should usually extend ControlTester instead.
 	///
 	/// Not intended for third-party use.  The API for this class will change 
 	/// in future releases.  
 	/// </summary>
-	public abstract class Control
+	public abstract class Tester
 	{
 		public abstract bool HasChildElement(string aspId);
 		protected internal abstract XmlElement GetChildElement(string htmlId);

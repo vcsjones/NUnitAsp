@@ -29,14 +29,14 @@ namespace NUnit.Extensions.Asp.AspTester
 	public class UserControlTester : AspControlTester
 	{
 		private string aspId;
-		private Control container;
+		private Tester container;
 
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.
 		/// </summary>
 		/// <param name="aspId">The ID of the control to link to.</param>
 		/// <param name="container">The control that contains the control to link to</param>
-		public UserControlTester(string aspId, Control container) : base(aspId, container)
+		public UserControlTester(string aspId, Tester container) : base(aspId, container)
 		{
 			this.aspId = aspId;
 			this.container = container;
