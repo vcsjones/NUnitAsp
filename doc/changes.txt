@@ -7,7 +7,7 @@ To do:
 * FAQ: No change to "get" without postback
 
 
-Changes in CVS:
+Changes in NUnitAsp 1.5.1:
 Produced by Jim Shore and Levi Khatskevitch.
 * Added PostBack() overload that takes actual event target and argument.  Credit to Jim Shore.
 * Fixed parsing error that occurred when combining <style> tag with HTML comments.  Credit to Jim Shore.
