@@ -27,5 +27,14 @@ namespace NUnit.Extensions.Asp.AspTester
 		public RadioButtonTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
+
+		public string GroupName
+		{
+			get
+			{
+				string mangledGroupName = GetAttributeValue("name");
+				return mangledGroupName.Substring(mangledGroupName.LastIndexOf(":") + 1);
+			}
+		}
 	}
 }
