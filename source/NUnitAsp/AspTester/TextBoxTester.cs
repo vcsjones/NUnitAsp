@@ -48,8 +48,33 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get 
 			{
-				if (GetAttributeValue("type") == "password") return TextBoxMode.Password;
-				else return TextBoxMode.SingleLine;
+				if (TagName == "textarea") return TextBoxMode.MultiLine;
+				else 
+				{
+					Assertion.AssertEquals("tag name", "input", TagName);
+					string type = GetAttributeValue("type");
+					if (type == "password") return TextBoxMode.Password;
+					else 
+					{
+						Assertion.AssertEquals("type", "text", type);
+						return TextBoxMode.SingleLine;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Returns 0 if there is no max length
+		/// </summary>
+		public int MaxLength
+		{
+			get
+			{
+				Assertion.Assert("max length is ignored on a TextBox when TextMode is MultiLine", TextMode != TextBoxMode.MultiLine);
+
+				string maxLength = GetOptionalAttributeValue("maxlength");
+				if (maxLength == null || maxLength == "") return 0;
+				else return int.Parse(maxLength);
 			}
 		}
 

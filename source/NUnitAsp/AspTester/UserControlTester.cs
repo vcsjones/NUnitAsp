@@ -35,27 +35,9 @@ namespace NUnit.Extensions.Asp.AspTester
 			this.container = container;
 		}
 
-		internal override XmlElement GetChildElement(string aspId)
-		{
-			return base.GetChildElement(HtmlId + "_" + aspId);
-		}
-
-		public override bool HasChildElement(string aspId)
-		{
-			return base.HasChildElement(HtmlId + "_" + aspId);
-		}
-
 		internal override string GetChildElementHtmlId(string aspId)
 		{
-			return base.GetChildElementHtmlId(HtmlId + "_" + aspId);
-		}
-
-		public override string HtmlId
-		{
-			get
-			{
-				return aspId;
-			}
+			return HtmlId + "_" + aspId;
 		}
 
 		public override bool Visible
@@ -68,7 +50,7 @@ namespace NUnit.Extensions.Asp.AspTester
 
 		private class VisibilityException : ApplicationException
 		{
-			internal VisibilityException(string className) : base(className + "s are never visible")
+			internal VisibilityException(string className) : base(className + "s cannot be tested for visibility because they don't directly generate HTML tags")
 			{
 			}
 		}

@@ -105,6 +105,19 @@ namespace NUnit.Extensions.Asp.Test
 			AssertCookieSet();
 		}
 
+		public void Test404NotFound()
+		{
+			try
+			{
+				Browser.GetPage("http://localhost/nonexistant.html");
+				Fail("Expected NotFoundException");
+			}
+			catch (HttpClient.NotFoundException)
+			{
+				Assert("correct behavior", true);
+			}
+		}
+
 		private void AssertCookieNotSet()
 		{
 			AssertEquals("Not Set", cookie.Text);

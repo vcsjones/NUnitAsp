@@ -55,6 +55,24 @@
                     TreatWarningsAsErrors = "true"
                     WarningLevel = "4"
                 />
+                <Config
+                    Name = "Clientele Package"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "DEBUG;TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "true"
+                    Optimize = "false"
+                    OutputPath = "bin\Debug\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
             </Settings>
             <References>
                 <Reference
@@ -107,6 +125,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "ControlTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "HttpClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -133,11 +156,6 @@
                 />
                 <File
                     RelPath = "AspTester\CheckBoxTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\ControlTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -173,6 +191,11 @@
                 />
                 <File
                     RelPath = "AspTester\UserControlTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\AnchorTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

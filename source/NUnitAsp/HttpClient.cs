@@ -115,6 +115,7 @@ namespace NUnit.Extensions.Asp
 		private void SendHttpRequest(NetworkStream stream, string method, string formVariables)
 		{
 			string url = currentUrl.ToString();
+			url = url.Replace(' ', '+');
 			if (method.ToLower() == "get" && formVariables != "") url += "?" + formVariables;
 
 			StreamWriter writer = new StreamWriter(stream, Encoding.ASCII);
@@ -156,6 +157,12 @@ namespace NUnit.Extensions.Asp
 
 		private void ParseHttpResponse(HttpResponse response)
 		{
+			if (response.IsNotFound) throw new NotFoundException(currentUrl);
+			if (!response.IsOkay) 
+			{
+				Console.WriteLine(response.Body);
+				throw new BadStatusException(response.StatusCode);
+			}
 			currentPage = new WebPage(response.Body);
 			ParseCookies(response.Headers.GetValues("Set-Cookie"));
 		}
@@ -194,7 +201,7 @@ namespace NUnit.Extensions.Asp
 
 		private class HttpResponse
 		{
-			private int statusCode;
+			public int statusCode;
 			public NameValueCollection Headers = new NameValueCollection();
 			public string Body;
 
@@ -215,11 +222,35 @@ namespace NUnit.Extensions.Asp
 				statusCode = int.Parse(elements[1]);
 			}
 
+			public int StatusCode
+			{
+				get
+				{
+					return statusCode;
+				}
+			}
+
 			public bool IsRedirect
 			{
 				get
 				{
 					return statusCode == 302;
+				}
+			}
+
+			public bool IsNotFound
+			{
+				get
+				{
+					return statusCode == 404;
+				}
+			}
+
+			public bool IsOkay
+			{
+				get
+				{
+					return IsRedirect || (statusCode == 200);
 				}
 			}
 
@@ -241,5 +272,18 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		public class NotFoundException : ApplicationException
+		{
+			internal NotFoundException(Uri url) : base("404 Not Found for " + url)
+			{
+			}
+		}
+
+		public class BadStatusException : ApplicationException
+		{
+			internal BadStatusException(int status) : base("Server returned error (status code: " + status + "}.  HTML copied to standard output.")
+			{
+			}
+		}
 	}
 }

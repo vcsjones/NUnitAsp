@@ -19,33 +19,31 @@
 '*******************************************************************************************************************/
 
 using System;
-using NUnit.Extensions.Asp.AspTester;
+using System.Text.RegularExpressions;
 
-namespace NUnit.Extensions.Asp.Test
+namespace NUnit.Extensions.Asp.HtmlTester
 {
-
-	public class AspLabelTest : NUnitAspTestCase
+	public class AnchorTester : ControlTester
 	{
-		public AspLabelTest(string name) : base(name)
+		private bool runAtServer;
+
+		public AnchorTester(string aspId, Control container, bool runAtServer) : base(aspId, container)
 		{
+			this.runAtServer = runAtServer;
 		}
 
-		protected override void SetUp()
+		public void Click()
 		{
-			base.SetUp();
-			Browser.GetPage(BaseUrl + "AspLabelTestPage.aspx");
-		}
+			Browser.GetPage(GetAttributeValue("href"));
+		}								 
 
-		public void TestText() 
+		public override string HtmlId
 		{
-			LabelTester textLabel = new LabelTester("textLabel", CurrentWebForm);
-			AssertEquals("text", "foo", textLabel.Text);
-		}
-
-		public void TestSpace()
-		{
-			LabelTester spaceLabel = new LabelTester("spaceLabel", CurrentWebForm);
-			AssertEquals("space", "foo ", spaceLabel.Text);
+			get
+			{
+				if (runAtServer) return base.HtmlId;
+				else return AspId;
+			}
 		}
 	}
 }

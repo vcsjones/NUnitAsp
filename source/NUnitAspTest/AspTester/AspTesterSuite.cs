@@ -21,25 +21,23 @@
 using System;
 using NUnit.Framework;
 
-namespace NUnit.Extensions.Asp.Test
+namespace NUnit.Extensions.Asp.Test.AspTester
 {
 
-	public class NUnitAspTestSuite : TestSuite
+	public class AspTesterSuite : TestSuite
 	{
 
-		public NUnitAspTestSuite() : base() 
+		public AspTesterSuite() : base() 
 		{
-			AddTestSuite(typeof(HttpClientTest));
-
-			AddTest(new AspTester.AspTesterSuite());
-			AddTest(new HtmlTester.HtmlTesterSuite());
+			AddTestSuite(typeof(DataGridTest));
+			AddTestSuite(typeof(LabelTest));
 		}
 
 		public static ITest Suite 
 		{
 			get 
 			{
-				return new NUnitAspTestSuite();
+				return new AspTesterSuite();
 			}
 		}
 

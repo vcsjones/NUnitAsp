@@ -25,13 +25,13 @@ using NUnit.Extensions.Asp.AspTester;
 namespace NUnit.Extensions.Asp.Test
 {
 
-	public class AspDataGridTest : NUnitAspTestCase
+	public class DataGridTest : NUnitAspTestCase
 	{
 		private DataGridTester grid1;
 		private DataGridTester grid2;
 		private LabelTester clickResult;
 
-		public AspDataGridTest(string name) : base(name)
+		public DataGridTest(string name) : base(name)
 		{
 		}
 
@@ -42,7 +42,7 @@ namespace NUnit.Extensions.Asp.Test
 			grid2 = new DataGridTester("dataGrid2", CurrentWebForm);
 			clickResult = new LabelTester("clickResult", CurrentWebForm);
 
-			Browser.GetPage("http://localhost/NUnitAsp/NUnitAspTestPages/AspDataGridTestPage.aspx");
+			Browser.GetPage(BaseUrl + "AspTester/DataGridTestPage.aspx");
 		}
 
 		public void TestRowCount() 
@@ -55,17 +55,17 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			string[][] expected = new string[][]
 			{
-				new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "Space: ", "1"}, 
-				new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "Space: ", "2"}, 
+				new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "Space:", "1"}, 
+				new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "Space:", "2"}, 
 			};
-			AssertEquals("cells", expected, grid1.Cells);				
+			AssertEquals("cells", expected, grid1.TrimmedCells);				
 		}
 
 		public void TestRowCells()
 		{
-			AssertEquals("row 1", new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "Space: ", "1"}, grid1.GetRow(0).Cells);
-			AssertEquals("row 2", new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "Space: ", "2"}, grid1.GetRow(1).Cells);
-			AssertEquals("row 3", new string[] {"Link", "Cell 3, 1", "Cell 3, 2", "Space: ", "3"}, grid2.GetRow(0).Cells);
+			AssertEquals("row 1", new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "Space:", "1"}, grid1.GetRow(0).TrimmedCells);
+			AssertEquals("row 2", new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "Space:", "2"}, grid1.GetRow(1).TrimmedCells);
+			AssertEquals("row 3", new string[] {"Link", "Cell 3, 1", "Cell 3, 2", "Space:", "3"}, grid2.GetRow(0).TrimmedCells);
 		}
 
 		public void TestNestedControls()

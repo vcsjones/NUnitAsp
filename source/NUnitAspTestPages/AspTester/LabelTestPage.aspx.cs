@@ -29,81 +29,15 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace NUnitAspTestPages
+namespace NUnit.Extensions.Asp.Test.AspTester
 {
-
-	public class AspDataGridTestPage : System.Web.UI.Page
+	public class LabelTestPage : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.DataGrid dataGrid1;
-		protected System.Web.UI.WebControls.DataGrid dataGrid2;
-		protected System.Web.UI.WebControls.Label clickResult;
-
+		protected System.Web.UI.WebControls.Label textLabel;
+	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			RowData row1;
-			RowData row2;
-
-			row1 = new RowData(1);
-			row2 = new RowData(2);
-			dataGrid1.DataSource = new RowData[] {row1, row2};
-			dataGrid1.DataBind();
-
-			row1 = new RowData(3);
-			dataGrid2.DataSource = new RowData[] {row1};
-			dataGrid2.DataBind();
-		}
-
-		protected void link1_Clicked(object sender, EventArgs args)
-		{
-			clickResult.Text = "1," + ((LinkButton)sender).CommandArgument;
-		}
-
-		protected void link2_Clicked(object sender, EventArgs args)
-		{
-			clickResult.Text = "2," + ((LinkButton)sender).CommandArgument;
-		}
-
-		private class RowData
-		{
-			private int rowNum;
-
-			public RowData(int rowNum) 
-			{
-				this.rowNum = rowNum;
-			}
-
-			public string RowNumber
-			{
-				get
-				{
-					return rowNum.ToString();
-				}
-			}
-
-			public string Column1
-			{
-				get 
-				{
-					return "Cell " + rowNum + ", 1";
-				}
-			}
-
-			public string Column2
-			{
-				get
-				{
-					return "Cell " + rowNum + ", 2";
-				}
-			}
-
-			public string SpaceColumn
-			{
-				get
-				{
-					return "Space: ";
-				}
-			}
-
+			textLabel.Text="foo";
 		}
 
 		#region Web Form Designer generated code

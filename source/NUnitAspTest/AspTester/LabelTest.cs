@@ -19,30 +19,33 @@
 '*******************************************************************************************************************/
 
 using System;
-using NUnit.Framework;
+using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test
 {
 
-	public class NUnitAspTestSuite : TestSuite
+	public class LabelTest : NUnitAspTestCase
 	{
-
-		public NUnitAspTestSuite() : base() 
+		public LabelTest(string name) : base(name)
 		{
-			AddTestSuite(typeof(HttpClientTest));
-
-			AddTest(new AspTester.AspTesterSuite());
-			AddTest(new HtmlTester.HtmlTesterSuite());
 		}
 
-		public static ITest Suite 
+		protected override void SetUp()
 		{
-			get 
-			{
-				return new NUnitAspTestSuite();
-			}
+			base.SetUp();
+			Browser.GetPage(BaseUrl + "/AspTester/LabelTestPage.aspx");
 		}
 
+		public void TestText() 
+		{
+			LabelTester textLabel = new LabelTester("textLabel", CurrentWebForm);
+			AssertEquals("text", "foo", textLabel.Text);
+		}
+
+		public void TestSpace()
+		{
+			LabelTester spaceLabel = new LabelTester("spaceLabel", CurrentWebForm);
+			AssertEquals("space", "foo ", spaceLabel.Text);
+		}
 	}
-
 }

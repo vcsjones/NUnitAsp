@@ -62,9 +62,10 @@ namespace NUnit.Extensions.Asp.AspTester
 			return (XmlElement)rows[rowNum + 1];
 		}
 
-		internal override XmlElement GetChildElement(string aspId)
+		internal override string GetChildElementHtmlId(string aspId)
 		{
-			return base.GetChildElement(AspId + "_" + aspId);
+			int rowNum = int.Parse(aspId);
+			return HtmlId + "__ctl" + (rowNum + 2);
 		}
 
 		public class Row : ControlTester
@@ -72,15 +73,15 @@ namespace NUnit.Extensions.Asp.AspTester
 			private int rowNum;
 			private DataGridTester container;
 
-			public Row(int rowNum, DataGridTester container) : base("_ctl" + (rowNum + 2).ToString(), container)
+			public Row(int rowNum, DataGridTester container) : base(rowNum.ToString(), container)
 			{
 				this.rowNum = rowNum;
 				this.container = container;
 			}
 
-			internal override XmlElement GetChildElement(string aspId)
+			internal override string GetChildElementHtmlId(string inAspId)
 			{
-				return base.GetChildElement(AspId + "_" + aspId);
+				return HtmlId + "_" + inAspId;
 			}
 
 			internal override XmlElement Element

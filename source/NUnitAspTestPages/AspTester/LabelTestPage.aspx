@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="AspLabelTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnitAspTestPages.AspLabelTestPage" %>
+<%@ Page language="c#" Codebehind="LabelTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnit.Extensions.Asp.Test.AspTester.LabelTestPage" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://localhost/NUnitAsp/dtd/xhtml1-transitional.dtd">
 <HTML>
   <HEAD>

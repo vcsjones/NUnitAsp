@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="AspDataGridTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnitAspTestPages.AspDataGridTestPage" %>
+<%@ Page language="c#" Codebehind="DataGridTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnit.Extensions.Asp.Test.AspTester.DataGridTestPage" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://localhost/NUnitAsp/dtd/xhtml1-transitional.dtd">
 <HTML>
   <HEAD>

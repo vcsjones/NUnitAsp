@@ -34,15 +34,23 @@ namespace NUnit.Extensions.Asp.AspTester
 			this.browser = browser;
 		}
 
-		public override bool HasChildElement(string aspId)
+		internal override HttpClient Browser
 		{
-			return (GetElementInternal(aspId) != null);
+			get
+			{
+				return browser;
+			}
 		}
 
-		internal override XmlElement GetChildElement(string aspId)
+		public override bool HasChildElement(string htmlId)
 		{
-			XmlElement element = GetElementInternal(aspId);
-			if (element == null) throw new ElementNotVisibleException("Couldn't find " + aspId + " on " + Description);
+			return (GetElementInternal(htmlId) != null);
+		}
+
+		internal override XmlElement GetChildElement(string htmlId)
+		{
+			XmlElement element = GetElementInternal(htmlId);
+			if (element == null) throw new ElementNotVisibleException("Couldn't find " + htmlId + " on " + Description);
 			return element;
 		}
 

@@ -87,38 +87,6 @@
         <Files>
             <Include>
                 <File
-                    RelPath = "AspDataGridTestPage.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "AspDataGridTestPage.aspx.cs"
-                    DependentUpon = "AspDataGridTestPage.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspDataGridTestPage.aspx.resx"
-                    DependentUpon = "AspDataGridTestPage.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "AspLabelTestPage.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "AspLabelTestPage.aspx.cs"
-                    DependentUpon = "AspLabelTestPage.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspLabelTestPage.aspx.resx"
-                    DependentUpon = "AspLabelTestPage.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -177,6 +145,54 @@
                 <File
                     RelPath = "Web.config"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AspTester\DataGridTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AspTester\DataGridTestPage.aspx.cs"
+                    DependentUpon = "DataGridTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\DataGridTestPage.aspx.resx"
+                    DependentUpon = "DataGridTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "AspTester\LabelTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AspTester\LabelTestPage.aspx.cs"
+                    DependentUpon = "LabelTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\LabelTestPage.aspx.resx"
+                    DependentUpon = "LabelTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "HtmlTester\LinkTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "HtmlTester\LinkTestPage.aspx.cs"
+                    DependentUpon = "LinkTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\LinkTestPage.aspx.resx"
+                    DependentUpon = "LinkTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
                 />
             </Include>
         </Files>

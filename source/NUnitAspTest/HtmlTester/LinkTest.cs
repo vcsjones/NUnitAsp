@@ -19,30 +19,24 @@
 '*******************************************************************************************************************/
 
 using System;
-using NUnit.Framework;
+using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.Test
 {
 
-	public class NUnitAspTestSuite : TestSuite
+	public class LinkTest : NUnitAspTestCase
 	{
-
-		public NUnitAspTestSuite() : base() 
+		public LinkTest(string name) : base(name)
 		{
-			AddTestSuite(typeof(HttpClientTest));
-
-			AddTest(new AspTester.AspTesterSuite());
-			AddTest(new HtmlTester.HtmlTesterSuite());
 		}
 
-		public static ITest Suite 
+		public void TestClick()
 		{
-			get 
-			{
-				return new NUnitAspTestSuite();
-			}
-		}
+			AnchorTester testLink = new AnchorTester("testLink", CurrentWebForm, true);
 
+			Browser.GetPage(BaseUrl + "HtmlTester/LinkTestPage.aspx");
+			testLink.Click();
+			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
+		}
 	}
-
 }

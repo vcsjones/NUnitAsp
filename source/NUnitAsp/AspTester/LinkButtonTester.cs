@@ -23,7 +23,6 @@ using System.Text.RegularExpressions;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
-
 	public class LinkButtonTester : ControlTester
 	{
 		public LinkButtonTester(string aspId, Control container) : base(aspId, container)
