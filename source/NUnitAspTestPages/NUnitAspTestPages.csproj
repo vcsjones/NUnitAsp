@@ -445,22 +445,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "AspTester\RequiredFieldValidatorTestPage.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "AspTester\RequiredFieldValidatorTestPage.aspx.cs"
-                    DependentUpon = "RequiredFieldValidatorTestPage.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\RequiredFieldValidatorTestPage.aspx.resx"
-                    DependentUpon = "RequiredFieldValidatorTestPage.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "AspTester\TextBoxTestPage.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

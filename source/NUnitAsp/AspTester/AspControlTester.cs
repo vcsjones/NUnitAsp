@@ -30,7 +30,7 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// </summary>
 	public abstract class AspControlTester : ControlTester
 	{
-		internal AspControlTester(string aspId, Tester container) :
+		public AspControlTester(string aspId, Tester container) :
 			base(aspId, container)
 		{
 		}

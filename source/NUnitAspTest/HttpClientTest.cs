@@ -174,17 +174,10 @@ namespace NUnit.Extensions.Asp.Test
 		}
 
 		[Test]
+		[ExpectedException(typeof(HttpClient.NotFoundException))]
 		public void Test404NotFound()
 		{
-			try
-			{
-				Browser.GetPage(BaseUrl + "NonExistant.html");
-				Fail("Expected NotFoundException");
-			}
-			catch (HttpClient.NotFoundException)
-			{
-				Assert("correct behavior", true);
-			}
+			Browser.GetPage(BaseUrl + "NonExistant.html");
 		}
 
 		[Test]
@@ -233,8 +226,8 @@ namespace NUnit.Extensions.Asp.Test
 			}
 			catch (HttpClient.AspServerException e)
 			{
-				Assert("incorrect exception message", e.Message.StartsWith(
-					"[ApplicationException]: This is an ASP.NET exception message\r\n"));
+				string expectedMessage = "[ApplicationException]: This is an ASP.NET exception message";
+				Assert("incorrect exception message", e.Message.IndexOf(expectedMessage) >= 0);
 			}
 		}
 

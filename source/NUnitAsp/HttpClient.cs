@@ -343,21 +343,31 @@ namespace NUnit.Extensions.Asp
 				body = reader.ReadToEnd();
 			}
 
-			if (response.StatusCode == HttpStatusCode.InternalServerError)
-			{
-				// error info is the first comment node after the root element
-				XmlNodeList errorInfo = new WebPage(body).Document.ChildNodes;
-				if (errorInfo.Count == 2 && errorInfo[1] is XmlComment)
-				{
-					throw new AspServerException(errorInfo[1].Value.Trim());
-				}
-			}
 			if (response.StatusCode != HttpStatusCode.OK)
 			{
+				if (response.StatusCode == HttpStatusCode.InternalServerError)
+				{
+					string exceptionMessage = ParseStackTrace(body);
+					if (exceptionMessage != null) throw new AspServerException(exceptionMessage);
+				}
+
 				Console.WriteLine(body);
 				throw new BadStatusException(response.StatusCode);
 			}
 			currentPage = new WebPage(body);
+		}
+
+		/// <summary>
+		/// Returns null if stack trace couldn't be found.
+		/// </summary>
+		private string ParseStackTrace(string aspExceptionPageHtml)
+		{
+			XmlNodeList errorInfo = new WebPage(aspExceptionPageHtml).Document.ChildNodes;
+			if (errorInfo.Count == 2 && errorInfo[1] is XmlComment)
+			{
+				return errorInfo[1].Value.Trim();
+			}
+			return null;
 		}
 
 
@@ -386,10 +396,12 @@ namespace NUnit.Extensions.Asp
 
 		/// <summary>
 		/// Exception: The requested URL caused an unhandled exception on the ASP.NET server.
+		/// Fix the production code so it doesn't throw the exception.
 		/// </summary>
 		public class AspServerException : ApplicationException
 		{
-			internal AspServerException(string message) : base(message)
+			internal AspServerException(string exceptionStackTrace) : 
+				base("Server threw an exception:\r\n" + exceptionStackTrace)
 			{
 			}
 		}

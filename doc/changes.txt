@@ -21,6 +21,7 @@ Produced by Jim Shore and Levi Khatskevitch.
 * Added FAQ: Support for frames/pop-up windows/Javascript/HTML controls.  Credit to Jim Shore.
 * Removed [TestFixture] attribute from WebFormTestCase.  Credit to Jim Shore.
 * Made more methods public or protected to aid creation of custom testers.  Credit to Jim Shore.
+* Created HtmlTag class to simplify creation of control testers.  Credit to Jim Shore.
 
 
 Changes in NUnitAsp 1.4.1:
