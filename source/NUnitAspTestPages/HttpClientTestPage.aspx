@@ -26,7 +26,7 @@
 				Post Back link: [<asp:Label ID="postBackStatus" Runat="server">Not Clicked</asp:Label>]
 				<br />
 				User Agent: [<asp:Label ID="userAgent" Runat="server"></asp:Label>]
- 				<br />
+				<br />
 				User Languages: [<asp:label ID="userLanguages" Runat="server"></asp:label>]
 			</p>
 		</form>

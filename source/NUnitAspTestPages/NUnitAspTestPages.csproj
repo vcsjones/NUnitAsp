@@ -170,6 +170,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "LocalhostDoctype.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "LocalhostDoctype.aspx.cs"
+                    DependentUpon = "LocalhostDoctype.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "LocalhostDoctype.aspx.resx"
+                    DependentUpon = "LocalhostDoctype.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "MalformedRedirector.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

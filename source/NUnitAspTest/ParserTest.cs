@@ -44,5 +44,13 @@ namespace NUnit.Extensions.Asp.Test
 			new ButtonTester("submit", CurrentWebForm).Click();
 			Assert("should be checked", new CheckBoxTester("checkbox", CurrentWebForm).Checked);
 		}
+
+		[Test]
+		[ExpectedException(typeof(DoctypeDtdException))]
+		public void TestOldFashionedAndTotallyIncorrectDoctype()
+		{
+			Browser.GetPage(BaseUrl + "LocalhostDoctype.aspx");
+			AssertVisibility(new LabelTester("label", CurrentWebForm), true);
+		}
 	}
 }

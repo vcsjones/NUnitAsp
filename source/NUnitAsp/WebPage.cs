@@ -27,6 +27,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Web;
 using System.Text.RegularExpressions;
+using System.Net;
 
 using Sgml;
 
@@ -88,7 +89,15 @@ namespace NUnit.Extensions.Asp
 				reader.DocType = "HTML";
 
 				document = new XhtmlDocument(reader.NameTable);
-				document.Load(reader);
+				try 
+				{
+					document.Load(reader);
+				}
+				catch (WebException e)
+				{
+					throw new DoctypeDtdException(e);
+				}
+
 				ParseDefaultFormVariables();
 			}
 			catch (XmlException e)
@@ -103,6 +112,7 @@ namespace NUnit.Extensions.Asp
 				reader.Close();
 			}
 		}
+
 		private void ParseDefaultFormVariables() 
 		{
 			formVariables = new NameValueCollection();
@@ -236,7 +246,6 @@ namespace NUnit.Extensions.Asp
 			return pageText;
 		}
 
-
 		private class XhtmlDocument : XmlDocument
 		{
 			private readonly Hashtable byHtmlId = new Hashtable();
@@ -277,6 +286,23 @@ namespace NUnit.Extensions.Asp
 					byHtmlId[id.Value] = e.Node;
 				}
 			}
+		}
+	}
+
+	/// <summary>
+	/// Problems with the DOCTYPE DTD; probably that it was incorrect.  Correct it.
+	/// </summary>
+	public class DoctypeDtdException : ApplicationException
+	{
+		internal DoctypeDtdException(WebException e) : base(GetMessage(e))
+		{
+		}
+
+		private static string GetMessage(WebException e)
+		{
+			return "Problems with DOCTYPE DTD: <" + e.Message + ">.  Your DOCTYPE is probably " +
+				"incorrect.  If you're not sure what the DOCTYPE should be, use <!DOCTYPE HTML " +
+				"PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" >, Visual Studio .NET's default.";
 		}
 	}
 }
