@@ -343,6 +343,14 @@ namespace NUnit.Extensions.Asp
 				body = reader.ReadToEnd();
 			}
 
+			if (response.StatusCode == HttpStatusCode.InternalServerError)
+			{
+				XmlNodeList errorInfo = new WebPage(body).Document.ChildNodes;
+				if (errorInfo.Count == 2 && errorInfo[1] is XmlComment)
+				{
+					throw new AspServerException(errorInfo[1].Value.Trim());
+				}
+			}
 			if (response.StatusCode != HttpStatusCode.OK)
 			{
 				Console.WriteLine(body);
@@ -371,6 +379,16 @@ namespace NUnit.Extensions.Asp
 		public class NotFoundException : ApplicationException
 		{
 			internal NotFoundException(Uri url) : base("404 Not Found for " + url)
+			{
+			}
+		}
+
+		/// <summary>
+		/// Exception: The requested URL caused an unhandled exception on the ASP.NET server.
+		/// </summary>
+		public class AspServerException : ApplicationException
+		{
+			internal AspServerException(string message) : base(message)
 			{
 			}
 		}

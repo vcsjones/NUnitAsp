@@ -178,7 +178,7 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			try
 			{
-				Browser.GetPage("http://localhost/nonexistant.html");
+				Browser.GetPage(BaseUrl + "NonExistant.html");
 				Fail("Expected NotFoundException");
 			}
 			catch (HttpClient.NotFoundException)
@@ -221,6 +221,21 @@ namespace NUnit.Extensions.Asp.Test
 			Browser.UserLanguages = new string[] {"en-us", "en-gb"};
 			Browser.GetPage(TestUrl);
 			AssertEquals("modified multiple user languages", "[en-us][en-gb]", userLanguages.Text);
+		}
+
+		[Test]
+		public void TestAspErrorParsing()
+		{
+			try
+			{
+				Browser.GetPage(BaseUrl + "AspErrorTestPage.aspx");
+				Fail("Expected AspServerException");
+			}
+			catch (HttpClient.AspServerException e)
+			{
+				Assert("incorrect exception message", e.Message.StartsWith(
+					"[ApplicationException]: This is an ASP.NET exception message\r\n"));
+			}
 		}
 
 		private CookieCollection GetActiveCookies()

@@ -4,7 +4,6 @@ To do:
 * Address InnerText vs. InnerXml.  Remove HtmlTag.BodyNoTags.
 * Review form variables' use of Element/Tag (Tag should be protected, not internal or public)
 * Exceptions need to be organized
-* Simple parse of ASP.NET exception pages (clue: HTTP 500 error) to display meaningful exception in test 
 
 
 Changes in CVS:
@@ -15,6 +14,7 @@ Produced by Jim Shore and Levi Khatskevitch.
 * Clarified API documentation for all classes.  Credit to Jim Shore.
 * Added postback (server-side click) support.  Credit to Rick Spiewak.
 * Renamed AnchorTester HTML control tester to HtmlAnchorTester.  Credit to Levi Khatskevitch.
+* Added simple ASP.NET error page parsing to display meaningful exceptions in tests.  Credit to Levi Khatskevitch.
 
 
 Changes in NUnitAsp 1.4.1:

@@ -102,6 +102,22 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "AspErrorTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AspErrorTestPage.aspx.cs"
+                    DependentUpon = "AspErrorTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspErrorTestPage.aspx.resx"
+                    DependentUpon = "AspErrorTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
