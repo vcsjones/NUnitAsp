@@ -1,5 +1,7 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
+  <meta http-equiv="Content-Style-Type" content="text/css">
     <title>NUnitAsp - ASP.NET unit testing: Tutorial</title>
 		<link rel="stylesheet" type="text/css" href="../style.css">
   </head>
@@ -18,9 +20,9 @@
 							<br /><a href="../support.html">Support</a>
 							<br /><a href="../consulting.html">Training and Consulting</a>
 						</p>
-						<p><a href="../contribute.html">Contribute</p>
+						<p><a href="../contribute.html">Contribute</a></p>
 						<p><A href="http://sourceforge.net/projects/nunitasp/"><IMG src=
-						"http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" border="0" alt="SourceForge Logo"></A></p>
+						"http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" style="border:0px" alt="SourceForge Logo"></A></p>
 					</div>
 				</td>
 				<td>
@@ -70,7 +72,7 @@
 							<br />&nbsp;&nbsp;&nbsp;<span class="keyword">public class</span> GuestBookTest :
 							WebFormTestCase
 							<br />&nbsp;&nbsp;&nbsp;{
-							<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">public void</font> TestNothing()
+							<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public void</span> TestNothing()
 							<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
 							<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 							<br />&nbsp;&nbsp;&nbsp;}
@@ -149,7 +151,7 @@
 
 						<p>Let's take a closer look at the first declaration:</p>
 
-						<p>
+
 							<table>
 								<tr>
 									<th>Code Fragment</th>
@@ -167,7 +169,7 @@
 									<td>Look for the control on the web form currently loaded by the browser.</td>
 								</tr>
 							</table>
-						</p>
+
 
 						<p>Now that we have the testers, we can assert that their controls are visible on the page.</p>
 
@@ -190,7 +192,7 @@
 
 						<p>We've just told NUnitAsp to assert that the four controls are visible on the page. Again, looking at the first line of code:</p>
 
-						<p>
+
 							<table>
 								<tr>
 									<th>Code Fragment</th>
@@ -201,15 +203,15 @@
 									<td>Call the method in WebFormTestCase that checks control visibility.</td>
 								</tr>
 								<tr>
-									<td><code><span class="demph">AssertVisibility(</span><b>name</b></span><span class="demph">, true);</span></code></td>
+									<td><code><span class="demph">AssertVisibility(</span><b>name</b><span class="demph">, true);</span></code></td>
 									<td>Check the visibility using the "name" tester.  The tester knows its control is a TextBox whose ID is "name."</td>
 								</tr>
 								<tr>
-									<td><code><span class="demph">AssertVisibility(name, <b></span><span class="keyword">true</span>);</span></code></td>
+									<td><code><span class="demph">AssertVisibility(name, </span><b><span class="keyword">true</span>);</b></code></td>
 									<td>The control should be visible.</td>
 								</tr>
 							</table>
-						</p>
+
 
 						<p>We're ready to run the test.  We expect it to fail: we asserted that several controls were visible, but they're not.  When we run the test, it does:</p>
 
@@ -294,7 +296,6 @@
 
 						<p>We've created a new test named "TestSave."  It's has the same tester set up and page load that the "TestLayout" method does, but then it does something different: it assigns values to the web page and presses the "Save" button.</p>
 
-						<p>
 							<table>
 								<tr>
 									<th>Code Fragment</th>
@@ -304,14 +305,13 @@
 									<td><code>name.Text = &quot;Dr. Seuss&quot;;</code></td><td>Set the text of the "name" text box to "Dr. Seuss".</td>
 								</tr>
 								<tr>
-									<td><code>comments.Text = &quot;One Guest, Two Guest!  Guest Book, Best Book!&quot;;</td><td>Set the text of the "comments" text box.</td>
+									<td><code>comments.Text = &quot;One Guest, Two Guest!  Guest Book, Best Book!&quot;;</code></td><td>Set the text of the "comments" text box.</td>
 								</tr>
 								<tr>
 									<td><code>save.Click();</code></td>
 									<td>Click the "Save" button.</td>
 								</tr>
 							</table>
-						</p>
 
 						<p>Stop and take another look at the code.  This is the heart of what NUnitAsp is all about.  Although the test isn't actually working with an ASP.NET page&mdash;the page is raw HTML, like any rendered ASP.NET page&mdash;you can manipulate the controls on it with simple ASP.NET-like properties and methods. Pretty cool, and very easy. To write a test like this without NUnitASP, you would have to know how ASP.NET renders each control to HTML, and then you'd have to manage that complexity every time you examined or set a control on the page. NUnitASP abstracts this complexity away from you, enabling you to use ASP.NET-like syntax rather than worrying about how each control appears in rendered HTML.</p>
 
@@ -338,7 +338,7 @@
 
 						<p>The AssertEquals method is just a standard NUnit assertion, but here's the breakdown in case you're not familiar with it:</p>
 
-						<p>
+
 						<table>
 								<tr>
 									<th>Code Fragment</th>
@@ -357,7 +357,7 @@
 									<td><code><span class="demph">AssertEquals(&quot;name&quot;, &quot;&quot;, </span><span class="emph">name.Text</span><span class="demph">);</span></code></td><td>The actual results (the text in the "name" text box).</td>
 								</tr>
 						</table>
-						</p>
+
 
 						<p>When you run the test, it fails!</p>
 
@@ -400,7 +400,7 @@
 
 						<p>Corresponds to a data grid table that looks like this:</p>
 
-						<p>
+
 							<table>
 								<tr>
 									<td>Dr. Seuss</td>
@@ -411,7 +411,7 @@
 									<td>Nice slip you have there.</td>
 								</tr>
 							</table>
-						</p>
+
 
 						<p>Unsurprisingly, DataGridTester has a method that returns the data grid's contents in an array in exactly this format.  WebFormTestCase also provides several assertion methods that allow you to assert things about the contents of this kind of array.  We'll use this functionality to assert that the guest book contains Dr. Seuss's comments after he presses the "Save" button. Note that we're only testing a single entry here, which means we only have one row, so our assertion array only has one outer element.</p>
 

@@ -8,6 +8,7 @@ Produced by Jim Little.
 * Added HtmlInputCheckBoxTester.  Credit to Andrew Enfield.
 * Added ImageButtonTester.  Credit to Clifton F. Vaughn.
 * Added support for sorting data grids.  Credit to Clifton F. Vaughn and Jim Little.
+* Fixed HTML in tutorial.  Credit to Dominique Plante.
 
 Changes in NUnitAsp 1.3:
 Produced by Jim Little.
