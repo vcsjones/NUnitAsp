@@ -1,3 +1,7 @@
+Changes in NUnitAsp 1.3:
+Produced by Jim Little.
+* Browser.ElapsedServerTime now works.
+
 Changes in NUnitAsp 1.2.1:
 Produced by Jim Little.
 * NUnit 2.0 support.  Thanks to R. Owen Rogers and Drew Noakes for their submissions.

@@ -127,7 +127,7 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "NUnitAspTestSuite.cs"
+                    RelPath = "PerformanceTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

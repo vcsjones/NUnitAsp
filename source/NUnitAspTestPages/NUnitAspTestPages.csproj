@@ -158,6 +158,22 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "PerformanceTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "PerformanceTestPage.aspx.cs"
+                    DependentUpon = "PerformanceTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "PerformanceTestPage.aspx.resx"
+                    DependentUpon = "PerformanceTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "RedirectionTarget.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -171,6 +187,22 @@
                 <File
                     RelPath = "RedirectionTarget.aspx.resx"
                     DependentUpon = "RedirectionTarget.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "ServerTimeTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "ServerTimeTestPage.aspx.cs"
+                    DependentUpon = "ServerTimeTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ServerTimeTestPage.aspx.resx"
+                    DependentUpon = "ServerTimeTestPage.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

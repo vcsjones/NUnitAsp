@@ -1,3 +1,4 @@
+#region Copyright (c) 2002, Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
 ' Copyright (c) 2002, Brian Knowles, Jim Little
@@ -17,6 +18,7 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
 using NUnit.Framework;
@@ -48,6 +50,7 @@ namespace NUnit.Extensions.Asp.Test
 			cookie = new LabelTester("cookie", CurrentWebForm);
 		}
 
+		[Test]
 		public void TestGetAndPostPage()
 		{
 			Browser.GetPage(TestUrl);
@@ -57,6 +60,7 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEquals("Clicked", new LabelTester("postBackStatus", CurrentWebForm).Text);
 		}
 
+		[Test]
 		public void TestRelativeGet()
 		{
 			Browser.GetPage(TestUrl);
@@ -65,12 +69,14 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
 		}
 
+		[Test]
 		public void TestGetWithFragment()
 		{
 			Browser.GetPage(TestUrl + "#fragment");
 			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
 		}
 
+		[Test]
 		public void TestRedirect()
 		{
 			Browser.GetPage(TestUrl);
@@ -78,12 +84,14 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
 		}
 
+		[Test]
 		public void TestRedirectWhenRedirectorPageIsUnparseable()
 		{
 			Browser.GetPage(BaseUrl + "MalformedRedirector.aspx");
 			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
 		}
 
+		[Test]
 		public void TestCookies()
 		{
 			Browser.GetPage(TestUrl);
@@ -94,6 +102,7 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEquals("Browser.CookieValue", TEST_COOKIE_VALUE, Browser.CookieValue(TEST_COOKIE_NAME));
 		}
 
+		[Test]
 		public void TestCookiesPreserved()
 		{
 			Browser.GetPage(TestUrl);
@@ -106,6 +115,7 @@ namespace NUnit.Extensions.Asp.Test
 			AssertCookieSet();
 		}
 
+		[Test]
 		public void TestCookieDuringRedirect()
 		{
 			Browser.GetPage(TestUrl);
@@ -115,6 +125,7 @@ namespace NUnit.Extensions.Asp.Test
 			AssertCookieSet();
 		}
 
+		[Test]
 		public void Test404NotFound()
 		{
 			try
@@ -128,6 +139,7 @@ namespace NUnit.Extensions.Asp.Test
 			}
 		}
 
+		[Test]
 		public void TestUserAgent()
 		{
 			LabelTester userAgent = new LabelTester("userAgent", CurrentWebForm);
@@ -137,6 +149,13 @@ namespace NUnit.Extensions.Asp.Test
 			Browser.UserAgent = "Foo Explorer/4.2";
 			Browser.GetPage(TestUrl);
 			AssertEquals("modified user agent", "Foo Explorer/4.2", userAgent.Text);
+		}
+
+		[Test]
+		public void TestElapsedServerTime()
+		{
+			Browser.GetPage(BaseUrl + "ServerTimeTestPage.aspx");
+			Assert("Elapsed server time should not be zero", Browser.ElapsedServerTime > TimeSpan.Zero);
 		}
 
 		private void AssertCookieNotSet()

@@ -216,12 +216,14 @@ namespace NUnit.Extensions.Asp
 			StreamReader reader = new StreamReader(stream, Encoding.UTF8);
 			HttpResponse response = new HttpResponse();
 
+			DateTime start = DateTime.Now;
 			response.SetStatus(reader.ReadLine());
 			for (string line = reader.ReadLine(); line != null && line != ""; line = reader.ReadLine()) 
 			{
 				response.AddHeader(line);
 			}
 			response.Body = reader.ReadToEnd();
+			serverTime += (DateTime.Now - start);
 			return response;
 		}
 
