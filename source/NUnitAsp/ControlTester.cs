@@ -35,25 +35,37 @@ namespace NUnit.Extensions.Asp
 	/// </summary>
 	public abstract class ControlTester : Tester
 	{
-		private string aspId;
+		public readonly string AspId;
 		private Tester container;
 
 		internal ControlTester(string aspId, Tester container)
 		{
-			this.aspId = aspId;
+			this.AspId = aspId;
 			this.container = container;
 		}
 
-		protected ControlTester()
+		protected virtual HtmlTag Tag
 		{
+			get
+			{
+				return new HtmlTag(Browser, HtmlId, this);
+			}
 		}
 
+		/// <summary>
+		/// Returns true if the control is visible on the current page.
+		/// </summary>
 		public virtual bool Visible
 		{
 			get
 			{
-				return container.HasChildElement(HtmlId);
+				return Tag.Visible;
 			}
+		}
+
+		protected string GetAttributeValue(string name) 
+		{
+			return Tag.Attribute(name);
 		}
 
 		/// <summary>
@@ -61,35 +73,7 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		protected string GetOptionalAttributeValue(string name)
 		{
-			XmlAttribute attrib = Element.Attributes[name];
-			if (attrib == null) return null;
-			return attrib.Value;
-		}
-
-		protected string GetAttributeValue(string name) 
-		{
-			string attributeValue = GetOptionalAttributeValue(name);
-			string message = string.Format("Expected attribute '{0}' in {1}", name, HtmlIdAndDescription);
-			Assertion.AssertNotNull(message, attributeValue);
-			return attributeValue;
-		}
-
-		protected string TagName
-		{
-			get
-			{
-				return Element.Name;
-			}
-		}
-
-		protected internal override XmlElement GetChildElement(string htmlId)
-		{
-			return container.GetChildElement(htmlId);
-		}
-
-		public override bool HasChildElement(string htmlId)
-		{
-			return container.HasChildElement(htmlId);
+			return Tag.OptionalAttribute(name);
 		}
 
 		protected internal override string GetChildElementHtmlId(string aspId)
@@ -97,11 +81,14 @@ namespace NUnit.Extensions.Asp
 			return container.GetChildElementHtmlId(aspId);
 		}
 
+//		private XmlElement Element 
 		protected internal virtual XmlElement Element
 		{
 			get 
 			{
-				return container.GetChildElement(HtmlId);
+				XmlElement element = Browser.CurrentPage.GetElementById(HtmlId);
+				if (element == null) throw new HtmlTag.ElementNotVisibleException("Couldn't find " + HtmlId + " on " + Description);
+				return element;
 			}
 		}
 
@@ -126,15 +113,7 @@ namespace NUnit.Extensions.Asp
 			get 
 			{
 				string controlType = this.GetType().Name;
-				return string.Format("{0} '{1}' in {2}", controlType, aspId, container.Description);
-			}
-		}
-
-		public string AspId
-		{
-			get
-			{
-				return aspId;
+				return string.Format("{0} '{1}' in {2}", controlType, AspId, container.Description);
 			}
 		}
 
@@ -142,7 +121,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				return container.GetChildElementHtmlId(aspId);
+				return container.GetChildElementHtmlId(AspId);
 			}
 		}
 
@@ -150,28 +129,25 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				return Element.Attributes["disabled"] != null;
+				return Tag.HasAttribute("disabled");
 			}
 		}
 
-		private void EnsureEnabled()
+		protected internal void EnterInputValue(object owner, string name, string value)
 		{
-			if (IsDisabled)
-			{
-				throw new ControlDisabledException(this);
-			}
+			AssertEnabled();
+			Browser.SetFormVariable(owner, name, value);
 		}
 
-		protected internal override void EnterInputValue(XmlElement owner, string name, string value)
+		protected internal void RemoveInputValue(object owner, string name)
 		{
-			EnsureEnabled();
-			container.EnterInputValue(owner, name, value);
+			AssertEnabled();
+			Browser.ClearFormVariable(owner, name);
 		}
 
-		protected internal override void RemoveInputValue(XmlElement owner, string name)
+		private void AssertEnabled()
 		{
-			EnsureEnabled();
-			container.RemoveInputValue(owner, name);
+			if (IsDisabled) throw new ControlDisabledException(this);
 		}
 
 		protected void EnterInputValue(string name, string value)
@@ -208,7 +184,7 @@ namespace NUnit.Extensions.Asp
 		private void SetInputHiddenValue(string name, string value)
 		{
 			string expression = string.Format("//form//input[@type='hidden'][@name='{0}']", name);
-			container.EnterInputValue((XmlElement)Element.SelectSingleNode(expression), name, value);
+			Browser.SetFormVariable((XmlElement)Element.SelectSingleNode(expression), name, value);
 		}
 
 		protected void PostBack(string postBackScript)
@@ -238,7 +214,8 @@ namespace NUnit.Extensions.Asp
 	}
 
 	/// <summary>
-	/// The test is trying to perform a UI operation on a disabled control
+	/// The test is trying to perform a UI operation on a disabled control.  Enable the control in your 
+	/// production code or don't change it in the test.
 	/// </summary>
 	public class ControlDisabledException : InvalidOperationException
 	{

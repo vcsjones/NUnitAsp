@@ -52,7 +52,7 @@ namespace NUnit.Extensions.Asp.AspTester
 				string text;
 				if (TextMode == TextBoxMode.MultiLine)
 				{
-					text = Element.InnerText;       
+					text = Tag.BodyNoTags;       
 				}
 				else 
 				{                                  
@@ -71,10 +71,13 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get 
 			{
-				if (TagName == "textarea") return TextBoxMode.MultiLine;
+				if (Tag.Name == "textarea") 
+				{
+					return TextBoxMode.MultiLine;
+				}
 				else 
 				{
-					Assertion.AssertEquals("tag name", "input", TagName);
+					Assertion.AssertEquals("tag name", "input", Tag.Name);
 					string type = GetAttributeValue("type");
 					if (type == "password") return TextBoxMode.Password;
 					else 

@@ -153,13 +153,13 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		public void SetFormVariable(XmlElement owner, string name, string value) 
+		public void SetFormVariable(object owner, string name, string value) 
 		{
 			if (owner == null) throw new ArgumentNullException("owner");
 			formVariables[new FormKey(owner, name)] = value;
 		}	
 
-		public void ClearFormVariable(XmlElement owner, string name)
+		public void ClearFormVariable(object owner, string name)
 		{
 			if (owner == null) throw new ArgumentNullException("owner");
 			formVariables.Remove(new FormKey(owner, name));
@@ -172,10 +172,10 @@ namespace NUnit.Extensions.Asp
 
 		private struct FormKey
 		{
-			public readonly XmlElement Owner;
+			public readonly object Owner;
 			public readonly string Name;
 
-			public FormKey(XmlElement owner, string name)
+			public FormKey(object owner, string name)
 			{
 				Owner = owner;
 				Name = name;

@@ -99,12 +99,12 @@ namespace NUnit.Extensions.Asp
 			DoWebRequest(form.Action, form.Method, currentPage.FormVariables);
 		}
 
-		internal void SetFormVariable(XmlElement owner, string name, string value) 
+		internal void SetFormVariable(object owner, string name, string value) 
 		{
 			currentPage.SetFormVariable(owner, name, value);
 		}
 
-		internal void ClearFormVariable(XmlElement owner, string name)
+		internal void ClearFormVariable(object owner, string name)
 		{
 			currentPage.ClearFormVariable(owner, name);
 		}

@@ -1,7 +1,7 @@
 #region Copyright (c) 2002, 2003 Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2002, 2003 Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -48,7 +48,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return Element.GetElementsByTagName("tr").Count - 1;
+				return Tag.Children("tr").Length - 1;
 			}
 		}
 
@@ -111,19 +111,17 @@ namespace NUnit.Extensions.Asp.AspTester
 		public void Sort(int columnNumberZeroBased)
 		{
 			Row header = GetHeaderRow();
-			XmlElement element = header.GetCellElement(columnNumberZeroBased);
-			XmlNodeList links = element.GetElementsByTagName("a");
-			Assertion.Assert("Attempted to sort non-sortable grid (" + HtmlIdAndDescription + ")", links.Count != 0);
-			Assertion.Assert("Expect sort link to have exactly one anchor tag", links.Count == 1);
+			HtmlTag cell = header.GetCellElement(columnNumberZeroBased);
+			HtmlTag[] links = cell.Children("a");
+			Assertion.Assert("Attempted to sort non-sortable grid (" + HtmlIdAndDescription + ")", links.Length != 0);
+			Assertion.Assert("Expected sort link to have exactly one anchor tag", links.Length == 1);
 
-			XmlElement link = (XmlElement)links[0];
-			PostBack(link.GetAttribute("href"));
+			PostBack(links[0].Attribute("href"));
 		}
 
-		private XmlElement GetRowElement(int rowNumber)
+		private HtmlTag GetRowTag(int rowNumber)
 		{
-			XmlNodeList rows = Element.GetElementsByTagName("tr");
-			return (XmlElement)rows[rowNumber];
+			return Tag.Children("tr")[rowNumber];
 		}
 
         protected internal override string GetChildElementHtmlId(string aspId)
@@ -163,11 +161,11 @@ namespace NUnit.Extensions.Asp.AspTester
 				return HtmlId + "_" + inAspId;
 			}
 
-			protected internal override XmlElement Element
+			protected override HtmlTag Tag
 			{
 				get
 				{
-					return container.GetRowElement(rowNumber);
+					return container.GetRowTag(rowNumber);
 				}
 			}
 
@@ -179,22 +177,21 @@ namespace NUnit.Extensions.Asp.AspTester
 			{
 				get
 				{
-					XmlNodeList cells = Element.GetElementsByTagName("td");
-					string[] cellText = new string[cells.Count];
-					for (int i = 0; i < cells.Count; i++) 
+					HtmlTag[] cells = Tag.Children("td");
+					string[] cellText = new string[cells.Length];
+					for (int i = 0; i < cells.Length; i++) 
 					{
-						XmlElement cell = (XmlElement)cells[i];
-						cellText[i] = cell.InnerText.Trim();
+						cellText[i] = cells[i].BodyNoTags.Trim();
 					}
 					return cellText;
 				}
 			}
 
-			internal XmlElement GetCellElement(int columnNumberZeroBased)
+			internal HtmlTag GetCellElement(int columnNumberZeroBased)
 			{
-				XmlNodeList cells = Element.GetElementsByTagName("td");
-				Assertion.Assert("There is no column #" + columnNumberZeroBased + " in " + HtmlIdAndDescription, columnNumberZeroBased >= 0 && columnNumberZeroBased < cells.Count);
-				return (XmlElement)cells[columnNumberZeroBased];
+				HtmlTag[] cells = Tag.Children("td");
+				Assertion.Assert("There is no column #" + columnNumberZeroBased + " in " + HtmlIdAndDescription, columnNumberZeroBased >= 0 && columnNumberZeroBased < cells.Length);
+				return cells[columnNumberZeroBased];
 			}
 		}
 	}

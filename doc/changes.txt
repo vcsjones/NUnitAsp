@@ -1,3 +1,9 @@
+To do:
+* FAQ: How to test redirection
+* Address InnerText vs. InnerXml.  Remove HtmlTag.BodyNoTags.
+* Review form variables' use of Element/Tag (Tag should be protected, not internal or public)
+
+
 Changes in NUnitAsp 1.4.1:
 Produced by Jim Shore and Levi Khatskevitch.
 * Upgraded to NUnit v2.1.4.  Credit to Jim Shore.

@@ -30,11 +30,11 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// </summary>
 	public class CheckBoxTester : AspControlTester
 	{
-		private XmlElement Label
+		private HtmlTag Label
 		{
 			get
 			{
-				return (XmlElement)Element.SelectSingleNode("../label[@for='" + HtmlId + "']");
+				return new HtmlTag(Browser, "//label[@for='" + HtmlId + "']", "label for " + HtmlIdAndDescription);
 			}
 		}
 
@@ -79,9 +79,8 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				XmlElement label = Label;
-				if (label == null) return "";
-				return label.InnerXml;
+				if (!Label.Visible) return "";
+				return Label.Body;
 			}
 		}
 
@@ -89,7 +88,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return Element.ParentNode.Attributes["disabled"] != null;
+				return Tag.Parent.HasAttribute("disabled");
 			}
 		}
 	}

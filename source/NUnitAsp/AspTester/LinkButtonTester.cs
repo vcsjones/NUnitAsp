@@ -56,7 +56,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return Element.InnerXml;
+				return Tag.Body;
 			}
 		}
 	}

@@ -35,7 +35,7 @@ namespace NUnit.Extensions.Asp
 	/// </summary>
 	public class WebForm : Tester
 	{
-		HttpClient browser;
+		private HttpClient browser;
 
 		public WebForm(HttpClient browser)
 		{
@@ -50,36 +50,9 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		public override bool HasChildElement(string htmlId)
-		{
-			return (GetElementInternal(htmlId) != null);
-		}
-
-		protected internal override XmlElement GetChildElement(string htmlId)
-		{
-			XmlElement element = GetElementInternal(htmlId);
-			if (element == null) throw new ElementNotVisibleException("Couldn't find " + htmlId + " on " + Description);
-			return element;
-		}
-
 		protected internal override string GetChildElementHtmlId(string aspId)
 		{
 			return aspId;
-		}
-
-		private XmlElement GetElementInternal(string htmlId)
-		{
-			return browser.CurrentPage.GetElementById(htmlId);
-		}
-
-		protected internal override void EnterInputValue(XmlElement owner, string name, string value)
-		{
-			browser.SetFormVariable(owner, name, value);
-		}
-
-		protected internal override void RemoveInputValue(XmlElement owner, string name)
-		{
-			browser.ClearFormVariable(owner, name);
 		}
 
 		protected internal override void Submit()
@@ -87,11 +60,26 @@ namespace NUnit.Extensions.Asp
 			browser.SubmitForm(this);
 		}
 
+		private HtmlTag Tag
+		{
+			get
+			{
+				XmlNodeList formNodes = browser.CurrentPage.GetElementsByTagName("form");
+				Assertion.AssertEquals("page form elements", 1, formNodes.Count);
+				XmlElement formElement = (XmlElement)formNodes[0];
+
+				XmlAttribute id = formElement.Attributes["id"];
+				Assertion.AssertNotNull("couldn't find web form's 'id' attribute", id);
+
+				return new HtmlTag(browser, id.Value, this);
+			}
+		}
+
 		internal string Action
 		{
 			get
 			{
-				return GetAttributeValue("action");
+				return Tag.Attribute("action");
 			}
 		}
 
@@ -99,7 +87,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				return GetAttributeValue("method");
+				return Tag.Attribute("method");
 			}
 		}
 
@@ -111,35 +99,11 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		private XmlElement Element
-		{
-			get
-			{
-				XmlNodeList formNodes = browser.CurrentPage.GetElementsByTagName("form");
-				Assertion.AssertEquals("page form elements", 1, formNodes.Count);
-				return (XmlElement)formNodes[0];
-			}
-		}
-
-		private string GetAttributeValue(string name) 
-		{
-			XmlAttribute attribute = Element.Attributes[name];
-			if (attribute == null) throw new AttributeMissingException(name, Description);
-			return attribute.Value;
-		}
-
 		public string AspId
 		{
 			get
 			{
-				return GetAttributeValue("id");
-			}
-		}
-
-		private class ElementNotVisibleException : ApplicationException
-		{
-			internal ElementNotVisibleException(string message) : base(message)
-			{
+				return Tag.Attribute("id");
 			}
 		}
 	}
