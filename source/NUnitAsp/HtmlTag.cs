@@ -58,7 +58,7 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		/// <param name="browser">The browser to look at for the current page.</param>
 		/// <param name="xpath">The XPath description of the tag.</param>
-		/// <param name="owner">A description of this tag (for error reporting).</param>
+		/// <param name="description">A description of this tag (for error reporting).</param>
 		public HtmlTag(HttpClient browser, string xpath, string description)
 		{
 			this.browser = browser;
@@ -93,6 +93,7 @@ namespace NUnit.Extensions.Asp
 		/// loaded by the browser and shouldn't be cached.
 		/// </summary>
 		/// <param name="element"></param>
+		/// <param name="description">A description of this tag (for error reporting).</param>
 		private HtmlTag(XmlElement element, string description)
 		{
 			this.element = element;
@@ -169,7 +170,7 @@ namespace NUnit.Extensions.Asp
 
 		/// <summary>
 		/// A temporary hack--this method WILL GO AWAY!
-		/// </summary
+		/// </summary>
 		public string BodyNoTags
 		{
 			get
