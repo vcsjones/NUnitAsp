@@ -137,7 +137,10 @@
   * test
   *****-->  
   <target name="test" depends="build" description="Test project">
-    <exec program="${nunit.dir}\nunit-console.exe" commandline="${testdll.path}" />
+    <nunit2>
+      <formatter type="Plain" />
+      <test assemblyname="${testdll.path}" />
+    </nunit2>
   </target>
       
   <!--*****
