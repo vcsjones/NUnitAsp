@@ -144,7 +144,7 @@
 
             <p class="code">
               <span class="comment">// Example: Link button in a user control</span>
-              <br />UserControlTester control = <span class="keyword">new</span> UserControlTester("control", CurrentWebPage);
+              <br />UserControlTester control = <span class="keyword">new</span> UserControlTester("control", CurrentWebForm);
               <br />LinkButtonTester button = <span class="keyword">new</span> LinkButtonTester("button", control);
               <br />
               <br />button.Click();
@@ -154,7 +154,7 @@
 
             <p class="code">
               <span class="comment">// Example: Checkbox in row 3 of a data grid</span>
-              <br />DataGridTester grid = <span class="keyword">new</span> DataGridTester("grid", control);
+              <br />DataGridTester grid = <span class="keyword">new</span> DataGridTester("grid", CurrentWebForm);
               <br />DataGridTester.Row row3 = <span class="keyword">new</span> DataGridTester.Row(3, grid);
               <br />CheckBoxTester checkbox = <span class="keyword">new</span> CheckBoxTester("checkbox", row3);
               <br />
@@ -165,7 +165,7 @@
 
             <p class="code">
               <span class="comment">// Example: Checkbox in row 3 of a data grid (alternate style)</span>
-              <br />DataGridTester grid = <span class="keyword">new</span> DataGridTester("grid", control);
+              <br />DataGridTester grid = <span class="keyword">new</span> DataGridTester("grid", CurrentWebForm);
               <br />CheckBoxTester checkbox = <span class="keyword">new</span> CheckBoxTester("checkbox", grid.GetRow(2)); <span class="comment">// '2' is not a typo; this style is zero-based</span>
               <br />
               <br />checkbox.Checked = <span class="keyword">true</span>;
