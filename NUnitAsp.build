@@ -9,8 +9,7 @@
 	<property name="bin.dir" value="${build.dir}\bin" />
 	<property name="testPagesBuild.dir" value="${source.dir}\NUnitAspTestPages\bin" />
 	
-	<property name="base.nspc" value="NUnit.Extensions.Asp" />
-	<property name="sgml.nspc" value="${base.nspc}.Sgml" />
+	<property name="sgml.namespace" value="NUnit.Extensions.Asp.Sgml" />
 
 	<property name="dll.path" value="${bin.dir}\NUnitAsp.dll" />
 	<property name="testdll.path" value="${bin.dir}\NUnitAspTest.dll" />
@@ -66,7 +65,7 @@
 				<includes name="${nunit.dir}\*.dll" />
 			</references>
 			<arg value="/nowarn:1591"/>
-			<arg value="/res:${sgml.dir}\Html.dtd,${sgml.nspc}.Html.dtd" />
+			<arg value="/res:${sgml.dir}\Html.dtd,${sgml.namespace}.Html.dtd" />
 		</csc>
 	</target>
 
