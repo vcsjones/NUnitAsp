@@ -21,6 +21,16 @@
 			test it.
 			<br>
 			<br>
+			<p>Let's test lists, too:</p>
+			<ul>
+				<li>Foo</li>
+				<li>Bar</li>
+				<li>Baz</li>
+				<li>And this list item will be very long, and separated by at least one line break,
+				and <b>will</b> have a terminating tag.  Will that cause the current strategy to break,
+				or will it work?</li>
+			</ul>
+			<p>Unfortunately, they don't work yet.</p>
 			<p>
 				One ASP.NET control is included so there's something to test against.
 				<br>
