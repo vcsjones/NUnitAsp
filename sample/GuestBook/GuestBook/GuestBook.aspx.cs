@@ -15,11 +15,13 @@ namespace GuestBook
 	{
 		protected System.Web.UI.WebControls.TextBox name;
 		protected System.Web.UI.WebControls.DataGrid book;
+		protected System.Web.UI.WebControls.Button save;
 		protected System.Web.UI.WebControls.TextBox comments;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Put user code to initialize the page here
+			name.Text = "";
+			comments.Text = "";
 		}
 
 		#region Web Form Designer generated code

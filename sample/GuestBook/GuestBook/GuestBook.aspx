@@ -12,6 +12,7 @@
 		<form id="GuestBook" method="post" runat="server">
 			<asp:TextBox ID="name" Runat="server"></asp:TextBox>
 			<asp:TextBox ID="comments" Runat="server"></asp:TextBox>
+			<asp:Button ID="save" Runat="server" Text="Save"></asp:Button>
 			<asp:DataGrid id="book" runat="server"></asp:DataGrid>
 		</form>
 	</body>

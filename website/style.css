@@ -20,6 +20,8 @@ h1 {
 table {
 	font-size: 12px;
 	border-collapse: collapse;
+	margin-left: 3em;
+	margin-right: 3em;
 }
 
 th {
@@ -59,7 +61,7 @@ code {
 .code, .html {
 	text-align: left;
 	font-family: monospace;
-	margin: 1.5em 10% 1.5em 10%;
+	margin: 1.5em 5em 1.5em 5em;
 	border: 0.25em solid black;
 	padding: 0.5em;
 }

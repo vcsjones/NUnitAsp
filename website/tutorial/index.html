@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>NUnitAsp - ASP.NET unit testing - Documentation</title>
+    <title>NUnitAsp - ASP.NET unit testing: Tutorial</title>
 		<link rel="stylesheet" type="text/css" href="../style.css">
 		<style>
 			.emph {
@@ -9,10 +9,16 @@
 			.demph {
 				color: grey;
 			}
+			.error {
+				background-color: red;
+				color: white;
+				padding: 0.2em;
+			}
 		</style>
   </head>
   <body class="content">
-		<p class="title">NUnitAsp Tutorial</p>
+		<p class="title">Test-Driven Development with NUnitAsp
+		<br />The NUnitAsp Tutorial</p>
 
     <p>NUnitAsp is based on the principle that testing web pages should use the same concepts as creating them. When you use NUnitAsp, you will be using classes and IDs similar to those you used when creating the web page you are testing.</p>
 
@@ -186,17 +192,18 @@
 
 		<p>The next thing we'll test is the layout of our page.  We don't test the look of our web page &mdash; we don't want to have to update our tests every time someone changes a font &mdash; but we do test the functionality.  The first step towards doing that is just making sure the right components are on the page.</p>
 
-		<p>In our guest book application, we just want three components: a text field for entering a name, a text field for entering a comment, and a datagrid for displaying what people have entered.</p>
+		<p>In our guest book application, we just want four components: a text field for entering a name, a text field for entering a comment, a button to submit the data, and a datagrid for displaying what people have entered.</p>
 
 		<p class="figure">Hand-drawn sketch of screen layout here</p>
 
-		<p>To test these components, we have to create NUnitAsp "tester" objects.  A tester is an object that corresponds to an ASP.NET control you want to test.  You can instantiate the tester at any time &mdash; even before the page is loaded, if you like.  When you instantiate it, you tell the tester what the name of the ASP.NET control it's supposed to test and where it's located.  Since we're going to test three controls on our guest book, we need to create three tester objects.</p>
+		<p>To test these components, we have to create NUnitAsp "tester" objects.  A tester is an object that corresponds to an ASP.NET control you want to test.  You can instantiate the tester at any time &mdash; even before the page is loaded, if you like.  When you instantiate it, you tell the tester what the name of the ASP.NET control it's supposed to test and where it's located.  Since we're going to test four controls on our guest book, we need to create four tester objects.</p>
 
 		<div class="code">
 			<span class="demph">public void TestLayout()
 			<br />{</span>
 			<br /><span class="emph">&nbsp;&nbsp;&nbsp;TextBoxTester name = <span class="keyword">new</span> TextBoxTester("name", CurrentWebForm);
 			<br />&nbsp;&nbsp;&nbsp;TextBoxTester comments = <span class="keyword">new</span> TextBoxTester("comments", CurrentWebForm);
+			<br />&nbsp;&nbsp;&nbsp;ButtonTester save = <span class="keyword">new</span> ButtonTester("save", CurrentWebForm);
 			<br />&nbsp;&nbsp;&nbsp;DataGridTester book = <span class="keyword">new</span> DataGridTester("book", CurrentWebForm);</span>
 			<br />
 			<span class="demph"><br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/NUnitAsp/sample/GuestBook/GuestBook/GuestBook.aspx");
@@ -232,11 +239,13 @@
 			<br />{
 			<br />&nbsp;&nbsp;&nbsp;TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
 			<br />&nbsp;&nbsp;&nbsp;TextBoxTester comments = new TextBoxTester("comments", CurrentWebForm);
+			<br />&nbsp;&nbsp;&nbsp;ButtonTester save = new ButtonTester("save", CurrentWebForm);
 			<br />&nbsp;&nbsp;&nbsp;DataGridTester book = new DataGridTester("book", CurrentWebForm);
 			<br />
 			<br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/NUnitAsp/sample/GuestBook/GuestBook/GuestBook.aspx");</span>
 			<br /><span class="emph">&nbsp;&nbsp;&nbsp;AssertVisibility(name, <span class="keyword">true</span>);
 			<br />&nbsp;&nbsp;&nbsp;AssertVisibility(comments, <span class="keyword">true</span>);
+			<br />&nbsp;&nbsp;&nbsp;AssertVisibility(save, <span class="keyword">true</span>);
 			<br />&nbsp;&nbsp;&nbsp;AssertVisibility(book, <span class="keyword">true</span>);</span>
 			<span class="demph"><br>}</span>
 		</div>
@@ -267,7 +276,7 @@
 		<p>Go ahead and run the tests.  You should get an error from NUnitAsp:</p>
 
 		<blockquote>
-			<code>name control should be visible (HTML ID: name; ASP location: TextBoxTester 'name' in web form 'GuestBook')</code>
+			<code class="error">name control should be visible (HTML ID: name; ASP location: TextBoxTester 'name' in web form 'GuestBook')</code>
 		</blockquote>
 
 		<p>This error message tells you three things:</p>
@@ -288,6 +297,7 @@
 			&lt;form id=&quot;GuestBook&quot; method=&quot;post&quot; runat=&quot;server&quot;&gt;
 			<br />&nbsp;&nbsp;&nbsp;&lt;asp:TextBox ID=&quot;name&quot; Runat=&quot;server&quot;&gt;&lt;/asp:TextBox&gt;
 			<br />&nbsp;&nbsp;&nbsp;&lt;asp:TextBox ID=&quot;comments&quot; Runat=&quot;server&quot;&gt;&lt;/asp:TextBox&gt;
+			<br />&nbsp;&nbsp;&nbsp;&lt;asp:Button ID=&quot;save&quot; RunAt=&quot;server&quot; Text=&quot;Save&quot;&gt;&lt;/asp:Button&gt;
 			<br />&nbsp;&nbsp;&nbsp;&lt;asp:DataGrid ID=&quot;book&quot;&gt;&lt;/asp:DataGrid&gt;
 			<br />&lt;/form&gt;
 		</div>
@@ -305,7 +315,8 @@
 			<br />
 			<br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/NUnitAsp/sample/GuestBook/GuestBook/GuestBook.aspx");
 			<br />&nbsp;&nbsp;&nbsp;AssertVisibility(name, true);
-			<br />&nbsp;&nbsp;&nbsp;AssertVisibility(comments, true);</span>
+			<br />&nbsp;&nbsp;&nbsp;AssertVisibility(comments, true);
+			<br />&nbsp;&nbsp;&nbsp;AssertVisibility(save, true);</span>
 			<br /><span class="emph">&nbsp;&nbsp;&nbsp;AssertVisibility(book, <span class="keyword">false</span>);</span>
 			<span class="demph"><br>}</span>
 		</div>
@@ -314,14 +325,149 @@
 
 		<h1>Test the Behavior</h1>
 
-		<p>...</p>
+		<p>We have a web page, but it doesn't do anything yet.  The next thing we want to see is that entering something updates the guest book.  Naturally, we start by writing a test.</p>
+
+		<div class="code">
+			<span class="demph">public void TestLayout()
+			<br />{
+			<br />&nbsp;&nbsp;&nbsp;TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
+			<br />&nbsp;&nbsp;&nbsp;TextBoxTester comments = new TextBoxTester("comments", CurrentWebForm);
+			<br />&nbsp;&nbsp;&nbsp;DataGridTester book = new DataGridTester("book", CurrentWebForm);
+			<br />
+			<br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/NUnitAsp/sample/GuestBook/GuestBook/GuestBook.aspx");
+			<br />&nbsp;&nbsp;&nbsp;AssertVisibility(name, true);
+			<br />&nbsp;&nbsp;&nbsp;AssertVisibility(comments, true);
+			<br />&nbsp;&nbsp;&nbsp;AssertVisibility(save, true);
+			<br />&nbsp;&nbsp;&nbsp;AssertVisibility(book, false);
+			<br>}</span>
+			<br />
+			<br /><span class="emph">public void TestSave()</span>
+			<span class="demph"><br />{
+			<br />&nbsp;&nbsp;&nbsp;TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
+			<br />&nbsp;&nbsp;&nbsp;TextBoxTester comments = new TextBoxTester("comments", CurrentWebForm);
+			<br />&nbsp;&nbsp;&nbsp;DataGridTester book = new DataGridTester("book", CurrentWebForm);
+			<br />
+			<br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/NUnitAsp/sample/GuestBook/GuestBook/GuestBook.aspx");</span>
+			<br /><span class="emph">&nbsp;&nbsp;&nbsp;name.Text = &quot;Dr. Seuss&quot;;
+			<br />&nbsp;&nbsp;&nbsp;comments.Text = &quot;One Guest, Two Guest!  Guest Book, Best Book!&quot;;
+			<br />&nbsp;&nbsp;&nbsp;save.Click();</span>
+			<span class="demph"><br />}</span>
+		</div>
+
+		<p>We've created a new test named 'TestSave().'  It's has the same tester set up and page load that TestLayout() does, but then it does something different: It assigns values to the web page and presses the 'Save' button.</p>
+
+		<p>
+			<table>
+				<tr>
+					<th>Code Fragment</th>
+					<th>Meaning</th>
+				</tr>
+				<tr>
+					<td><code>name.Text = &quot;Dr. Seuss&quot;;</code></td><td>Set the text of the 'name' text box to 'Dr. Seuss.'</td>
+				</tr>
+				<tr>
+					<td><code>comments.Text = &quot;One Guest, Two Guest!  Guest Book, Best Book!&quot;;</td><td>Set the text of the 'comments' text box.</td>
+				</tr>
+				<tr>
+					<td><code>save.Click();</code></td>
+					<td>Click the 'save' button</td>
+				</tr>
+			</table>
+		</p>
+
+		<p>Stop and take another look at that code.  It's the heart of what NUnitAsp is all about.  Although you're not actually working with an ASP.NET page &mdash; actually, the page you got was raw HTML &mdash; you can manipulate the controls on it with simple ASP.NET-like properties and methods.  Pretty cool, and very easy.</p>
+
+		<p>Run the test.  It passes, unsurprisingly.  We're filling in the text and clicking 'save,' but we're not actually asserting anything.  Let's fix that.  We'll start by asserting that the name and comment fields are reset to be blank after you save.</p>
+
+		<div class="code">
+			<br /><span class="demph">public void TestSave()
+			<br />{
+			<br />&nbsp;&nbsp;&nbsp;TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
+			<br />&nbsp;&nbsp;&nbsp;TextBoxTester comments = new TextBoxTester("comments", CurrentWebForm);
+			<br />&nbsp;&nbsp;&nbsp;DataGridTester book = new DataGridTester("book", CurrentWebForm);
+			<br />
+			<br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/NUnitAsp/sample/GuestBook/GuestBook/GuestBook.aspx");
+			<br />&nbsp;&nbsp;&nbsp;name.Text = &quot;Dr. Seuss&quot;;
+			<br />&nbsp;&nbsp;&nbsp;comments.Text = &quot;One Guest, Two Guest!  Guest Book, Best Book!&quot;;
+			<br />&nbsp;&nbsp;&nbsp;save.Click();</span>
+			<br />
+			<span class="emph"><br />&nbsp;&nbsp;&nbsp;AssertEquals("name", "", name.Text);
+			<br />&nbsp;&nbsp;&nbsp;AssertEquals("comments", "", comments.Text);</span>
+			<span class="demph"><br />}</span>
+		</div>
+
+		<p>The AssertEquals() method is just a standard NUnit assertion, but here's the breakdown in case you're not familiar with it:</p>
+
+		<p>
+		<table>
+				<tr>
+					<th>Code Fragment</th>
+					<th>Meaning</th>
+				</tr>
+				<tr>
+					<td><code><span class="emph">AssertEquals</span><span class="demph">(&quot;name&quot;, &quot;&quot;, name.Text);</span></code></td><td>Assert that two objects are equal.</td>
+				</tr>
+				<tr>
+					<td><code><span class="demph">AssertEquals(</span><span class="emph">&quot;name&quot;</span><span class="demph">, &quot;&quot;, name.Text);</span></code></td><td>The text to use in the failure message.</td>
+				</tr>
+				<tr>
+					<td><code><span class="demph">AssertEquals(&quot;name&quot;, </span><span class="emph">&quot;&quot;</span><span class="demph">, name.Text);</span></code></td><td>The expected results (an empty string).</td>
+				</tr>
+				<tr>
+					<td><code><span class="demph">AssertEquals(&quot;name&quot;, &quot;&quot;, </span><span class="emph">name.Text</span><span class="demph">);</span></code></td><td>The actual results (the text in the 'name' text box).</td>
+				</tr>
+		</table>
+		</p>
+
+		<p>When you run the test, it fails!</p>
+
+		<blockquote>
+			<code class="error">name expected:&lt;&gt; but was:&lt;Dr. Seuss&gt;</code>
+		</blockquote>
+
+		<p>Were you surprised?  I was.  I had forgotten that the default behavior in ASP.NET is to preserve the values of its controls.  We fixed the problem by adding some code into the web page's code-behind to always initialize the text boxes to be blank.</p>
+
+		<div class="code">
+			<span class="keyword">private void </span>Page_Load(<span class="keyword">object</span> sender, System.EventArgs e)
+			<br />{
+			<br />&nbsp;&nbsp;&nbsp;name.Text = "";
+			<br />&nbsp;&nbsp;&nbsp;comments.Text = "";
+			<br />}
+		</div>
+
+		<p>Notice how similar the code-behind is to the tests?  That's intential.  NUnitAsp will generally have the same methods on its testers that are on the real ASP.NET objects.</p>
+
+		<h1>Test Boundary and Error Conditions</h1>
 
 
-
-		<h1>Test Error Conditions</h1>
-
+		<h1>Test Performance</h1>
 
 
+		<h1>Make it Pretty</h1>
+
+
+		<h1>Conclusion</h1>
+
+		<p>This is a long tutorial, but the actual process of creating a web page using test-driven design is pretty fast.  It can seem slow, but that's because your time is very dense: you're concentrating hard every moment.  When you look up, less time will have passed than you thought.</p>
+
+		<p>Test-driven development is also <i>easy.</i> Once you get used to it, it evolves into a predictable rhythm:</p>
+
+		<blockquote>
+			Write test...
+			<br />...watch test fail.
+			<br />Write code...
+			<br />...watch test pass.
+			<br />Write test...
+			<br />...watch test fail.
+			<br />Write code...
+			<br />...watch test pass.
+			<br />Write test...
+			<br />...watch test fail.
+			<br />Write code...
+			<br />...watch test pass.
+		</blockquote>
+
+		<p>It's a relaxing, low-risk approach to software development that leads to very reliable software.  Repeat the above cycle every few minutes, and you'll never spend more than a few minutes debugging.</p>
 
   </body>
 </html>
