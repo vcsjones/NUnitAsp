@@ -123,7 +123,7 @@
 
 						<p>Now press "F5" and run the test. It will fail, because the page doesn't exist yet, but we want to run it anyway. The reason is so that we find out immediately if things aren't working the way we expect. The sooner we know about problems, the easier it is to fix them. When testing with NUnitAsp (and NUnit), get into the habit of writing a small test, watching it fail, writing a few lines of code, and watching the test pass. You should repeat this cycle every few minutes. If you do, you'll never get into a situation where you spend a lot of time debugging.</p>
 
-						<p>The test fails, as expected, so now we want to make it pass. Create a web project and the corresponding page. In our case, we created "GuestBookPages" as our web project and "GuestBook.aspx" as our web page.</p>
+						<p>The test fails, as expected, so now we want to make it pass. Create a web project and the corresponding page. In our case, we created "GuestBook" as our web project and "GuestBook.aspx" as our web page.</p>
 
 						<p>If you run the test again, you'll see that it still doesn't pass. That's because NUnitAsp requires web pages to be in XHTML. There's three changes that you have to make in order for the pages to parse correctly:</p>
 
@@ -154,7 +154,7 @@
 
 						<div class="html">
 							<span class="asp">&lt;%@ Page language=&quot;c#&quot; Codebehind=&quot;GuestBook.aspx.cs&quot; AutoEventWireup=&quot;false&quot; Inherits=&quot;GuestBook.GuestBook&quot; %&gt;</span>
-							<br /><span class="literal">&lt;!</span><span class="tag">DOCTYPE</span> <span class="attribute">HTML PUBLIC</span> <span class="literal">&quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://localhost/NUnitAsp/dtd/xHTML1-transitional.dtd&quot;&gt;</span>
+							<br /><span class="literal">&lt;!</span><span class="tag">DOCTYPE</span> <span class="attribute">HTML PUBLIC</span> <span class="literal">&quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://localhost/NUnitAsp/web/dtd/xHTML1-transitional.dtd&quot;&gt;</span>
 							<br />
 							<font color="blue">&lt;</font><font color="brown">HTML</font><font color="blue">&gt;</font>
 							<br />
@@ -321,6 +321,7 @@
 							<br />{
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester comments = new TextBoxTester("comments", CurrentWebForm);
+							<br />&nbsp;&nbsp;&nbsp;ButtonTester save = new ButtonTester("save", CurrentWebForm);
 							<br />&nbsp;&nbsp;&nbsp;DataGridTester book = new DataGridTester("book", CurrentWebForm);
 							<br />
 							<br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/NUnitAsp/sample/GuestBook/GuestBook/GuestBook.aspx");
@@ -342,6 +343,7 @@
 							<br />{
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester comments = new TextBoxTester("comments", CurrentWebForm);
+							<br />&nbsp;&nbsp;&nbsp;ButtonTester save = new ButtonTester("save", CurrentWebForm);
 							<br />&nbsp;&nbsp;&nbsp;DataGridTester book = new DataGridTester("book", CurrentWebForm);
 							<br />
 							<br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/NUnitAsp/sample/GuestBook/GuestBook/GuestBook.aspx");
@@ -351,10 +353,11 @@
 							<br />&nbsp;&nbsp;&nbsp;AssertVisibility(book, false);
 							<br>}</span>
 							<br />
-							<br /><span class="emph">public void TestSave()</span>
+							<br /><span class="emph"><span class="keyword">public void</span> TestSave()</span>
 							<span class="demph"><br />{
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester comments = new TextBoxTester("comments", CurrentWebForm);
+							<br />&nbsp;&nbsp;&nbsp;ButtonTester save = new ButtonTester("save", CurrentWebForm);
 							<br />&nbsp;&nbsp;&nbsp;DataGridTester book = new DataGridTester("book", CurrentWebForm);
 							<br />
 							<br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/NUnitAsp/sample/GuestBook/GuestBook/GuestBook.aspx");</span>
@@ -376,7 +379,7 @@
 									<td><code>name.Text = &quot;Dr. Seuss&quot;;</code></td><td>Set the text of the 'name' text box to 'Dr. Seuss.'</td>
 								</tr>
 								<tr>
-									<td><code>comments.Text = &quot;One Guest, Two Guest!  Guest Book, Best Book!&quot;;</td><td>Set the text of the 'comments' text box.</td>
+									<td><code>comments.Text = &quot;One Guest, Two Guest!  Guest Book, Best Book!&quot;;</code></td><td>Set the text of the 'comments' text box.</td>
 								</tr>
 								<tr>
 									<td><code>save.Click();</code></td>
