@@ -69,6 +69,7 @@
 				<includes name="${dll.path}" />
 				<includes name="${lib.dir}\*" />
 				<includes name="${source.dir}\**" />
+				<includes name="web\**" />
 				<excludes name="**\obj\**" />
 				<excludes name="**\bin\**" />
 				<excludes name="**\*.user" />
