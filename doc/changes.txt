@@ -1,3 +1,8 @@
+Changes in CVS:
+Produced by Jim Shore and Levi Khatskevitch.
+* Upgraded to NUnit v2.1.4.  Credit to Jim Shore.
+
+
 Changes in NUnitAsp 1.4:
 Produced by Jim Shore and Levi Khatskevitch.
 * Updated installation guide in response to user comments.  Credit to Jim Shore.

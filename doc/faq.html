@@ -1,7 +1,9 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd ">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
     <title>NUnitAsp FAQ</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
   <body>
     <p class="title">NUnitAsp
@@ -18,9 +20,9 @@
               <br /><a href="support.html">Support</a>
               <br /><a href="consulting.html">Coaching</a>
             </p>
-            <p><a href="contribute.html">Contribute</p>
-            <p><A href="http://sourceforge.net/projects/nunitasp/"><IMG src=
-            "http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" border="0" alt="SourceForge Logo"></A></p>
+            <p><a href="contribute.html">Contribute</a></p>
+            <p><a href="http://sourceforge.net/projects/nunitasp/"><img src=
+            "http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" border="0" alt="SourceForge Logo" /></a></p>
           </div>
         </td>
         <td>
@@ -33,7 +35,7 @@
 
             <h2>Q: When I try to compile NUnitAsp in VS.NET, I get a &quot;cryptographic failure&quot; error.  What's wrong?</h2>
 
-            <p>A: The NUnitAsp DLL is <em>strong-named,</em> which means it must be signed by a cryptographic key.  If you try to compile without a key, you'll get this error message:
+            <p>A: The NUnitAsp DLL is <em>strong-named,</em> which means it must be signed by a cryptographic key.  If you try to compile without a key, you'll get this error message:</p>
 
             <p class="code">Cryptographic failure while signing assembly 'C:\projects\NUnitAsp\source\NUnitAsp\obj\Debug\NUnitAsp.dll' -- 'The key container name 'NUnitAsp' does not exist'</p>
 
@@ -42,7 +44,7 @@
 
             <h2>Q: When I try to compile NUnitAsp with NAnt, the build says &quot;External program returned errors&quot;.  What's wrong?</h2>
 
-            <p>A: In order to sign the NUnitAsp DLL, the build uses a program called "sn.exe".  If it's not available, your build will fail with this error:
+            <p>A: In order to sign the NUnitAsp DLL, the build uses a program called "sn.exe".  If it's not available, your build will fail with this error:</p>
 
             <p class="code">keypair:
               <br />[exec] sn -k NUnitAsp.snk
@@ -57,20 +59,20 @@
 
             <h2>Q: When will NUnitAsp stop requiring XHTML?</h2>
 
-            <p>A: <b>Done!</b> As of version 1.4, NUnitAsp no longer requires XHTML.
+            <p>A: <b>Done!</b> As of version 1.4, NUnitAsp no longer requires XHTML.</p>
 
 
             <h2>Q: When will NUnitAsp support NUnit v2.1?</h2>
 
-            <p>A: That's planned for version 1.4.1, soon after the release of 1.4.</p>
+            <p>A: <b>Done!</b> As of version 1.4.1, NUnitAsp supports NUnit v2.1.4.</p>
 
 
             <h2>Q: When will NUnitAsp support Visual Studio .NET 2003?</h2>
 
-            <p>A: Binaries will be included in version 1.4.1.  The NUnitAsp solution will remain on the original version of Visual Studio .NET unless someone sends me a complementary copy of VS.NET 2003.  (Microsoft: hint, hint.)</p>
+            <p>A: <b>Done!</b> As of version 1.4, NUnitAsp works with Visual Studio .NET 2003.  The NUnitAsp solution will remain on the original version of Visual Studio .NET unless someone sends <a href="mailto:jlittle82@sourceforge.net">Jim Shore</a> a complementary copy of VS.NET 2003.  (Microsoft: hint, hint.)</p>
 
 
-            <p class="end">Last updated for v1.4.</p>
+            <p class="end">Last updated for v1.4.1.</p>
           </div>
         </td>
       </tr>

@@ -1,9 +1,9 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd ">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-  <meta http-equiv="Content-Style-Type" content="text/css">
-    <title>NUnitAsp - ASP.NET unit testing: Tutorial</title>
-    <link rel="stylesheet" type="text/css" href="../style.css">
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <title>NUnitAsp Tutorial</title>
+    <link rel="stylesheet" type="text/css" href="../style.css" />
   </head>
   <body>
     <p class="title">NUnitAsp
@@ -21,8 +21,8 @@
               <br /><a href="../consulting.html">Coaching</a>
             </p>
             <p><a href="../contribute.html">Contribute</a></p>
-            <p><A href="http://sourceforge.net/projects/nunitasp/"><IMG src=
-            "http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" style="border:0px" alt="SourceForge Logo"></A></p>
+            <p><a href="http://sourceforge.net/projects/nunitasp/"><img src=
+            "http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" border="0" alt="SourceForge Logo" /></a></p>
           </div>
         </td>
         <td>
@@ -83,7 +83,7 @@
 
             <h2>Run the First Test</h2>
 
-            <p>An easy way to run the tests is to start the nunit-gui.exe application and keep it open while debugging, using Alt-Tab to switch between nunit-gui.exe and VS.NET.
+            <p>An easy way to run the tests is to start the nunit-gui.exe application and keep it open while debugging, using Alt-Tab to switch between nunit-gui.exe and VS.NET.</p>
 
             <p>The nunit-gui.exe application monitors the currently loaded test assembly and reloads it automatically when it changes. This means you can keep an instance of nunit-gui.exe open and then run tests simply by clicking "Run," regardless of how you have changed your test assembly.</p>
 
@@ -97,17 +97,17 @@
 
             <h2>Create a Real Test</h2>
 
-            <p>Now we're ready to start testing our application. That's right, we're going to write our tests <i>first</i>.  It's a style of programming called "Test-Driven Development," and it's part of the Extreme Programming methodology that programs like NUnit were created to support.  In test-driven development, you create tests for features that you want, then write production code to make the tests pass.  By doing so, you increase test coverage and reduce the amount of unnecessary production code.
+            <p>Now we're ready to start testing our application. That's right, we're going to write our tests <i>first</i>.  It's a style of programming called "Test-Driven Development," and it's part of the Extreme Programming methodology that programs like NUnit were created to support.  In test-driven development, you create tests for features that you want, then write production code to make the tests pass.  By doing so, you increase test coverage and reduce the amount of unnecessary production code.</p>
 
-            <p>In our case, the feature we want is a guest book.  Testing every aspect of a guest book would take far too long, but we can test to see if the web page even exists.  That's a broad test, but we can refine from there.  We don't want to take too long between running tests&mdash;the goal is to check our code frequently so we always know we're on the right track.
+            <p>In our case, the feature we want is a guest book.  Testing every aspect of a guest book would take far too long, but we can test to see if the web page even exists.  That's a broad test, but we can refine from there.  We don't want to take too long between running tests&mdash;the goal is to check our code frequently so we always know we're on the right track.</p>
 
             <p>First we'll modify our empty test to load the Web page we're going to write.  WebFormTestCase, our parent class, provides a "Browser" property for getting web pages. Call "Browser.GetPage(<i>web page url</i>)" to load the page.  We also changed the name of the test to something a little more meaningful.</p>
 
             <div class="code">
               <span class="keyword">public void</span> TestLayout()
-              <br>{
-              <br>&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/GuestBook/GuestBook.aspx");
-              <br>}
+              <br />{
+              <br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/GuestBook/GuestBook.aspx");
+              <br />}
             </div>
 
             <div class="figure" style="float:right">
@@ -119,7 +119,7 @@
 
             <p>The test fails, as expected, so now we want to make it pass. Create a web project and the corresponding page. In our case, we created "GuestBook" as our web project and "GuestBook.aspx" as our web page. This page is at <a href="http://localhost/GuestBook/Guestbook.aspx">http://localhost/GuestBook/Guestbook.aspx</a> if you've set up a virtual directory for it.</p>
 
-            <p>Now, when you run the test, it passes.
+            <p>Now, when you run the test, it passes.</p>
 
             <p>(If you receive a 401 Access Denied error, check your security settings. For example, try enabling anonymous access for the GuestBook virtual directory, and make sure the IUSR_<i>machinename</i> user has read access to the directory.)</p>
 
@@ -146,30 +146,28 @@
               <br />&nbsp;&nbsp;&nbsp;DataGridTester book = <span class="keyword">new</span> DataGridTester("book", CurrentWebForm);</span>
               <br />
               <span class="demph"><br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/GuestBook/GuestBook.aspx");
-              <br>}</span>
+              <br />}</span>
             </div>
 
             <p>Let's take a closer look at the first declaration:</p>
 
-
-              <table>
-                <tr>
-                  <th>Code Fragment</th>
-                  <th>Meaning</th>
-                </tr>
-                <tr>
-                  <td><code><b>TextBoxTester name = <span class="keyword">new</span> TextBoxTester</b><span class="demph">("name", CurrentWebForm);</span></code></td><td>The object named "name" will test a text box.</td>
-                </tr>
-                <tr>
-                  <td><code><span class="demph">TextBoxTester name = new TextBoxTester(</span><b>"name"</b><span class="demph">, CurrentWebForm);</span></code></td>
-                  <td>The ASP.NET ID  of the text box is "name."</td>
-                </tr>
-                <tr>
-                  <td><code><span class="demph">TextBoxTester name = new TextBoxTester("name", </span><b>CurrentWebForm</b><span class="demph">);</span></code></td>
-                  <td>Look for the control on the web form currently loaded by the browser.</td>
-                </tr>
-              </table>
-
+            <table>
+              <tr>
+                <th>Code Fragment</th>
+                <th>Meaning</th>
+              </tr>
+              <tr>
+                <td><code><b>TextBoxTester name = <span class="keyword">new</span> TextBoxTester</b><span class="demph">("name", CurrentWebForm);</span></code></td><td>The object named "name" will test a text box.</td>
+              </tr>
+              <tr>
+                <td><code><span class="demph">TextBoxTester name = new TextBoxTester(</span><b>"name"</b><span class="demph">, CurrentWebForm);</span></code></td>
+                <td>The ASP.NET ID  of the text box is "name."</td>
+              </tr>
+              <tr>
+                <td><code><span class="demph">TextBoxTester name = new TextBoxTester("name", </span><b>CurrentWebForm</b><span class="demph">);</span></code></td>
+                <td>Look for the control on the web form currently loaded by the browser.</td>
+              </tr>
+            </table>
 
             <p>Now that we have the testers, we can assert that their controls are visible on the page.</p>
 
@@ -187,31 +185,29 @@
               <br />&nbsp;&nbsp;&nbsp;AssertVisibility(comments, <span class="keyword">true</span>);
               <br />&nbsp;&nbsp;&nbsp;AssertVisibility(save, <span class="keyword">true</span>);
               <br />&nbsp;&nbsp;&nbsp;AssertVisibility(book, <span class="keyword">true</span>);</span>
-              <span class="demph"><br>}</span>
+              <span class="demph"><br />}</span>
             </div>
 
             <p>We've just told NUnitAsp to assert that the four controls are visible on the page. Again, looking at the first line of code:</p>
 
-
-              <table>
-                <tr>
-                  <th>Code Fragment</th>
-                  <th>Meaning</th>
-                </tr>
-                <tr>
-                  <td><code><b>AssertVisibility</b><span class="demph">(name, true);</span></code></td>
-                  <td>Call the method in WebFormTestCase that checks control visibility.</td>
-                </tr>
-                <tr>
-                  <td><code><span class="demph">AssertVisibility(</span><b>name</b><span class="demph">, true);</span></code></td>
-                  <td>Check the visibility using the "name" tester.  The tester knows its control is a TextBox whose ID is "name."</td>
-                </tr>
-                <tr>
-                  <td><code><span class="demph">AssertVisibility(name, </span><b><span class="keyword">true</span>);</b></code></td>
-                  <td>The control should be visible.</td>
-                </tr>
-              </table>
-
+            <table>
+              <tr>
+                <th>Code Fragment</th>
+                <th>Meaning</th>
+              </tr>
+              <tr>
+                <td><code><b>AssertVisibility</b><span class="demph">(name, true);</span></code></td>
+                <td>Call the method in WebFormTestCase that checks control visibility.</td>
+              </tr>
+              <tr>
+                <td><code><span class="demph">AssertVisibility(</span><b>name</b><span class="demph">, true);</span></code></td>
+                <td>Check the visibility using the "name" tester.  The tester knows its control is a TextBox whose ID is "name."</td>
+              </tr>
+              <tr>
+                <td><code><span class="demph">AssertVisibility(name, </span><b><span class="keyword">true</span>);</b></code></td>
+                <td>The control should be visible.</td>
+              </tr>
+            </table>
 
             <p>We're ready to run the test.  We expect it to fail: we asserted that several controls were visible, but they're not.  When we run the test, it does:</p>
 
@@ -255,7 +251,7 @@
               <br />&nbsp;&nbsp;&nbsp;AssertVisibility(comments, true);
               <br />&nbsp;&nbsp;&nbsp;AssertVisibility(save, true);</span>
               <br /><span class="emph">&nbsp;&nbsp;&nbsp;AssertVisibility(book, <span class="keyword">false</span>);</span>
-              <span class="demph"><br>}</span>
+              <span class="demph"><br />}</span>
             </div>
             <p>Now the tests pass.</p>
 
@@ -608,7 +604,7 @@
               <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};
               <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AssertEquals("book", expected, book.TrimmedCells);
               <br />&nbsp;&nbsp;&nbsp;}
-              <br />}
+              <br />}</span>
             </div>
 
             <p>Readers familiar with NUnit will notice that we're not using the [SetUp] attribute.  We're using a "protected override void SetUp" method instead.  That's a quirk of the way NUnitAsp is put together.  We're already using [SetUp] in NUnitAsp, so you can't use it yourself.  Use the "protected override void SetUp" method will yield the same results.  If you use [SetUp] with NUnitAsp, you'll get an exception.</p>
@@ -617,7 +613,7 @@
 
             <p>The duplication in the tests was obvious because the code was identical.  The rule on duplication, though, isn't just duplication of code: it's duplication of concepts.  If you have the same concept&mdash;the same knowledge&mdash;in two different parts of your program, it may be a target for refactoring.</p>
 
-            <p>The knowledge that we've duplicated is the knowledge of what's supposed to be in the guest book.  It's in the test:
+            <p>The knowledge that we've duplicated is the knowledge of what's supposed to be in the guest book.  It's in the test:</p>
 
             <div class="code">
               <span class="demph">public void TestSave()
@@ -922,7 +918,7 @@
               <br />...watch test pass.
             </blockquote>
 
-            <p>Every so often, the rhythm will be broken.  A test will fail when it shouldn't, or fail for the wrong reason, or even pass when it shouldn't.  If you've been running tests every few minutes, then the defect is in the last few minutes' work... it only takes a few seconds to figure out your mistake.  If you haven't been running tests often, though, you'll have to spend a lot more time debugging.
+            <p>Every so often, the rhythm will be broken.  A test will fail when it shouldn't, or fail for the wrong reason, or even pass when it shouldn't.  If you've been running tests every few minutes, then the defect is in the last few minutes' work... it only takes a few seconds to figure out your mistake.  If you haven't been running tests often, though, you'll have to spend a lot more time debugging.</p>
 
             <p>These are the steps I really do follow when creating new web pages:</p>
 
@@ -956,7 +952,7 @@
                   <br /><i>(Watch test pass)</i></li>
                   <li>Refactor
                   <br /><i>(Watch test pass)</i></li>
-                </ul>
+                </ul></li>
               <li>Make it pretty.</li>
             </ul>
 
