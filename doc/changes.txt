@@ -1,8 +1,6 @@
-a To Do:
-* Update contribution documentation: Contributors should check CVS first!
+To Do:
 * Fix common error: TestdpValues.Items.FindByText("Not Running").Selected = "True"
   - FAQ: lstHospitals.Items[2].Selected = true ; should be lstHospitals.SelectedIndex = 2;
-* FAQ: Creating testers for data grid cells
 
 
 Changes in CVS:
