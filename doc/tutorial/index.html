@@ -34,8 +34,6 @@
 
 						<p>Advanced users may get started more quickly by jumping straight to the <a href="../quickstart.html">QuickStart Guide</a>.</p>
 
-						<p>This tutorial was last updated for NUnitASP 1.2.1 (which uses NUnit 2.0.6).</p>
-
 
 						<h2>About the Sample Application</h2>
 
@@ -54,9 +52,9 @@
 							<br />Create a project
 						</div>
 
-						<p>Start by creating a class library project to contain your tests. We created a Visual Studio .NET solution named "GuestBook" and a C# class library project named "GuestBookTests."  Create a text fixture class that describes what you're testing.  We used "GuestBookTest."  Finally, add references to the NUnitAsp and NUnit frameworks.  They're in the \bin directory of the NUnitAsp download. The NUnitASP framework appears in the VS.NET References tree as "NUnitASP." The NUnit framework appears as "nunit.framework."</p>
+						<p>Start by creating a class library project to contain your tests. We created a Visual Studio .NET solution named "GuestBook" and a C# class library project named "GuestBookTests."  Create a text fixture class that describes what you're testing.  We used "GuestBookTest."  Finally, add references to the NUnitAsp and NUnit frameworks.  NUnitAsp.dll is in the \bin directory of the NUnitAsp download and nunit.framework.dll is in the \bin directory of your NUnit install. The NUnitASP framework appears in the VS.NET References tree as "NUnitASP." The NUnit framework appears as "nunit.framework."</p>
 
-						<p>Once your project and text fixture class have been created, modify your class to extend WebFormTestCase.  In a normal NUnit test fixture, you would extend TestCase.  With NUnitAsp, you extend WebFormTestCase.  WebFormTestCase provides a "Browser" property for loading web pages.  It also provides some handy extra assertions.</p>
+						<p>Once your project and text fixture class have been created, modify your class to extend WebFormTestCase.  WebFormTestCase provides a "Browser" property for loading web pages.  It also provides some handy extra assertions.</p>
 
 						<p>To simplify the code, you'll need to include two common NUnitAsp namespaces, NUnit.Extensions.Asp and NUnit.Extensions.Asp.AspTester, with "using" lines.</p>
 
@@ -87,9 +85,9 @@
 
 						<p>The nunit-gui.exe application monitors the currently loaded test assembly and reloads it automatically when it changes. This means you can keep an instance of nunit-gui.exe open and then run tests simply by clicking "Run," regardless of how you have changed your test assembly.</p>
 
-						<p>To use this method, start nunit-gui.exe separately from VS.NET. You can find nunit-gui.exe in the /lib/NUnit2.0/bin directory. Then, in nunit-gui.exe, open your test assembly using the "Open..." menu item (or drag the test assembly into the nunit-gui.exe window). Now you can make changes to your test assembly in VS.NET, use Alt-Tab to switch to nunit-gui.exe, and click "Run" to run the updated tests.</p>
+						<p>To use this method, start nunit-gui.exe separately from VS.NET. You can find nunit-gui.exe in the \bin directory of your NUnit install. Then, in nunit-gui.exe, open your test assembly using the "Open..." menu item (or drag the test assembly into the nunit-gui.exe window). Now you can make changes to your test assembly in VS.NET, use Alt-Tab to switch to nunit-gui.exe, and click "Run" to run the updated tests.</p>
 
-						<p>To see this test page, click the "Run" button in nunit-gui.exe.</p>
+						<p>Now click the "Run" button in nunit-gui.exe.  You'll see this screen:</p>
 
 						<div class="figure">
 							<img src="run-nunit.gif" alt="Run the tests" />
@@ -97,7 +95,7 @@
 
 						<h2>Create a Real Test</h2>
 
-						<p>Now we're ready to start testing. That's right, we're going to write our tests <i>first</i>.  It's a style of programming called "Test-Driven Development," and it's part of the Extreme Programming methodology that programs like NUnit were created to support.  In test-driven development, you create tests for features that you want, then write production code to make the tests pass.  By doing so, you increase test coverage and reduce the amount of unnecessary production code.
+						<p>Now we're ready to start testing our application. That's right, we're going to write our tests <i>first</i>.  It's a style of programming called "Test-Driven Development," and it's part of the Extreme Programming methodology that programs like NUnit were created to support.  In test-driven development, you create tests for features that you want, then write production code to make the tests pass.  By doing so, you increase test coverage and reduce the amount of unnecessary production code.
 
 						<p>In our case, the feature we want is a guest book.  Testing every aspect of a guest book would take far too long, but we can test to see if the web page even exists.  That's a broad test, but we can refine from there.  We don't want to take too long between running tests&mdash;the goal is to check our code frequently so we always know we're on the right track.
 
@@ -129,7 +127,7 @@
 
 						<p>The next thing we'll test is the layout of our page.  We don't test the look of our web page&mdash;we don't want to have to update our tests every time someone changes a font&mdash;but we do test the functionality.  The first step towards doing this is just making sure the right components are on the page.</p>
 
-						<p>In our guest book application, we want four components: a text field for entering a name (called "name"), a text field for entering a comment (called "comments"), a button to save the data in the guest book (called "save"), and a datagrid for displaying what people have entered (called "book").</p>
+						<p>First, create a rough sketch showing the page to be created.  No need to be fancy: this is just something for us to refer back to as we work, not formal documentation.  In our guest book application, we want four components: a text field for entering a name (called "name"), a text field for entering a comment (called "comments"), a button to save the data in the guest book (called "save"), and a datagrid for displaying what people have entered (called "book").</p>
 
 						<div class="figure">
 							<img src="screen-sketch.gif" alt="Hand-drawn sketch of screen layout"/>
@@ -213,74 +211,7 @@
 							</table>
 						</p>
 
-						<h2>Make the Page XHTML Compliant</h2>
-
-						<p>When you run the test, you'll see that it doesn't pass. You get an error message about an "unexpected token." NUnitAsp requires web pages to be in XHTML (XML-compliant HTML) and in this case the page does not yet contain valid XHTML code.</p>
-
-						<p>There are a few common things you must do so that any pages you test are XHTML-compliant and can be parsed correctly by NUnitASP. The following table lists the error messages that each of these problems cause, along with the solution to the problem:</p>
-
-						<table>
-							<tr>
-								<th>Error Message</th>
-								<th>Solution</th>
-							</tr>
-							<tr>
-								<td>This is an unexpected token. Expected 'QUOTE'.</td>
-								<td>
-									Modify the DOCTYPE header to point to the NUnitAsp XHTML DTD:
-									<br /><code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
-									&quot;http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd&quot;&gt;</code>
-								</td>
-							</tr>
-							<tr>
-								<td>The 'x' character, hexidecimal value 0x78, cannot be included in a name.</td>
-								<td>Make sure the &lt;HTML&gt; and &lt;/HTML&gt; tags are upper-case.
-							</tr>
-							<tr>
-								<td>The '<i>tag 1</i>' start tag on line '<i>##</i>' does not match the end tag of <i>tag 2</i>', line '<i>##</i>.'</td>
-								<td>Close all stand-alone tags -- particularly "meta" and "br".</td>
-							</tr>
-						</table>
-
-						<p>In this case, you need to change the HTML in the GuestBook.aspx page to resolve possibly all three of the issues in the table.</p>
-
-						<p>The first error you see is the DOCTYPE problem in the first row of the table. To fix this, add the URL to the xHTML1-transitional.dtd file you set up during NUnitASP installation, as explained in the <a href="../installation.html">Installation Guide</a>. Be careful that the URL resolves to the DTD file - you can test that it does by entering the URL into your browser manually and confirming that you receive the DTD. If you enter the URL incorrectly, nunit-gui.exe shows you an error message like "The remote server returned an error: (404) Not Found."</p>
-
-						<p>If you run the test again, you'll see the second error in the table. Change the opening and closing "&lt;html&gt" tags so that the text is upper-case: "&lt;HTML&gt;".</p>
-
-						<p>When you run the test again, you'll see the third error in the table. VS.NET adds a set of meta tags to every new web form, and it doesn't close these tags, making the HTML invalid XHTML. One way to fix this problem is to close the offending tags by adding a forward slash to the end of each meta tag, so the end of each tag looks like this: " /&gt;".</p>
-
-						<p>Unfortunately, VS.NET often overwrites the meta tags and removes the closing forward slashes you previously added. You can avoid this problem by removing the meta tags completely&mdash;if they've been removed, VS.NET won't add them again. In this example, we'll remove the meta tags.</p>
-
-						<p>After making these changes and removing the unneeded "pageLayout" property, our HTML looked like this:</p>
-
-						<div class="html">
-							<span class="asp">&lt;%@ Page language=&quot;c#&quot; Codebehind=&quot;GuestBook.aspx.cs&quot; AutoEventWireup=&quot;false&quot; Inherits=&quot;GuestBook.GuestBook&quot; %&gt;</span>
-							<br /><span class="literal">&lt;!</span><span class="tag">DOCTYPE</span> <span class="attribute">HTML PUBLIC</span> <span class="literal">&quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://localhost/NUnitAsp/dtd/xHTML1-transitional.dtd&quot;&gt;</span>
-							<br />
-							<font color="blue">&lt;</font><font color="brown">HTML</font><font color="blue">&gt;</font>
-							<br />
-							&nbsp;&nbsp;&nbsp;<font color="blue">&lt;</font><font color="brown">HEAD</font><font color="blue">&gt;</font>
-							<br />
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">&lt;</font><font color="brown">title</font><font color="blue">&gt;</font>GuestBook<font color="blue"><font color="blue">&lt;</font>/</font><font color="brown">title</font><font color="blue">&gt;</font>
-							<br />
-							&nbsp;&nbsp;&nbsp;<font color="blue"><font color="blue">&lt;</font>/</font><font color="brown">HEAD</font><font color="blue">&gt;</font>
-							<br />
-							&nbsp;&nbsp;&nbsp;<font color="blue">&lt;</font><font color="brown">body</font><font color="blue">&gt;</font>
-							<br />
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">&lt;</font><font color="brown">form</font>
-							<font color="red">id</font><font color="blue">=&quot;GuestBook&quot;</font> <font color="red">method</font><font color="blue">=&quot;post&quot;</font> <font color="red">runat</font><font color="blue">=&quot;server&quot;&gt;</font>
-							<br />
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue"><font color="blue">&lt;</font>/</font><font color="brown">form</font><font color="blue">&gt;</font>
-							<br />
-							&nbsp;&nbsp;&nbsp;<font color="blue"><font color="blue">&lt;</font>/</font><font color="brown">body</font><font color="blue">&gt;</font>
-							<br />
-							<font color="blue"><font color="blue">&lt;</font>/</font><font color="brown">HTML</font><font color="blue">&gt;</font>
-						</div>
-
-						<h2>Back to Testing Layout</h2>
-
-						<p>Run the tests again.  Now that XHTML compliance is taken care of, our test should fail properly.  We asserted that several controls were visible, but they're not.  The test should tell us that, and it does:
+						<p>We're ready to run the test.  We expect it to fail: we asserted that several controls were visible, but they're not.  When we run the test, it does:</p>
 
 						<blockquote>
 							<code class="error">TestLayout: name control should be visible (HTML ID: name; ASP location: TextBoxTester 'name' in web form 'GuestBook')</code>
@@ -305,7 +236,7 @@
 							<br />&lt;/form&gt;
 						</div>
 
-						<p>Now run the test again - it still didn't pass!  The data grid wasn't visible.  This is a perfect example of why we run the tests so often.  Sometimes we get surprised.</p>
+						<p>Now run the test again.  It still didn't pass!  The data grid wasn't visible.  This is a perfect example of why we run the tests so often.  Sometimes we get surprised.</p>
 
 						<p>The data grid probably didn't show up because we haven't put any data in it yet.  Well, after thinking about it, that's actually the behavior we want... when there's no data, don't display any results.  Let's update the test to reflect this.</p>
 
@@ -387,7 +318,7 @@
 						<p>Run the test.  It passes, unsurprisingly.  We're filling in the text and clicking "Save," but we're not actually asserting anything.  Let's fix that.  We'll start by asserting that the name and comment fields are reset to be blank after you save.</p>
 
 						<div class="code">
-							<br /><span class="demph">public void TestSave()
+							<span class="demph">public void TestSave()
 							<br />{
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester comments = new TextBoxTester("comments", CurrentWebForm);
@@ -485,7 +416,7 @@
 						<p>Unsurprisingly, DataGridTester has a method that returns the data grid's contents in an array in exactly this format.  WebFormTestCase also provides several assertion methods that allow you to assert things about the contents of this kind of array.  We'll use this functionality to assert that the guest book contains Dr. Seuss's comments after he presses the "Save" button. Note that we're only testing a single entry here, which means we only have one row, so our assertion array only has one outer element.</p>
 
 						<div class="code">
-							<br /><span class="demph">public void TestSave()
+							<span class="demph">public void TestSave()
 							<br />{
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
 							<br />&nbsp;&nbsp;&nbsp;TextBoxTester comments = new TextBoxTester("comments", CurrentWebForm);
@@ -525,7 +456,7 @@
 						<p>Note that you can't just paste the following code into VS.NET and have it work correctly, because this code relies on the save_Click method being connected to the "Save" button's Click event. The easiest way to accomplish this is to double-click the "Save" button, which automatically creates the correct hookup code and gives you an empty save_Click method into which you can paste the code.</p>
 
 						<div class="code">
-							<br />private void save_Click(object sender, System.EventArgs e)
+							private void save_Click(object sender, System.EventArgs e)
 							<br />{
 							<br />&nbsp;&nbsp;&nbsp;DataTable currGuestBook = (DataTable) Session["GuestBook"];
 							<br />
@@ -564,7 +495,7 @@
 
 						<div class="code">
 							<span class="emph">
-							<br />// note that Page_Load is now empty
+							// note that Page_Load is now empty
 							<br />private void Page_Load(object sender, System.EventArgs e)
 							<br />{
 							<br />}</span>
@@ -663,7 +594,10 @@
 
 						<p>Test-driven development is a relaxing, low-risk approach to software development.  Once you get used to it, it's fast and reliable.  Follow the pattern above, and you'll spend more time adding features and less time fixing defects.</p>
 
-						<p class="end">by Jim Little and Andrew Enfield</p>
+						<p class="end">
+							by Jim Little and Andrew Enfield
+							<br />Last updated for v1.3.
+						</p>
 					</div>
 				</td>
 			</tr>
