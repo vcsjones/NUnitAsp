@@ -226,6 +226,21 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "AspTester\ValidationSummaryTestPage.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AspTester\ValidationSummaryTestPage.aspx.cs"
+                    DependentUpon = "ValidationSummaryTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\ValidationSummaryTestPage.aspx.resx"
+                    DependentUpon = "ValidationSummaryTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "HtmlTester\AnchorTestPage.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

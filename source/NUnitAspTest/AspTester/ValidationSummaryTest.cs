@@ -1,6 +1,8 @@
 /********************************************************************************************************************
 '
 ' Copyright (c) 2002, Brian Knowles, Jim Little
+' Originally written by David Paxson.  Copyright assigned to Brian Knowles and Jim Little
+' on the nunitasp-devl@lists.sourceforge.net mailing list on 28 Aug 2002.
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -19,31 +21,44 @@
 '*******************************************************************************************************************/
 
 using System;
-using NUnit.Framework;
+using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
-
-	public class AspTesterSuite : TestSuite
+	public class ValidationSummaryTest : NUnitAspTestCase
 	{
+		private TextBoxTester textBox;
+		private ValidationSummaryTester validator;
+		private ButtonTester button;
 
-		public AspTesterSuite() : base() 
+		public ValidationSummaryTest(string name) : base(name)
 		{
-			AddTestSuite(typeof(CheckBoxTest));
-			AddTestSuite(typeof(DataGridTest));
-			AddTestSuite(typeof(LabelTest));
-			AddTestSuite(typeof(TextBoxTest));
-			AddTestSuite(typeof(ValidationSummaryTest));
 		}
 
-		public static ITest Suite 
+		protected override void SetUp()
 		{
-			get 
-			{
-				return new AspTesterSuite();
-			}
+			base.SetUp();
+			Browser.GetPage(BaseUrl + "AspTester/ValidationSummaryTestPage.aspx");
+
+			textBox = new TextBoxTester("textbox", CurrentWebForm);
+			validator = new ValidationSummaryTester("validator", CurrentWebForm);
+			button = new ButtonTester("submit", CurrentWebForm);
 		}
 
+		public void TestPage()
+		{
+			AssertEquals("", textBox.Text);
+			AssertVisibility(validator, false);
+			AssertVisibility(button, true);
+		}
+
+		public void TestSubmit()
+		{
+			AssertEquals("", textBox.Text);
+			button.Click();
+			AssertVisibility(validator, true);
+			AssertEquals(1, validator.Messages.Length);
+			AssertEquals("Text box must not be empty", validator.Messages[0]);
+		}
 	}
-
 }

@@ -1,6 +1,8 @@
 /********************************************************************************************************************
 '
 ' Copyright (c) 2002, Brian Knowles, Jim Little
+' Originally written by David Paxson.  Copyright assigned to Brian Knowles and Jim Little
+' on the nunitasp-devl@lists.sourceforge.net mailing list on 28 Aug 2002.
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -19,31 +21,36 @@
 '*******************************************************************************************************************/
 
 using System;
-using NUnit.Framework;
+using System.Xml;
 
-namespace NUnit.Extensions.Asp.Test.AspTester
+namespace NUnit.Extensions.Asp.AspTester
 {
-
-	public class AspTesterSuite : TestSuite
+	public class ValidationSummaryTester : ControlTester
 	{
-
-		public AspTesterSuite() : base() 
+		public ValidationSummaryTester(string aspId, Control container) : base(aspId, container)
 		{
-			AddTestSuite(typeof(CheckBoxTest));
-			AddTestSuite(typeof(DataGridTest));
-			AddTestSuite(typeof(LabelTest));
-			AddTestSuite(typeof(TextBoxTest));
-			AddTestSuite(typeof(ValidationSummaryTest));
 		}
 
-		public static ITest Suite 
+		public string[] Messages
 		{
-			get 
+			get { return ReadMessages(); }
+		}
+
+		private string[] ReadMessages()
+		{
+			XmlNodeList nodes = SelectMessageNodes();
+			string[] messages = new string[nodes.Count];
+			for (int i = 0; i < nodes.Count; i++)
 			{
-				return new AspTesterSuite();
+				messages[i] = nodes[i].InnerText;
 			}
+
+			return messages;
 		}
 
+		private XmlNodeList SelectMessageNodes()
+		{
+			return Element.SelectNodes("//ul/li");
+		}
 	}
-
 }
