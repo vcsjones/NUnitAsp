@@ -51,7 +51,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return Element.InnerText;
+				return Element.InnerXml;
 			}
 		}
 
