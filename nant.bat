@@ -12,7 +12,7 @@ set DotNetToolDir=%_defaultToolDir%
 set _backupPath=%path%
 set path=%path%;%DotNetToolDir%
 
-set _command=lib\nant\bin\nant %*
+set _command=lib\nant\nant %*
 echo %_command%
 echo .
 call %_command%
