@@ -126,6 +126,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "DataGridTestBed.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "DataGridTestBed.ascx.cs"
+                    DependentUpon = "DataGridTestBed.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DataGridTestBed.ascx.resx"
+                    DependentUpon = "DataGridTestBed.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Global.asax"
                     BuildAction = "Content"
                 />
@@ -176,6 +192,22 @@
                 <File
                     RelPath = "RedirectorPage.aspx.resx"
                     DependentUpon = "RedirectorPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "TestBed.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "TestBed.aspx.cs"
+                    DependentUpon = "TestBed.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TestBed.aspx.resx"
+                    DependentUpon = "TestBed.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

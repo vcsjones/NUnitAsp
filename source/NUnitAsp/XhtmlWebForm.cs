@@ -44,7 +44,7 @@ namespace NUnit.Extensions.Asp {
 			this.page = page.page;
 		}
 
-		public XhtmlWebUserControl GetUserControl(string aspId) 
+		public XhtmlWebUserControl GetWebUserControl(string aspId) 
 		{
 			return new XhtmlWebUserControl(this, aspId, CreateHtmlId(aspId), Description);
 		}
@@ -82,7 +82,7 @@ namespace NUnit.Extensions.Asp {
 		public void AssertElementVisibility(string aspId, bool expectedVisibility) 
 		{
 			string not = expectedVisibility ? " " : " not ";
-			string message = string.Format("Element '{0}' (aka '{1}') should{2}be on {3}", aspId, CreateHtmlId(aspId), not, Description);
+			string message = string.Format("Element '{0}'{1}expected ('{2}' on {3})", CreateHtmlId(aspId), not, aspId, Description);
 			Assertion.Assert(message, expectedVisibility == HasElement(aspId));
 		}
 
