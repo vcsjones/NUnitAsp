@@ -3,11 +3,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitAsp", "source\NUnitAsp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitAspTest", "source\NUnitAspTest\NUnitAspTest.csproj", "{9B344403-AB76-4420-BA97-115A147F7B7D}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VBSampleTest", "sample\VBSampleTest\VBSampleTest.vbproj", "{7C7EC726-C174-47EF-A731-3753F31D30A1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitAspTestPages", "http://localhost/nunitasp/nunitasptestpages/NUnitAspTestPages.csproj", "{7D7986CC-8D3D-433E-94EC-35D753E894DC}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VBSamplePages", "http://localhost/NUnitAsp/VBSamplePages/VBSamplePages.vbproj", "{F1234172-DC2D-4AAC-B51F-6F1C705116F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
@@ -25,18 +21,10 @@ Global
 		{9B344403-AB76-4420-BA97-115A147F7B7D}.Debug.Build.0 = Debug|.NET
 		{9B344403-AB76-4420-BA97-115A147F7B7D}.Release.ActiveCfg = Release|.NET
 		{9B344403-AB76-4420-BA97-115A147F7B7D}.Release.Build.0 = Release|.NET
-		{7C7EC726-C174-47EF-A731-3753F31D30A1}.Debug.ActiveCfg = Debug|.NET
-		{7C7EC726-C174-47EF-A731-3753F31D30A1}.Debug.Build.0 = Debug|.NET
-		{7C7EC726-C174-47EF-A731-3753F31D30A1}.Release.ActiveCfg = Release|.NET
-		{7C7EC726-C174-47EF-A731-3753F31D30A1}.Release.Build.0 = Release|.NET
 		{7D7986CC-8D3D-433E-94EC-35D753E894DC}.Debug.ActiveCfg = Debug|.NET
 		{7D7986CC-8D3D-433E-94EC-35D753E894DC}.Debug.Build.0 = Debug|.NET
 		{7D7986CC-8D3D-433E-94EC-35D753E894DC}.Release.ActiveCfg = Release|.NET
 		{7D7986CC-8D3D-433E-94EC-35D753E894DC}.Release.Build.0 = Release|.NET
-		{F1234172-DC2D-4AAC-B51F-6F1C705116F7}.Debug.ActiveCfg = Debug|.NET
-		{F1234172-DC2D-4AAC-B51F-6F1C705116F7}.Debug.Build.0 = Debug|.NET
-		{F1234172-DC2D-4AAC-B51F-6F1C705116F7}.Release.ActiveCfg = Release|.NET
-		{F1234172-DC2D-4AAC-B51F-6F1C705116F7}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
 		Item:1 = doc\ClassDiagram.vsd

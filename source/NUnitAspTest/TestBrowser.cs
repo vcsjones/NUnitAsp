@@ -7,54 +7,46 @@ namespace NUnit.Extensions.Asp.Test
 
 	public class TestBrowser : WebFormTestCase {
 
-		private const string BASE_URL = "http://localhost/NUnitAsp/NUnitAspTestPages";
+		private const string BASE_URL = "http://localhost/NUnitAsp/NUnitAspTestPages/";
 
 		public TestBrowser(string name) : base(name) {
 		}
 
-		public override string PageName {
-			get {
-				return "BasicPage";
-			}
-		}
-
-		public override string StartUrl {
-			get {
-				return "http://localhost/NUnitAsp/NUnitAspTestPages/BasicPage.html";
-			}
+		protected override void SetUp() {
+			Browser = new Browser(BASE_URL + "BasicPage.html");
 		}
 
 		public void TestRedirection() {
-			_browser.GetPage("RedirectorPage.aspx");
-			AssertPageName("RedirecteePage");
+			Browser.GetPage("RedirectorPage.aspx");
+			Page.AssertIdEquals("RedirecteePage");
 		}
 
 		public void TestCookies() {
-			_browser.GetPage("CookieDropPage.aspx");
-			AssertCookieExists("testcookie");
-			_browser.GetPage("CookieDisplayPage.aspx");
-			AssertLabelText("cookies", "testcookievalue");
+			Browser.GetPage("CookieDropPage.aspx");
+			Assert(Browser.HasCookie("testcookie"));
+			Browser.GetPage("CookieDisplayPage.aspx");
+			Page.Label("cookies").AssertTextEquals("testcookievalue");
 		}
 
 		public void TestCookiesPreservedOverTime() {
-			_browser.GetPage("CookieDropPage.aspx");
-			AssertCookieExists("testcookie");
-			_browser.GetPage("RedirectorPage.aspx");
-			_browser.GetPage("CookieDisplayPage.aspx");
-			AssertLabelText("cookies", "testcookievalue");
+			Browser.GetPage("CookieDropPage.aspx");
+			Assert(Browser.HasCookie("testcookie"));
+			Browser.GetPage("RedirectorPage.aspx");
+			Browser.GetPage("CookieDisplayPage.aspx");
+			Page.Label("cookies").AssertTextEquals("testcookievalue");
 		}
 
 		public void TestLinkButton() {
-			_browser.GetPage("LinkButtonPage.aspx");
-			AssertPageName("LinkButton");
-			AssertLabelText("status", "unclicked");
-			_browser.ClickLinkButton("link", "PostbackPage");
-			AssertLabelText("status", "clicked");
+			Browser.GetPage("LinkButtonPage.aspx");
+			Page.AssertIdEquals("LinkButton");
+			Page.Label("status").AssertTextEquals("unclicked");
+			Page.LinkButton("link").Click();
+			Page.Label("status").AssertTextEquals("clicked");
 		}
 
 		public void TestEmbeddedControls() {
 			// This test needs to be expanded to use actual embedded control
-			_browser.EnterInputValue("_ctl0:account", "form");
+			Browser.EnterInputValue("_ctl0:account", "form");
 		}
 	}
 }

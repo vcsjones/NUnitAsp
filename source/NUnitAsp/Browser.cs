@@ -29,325 +29,314 @@ using System.Xml;
 using System.Xml.XPath;
 using System.Collections;
 
-namespace NUnit.Extensions.Asp {
+namespace NUnit.Extensions.Asp 
+{
 
-	public class Browser : System.IDisposable {
+	public class Browser : System.IDisposable 
+	{
 
-		private XmlDocument _page;
-		private string _pageText;
-		private WebClient _client;
+		private WebPage _page;
+		private XmlDocument _pageDocument;
+		private string _pageDocumentText;
+		private WebClient _client = new WebClient();
 		private Hashtable _cookies = new Hashtable();
+		private NameValueCollection _headers;
+		private TimeSpan _serverTime = new TimeSpan(0);
+
+		public Browser() 
+		{
+		}
 
 		//Create a browser with anonymous credentials.
-		public Browser(string url) {
-			_client = new WebClient();
+		public Browser(string url) 
+		{
 			_client.BaseAddress = GetBaseAddress(url);
 			GetPage(url);
 		}
 
 		//Create a browser with the provided credentials.
-		public Browser(string url, string user, string password, string domain) : this(url) {
+		public Browser(string url, string user, string password, string domain) : this(url) 
+		{
 			_client.Credentials = new NetworkCredential(user, password, domain);																		  
 		}
 
-		public void Dispose() {
+		public void Dispose() 
+		{
 			_client.Dispose();
 		}
 
-		public NameValueCollection QueryString {
-			get {
+		public NameValueCollection QueryString 
+		{
+			get 
+			{
 				return _client.QueryString;
 			}
 		}
 
-		public XmlDocument Page {
-			get {
+		public WebPage CurrentPage 
+		{
+			
+			get 
+			{
 				return _page;
 			}
 		}
 
-		public string PageText {
-			get {
-				return _pageText;
+		public void GetPage(string url) 
+		{
+			try 
+			{
+				AddCookiesToHeader(_client.Headers);
+				DateTime startTime = DateTime.Now;
+				byte[] response = _client.DownloadData(url);
+				_serverTime += (DateTime.Now - startTime);
+				LoadPage(response);
 			}
-		}
-
-		public void SelectDropDownListItem(string dropDownId, string textValue) {
-			XmlNode selectNode = _page.GetElementById(dropDownId);
-			string inputValue = null;
-			bool found = false;
-
-			foreach (XmlNode selectOption in selectNode.ChildNodes) {
-				if (selectOption.InnerText == textValue) {
-					found = true;
-					XmlAttribute valueAttribute = selectOption.Attributes["value"];
-					if (valueAttribute == null) {
-						// Use the option text for the value
-						EnterInputValue(dropDownId, textValue);
-					}
-					else {
-						inputValue = valueAttribute.Value;
-					}
-				}
-			}
-
-			if (!found) {
-				throw new XmlException(string.Format("DropDownList '{0}' does not have ListItem '{1}'", dropDownId, textValue), null);
-			}
-
-			EnterInputValue(dropDownId, inputValue);
-		}
-
-		public void EnterInputValue(string inputName, string inputValue) {
-			_client.Headers.Remove(inputName);
-			_client.Headers.Add(inputName, inputValue);
-		}
-
-		public void ClickLink(string id) {
-			XmlElement link = Page.GetElementById(id);
-			GetPage(link.GetAttribute("href"));
-		}
-
-		public void ClickLinkButton(string id, string formId) {
-			XmlElement linkButton = Page.GetElementById(id);
-			string postBackCall = linkButton.GetAttribute("href");
-			string postBackPattern = @"javascript:__doPostBack\('(?<target>.*?)',''\)";
-
-			Match match = Regex.Match(postBackCall, postBackPattern, RegexOptions.IgnoreCase);
-			if (!match.Success) throw new XmlException("Link '" + id + "' doesn't look like a link button", null);
-			string target = match.Groups["target"].Captures[0].Value;
-
-			EnterInputValue("__EVENTTARGET", target);
-			EnterInputValue("__EVENTARGUMENT", "");
-			SubmitForm(formId);
-		}
-
-		public void PushButton(string buttonId, string formId) {
-			EnterInputValue(buttonId, GetButtonValue(buttonId));
-			SubmitForm(formId);
-		}
-
-		public void PushButtonInDataGrid(string dataGridId, int rowNumber, int controlColumnIndex, string formId) {
-			string buttonName = string.Format("{0}:ctrl{1}:ctrl{2}", dataGridId, rowNumber, controlColumnIndex);
-			PushButtonByName(buttonName, formId);
-		}
-
-		public void PushButtonByName(string buttonName, string formId) {
-			EnterInputValue(buttonName, GetButtonValue(buttonName, formId));
-			SubmitForm(formId);
-		}
-
-		public void GetPage(string url) {
-			try {
-				LoadPage(_client.DownloadData(url));
-			}
-			catch (WebException e) {
+			catch (WebException e) 
+			{
 				throw new WebException("Error getting page...\n" + DumpErrorPage(e.Response.GetResponseStream()), e);
 			}
 		}
 
-		private void SubmitForm(string formId) {
-			string url = GetFormAction(formId);
-			string method = GetFormMethod(formId);
-			try {
-				LoadPage(_client.UploadValues(url, method, _client.Headers));
+		internal WebPage SubmitForm() {
+			string formName = _pageDocument.GetElementsByTagName("form")[0].Attributes["id"].Value;
+			return SubmitForm(formName);
+		}
+
+		internal WebPage SubmitForm(string formId) 
+		{
+			string url = _page.GetFormAction(formId);
+			string method = _page.GetFormMethod(formId);
+			try 
+			{
+				DateTime startTime = DateTime.Now;
+				byte[] response = _client.UploadValues(url, method, _headers);
+				_serverTime += (DateTime.Now - startTime);
+				LoadPage(response);
+				return _page;
 			}
-			catch (WebException e) {
+			catch (WebException e) 
+			{
 				throw new WebException("Error submitting form...\n" + DumpErrorPage(e.Response.GetResponseStream()), e);
 			}
 		}
 
-		private void LoadPage(byte[] output) {
+		private void LoadPage(byte[] output) 
+		{
+			_headers = new NameValueCollection(_client.Headers);
 			UTF8Encoding decoder = new UTF8Encoding();
-			_pageText = decoder.GetString(output);
-			_page = new XmlDocument();
-			try {
-				_page.LoadXml(_pageText);
+			_pageDocumentText = decoder.GetString(output);
+			_pageDocument = new XmlDocument();
+			_page = new WebPage(this, output);
+			try 
+			{
+				_pageDocument.LoadXml(_pageDocumentText);
 			}
-			catch (XmlException e) {
-				throw new XmlException("Error parsing page...\n" +  _pageText, e);
+			catch (XmlException e) 
+			{
+				throw new XmlException("Error parsing page...\n" +  _pageDocumentText, e);
 			}
 			ParseCookies();
 			SetDefaultFormValues();
 		}
 
-		private string GetBaseAddress(string url) {
+		private string GetBaseAddress(string url) 
+		{
 			Uri uri = new Uri(url);
 			return uri.AbsoluteUri;
 		}
 
-		private string GetButtonValue(string buttonId) {
-			XmlElement button = _page.GetElementById(buttonId);
-			if (button == null) {
-				throw new XmlException(String.Format("Button '{0}' is not on the page", buttonId), null);
-			}
-			return button.GetAttribute("value");
-		}
-
-		private string GetButtonValue(string buttonName, string formId) {
-			XmlElement form = _page.GetElementById(formId);
-			string expression = String.Format("//input[@type='submit'][@name='{0}']", buttonName);
-			XmlNode button = form.SelectSingleNode(expression);
-			if (button == null) {
-				throw new XmlException(String.Format("Button '{0}' for form '{1}' is not on the page..." + _pageText, buttonName, formId), null);
-			}
-			string returnValue = String.Empty;
-			foreach (XmlAttribute attribute in button.Attributes) {
-				if (attribute.Name.Equals("value")) {
-					returnValue = attribute.Value;
-				}
-			}
-			return returnValue;
-		}
-
-		private string GetFormMethod(string formId) {
-			return GetAttribute("form", formId, "method");
-		}
-
-		private string GetFormAction(string formId) {
-			return GetAttribute("form", formId, "action");
-		}
-
-		private string GetAttribute(string element, string id, string attribute) {
-			XmlElement xmlElement = _page.GetElementById(id);
-			if (xmlElement == null) {
+		private string GetAttribute(string element, string id, string attribute) 
+		{
+			XmlElement xmlElement = _pageDocument.GetElementById(id);
+			if (xmlElement == null) 
+			{
 				throw new XmlException(String.Format("Element '{0}' with id '{1}' is not on the page", element, id), null);
 			}
 			return xmlElement.GetAttribute(attribute);
 		}
 
-		private void SetDefaultFormValues() {
-			_client.Headers.Clear();
+		private void SetDefaultFormValues() 
+		{
+			_headers.Clear();
 			AddFormHiddenValuesToHeader();
 			AddFormTextValuesToHeader("//input[@type='file']");
 			AddFormTextValuesToHeader("//input[@type='password']");
 			AddFormTextValuesToHeader("//input[@type='text']");
 			AddFormTextAreaValuesToHeader();
 			AddFormSelectValuesToHeader();
-			AddCookiesToHeader();
+			AddCookiesToHeader(_headers);
 		}
 
-		private void AddCookiesToHeader() {
+		private void AddCookiesToHeader(NameValueCollection header) 
+		{
 			bool firstCookie = true;
 			string cookieHeader = "";
-			foreach (DictionaryEntry cookie in _cookies) {
+			foreach (DictionaryEntry cookie in _cookies) 
+			{
 				if (!firstCookie) cookieHeader += "; ";
 				cookieHeader += cookie.Key + "=" + cookie.Value;
 				firstCookie = false;
 			}
-			EnterInputValue("Cookie", cookieHeader);
+			header["Cookie"] = cookieHeader;
 		}
 
-		private void ParseCookies() {
-			string setCookie = _client.ResponseHeaders["Set-Cookie"];
-			if (setCookie == null) return;
+		private void ParseCookies() 
+		{
+			string[] cookieStrings = _client.ResponseHeaders.GetValues("Set-Cookie");
+			if (cookieStrings == null) return;
 
-			string[] cookies = setCookie.Split(new char[] {','});
-			foreach (string cookie in cookies) {
-				string[] cookieParameters = cookie.Split(new char[] {';'});
+			foreach (string cookieString in cookieStrings) 
+			{
+				string[] cookieParameters = cookieString.Split(new char[] {';'});
 				string[] nameValue = cookieParameters[0].Split(new char[] {'='});
-				_cookies.Add(nameValue[0], nameValue[1]);
+				string name = nameValue[0];
+				if (_cookies.Contains(name)) _cookies.Remove(name);
+				_cookies.Add(name, nameValue[1]);
 			}
 		}
 
-		private void AddFormHiddenValuesToHeader() {
-			XmlNodeList nodes = _page.SelectNodes("//input[@type='hidden']");
+		private void AddFormHiddenValuesToHeader() 
+		{
+			XmlNodeList nodes = _pageDocument.SelectNodes("//input[@type='hidden']");
 			if (nodes == null) return;
 
-			foreach (XmlNode item in nodes) {
+			foreach (XmlNode item in nodes) 
+			{
 				XmlAttribute name = item.Attributes["name"];
 				XmlAttribute aValue = item.Attributes["value"];
-				if ((name != null) && (aValue != null)) {
+				if ((name != null) && (aValue != null)) 
+				{
 					EnterInputValue(name.Value, aValue.Value);
 				}
 			}
 		}
 
-		private void AddFormTextValuesToHeader(string expression) {
+		public void EnterInputValue(string inputName, string inputValue) 
+		{
+			_headers.Remove(inputName);
+			_headers.Add(inputName, inputValue);
+		}
+
+		private void AddFormTextValuesToHeader(string expression) 
+		{
 			XmlAttribute name;
 			XmlAttribute aValue;
-			XmlNodeList nodes = _page.SelectNodes(expression);
+			XmlNodeList nodes = _pageDocument.SelectNodes(expression);
 			if (nodes == null) return;
 
-			foreach (XmlNode item in nodes) {
+			foreach (XmlNode item in nodes) 
+			{
 				name = item.Attributes["name"];
 				aValue = item.Attributes["value"];
-				if ((name != null) && (aValue != null)) {
+				if ((name != null) && (aValue != null)) 
+				{
 					EnterInputValue(name.Value, aValue.Value);
 				}
 			}
 		}
 
-		private void AddFormTextAreaValuesToHeader() {
+		private void AddFormTextAreaValuesToHeader() 
+		{
 			XmlAttribute name;
-			XmlNodeList nodes = _page.SelectNodes("//textarea");
+			XmlNodeList nodes = _pageDocument.SelectNodes("//textarea");
 			if (nodes == null) return;
 
-			foreach (XmlNode item in nodes) {
+			foreach (XmlNode item in nodes) 
+			{
 				name = item.Attributes["name"];
-				if (name != null) {
+				if (name != null) 
+				{
 					EnterInputValue(name.Value, item.InnerText.Trim());
 				}
 			}
 		}
 
-		private void AddFormSelectValuesToHeader() {
+		private void AddFormSelectValuesToHeader() 
+		{
 			string expression = "//select";
 			XmlAttribute name;
 			XmlNode aValue = null;
-			XmlNodeList nodes = _page.SelectNodes(expression);
+			XmlNodeList nodes = _pageDocument.SelectNodes(expression);
 
 			if (nodes == null) return;
 
-			foreach (XmlNode item in nodes) {
+			foreach (XmlNode item in nodes) 
+			{
 				name = item.Attributes["name"];
-				if (name == null) {
+				if (name == null) 
+				{
 					throw new XmlException("A select form element on the page does not have a name.", null);
 				}
 
 				// Look for the option that is selected
-				foreach (XmlNode child in item.ChildNodes) {
-					if (child.Attributes["selected"] != null) {
+				foreach (XmlNode child in item.ChildNodes) 
+				{
+					if (child.Attributes["selected"] != null) 
+					{
 						aValue = child.Attributes["value"];
 					}
 				}
 
 				// If there is no value then we will just set it as empty
-				if (aValue == null) {
+				if (aValue == null) 
+				{
 					EnterInputValue(name.Value, String.Empty);
 				}
-				else {
+				else 
+				{
 					EnterInputValue(name.Value, aValue.Value);
 				}
 			}
 		}
 
-		private string DumpErrorPage(Stream ReceiveStream) {
+		private string DumpErrorPage(Stream ReceiveStream) 
+		{
 			Encoding encode;
 			StreamReader sr;
 			string errorPage = null;
-			try {
+			try 
+			{
 				encode = System.Text.Encoding.GetEncoding("utf-8");
 				sr = new StreamReader(ReceiveStream, encode);
 
 				char[] read = new char[256];
 				int count = sr.Read(read, 0, 256);
 
-				while (count > 0) {
+				while (count > 0) 
+				{
 					string str = new string(read, 0, count);
 					errorPage += str;
 					count = sr.Read(read, 0, 256);
 				}
 			}
-			catch (Exception) {
+			catch (Exception) 
+			{
 				errorPage += "Error parsing returned stream";
 			}
 
 			return errorPage;
 		}
 
-		public bool HasCookie(string cookieName) {
+		public bool HasCookie(string cookieName) 
+		{
 			return _cookies.ContainsKey(cookieName);
+		}
+
+		public TimeSpan ServerTime 
+		{
+			get 
+			{
+				return _serverTime;
+			}
+		}
+
+		public void DumpCookies() 
+		{
+			foreach (object key in _cookies.Keys) 
+			{
+				Console.WriteLine("[{0}]: [{1}]", key, _cookies["key"]);
+			}
 		}
 
 	}
