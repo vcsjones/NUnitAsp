@@ -1,6 +1,6 @@
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, 2003, Brian Knowles, Jim Little
+' Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
 ' SgmlReader code in source/NUnitAsp/Sgml, Copyright (c) 2002, Microsoft Corporation
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 

@@ -566,7 +566,7 @@
 
 						<p>Test-driven development is a relaxing, low-risk approach to software development.  Once you get used to it, it's fast and reliable.  Follow the pattern above, and you'll spend more time adding features and less time fixing defects.</p>
 
-						<p class="end">by Jim Little</p>
+						<p class="end">by Jim Shore</p>
 					</div>
 				</td>
 			</tr>

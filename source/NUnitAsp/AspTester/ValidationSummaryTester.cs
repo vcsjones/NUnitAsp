@@ -1,8 +1,8 @@
-#region Copyright (c) 2002, 2003, Brian Knowles, Jim Little
+#region Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, 2003 Brian Knowles, Jim Little
-' Originally written by David Paxson.  Copyright assigned to Brian Knowles and Jim Little
+' Copyright (c) 2002, 2003 Brian Knowles, Jim Shore
+' Originally written by David Paxson.  Copyright assigned to Brian Knowles and Jim Shore
 ' on the nunitasp-devl@lists.sourceforge.net mailing list on 28 Aug 2002.
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 

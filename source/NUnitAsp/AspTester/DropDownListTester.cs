@@ -1,7 +1,7 @@
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Little
-' Originally written by David Paxson.  Copyright assigned to Brian Knowles and Jim Little.
+' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Originally written by David Paxson.  Copyright assigned to Brian Knowles and Jim Shore.
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
