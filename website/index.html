@@ -1,0 +1,115 @@
+<html>
+  <head>
+    <title>NUnitAsp - ASP.NET unit testing</title>
+  </head>
+  <body>
+    <h2 align="center">NUnitAsp</h2>
+    <h3 align="center">ASP.NET unit testing</h3>
+    <table border="0" cellpadding="10">
+      <tr>
+        <td valign="top">
+          <a href="download.html"><b>Download</b></a>
+          <br />
+          <br />
+          <a href="index.html">Overview</a>
+          <br />
+          <a href="support.html">Support</a>
+          <br />
+          <a href="contribute.html">Contribute</a>
+          <br />
+          <br />
+          <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" border="0" alt="SourceForge Logo"></A>
+        </td>
+        <td valign="top">
+          <p>NUnitAsp allows you to test ASP.NET web pages. It's freely available under the
+            MIT license.</p>
+          <p>NUnitAsp acts as a client to a regular web server running ASP.NET. Using
+            NUnitAsp, you may download web pages and work with the controls on it as if
+            they were actual ASP.NET controls.</p>
+          <p>
+            <table border="0" bgcolor="black" align="center">
+              <tr>
+                <td><table border="0" bgcolor="white">
+                    <tr>
+                      <td><code> <font color="blue">public void</font> TestExample()
+                          <br />
+                          {
+                          <br />
+                          &nbsp;&nbsp;&nbsp;LabelTester label = <font color="blue">new</font> LabelTester("textLabel",
+                          CurrentWebForm);
+                          <br />
+                          &nbsp;&nbsp;&nbsp;LinkButtonTester link = <font color="blue">new</font> LinkButtonTester("linkButton",
+                          CurrentWebForm);
+                          <br />
+                          <br />
+                          &nbsp;&nbsp;&nbsp;AssertEquals("first page", "FirstExample",
+                          CurrentWebForm.AspId);
+                          <br />
+                          &nbsp;&nbsp;&nbsp;AssertEquals("label", "Example Label", label.Text);
+                          <br />
+                          &nbsp;&nbsp;&nbsp;link.Click();
+                          <br />
+                          &nbsp;&nbsp;&nbsp;AssertEquals("second page", "SecondExample",
+                          CurrentWebForm.AspId);
+                          <br />
+                          } </code>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </p>
+          <p>
+          NUnitAsp can test complex web sites involving multiple pages and nested
+          controls. The common ASP.NET controls (see complete list below) are supported,
+          and support for additional controls is easy to add.
+
+          <p>NUnitAsp is a tool for testing server-side ASP.NET logic only.  It does not support JavaScript or other client-specific behavior, although support for this may be added in the future.
+
+          <p>NUnitAsp is an extension for <a href="http://nunit.sourceforge.net">NUnit</a>, which is part of the xUnit family of freely-available test-first programming
+          products.
+
+          <h3>Latest Release: Version 1.0</h3>
+
+          <p>NUnitAsp 1.0 is capable of testing most ASP.NET controls.  It is being used for
+          real-world applications, but its API is subject to change. We recommend
+          downloading and trying NUnitAsp, and contributing new controls, but if you use
+          it, expect to modify your tests to keep up with API changes.</p>
+
+          <p>This release does not include complete documentation.  Use the mailing list if you need help.</p>
+
+          <p>ASP.NET controls supported in this release:
+
+              <ul>
+                <li>
+                  Button</li>
+                <li>
+                  CheckBox</li>
+                <li>
+                  DataGrid</li>
+                <li>
+                  Label</li>
+                <li>
+                  LinkButton</li>
+                <li>
+                  Panel</li>
+                <li>
+                  RadioButton</li>
+                <li>
+                  TextBox</li>
+                <li>
+                  UserControl</li>
+                <li>
+                  WebForm</li>
+              </ul>
+          </p>
+        </td>
+      </tr>
+    </table>
+    <small>
+      <p>Thanks to the <a href="http://www.tortoisecvs.org">TortoiseCVS web site</a> for
+        providing the inspiration for this web site.</p>
+    </small>
+  </body>
+</html>
