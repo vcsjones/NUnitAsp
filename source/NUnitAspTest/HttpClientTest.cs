@@ -94,6 +94,18 @@ namespace NUnit.Extensions.Asp.Test
 		}
 
 		[Test]
+		public void TestGetThroughProxy()
+		{
+			UriBuilder target = new UriBuilder(TestUrl);
+			Browser.Proxy = new WebProxy(target.Host, target.Port);
+
+			target.Host = "no.such.host.anywhere";
+			Browser.GetPage(target.Uri.AbsoluteUri);
+
+			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
+		}
+
+		[Test]
 		public void TestRedirect()
 		{
 			Browser.GetPage(TestUrl);

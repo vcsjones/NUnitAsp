@@ -39,6 +39,7 @@ namespace NUnit.Extensions.Asp
 		private Uri currentUrl = null;
 		private WebPage currentPage = null;
 		private CookieContainer cookies = new CookieContainer();
+		private IWebProxy proxy = null;
 
 		/// <summary>
 		/// The user-agent string to send to the server. Useful if you want to pretend to
@@ -82,6 +83,26 @@ namespace NUnit.Extensions.Asp
 			get
 			{
 				return cookies;
+			}
+		}
+
+		/// <summary>
+		/// The proxy server information to use to proxy HTTP requests.
+		/// If this property is set to null, default value, returned by
+		/// GlobalProxySelection.Select is used.
+		/// </summary>
+		/// <example>
+		///	Browser.Proxy = new WebProxy("http://myproxy:8080");
+		/// </example>
+		public IWebProxy Proxy
+		{
+			get
+			{
+				return proxy;
+			}
+			set
+			{
+				proxy = value;
 			}
 		}
 
@@ -239,6 +260,11 @@ namespace NUnit.Extensions.Asp
 			{
 				request.PreAuthenticate = true;
 				request.Credentials = Credentials;
+			}
+
+			if (Proxy != null)
+			{
+				request.Proxy = Proxy;
 			}
 
 			AddUserLanguageHeaders(request);
