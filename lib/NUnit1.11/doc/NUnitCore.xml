@@ -1,0 +1,1222 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NUnitCore</name>
+    </assembly>
+    <members>
+        <member name="T:NUnit.Extensions.ActiveTestSuite">
+            <summary>
+            A TestSuite for active Tests. It runs each test in a
+            separate thread and until all threads have terminated.
+            -- Aarhus Radisson Scandinavian Center 11th floor
+            </summary>
+        </member>
+        <member name="T:NUnit.Framework.TestSuite">
+            <summary>A <c>TestSuite</c> is a <c>Composite</c> of Tests.</summary>
+            <remarks>It runs a collection of test cases. Here is an example using
+            the dynamic test definition.
+            <code>
+            TestSuite suite= new TestSuite();
+            suite.AddTest(new MathTest("TestAdd"));
+            suite.AddTest(new MathTest("TestDivideByZero"));
+            </code>
+            Alternatively, a TestSuite can extract the Tests to be run automatically.
+            To do so you pass the class of your TestCase class to the
+            TestSuite constructor.
+            <code>
+            TestSuite suite= new TestSuite(typeof(MathTest));
+            </code>
+            This constructor creates a suite with all the methods
+            starting with "Test" that take no arguments.</remarks>
+            <seealso cref="T:NUnit.Framework.ITest"/>
+        </member>
+        <member name="T:NUnit.Framework.ITest">
+            <summary>An <c>ITest</c> can be run and collect its results.</summary>
+            <seealso cref="T:NUnit.Framework.TestResult"/>
+        </member>
+        <member name="M:NUnit.Framework.ITest.Run(NUnit.Framework.TestResult)">
+            <summary>
+            Runs a test and collects its result in a 
+            <see cref="T:NUnit.Framework.TestResult"/> instance.
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="P:NUnit.Framework.ITest.CountTestCases">
+            <summary>
+            Counts the number of test cases that will be run by this test.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.TestSuite.#ctor(System.String)">
+            <summary>Constructs an empty TestSuite with a name.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestSuite.#ctor">
+            <summary>Constructs an empty TestSuite with no name.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestSuite.#ctor(System.Type,System.Boolean)">
+            <summary>Constructs a TestSuite from the given class.</summary>
+            <remarks>Adds all the methods starting with "Test" as test cases 
+            to the suite. Parts of this method was written at 2337 meters in 
+            the Hüffihütte, Kanton Uri</remarks>
+            <param name="theClass"></param>
+            <param name="supressWarnings"></param>
+        </member>
+        <member name="M:NUnit.Framework.TestSuite.#ctor(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="theClass"></param>
+        </member>
+        <member name="M:NUnit.Framework.TestSuite.AddTest(NUnit.Framework.ITest)">
+            <summary>Adds a test to the suite.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestSuite.AddTestSuite(System.Type)">
+            <summary>Adds the tests from the given class to the suite</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestSuite.GetConstructor(System.Type)">
+            <summary>Gets a constructor which takes a single string as
+            its argument.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestSuite.Run(NUnit.Framework.TestResult)">
+            <summary>Runs the Tests and collects their result in a
+            TestResult.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestSuite.RunTest(NUnit.Framework.ITest,NUnit.Framework.TestResult)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+            <param name="result"></param>
+        </member>
+        <member name="M:NUnit.Framework.TestSuite.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:NUnit.Framework.TestSuite.Name">
+            <summary>
+            Returns the name of the suite. Not all test suites have a name
+            and this method can return null.
+            </summary>
+        </member>
+        <member name="P:NUnit.Framework.TestSuite.CountTestCases">
+            <summary>
+            The number of test cases that will be run by this test.
+            </summary>
+        </member>
+        <member name="P:NUnit.Framework.TestSuite.TestCount">
+            <value>The number of Tests in this suite.</value>
+        </member>
+        <member name="P:NUnit.Framework.TestSuite.Item(System.Int32)">
+            <value>The test at the given index.</value>
+            <remarks>Formerly TestAt(int).</remarks>
+        </member>
+        <member name="P:NUnit.Framework.TestSuite.Tests">
+            <value>The Tests as a Test[].</value>
+        </member>
+        <member name="T:NUnit.Framework.TestSuite.WarningFail">
+            <summary>A test which will fail and log a warning
+            message.</summary>
+        </member>
+        <member name="T:NUnit.Framework.TestCase">
+            <summary>A test case defines the fixture to run multiple Tests.</summary>
+            <remarks> To define a test case
+            <list type="number">
+            <item><description>implement a subclass of TestCase</description></item>
+            <item><description>define instance variables that store the state
+            of the fixture</description></item>
+            <item><description>initialize the fixture state by overriding
+            <c>SetUp</c></description></item>
+            <item><description>clean-up after a test by overriding
+            <c>TearDown</c></description></item>
+            </list>
+            Each test runs in its own fixture so there can be no side effects 
+            among test runs.
+            <example>Here is an example:
+            <code>
+            public class MathTest: TestCase {
+              protected double fValue1;
+              protected double fValue2;
+            
+              public MathTest(string name) : base(name) {}
+            
+              protected override void SetUp() {
+                fValue1= 2.0;
+                fValue2= 3.0;
+              }
+            }</code>
+            </example>
+            
+            For each test implement a method which interacts with the fixture.
+            Verify the expected results with Assertions specified by calling 
+            <c>Assert</c> with a bool.
+            <code>
+               protected void TestAdd() {
+                   double result= fValue1 + fValue2;
+                   Assert(result == 5.0);
+               }
+            </code>
+            Once the methods are defined you can run them. The framework supports
+            both a static type safe and more dynamic way to run a test.
+            In the static way you override the runTest method and define the method
+            to be invoked.
+            <code>
+            protected class AddMathTest: TestCase {
+              public void AddMathTest(string name) : base(name) {}
+              protected override void RunTest() { TestAdd(); }
+            }
+            
+            test test= new AddMathTest("Add");
+            test.Run();
+            </code>
+            The dynamic way uses reflection to implement <c>RunTest</c>. It
+            dynamically finds and invokes a method. In this case the name of the
+            test case has to correspond to the test method to be run.
+            <code>
+            test= new MathTest("TestAdd");
+            test.Run();
+            </code>
+            The Tests to be run can be collected into a <see cref="T:NUnit.Framework.TestSuite"/>.
+            NUnit provides different test runners which can run a test suite
+            and collect the results.
+            A test runner either expects a static property <c>Suite</c> as the entry
+            point to get a test to run or it will extract the suite automatically.
+            <code>
+            public static ITest Suite {
+               get {
+                 suite.AddTest(new MathTest("TestAdd"));
+                 suite.AddTest(new MathTest("TestDivideByZero"));
+                 return suite;
+               }
+             }
+            </code></remarks>
+            <seealso cref="T:NUnit.Framework.TestResult"/>
+            <seealso cref="T:NUnit.Framework.TestSuite"/>
+        </member>
+        <member name="T:NUnit.Framework.Assertion">
+            <summary>A set of Assert methods.</summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.#ctor">
+            <summary>
+            Protect constructor since it is a static only class
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.Assert(System.String,System.Boolean)">
+            <summary>
+            Asserts that a condition is true. If it isn't it throws
+            an <see cref="T:NUnit.Framework.AssertionFailedError"/>.
+            </summary>
+            <param name="message">The message to display is the condition
+            is false</param>
+            <param name="condition">The evaluated condition</param>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.Assert(System.Boolean)">
+            <summary>
+            Asserts that a condition is true. If it isn't it throws
+            an <see cref="T:NUnit.Framework.AssertionFailedError"/>.
+            </summary>
+            <param name="condition">The evaluated condition</param>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.AssertEquals(System.Double,System.Double,System.Double)">
+            <summary>
+            /// Asserts that two doubles are equal concerning a delta. If the
+            expected value is infinity then the delta value is ignored.
+            </summary>
+            <param name="expected">The expected value</param>
+            <param name="actual">The actual value</param>
+            <param name="delta">The maximum acceptable difference between the
+            the expected and the actual</param>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.AssertEquals(System.Single,System.Single,System.Single)">
+            <summary>
+            /// Asserts that two singles are equal concerning a delta. If the
+            expected value is infinity then the delta value is ignored.
+            </summary>
+            <param name="expected">The expected value</param>
+            <param name="actual">The actual value</param>
+            <param name="delta">The maximum acceptable difference between the
+            the expected and the actual</param>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.AssertEquals(System.Object,System.Object)">
+            <summary>Asserts that two objects are equal. If they are not
+            an <see cref="T:NUnit.Framework.AssertionFailedError"/> is thrown.</summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.AssertEquals(System.String,System.Double,System.Double,System.Double)">
+            <summary>Asserts that two doubles are equal concerning a delta.
+            If the expected value is infinity then the delta value is ignored.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.AssertEquals(System.String,System.Single,System.Single,System.Single)">
+            <summary>Asserts that two floats are equal concerning a delta.
+            If the expected value is infinity then the delta value is ignored.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.AssertEquals(System.String,System.Object,System.Object)">
+            <summary>Asserts that two objects are equal. If they are not
+            an <see cref="T:NUnit.Framework.AssertionFailedError"/> is thrown.</summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.AssertNotNull(System.Object)">
+            <summary>Asserts that an object isn't null.</summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.AssertNotNull(System.String,System.Object)">
+            <summary>Asserts that an object isn't null.</summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.AssertNull(System.Object)">
+            <summary>Asserts that an object is null.</summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.AssertNull(System.String,System.Object)">
+            <summary>Asserts that an object is null.</summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.AssertSame(System.Object,System.Object)">
+            <summary>Asserts that two objects refer to the same object. If they
+            are not the same an <see cref="T:NUnit.Framework.AssertionFailedError"/> is thrown.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.AssertSame(System.String,System.Object,System.Object)">
+            <summary>Asserts that two objects refer to the same object. 
+            If they are not an <see cref="T:NUnit.Framework.AssertionFailedError"/> is thrown.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.Fail">
+            <summary>Fails a test with no message.</summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.Fail(System.String)">
+            <summary>Fails a test with the given message.</summary>
+        </member>
+        <member name="F:NUnit.Framework.TestCase.fName">
+            <summary>the name of the test case.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestCase.#ctor">
+            <summary>Constructs a test case with no name.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestCase.#ctor(System.String)">
+            <summary>Constructs a test case with the given name.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestCase.CreateResult">
+            <summary>Creates a default <see cref="T:NUnit.Framework.TestResult"/> object.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestCase.Run">
+            <summary>A convenience method to run this test, collecting the
+            results with a default <see cref="T:NUnit.Framework.TestResult"/> object.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestCase.Run(NUnit.Framework.TestResult)">
+            <summary>Runs the test case and collects the results in
+            TestResult.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestCase.RunBare">
+            <summary>Runs the bare test sequence.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestCase.RunTest">
+            <summary>Override to run the test and Assert its state.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestCase.SetUp">
+            <summary>
+            Sets up the fixture, for example, open a network connection.
+            This method is called before a test is executed.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.TestCase.TearDown">
+            <summary>
+            Tears down the fixture, for example, close a network
+            connection. This method is called after a test is executed.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.TestCase.ToString">
+            <summary>
+            Returns a string representation of the test case.
+            </summary>
+        </member>
+        <member name="P:NUnit.Framework.TestCase.CountTestCases">
+            <value>Counts the number of test cases executed by
+            Run(TestResult result).</value>
+        </member>
+        <member name="P:NUnit.Framework.TestCase.Name">
+            <value>The name of the test case.</value>
+        </member>
+        <member name="M:NUnit.Framework.TestSuite.WarningFail.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:NUnit.Framework.TestSuite.WarningFail.RunTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.ActiveTestSuite.Run(NUnit.Framework.TestResult)">
+            <summary>
+            
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:NUnit.Extensions.ActiveTestSuite.BaseRunTest(NUnit.Framework.ITest,NUnit.Framework.TestResult)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+            <param name="result"></param>
+        </member>
+        <member name="M:NUnit.Extensions.ActiveTestSuite.RunTest(NUnit.Framework.ITest,NUnit.Framework.TestResult)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+            <param name="result"></param>
+        </member>
+        <member name="M:NUnit.Extensions.ActiveTestSuite.RunFinished(NUnit.Framework.ITest)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+        </member>
+        <member name="T:NUnit.Extensions.ActiveTestSuite.ThreadLittleHelper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.ActiveTestSuite.ThreadLittleHelper.#ctor(NUnit.Framework.ITest,NUnit.Framework.TestResult,NUnit.Extensions.ActiveTestSuite)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+            <param name="result"></param>
+            <param name="suite"></param>
+        </member>
+        <member name="M:NUnit.Extensions.ActiveTestSuite.ThreadLittleHelper.Run">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Runner.AssemblyTestCollector">
+            <summary>
+            Collects the names of all classes in an assembly that are tests.
+            </summary>
+        </member>
+        <member name="T:NUnit.Runner.ITestCollector">
+            <summary>
+               Collects Test classes to be presented by the TestSelector.
+             <see foocref="TestSelector"/>
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.ITestCollector.CollectTestsClassNames">
+            <summary>
+               Returns an array of FullNames for classes that are tests.
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.AssemblyTestCollector.#ctor(System.String,NUnit.Runner.StandardLoader)">
+            <summary>
+            Create a new AssemblyTestCollector for the specified 
+            assembly, and uses the supplied loader to load the tests
+            from the assembly.
+            </summary>
+            <param name="assemblyName">The file name of the assembly
+            from which to load classes</param>
+            <param name="loader">An instance if the standard loader to 
+            use for loading tests from the assembly.</param>
+        </member>
+        <member name="M:NUnit.Runner.AssemblyTestCollector.#ctor(System.String)">
+            <summary>
+            Create a new AssemblyTestCollector for the specified 
+            assembly.
+            </summary>
+            <param name="assemblyName">The file name of the assembly
+            from which to load classes.</param>
+        </member>
+        <member name="M:NUnit.Runner.AssemblyTestCollector.CollectTestsClassNames">
+            <summary>
+            returns a System.String[] of FullNames for all test classes 
+            contained within the assembly.
+            Implements ITestCollector.CollectTestsClassNames()
+            </summary>
+        </member>
+        <member name="T:NUnit.Framework.AssertionFailedError">
+            <summary>
+            Thrown when an assertion failed.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.AssertionFailedError.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Serialization Constructor
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.AssertionFailedError.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:NUnit.Runner.BaseTestRunner">
+            <summary>
+            Base class for all test runners.
+            </summary>
+            <remarks>
+            
+            </remarks>
+        </member>
+        <member name="T:NUnit.Framework.ITestListener">
+            <summary>A Listener for test progress</summary>
+        </member>
+        <member name="M:NUnit.Framework.ITestListener.AddError(NUnit.Framework.ITest,System.Exception)">
+            <summary>An error occurred.</summary>
+        </member>
+        <member name="M:NUnit.Framework.ITestListener.AddFailure(NUnit.Framework.ITest,NUnit.Framework.AssertionFailedError)">
+            <summary>A failure occurred.</summary>
+        </member>
+        <member name="M:NUnit.Framework.ITestListener.EndTest(NUnit.Framework.ITest)">
+            <summary>A test ended.</summary>
+        </member>
+        <member name="M:NUnit.Framework.ITestListener.StartTest(NUnit.Framework.ITest)">
+            <summary>A test started.</summary>
+        </member>
+        <member name="F:NUnit.Runner.BaseTestRunner.SUITE_PROPERTYNAME">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.AddError(NUnit.Framework.ITest,System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+            <param name="t"></param>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.AddFailure(NUnit.Framework.ITest,NUnit.Framework.AssertionFailedError)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+            <param name="t"></param>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.EndTest(NUnit.Framework.ITest)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.ElapsedTimeAsString(System.Int64)">
+            <summary>
+            Returns the formatted string of the elapsed time.
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.ExtractClassName(System.String)">
+            <summary>
+            Extract the class name from a string in VA/Java style
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.FilterStack(System.String)">
+            <summary>
+            Filters stack frames from internal NUnit classes
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.GetFilteredTrace(System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.GetPreference(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.GetLoader">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.GetTest(System.String)">
+            <summary>
+            Returns the ITest corresponding to the given suite. This is
+            a template method, subclasses override RunFailed(), ClearStatus().
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.LoadSuiteClass(System.String)">
+            <summary>
+            Returns the loaded Class for a suite name. 
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.ReadPrefsFromFile(System.Collections.Specialized.NameValueCollection@,System.IO.FileStream)">
+            <summary>
+            Real method reads name/value pairs, populates, or maybe just
+            deserializes...
+            </summary>
+            <param name="prefs"></param>
+            <param name="fs"></param>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.RunFailed(System.String)">
+            <summary>
+            Override to define how to handle a failed loading of a test suite.
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.Truncate(System.String)">
+            <summary>
+            Truncates a String to the maximum length.
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.StartTest(NUnit.Framework.ITest)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.ProcessArguments(System.String[],System.Boolean@)">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <param name="wait"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.SetLoading(System.Boolean)">
+            <summary>
+            Sets the loading behaviour of the test runner
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.BaseTestRunner.UseReloadingTestSuiteLoader">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:NUnit.Runner.ClassPathTestCollector">
+            <summary>
+            A TestCollector that consults the
+            class path. It considers all classes on the class path
+            excluding classes in JARs. It leaves it up to subclasses
+            to decide whether a class is a runnable Test.
+            <see cref="T:NUnit.Runner.ITestCollector"/>
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.ClassPathTestCollector.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.ClassPathTestCollector.CollectTestsClassNames">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.ClassPathTestCollector.ClassNameFromFile(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="classFileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.ClassPathTestCollector.IsTestClass(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="classFileName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NUnit.Extensions.ExceptionTestCase">
+            <summary>A TestCase that expects an Exception of class fExpected
+            to be thrown.</summary>
+            <remarks> The other way to check that an expected exception is thrown is:
+            <code>
+            try {
+              ShouldThrow();
+            }catch (SpecialException) {
+              return;
+            }
+            Assertion.Fail("Expected SpecialException");
+            </code>
+            
+            To use ExceptionTestCase, create a TestCase like:
+            <code>
+            new ExceptionTestCase("TestShouldThrow", typeof(SpecialException));
+            </code></remarks>
+        </member>
+        <member name="M:NUnit.Extensions.ExceptionTestCase.#ctor(System.String,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:NUnit.Extensions.ExceptionTestCase.RunTest">
+            <summary>Execute the test method expecting that an Exception of
+            class fExpected or one of its subclasses will be thrown.</summary>
+        </member>
+        <member name="T:NUnit.Framework.ExpectExceptionAttribute">
+            <summary>
+            The given exception should be thrown by the annotated method.
+            </summary>
+            <remarks>
+            To use this attribute, attach it to a method in a
+            <see cref="T:NUnit.Framework.TestCase"/> subclass.
+            <example>Here is an example:
+            <code>
+            public class FooTest : TestCase {
+              public ExpectExceptionTest(string name) : base(name) {}
+              [ExpectException(typeof(ArgumentException))]
+              [ExpectException(typeof(IndexOutOfRangeException))]
+              public void TestBar() {
+                throw new ArgumentException("bad argument");
+              }
+            }
+            </code>
+            </example>
+            </remarks>
+        </member>
+        <member name="M:NUnit.Framework.ExpectExceptionAttribute.#ctor(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="exceptionExpected"></param>
+        </member>
+        <member name="M:NUnit.Framework.ExpectExceptionAttribute.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:NUnit.Framework.ExpectExceptionAttribute.ExceptionExpected">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Runner.IFailureDetailView">
+            <summary>
+               A view to show details about a failure
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.IFailureDetailView.Clear">
+            <summary>
+            Clears the view
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.IFailureDetailView.GetComponent">
+            <summary>
+            Returns the component used to present the TraceView
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.IFailureDetailView.ShowFailure(NUnit.Framework.TestFailure)">
+            <summary>
+            Shows details of a TestFailure
+            </summary>
+        </member>
+        <member name="T:NUnit.Framework.IProtectable">
+            <summary>
+            An <c>IProtectable</c> can be run and can throw an Exception.
+            </summary>
+            <seealso cref="T:NUnit.Framework.TestResult"/>
+        </member>
+        <member name="M:NUnit.Framework.IProtectable.Protect">
+            <summary>Run the the following method protected.</summary>
+        </member>
+        <member name="T:NUnit.Runner.ITestLoader">
+            <summary>
+            Basic contract governing loading of tests
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.ITestLoader.LoadTest(System.String)">
+            <summary>
+            Loads an instance of the test class specified by the name.
+            Loadable in most cases will be an assembly qualified name.
+            
+            Other loaders could dynamically construct a test case from
+            an XML file or a database record.
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.ITestLoader.GetLoadName(NUnit.Framework.ITest)">
+            <summary>
+            Return the name used by the loader to load an instance 
+            of the supplied test
+            </summary>
+            <param name="test"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NUnit.Runner.LoaderException">
+            <summary>
+            Error thrown during assembly and class loading problems
+            </summary>
+        </member>
+        <member name="T:NUnit.Framework.NUnitException">
+            <summary>
+            Thrown when an assertion failed. Here to preserve the inner
+            exception and hence its stack trace.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.NUnitException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Serialization Constructor
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.NUnitException.#ctor(System.String)">
+            <summary>
+            Standard constructor
+            </summary>
+            <param name="message">The error message that explains 
+            the reason for the exception</param>
+        </member>
+        <member name="M:NUnit.Framework.NUnitException.#ctor(System.String,System.Exception)">
+            <summary>
+            Standard constructor
+            </summary>
+            <param name="message">The error message that explains 
+            the reason for the exception</param>
+            <param name="inner">The exception that caused the 
+            current exception</param>
+        </member>
+        <member name="P:NUnit.Framework.NUnitException.IsAssertionFailure">
+            <summary>
+            Indicates that this exception wraps an AssertionFailedError
+            exception
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.LoaderException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Serialization Constructor
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.LoaderException.#ctor(System.String,System.Exception)">
+            <summary>
+            Standard constructor
+            </summary>
+            <param name="message">The error message that explains 
+            the reason for the exception</param>
+            <param name="innerException">The exception that caused the 
+            current exception</param>
+        </member>
+        <member name="M:NUnit.Runner.LoaderException.#ctor(System.String)">
+            <summary>
+            Standard constructor
+            </summary>
+            <param name="message">The error message that explains 
+            the reason for the exception</param>
+        </member>
+        <member name="T:NUnit.Runner.ITestSuiteLoader">
+            <summary>
+            An interface to define how a test suite should be loaded.
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.ITestSuiteLoader.Load(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Runner.LoadingClassPathTestCollector">
+            <summary>
+            An implementation of a TestCollector that loads
+            all classes on the class path and tests whether
+            it is assignable from ITest or provides a static Suite property.
+            <see cref="T:NUnit.Runner.ITestCollector"/>
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.LoadingClassPathTestCollector.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.LoadingClassPathTestCollector.IsTestClass(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="classFileName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NUnit.Runner.ReflectionUtils">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.ReflectionUtils.HasTests(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="testClass"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.ReflectionUtils.GetAssemblyClasses(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="assemblyName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NUnit.Runner.ReloadingTestSuiteLoader">
+            <summary>A TestSuite loader that can reload classes.</summary>
+        </member>
+        <member name="M:NUnit.Runner.ReloadingTestSuiteLoader.Load(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="suiteClassName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.ReloadingTestSuiteLoader.Reload(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="aClass"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NUnit.Extensions.RepeatedTest">
+            <summary>A Decorator that runs a test repeatedly.</summary>
+        </member>
+        <member name="T:NUnit.Extensions.TestDecorator">
+            <summary>A Decorator for Tests.</summary>
+            <remarks>Use TestDecorator as the base class
+            for defining new test decorators. TestDecorator subclasses
+            can be introduced to add behaviour before or after a test
+            is run.</remarks>
+        </member>
+        <member name="F:NUnit.Extensions.TestDecorator.fTest">
+            <summary>
+            A reference to the test that is being decorated
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.TestDecorator.#ctor(NUnit.Framework.ITest)">
+            <summary>
+            Creates a decorator for the supplied test
+            </summary>
+            <param name="test">The test to be decorated</param>
+        </member>
+        <member name="M:NUnit.Extensions.TestDecorator.Run(NUnit.Framework.TestResult)">
+            <summary>
+            
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:NUnit.Extensions.TestDecorator.BasicRun(NUnit.Framework.TestResult)">
+            <summary>The basic run behaviour.</summary>
+        </member>
+        <member name="M:NUnit.Extensions.TestDecorator.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:NUnit.Extensions.TestDecorator.CountTestCases">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:NUnit.Extensions.TestDecorator.GetTest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.RepeatedTest.#ctor(NUnit.Framework.ITest,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+            <param name="repeat"></param>
+        </member>
+        <member name="M:NUnit.Extensions.RepeatedTest.Run(NUnit.Framework.TestResult)">
+            <summary>
+            
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:NUnit.Extensions.RepeatedTest.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:NUnit.Extensions.RepeatedTest.CountTestCases">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Runner.UnloadingLoader">
+            <summary>
+            Same as StandardLoader.
+            TODO: Clean up "Unloading" concepts in framework
+            </summary>
+        </member>
+        <member name="T:NUnit.Runner.StandardLoader">
+            <summary>
+            TestLoader that 
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.StandardLoader.CoerceTestFrom(System.Type)">
+            <summary>
+            Attempts by all means possible to return a test for the given type.
+            Check in the following order:
+            1. For a static Suite property, that implments ITest.
+            2. Tries to dynamically create a suite for the type.
+            </summary>
+            <param name="testClass"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.StandardLoader.LoadTest(System.String,System.String)">
+            <summary>
+            Searches for the type specified by the testClassName in the 
+            specified assembly, and if found, attempts to coerce a test
+            from the type.
+            </summary>
+            <param name="testClassName"></param>
+            <param name="assemblyFileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.StandardLoader.IsTestClass(System.Type)">
+            <summary>
+            Determines if a Type is a test.
+            </summary>
+            <param name="typeToCheck"></param>
+        </member>
+        <member name="M:NUnit.Runner.StandardLoader.GetStaticSuiteProperty(System.Type)">
+            <summary>
+            Uses reflection to obtain the suite property for the Type
+            </summary>
+            <param name="testClass"></param>
+            <returns>The Suite property of the Type, or null if the property 
+            does not exist</returns>
+        </member>
+        <member name="M:NUnit.Runner.StandardLoader.GetLoadName(NUnit.Framework.ITest)">
+            <summary>
+            Implements ILoader.GetLoadName().
+            </summary>
+            <param name="test"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.StandardLoader.LoadTest(System.String)">
+            <summary>
+            Implements ILoader.LoadTest().
+            Loads an instance of the test class specified by the 
+            AssemblyQualifiedName. The assembly qualified name
+            contains the Full Clas Name, followed by the CodeBase
+            (file or url) of the assembly. If the class is found,
+            the loader will attempt to return a TestSuite for the
+            class. Trying first the static Suite property, followed 
+            by trying to dynamically create a suite for the class.
+            </summary>
+            <param name="assemblyQualifiedName">The qualified name
+            for the class taking the form 
+            "Namespace.ClassName,AssemblyFileName" without the quotes.
+            Assembly file name can be a fulied qualified path name, or
+            a URL.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.StandardLoader.GetTestTypes(System.String)">
+            <summary>
+            Examies all types in the specified assembly and returns a list of those
+            types that can be coerced into tests.
+            </summary>
+            <param name="assemblyFileName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NUnit.Runner.StandardTestSuiteLoader">
+            <summary>
+            The standard test suite loader. It can only load the same
+            class once.
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.StandardTestSuiteLoader.Load(System.String)">
+            <summary>
+            Loads 
+            </summary>
+            <param name="testClassName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.StandardTestSuiteLoader.Reload(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="aClass"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NUnit.Runner.TestCaseClassLoader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.TestCaseClassLoader.LoadClass(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="resolve"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Runner.TestCaseClassLoader.IsExcluded(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NUnit.Framework.TestFailure">
+            <summary>
+            A <c>TestFailure</c> collects a failed test together with
+            the caught exception.
+            </summary>
+            <seealso cref="T:NUnit.Framework.TestResult"/>
+        </member>
+        <member name="M:NUnit.Framework.TestFailure.#ctor(NUnit.Framework.ITest,System.Exception)">
+            <summary>
+            Constructs a TestFailure with the given test and exception.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.TestFailure.ToString">
+            <summary>Returns a short description of the failure.</summary>
+        </member>
+        <member name="P:NUnit.Framework.TestFailure.FailedTest">
+            <value>Gets the failed test.</value>
+        </member>
+        <member name="P:NUnit.Framework.TestFailure.IsFailure">
+            <value>True if it's a failure, false if error.</value>
+        </member>
+        <member name="P:NUnit.Framework.TestFailure.ThrownException">
+            <value>Gets the thrown exception.</value>
+        </member>
+        <member name="T:NUnit.Framework.TestResult">
+            <summary>A <c>TestResult</c> collects the results of executing
+            a test case. It is an instance of the Collecting Parameter pattern.
+            </summary><remarks>
+            The test framework distinguishes between failures and errors.
+            A failure is anticipated and checked for with assertions. Errors are
+            unanticipated problems like an <c>ArgumentOutOfRangeException</c>.
+            </remarks><seealso cref="T:NUnit.Framework.ITest"/>
+        </member>
+        <member name="M:NUnit.Framework.TestResult.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.TestResult.AddError(NUnit.Framework.ITest,System.Exception)">
+            <summary>
+            Adds an error to the list of errors. The passed in exception
+            caused the error.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.TestResult.AddFailure(NUnit.Framework.ITest,NUnit.Framework.AssertionFailedError)">
+            <summary>
+            Adds a failure to the list of failures. The passed in
+            exception caused the failure.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.TestResult.AddListener(NUnit.Framework.ITestListener)">
+            <summary>Registers a TestListener.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestResult.RemoveListener(NUnit.Framework.ITestListener)">
+            <summary>Unregisters a TestListener</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestResult.CloneListeners">
+            <summary>Returns a copy of the listeners.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestResult.EndTest(NUnit.Framework.ITest)">
+            <summary>Informs the result that a test was completed.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestResult.StartTest(NUnit.Framework.ITest)">
+            <summary>Informs the result that a test will be started.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestResult.Run(NUnit.Framework.TestCase)">
+            <summary>Runs a TestCase.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestResult.RunProtected(NUnit.Framework.ITest,NUnit.Framework.IProtectable)">
+            <summary>Runs a TestCase.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestResult.Stop">
+            <summary>Marks that the test run should stop.</summary>
+        </member>
+        <member name="P:NUnit.Framework.TestResult.RunCount">
+            <value>Gets the number of run tests.</value>
+        </member>
+        <member name="P:NUnit.Framework.TestResult.ErrorCount">
+            <value>Gets the number of detected errors.</value>
+        </member>
+        <member name="P:NUnit.Framework.TestResult.FailureCount">
+            <value>Gets the number of detected failures.</value>
+        </member>
+        <member name="P:NUnit.Framework.TestResult.ShouldStop">
+            <summary>Checks whether the test run should stop.</summary>
+        </member>
+        <member name="P:NUnit.Framework.TestResult.WasSuccessful">
+            <value>Returns whether the entire test was successful or not.</value>
+        </member>
+        <member name="P:NUnit.Framework.TestResult.Errors">
+            <value>Returns a TestFailure[] for the errors.</value>
+        </member>
+        <member name="P:NUnit.Framework.TestResult.Failures">
+            <value>Returns a TestFauiler[] for the failures.</value>
+        </member>
+        <member name="T:NUnit.Framework.TestResult.ProtectedProtect">
+            <summary>Runs a TestCase.</summary>
+        </member>
+        <member name="M:NUnit.Framework.TestResult.ProtectedProtect.#ctor(NUnit.Framework.TestCase)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+        </member>
+        <member name="M:NUnit.Framework.TestResult.ProtectedProtect.Protect">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.TestSetup">
+            <summary>A Decorator to set up and tear down additional fixture state.
+            </summary><remarks>
+            Subclass TestSetup and insert it into your tests when you want
+            to set up additional state once before the tests are run.</remarks>
+        </member>
+        <member name="M:NUnit.Extensions.TestSetup.#ctor(NUnit.Framework.ITest)">
+            <summary>
+            
+            </summary>
+            <param name="test"></param>
+        </member>
+        <member name="M:NUnit.Extensions.TestSetup.Run(NUnit.Framework.TestResult)">
+            <summary>
+            
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:NUnit.Extensions.TestSetup.SetUp">
+            <summary>Sets up the fixture. Override to set up additional fixture
+            state.</summary>
+        </member>
+        <member name="M:NUnit.Extensions.TestSetup.TearDown">
+            <summary>Tears down the fixture. Override to tear down the additional
+            fixture state.</summary>
+        </member>
+        <member name="T:NUnit.Extensions.TestSetup.ProtectedProtect">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.TestSetup.ProtectedProtect.#ctor(NUnit.Extensions.TestSetup,NUnit.Framework.TestResult)">
+            <summary>
+            
+            </summary>
+            <param name="testSetup"></param>
+            <param name="testResult"></param>
+        </member>
+        <member name="M:NUnit.Extensions.TestSetup.ProtectedProtect.NUnit#Framework#IProtectable#Protect">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NUnit.Runner.Version">
+            <summary>
+            This class defines the current version of NUnit
+            </summary>
+        </member>
+        <member name="M:NUnit.Runner.Version.id">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
