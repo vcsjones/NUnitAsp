@@ -189,6 +189,9 @@ namespace NUnit.Extensions.Asp
 			string target = match.Groups["target"].Captures[0].Value;
 			string argument = match.Groups["argument"].Captures[0].Value;
 
+            // Workaround for .NET v1.1
+            target = target.Replace('$', ':'); 
+
 			EnterInputValue("__EVENTTARGET", target);
 			EnterInputValue("__EVENTARGUMENT", "argument");
 			Submit();
