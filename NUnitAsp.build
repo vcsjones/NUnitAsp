@@ -5,13 +5,15 @@
 	<property name="source.dir" value="source" />
 	<property name="lib.dir" value="lib" />
 	<property name="build.dir" value="build" />
+	<property name="testPagesBuild.dir" value="${source.dir}\NUnitAspTestPages\bin" />
 	
 	<property name="dll.path" value="${build.dir}\NUnitAsp.dll" />
 	<property name="testdll.path" value="${build.dir}\NUnitAspTest.dll" />
-	<property name="webdll.path" value="${source.dir}\NUnitAspTestPages\bin\NUnitAspTestPages.dll" />
+	<property name="webdll.path" value="${testPagesBuild.dir}\NUnitAspTestPages.dll" />
 	
 	<target name="build_dir">
 		<mkdir dir="${build.dir}" />
+		<mkdir dir="${testPagesBuild.dir}" />
 	</target>
 	
 	<target name="build" depends="compile_nunitasp, compile_nunitasptest, compile_nunitasptestpages" description="Build entire project">
@@ -76,7 +78,10 @@
 	</target>
 	
 	<target name="clean" description="Deletes all build files">
+		<!-- Hack to avoid failure if dir not there -->
 		<mkdir dir="${build.dir}" failonerror="false" />
+		<mkdir dir="${testPagesBuild.dir}" failonerror="false" />
+		
 		<delete dir="${build.dir}" />f
 		<delete>
 			<fileset>
