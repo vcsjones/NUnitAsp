@@ -44,7 +44,7 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		/// <param name="aspId">The ID of the control to test (look in the
 		/// page's ASP.NET source code for the ID).</param>
-		public ControlTester(string aspId) : this(aspId, new WebForm(HttpClient.Default))
+		public ControlTester(string aspId) : this(aspId, new WebFormTester(HttpClient.Default))
 		{
 		}
 

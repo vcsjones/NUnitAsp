@@ -25,116 +25,17 @@ using System.Xml;
 
 namespace NUnit.Extensions.Asp
 {
-
 	/// <summary>
-	/// A tester for an ASP.NET form.  Most of the methods in this class aren't meant to
-	/// be called by third parties.
-	/// 
-	/// The API for this class will change in future releases.  
+	/// Obsolete; use WebFormTester instead.
 	/// </summary>
-	public class WebForm : Tester
+	[Obsolete("Rename to WebFormTester.  This class will be removed in future versions.")]
+	public class WebForm : WebFormTester
 	{
-		private HttpClient browser;
-
 		/// <summary>
-		/// Create the tester and link it to an ASP.NET web form.
+		/// Obsolete; use WebFormTester instead.
 		/// </summary>
-		/// <param name="browser">The browser used to load this page.</param>
-		public WebForm(HttpClient browser)
+		public WebForm(HttpClient browser) : base(browser)
 		{
-			this.browser = browser;
-		}
-
-		/// <summary>
-		/// The browser instance used to load the page containing the thing being tested.
-		/// </summary>
-		protected internal override HttpClient Browser
-		{
-			get
-			{
-				return browser;
-			}
-		}
-
-		/// <summary>
-		/// Returns the HTML ID of a child control.  Useful when implementing
-		/// testers for container controls that do HTML ID mangling.  This method
-		/// is very likely to change in a future release.
-		/// </summary>
-		protected internal override string GetChildElementHtmlId(string aspId)
-		{
-			return aspId;
-		}
-
-		/// <summary>
-		/// Post this page to the server.  (That is, the page that contains the form being tested.)
-		/// </summary>
-		protected internal override void Submit()
-		{
-			browser.SubmitForm(this);
-		}
-
-		/// <summary>
-		/// The HTML tag this tester corresponds to.
-		/// </summary>
-		protected HtmlTag Tag
-		{
-			get
-			{
-				XmlNodeList formNodes = browser.CurrentPage.GetElementsByTagName("form");
-				WebAssert.AreEqual(1, formNodes.Count, "page form elements");
-				XmlElement formElement = (XmlElement)formNodes[0];
-
-				XmlAttribute id = formElement.Attributes["id"];
-				WebAssert.NotNull(id, "couldn't find web form's 'id' attribute");
-
-				return new HtmlTag(browser, id.Value, this);
-			}
-		}
-
-		/// <summary>
-		/// The "action" attribute of this form.
-		/// </summary>
-		protected internal string Action
-		{
-			get
-			{
-				return Tag.Attribute("action");
-			}
-		}
-
-		/// <summary>
-		/// The "method" attribute of this form.
-		/// </summary>
-		protected internal string Method
-		{
-			get
-			{
-				return Tag.Attribute("method");
-			}
-		}
-
-		/// <summary>
-		/// A human-readable description of the location of the control.
-		/// </summary>
-		public override string Description
-		{
-			get
-			{
-				return "web form '" + AspId + "'";
-			}
-		}
-
-		/// <summary>
-		/// The ASP.NET ID of the form being tested.  It corresponds to the
-		/// ID in the ASP.NET source code.
-		/// </summary>
-		public string AspId
-		{
-			get
-			{
-				return Tag.Attribute("id");
-			}
 		}
 	}
 }

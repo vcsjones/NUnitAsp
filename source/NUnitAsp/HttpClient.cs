@@ -124,7 +124,7 @@ namespace NUnit.Extensions.Asp
 			GetPage(url);
 		}
 
-		internal void SubmitForm(WebForm form)
+		internal void SubmitForm(WebFormTester form)
 		{
 			TrackUrlReferrer();
 			DoWebRequest(form.Action, form.Method, currentPage.FormVariables);
