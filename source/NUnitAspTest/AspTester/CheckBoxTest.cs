@@ -1,6 +1,7 @@
+#region Copyright (c) 2002, 2003, Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Little
+' Copyright (c) 2002, 2003, Brian Knowles, Jim Little
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -17,6 +18,7 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
 using NUnit.Framework;
@@ -46,6 +48,16 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			Assert("still shouldn't be checked - not submitted", !checkBox.Checked);
 			submit.Click();
 			Assert("should be checked", checkBox.Checked);
+		}
+
+		public void TestUncheck()
+		{
+			TestCheck();
+
+			checkBox.Checked = false;
+			Assert("still should be checked - not submitted", checkBox.Checked);
+			submit.Click();
+			Assert("shouldn't be checked", !checkBox.Checked);
 		}
 
         [ExpectedException(typeof(ControlDisabledException))]

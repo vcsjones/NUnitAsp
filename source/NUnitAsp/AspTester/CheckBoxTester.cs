@@ -1,6 +1,7 @@
+#region Copyright (c) 2002, 2003, Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Little
+' Copyright (c) 2002, 2003, Brian Knowles, Jim Little
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -17,6 +18,7 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
 
@@ -47,15 +49,16 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 			set
 			{
+				string inputName = GetAttributeValue("name");
 				if (value == true) 
 				{
 					string checkBoxValue = GetOptionalAttributeValue("value");
 					if (checkBoxValue == null) checkBoxValue = "on";
-					EnterInputValue(GetAttributeValue("name"), checkBoxValue);
+					EnterInputValue(inputName, checkBoxValue);
 				}
 				else
 				{
-					throw new ApplicationException("not implemented");
+					RemoveInputValue(inputName);
 				}
 			}
 		}	
