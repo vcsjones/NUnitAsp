@@ -306,6 +306,22 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "WebAssertTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "WebAssertTestPage.aspx.cs"
+                    DependentUpon = "WebAssertTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "WebAssertTestPage.aspx.resx"
+                    DependentUpon = "WebAssertTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "AspTester\ButtonTestPage.aspx"
                     BuildAction = "Content"
                 />

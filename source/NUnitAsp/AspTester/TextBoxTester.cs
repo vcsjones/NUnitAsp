@@ -80,12 +80,12 @@ namespace NUnit.Extensions.Asp.AspTester
 				}
 				else 
 				{
-					InternalAssert.Equal("input", Tag.Name, "tag name");
+					WebAssert.AreEqual("input", Tag.Name, "tag name");
 					string type = Tag.Attribute("type");
 					if (type == "password") return TextBoxMode.Password;
 					else 
 					{
-						InternalAssert.Equal("text", type, "type");
+						WebAssert.AreEqual("text", type, "type");
 						return TextBoxMode.SingleLine;
 					}
 				}

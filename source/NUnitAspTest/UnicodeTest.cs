@@ -31,7 +31,7 @@ namespace NUnit.Extensions.Asp.Test
 		protected override void SetUp()
 		{
 			base.SetUp();
-			Browser.GetPage(BaseUrl + "/UnicodeTestPage.aspx");
+			Browser.GetPage(BaseUrl + "UnicodeTestPage.aspx");
 		}
 
 		public void TestLabelText() 
@@ -42,7 +42,7 @@ namespace NUnit.Extensions.Asp.Test
 
 		public void TestCurrentPageText()
 		{
-			Assert("CurrentTextPage doesn't contain <html> tag",
+			AssertTrue("CurrentTextPage doesn't contain <html> tag",
 				Browser.CurrentPageText.IndexOf("<html>") != -1);
 		}
 	}

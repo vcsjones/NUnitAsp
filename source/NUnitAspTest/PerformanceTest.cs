@@ -38,7 +38,7 @@ namespace NUnit.Extensions.Asp.Test
 			TimeSpan calibratedTime = AdjustForSpeedOfComputer(runTime);
 			TimeSpan expectedTime = new TimeSpan(0, 0, 0, 0, 1000 / expectedTestsPerSecond);
 			string failureMessage = String.Format("calibrated test time must be better than {0} h:m:s but was {1}", expectedTime, calibratedTime);
-			Assert(failureMessage, calibratedTime <= expectedTime);
+			AssertTrue(failureMessage, calibratedTime <= expectedTime);
 		}
 
 		private TimeSpan AdjustForSpeedOfComputer(TimeSpan time)

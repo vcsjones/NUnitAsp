@@ -25,7 +25,7 @@
  * 
  * This file allows NUnitAsp to be used with NUnit.  To use, copy this file 
  * into your test project.  For additional information, see the NUnitAsp
- * documentation in your download package, or visit
+ * documentation in your download package or visit
  * http://nunitasp.sourceforge.net.
  * 
  *******************************************************************************************************************/
@@ -43,7 +43,7 @@ namespace NUnit.Extensions.Asp
 	/// Base class for NUnitAsp test fixtures.  Extend this class to use NUnitAsp.
 	/// </summary>
 	[TestFixture]
-	public abstract class WebFormTestCase : WebAssertion
+	public abstract class WebFormTestCase : CompatibilityAdapter
 	{
 		private bool setupCalled = false;
 
@@ -119,227 +119,169 @@ namespace NUnit.Extensions.Asp
 	}
 
 
-	/// <summary>
-	/// The data type of a column (use with AssertSortOrder)
-	/// </summary>
-	public enum DataType {String, DateTime, Int};
+
+
+
+
+
+
+
+// Everything below this line is for backwards compatibility and may be deleted.
 
 	/// <summary>
-	/// Assertions specific to NUnitAsp's web testers.
+	/// For backwards compatibility; will be deprecated in the future.
+	/// This class provides convenience methods for common assertions.  You
+	/// should use Assert and WebAssert methods instead.
 	/// </summary>
-	public class WebAssertion : Assertion
+	public class CompatibilityAdapter
 	{
 		/// <summary>
-		/// Asserts that a specific control is on the current web page, with the "Visible"
-		/// parameter set to "true."  This method does not assert that the control is actually
-		/// visible to the user.
+		/// For backwards compatibility; will be deprecated in the future.
+		/// </summary>
+		public static void AssertTrue(bool condition)
+		{
+			Assert.IsTrue(condition);
+		}
+
+		/// <summary>
+		/// For backwards compatibility; will be deprecated in the future.
+		/// </summary>
+		public static void AssertTrue(string message, bool condition)
+		{
+			Assert.IsTrue(condition, message);
+		}
+
+		/// <summary>
+		/// For backwards compatibility; will be deprecated in the future.
+		/// </summary>
+		public static void AssertEquals(object expected, object actual)
+		{
+			Assert.AreEqual(expected, actual);
+		}
+
+		/// <summary>
+		/// For backwards compatibility; will be deprecated in the future.
+		/// </summary>
+		public static void AssertEquals(string message, object expected, object actual)
+		{
+			Assert.AreEqual(expected, actual, message);
+		}
+
+		/// <summary>
+		/// For backwards compatibility; will be deprecated in the future.
+		/// </summary>
+		public static void AssertNotNull(object o)
+		{
+			Assert.IsNotNull(o);
+		}
+
+		/// <summary>
+		/// For backwards compatibility; will be deprecated in the future.
+		/// </summary>
+		public static void AssertNotNull(string message, object o)
+		{
+			Assert.IsNotNull(o, message);
+		}
+
+		/// <summary>
+		/// For backwards compatibility; will be deprecated in the future.
+		/// </summary>
+		public static void AssertNull(object o)
+		{
+			Assert.IsNull(o);
+		}
+
+		/// <summary>
+		/// For backwards compatibility; will be deprecated in the future.
+		/// </summary>
+		public static void AssertNull(string message, object o)
+		{
+			Assert.IsNull(o, message);
+		}
+
+		/// <summary>
+		/// For backwards compatibility; will be deprecated in the future.
+		/// </summary>
+		public static void AssertSame(object expected, object actual)
+		{
+			Assert.AreSame(expected, actual);
+		}
+
+		/// <summary>
+		/// For backwards compatibility; will be deprecated in the future.
+		/// </summary>
+		public static void AssertSame(string message, object expected, object actual)
+		{
+			Assert.AreSame(expected, actual, message);
+		}
+
+		/// <summary>
+		/// For backwards compatibility; will be deprecated in the future.
+		/// </summary>
+		public static void Fail(string message)
+		{
+			Assert.Fail(message);
+		}
+
+		/// <summary>
+		/// For backwards compatibility; will be deprecated in the future.
 		/// </summary>
 		public static void AssertVisibility(ControlTester tester, bool expectedVisibility)
 		{
-			string not = expectedVisibility ? "" : " not";
-			string message = String.Format("{0} control should{1} be visible (HTML ID: {2}; ASP location: {3})", tester.AspId, not, tester.HtmlId, tester.Description);
-			Assert(message, tester.Visible == expectedVisibility);
+			if (expectedVisibility) WebAssert.Visible(tester);
+			else WebAssert.NotVisible(tester);
 		}
 
 		/// <summary>
-		/// Asserts that two "rows" of strings are identical.
+		/// For backwards compatibility; will be deprecated in the future.
 		/// </summary>
 		public static void AssertEquals(string[] expected, string[] actual)
 		{
-			AssertEquals("", expected, actual);
+			WebAssert.AreEqual(expected, actual);
 		}
 
 		/// <summary>
-		/// Asserts that two "rows" of strings are identical.
+		/// For backwards compatibility; will be deprecated in the future.
 		/// </summary>
 		public static void AssertEquals(string message, string[] expected, string[] actual)
 		{
-			if (expected == null && actual == null) return;
-			if (actual == null || expected == null) Fail(message, expected, actual);
-			if (expected.Length != actual.Length) Fail(message, expected, actual);
-			if (!ArraysEqual(expected, actual)) Fail(message, expected, actual);
-		}
-
-		private static bool ArraysEqual(string[] expected, string[] actual)
-		{
-			for (int i = 0; i < expected.Length; i++)
-			{
-				if (expected[i] != actual[i]) return false;
-			}
-			return true;
+			WebAssert.AreEqual(expected, actual, message);
 		}
 
 		/// <summary>
-		/// Asserts that two "tables" of strings are identical.
+		/// For backwards compatibility; will be deprecated in the future.
 		/// </summary>
 		[CLSCompliant(false)]
 		public static void AssertEquals(string[][] expected, string[][] actual)
 		{
-			AssertEquals("", expected, actual);
+			WebAssert.AreEqual(expected, actual);
 		}
 
 		/// <summary>
-		/// Asserts that two "tables" of strings are identical.
+		/// For backwards compatibility; will be deprecated in the future.
 		/// </summary>
 		[CLSCompliant(false)]
 		public static void AssertEquals(string message, string[][] expected, string[][] actual)
 		{
-			if (expected == null && actual == null) return;
-			if (actual == null || expected == null) Fail(message, expected, actual);
-			if (expected.Length != actual.Length) Fail(message, expected, actual);
-
-			for (int i = 0; i < expected.Length; i++)
-			{
-				if (!ArraysEqual(expected[i], actual[i])) Fail(message, expected, actual);
-			}
+			WebAssert.AreEqual(expected, actual, message);
 		}
 
 		/// <summary>
-		/// Asserts that two "tables" of strings are identical, but permits ordering
-		/// differences.  Individual rows in the tables must match, but the order of the
-		/// rows may differ.
+		/// For backwards compatibility; will be deprecated in the future.
 		/// </summary>
 		[CLSCompliant(false)]
 		public static void AssertEqualsIgnoreOrder(string message, string[][] expected, string[][] actual)
 		{
-			if (expected.Length != actual.Length) Fail(message, expected, actual);
-
-			foreach (string[] row in actual)
-			{
-				AssertTableContainsRow(message, expected, actual, row);
-			}
-		}
-
-		private static void AssertTableContainsRow(string message, string[][] expected, string[][] actual, string[] actualRow)
-		{
-			foreach (string[] expectedRow in expected)
-			{
-				if (Flatten(expectedRow) == Flatten(actualRow)) return;
-			}
-			Fail(message, expected, actual);
-		}
-
-		private static void Fail(string message, string[] expected, string[] actual)
-		{
-			message += "\r\nexpected: " + RenderArray(expected);
-			message += "\r\n but was: " + RenderArray(actual);
-			Fail(message);
-		}
-
-		private static string RenderArray(string[] array)
-		{
-			if (array == null) return "<null>";
-			if (array.Length == 0) return "{}";
-
-			return "{\"" + string.Join("\", \"", array) + "\"}";
-		}
-
-		private static void Fail(string message, string[][] expected, string[][] actual)
-		{
-			message += "\r\nexpected: " + RenderDoubleArray(expected);
-			message += "\r\n but was: " + RenderDoubleArray(actual);
-			Fail(message);
-		}
-
-		private static string RenderDoubleArray(string[][] doubleArray)
-		{
-			if (doubleArray == null) return "<null>";
-			if (doubleArray.Length == 0) return "{}";
-
-			string result = "\r\n   {";
-			foreach (string[] array in doubleArray)
-			{
-				result += "\r\n      " + RenderArray(array);
-			}
-			return result + "\r\n   }";
-		}
-
-		private static string Flatten(string[] a)
-		{
-			if (a == null) return "null";
-
-			string result = "{";
-			foreach (string element in a)
-			{
-				result += "<" + element + ">";
-			}
-			return result + "}";
-		}
-
-		private static string Flatten(string[][] a)
-		{
-			if (a == null) return "null";
-
-			string result = "{";
-			foreach (string[] element in a)
-			{
-				result += "\r\n   " + Flatten(element);
-			}
-			return result + "\r\n}";
+			WebAssert.AreEqualIgnoringOrder(expected, actual, message);
 		}
 
 		/// <summary>
-		/// Asserts that the "rows" in a "table" of strings are sorted.
+		/// For backwards compatibility; will be deprecated in the future.
 		/// </summary>
-		/// <param name="message">A noun to display if the assertion fails.</param>
-		/// <param name="data">The table to check.</param>
-		/// <param name="column">The column that must be sorted.</param>
-		/// <param name="isAscending">'true' if the table should be sorted from low to high; 'false' if the table should be sorted from high to low.</param>
-		/// <param name="type">The type of data in the column that's sorted.</param>
 		[CLSCompliant(false)]
 		public static void AssertSortOrder(string message, string[][] data, int column, bool isAscending, DataType type)
 		{
-			string lastCell = null;
-			foreach (string[] row in data)
-			{
-				string cell = row[column];
-				if (lastCell == null) 
-				{
-					lastCell = cell;
-					continue;
-				}
-
-				bool sorted;
-				string orderName;
-				int comparison = Compare(cell, lastCell, type);
-				if (isAscending)
-				{
-					sorted = comparison >= 0;
-					orderName = "ascending";
-				}
-				else
-				{
-					sorted = comparison <= 0;
-					orderName = "descending";
-				}
-				if (!sorted) Fail(message + " should be sorted " + orderName + ".  Was: " + Flatten(data));
-				lastCell = cell;
-			}
-		}
-
-		private static int Compare(string a, string b, DataType type)
-		{
-			if (a == "" && b == "") return 0;
-			if (a == "") return -1;
-			if (b == "") return 1;
-
-			switch (type)
-			{
-				case DataType.String:
-					return a.CompareTo(b);
-				case DataType.Int:
-					if (a == "" && b == "") return 0;
-					int aInt = int.Parse(a);
-					int bInt = int.Parse(b);
-					return aInt.CompareTo(bInt);
-				case DataType.DateTime:
-					IFormatProvider formatter = CultureInfo.InvariantCulture.DateTimeFormat;
-					DateTime aDate = DateTime.Parse(a, formatter);
-					DateTime bDate = DateTime.Parse(b, formatter);
-					return aDate.CompareTo(bDate);
-				default:
-					throw new ApplicationException("Unknown data type comparison: " + type);
-			}
+			WebAssert.Sorted(data, column, isAscending, type, message);
 		}
 	}
 }

@@ -93,7 +93,7 @@ namespace NUnit.Extensions.Asp.Test
 			}
 			catch (HttpClient.BadStatusException e)
 			{
-				Assert(errorMessage, e.Status == HttpStatusCode.Unauthorized);
+				AssertTrue(errorMessage, e.Status == HttpStatusCode.Unauthorized);
 			}
 			finally
 			{

@@ -43,11 +43,11 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 
 		public void TestCheck()
 		{
-			Assert("should not be checked", !CheckBox.Checked);
+			AssertTrue("should not be checked", !CheckBox.Checked);
 			CheckBox.Checked = true;
-			Assert("still shouldn't be checked - not submitted", !CheckBox.Checked);
+			AssertTrue("still shouldn't be checked - not submitted", !CheckBox.Checked);
 			Submit.Click();
-			Assert("should be checked", CheckBox.Checked);
+			AssertTrue("should be checked", CheckBox.Checked);
 		}
 
 		public virtual void TestUncheck()
@@ -55,9 +55,9 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			TestCheck();
 
 			CheckBox.Checked = false;
-			Assert("still should be checked - not submitted", CheckBox.Checked);
+			AssertTrue("still should be checked - not submitted", CheckBox.Checked);
 			Submit.Click();
-			Assert("shouldn't be checked", !CheckBox.Checked);
+			AssertTrue("shouldn't be checked", !CheckBox.Checked);
 		}
 
 		[ExpectedException(typeof(ControlDisabledException))]

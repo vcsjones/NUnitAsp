@@ -130,12 +130,12 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "InternalAssert.cs"
+                    RelPath = "Tester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Tester.cs"
+                    RelPath = "WebAssert.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

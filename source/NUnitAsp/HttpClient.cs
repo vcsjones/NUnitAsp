@@ -156,7 +156,7 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		public string CookieValue(string cookieName)
 		{
-			if (!HasCookie(cookieName)) InternalAssert.Fail("Expected cookie '" + cookieName + "' to be set");
+			if (!HasCookie(cookieName)) WebAssert.Fail("Expected cookie '" + cookieName + "' to be set");
 			CookieCollection cc = cookies.GetCookies(currentUrl);
 			return cc[cookieName].Value;
 		}

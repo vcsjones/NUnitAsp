@@ -102,7 +102,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			{
 				if (cells[i][columnNumber] == trimmedValue) return GetRow(i);
 			}
-			InternalAssert.Fail(string.Format("Expected to find a row with '{0}' in column {1} of {2}", trimmedValue, columnNumber, HtmlIdAndDescription));
+			WebAssert.Fail(string.Format("Expected to find a row with '{0}' in column {1} of {2}", trimmedValue, columnNumber, HtmlIdAndDescription));
 			throw new ApplicationException("This line cannot execute.  Fail() throws an exception.");
 		}
 
@@ -115,8 +115,8 @@ namespace NUnit.Extensions.Asp.AspTester
 			Row header = GetHeaderRow();
 			HtmlTag cell = header.GetCellElement(columnNumberZeroBased);
 			HtmlTag[] links = cell.Children("a");
-			InternalAssert.True(links.Length != 0, "Attempted to sort non-sortable grid (" + HtmlIdAndDescription + ")");
-			InternalAssert.True(links.Length == 1, "Expected sort link to have exactly one anchor tag");
+			WebAssert.True(links.Length != 0, "Attempted to sort non-sortable grid (" + HtmlIdAndDescription + ")");
+			WebAssert.True(links.Length == 1, "Expected sort link to have exactly one anchor tag");
 
 			PostBack(links[0].Attribute("href"));
 		}
@@ -192,7 +192,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			internal HtmlTag GetCellElement(int columnNumberZeroBased)
 			{
 				HtmlTag[] cells = Tag.Children("td");
-				InternalAssert.True(columnNumberZeroBased >= 0 && columnNumberZeroBased < cells.Length, "There is no column #" + columnNumberZeroBased + " in " + HtmlIdAndDescription);
+				WebAssert.True(columnNumberZeroBased >= 0 && columnNumberZeroBased < cells.Length, "There is no column #" + columnNumberZeroBased + " in " + HtmlIdAndDescription);
 				return cells[columnNumberZeroBased];
 			}
 		}

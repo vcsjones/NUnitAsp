@@ -117,9 +117,9 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("text", "two", item.Text);
 			AssertEquals("value", "2", item.Value);
 
-			Assert("selected item's selected property is false",
+			AssertTrue("selected item's selected property is false",
 				item.Selected);
-			Assert("unselected item's selected property is true",
+			AssertTrue("unselected item's selected property is true",
 				!List.Items[0].Selected);
 		}
 

@@ -202,7 +202,7 @@ namespace NUnit.Extensions.Asp.Test
 		public void TestElapsedServerTime()
 		{
 			Browser.GetPage(BaseUrl + "ServerTimeTestPage.aspx");
-			Assert("Elapsed server time should not be zero", Browser.ElapsedServerTime > TimeSpan.Zero);
+			AssertTrue("Elapsed server time should not be zero", Browser.ElapsedServerTime > TimeSpan.Zero);
 		}
 
 		[Test]
@@ -233,7 +233,7 @@ namespace NUnit.Extensions.Asp.Test
 			catch (HttpClient.AspServerException e)
 			{
 				string expectedMessage = "[ApplicationException]: This is an ASP.NET exception message";
-				Assert("incorrect exception message", e.Message.IndexOf(expectedMessage) >= 0);
+				AssertTrue("incorrect exception message", e.Message.IndexOf(expectedMessage) >= 0);
 			}
 		}
 

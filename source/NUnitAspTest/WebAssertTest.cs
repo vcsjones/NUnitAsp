@@ -1,7 +1,7 @@
-#region Copyright (c) 2002-2004 by Brian Knowles and Jim Shore
+#region Copyright (c) 2002-2005 by Brian Knowles and Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002-2004 by Brian Knowles and Jim Shore
+' Copyright (c) 2002-2005 by Brian Knowles and Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -22,34 +22,43 @@
 
 using System;
 using NUnit.Framework;
+using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test
 {
-	public class WebAssertionTest : NUnitAspTestCase
+	[TestFixture]
+	public class WebAssertTest : NUnitAspTestCase
 	{
-		public void TestAssertEquals_WhenArrays()
+		public void TestVisibleAndNotVisible()
+		{
+			Browser.GetPage(BaseUrl + "WebAssertTestPage.aspx");
+			WebAssert.Visible(new LabelTester("visible"));
+			WebAssert.NotVisible(new LabelTester("invisible"));
+		}
+
+		public void TestAreEqual_WhenArrays()
 		{
 			AssertEqualsFails(new string[] {"1"}, new string[] {});
-			AssertEquals(new string[] {}, new string[] {});
+			WebAssert.AreEqual(new string[] {}, new string[] {});
 			AssertEqualsFails(new string[] {"1"}, new string[] {"2"});
 
 			AssertEqualsFails(new string[] {}, null);
 			AssertEqualsFails(null, new string[] {});
-			AssertEquals((string[])null, (string[])null);
+			WebAssert.AreEqual((string[])null, (string[])null);
 
 			AssertArrayRenders("\r\nexpected: {\"1\", \"2\", \"3\"}\r\n but was: {}", new string[] {"1", "2", "3"}, new string[] {});
 			AssertArrayRenders("\r\nexpected: {}\r\n but was: <null>", new string[] {}, null);
 		}
 
-		public void TestAssertEquals_WhenDoubleArrays()
+		public void TestAreEqual_WhenDoubleArrays()
 		{
 			AssertEqualsFails(new string[][] {new string[] {"1"}}, new string[][] {});
-			AssertEquals(new string[][] {}, new string[][] {});
+			WebAssert.AreEqual(new string[][] {}, new string[][] {});
 			AssertEqualsFails(new string[][] {new string[] {"1"}}, new string[][] {new string[] {"2"}});
 			
 			AssertEqualsFails(new string[][] {}, null);
 			AssertEqualsFails(null, new string[][] {});
-			AssertEquals((string[][])null, (string[][])null);
+			WebAssert.AreEqual((string[][])null, (string[][])null);
 
 			string expected = "\r\nexpected: \r\n   {\r\n      {\"1\"}\r\n   }\r\n but was: \r\n   {\r\n      {\"1\"}\r\n      {\"2\"}\r\n   }";
 			string[][] one = new string[][] {
@@ -63,7 +72,7 @@ namespace NUnit.Extensions.Asp.Test
 			AssertArrayRenders("\r\nexpected: {}\r\n but was: <null>", new string[][] {},  null);
 		}
 
-		public void TestAssertSortOrder_WhenSorted()
+		public void TestSorted_WhenSorted()
 		{
 			string[][] testData = new string[][]
 			{
@@ -72,10 +81,10 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"3"},
 				new string[] {"4"}
 			};
-			AssertSortOrder("testData", testData, 0, true, DataType.String);
+			WebAssert.Sorted(testData, 0, true, DataType.String);
 		}
 
-		public void TestAssertSortOrder_WhenSortedAndStartingWithEmptyString()
+		public void TestSorted_WhenSortedAndStartingWithEmptyString()
 		{
 			string[][] testData = new string[][]
 			{
@@ -84,10 +93,10 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"3"},
 				new string[] {"4"}
 			};
-			AssertSortOrder("testData", testData, 0, true, DataType.String);
+			WebAssert.Sorted(testData, 0, true, DataType.String);
 		}
 		
-		public void TestAssertSortOrder_WhenSortedAndManyRepeatingValues()
+		public void TestSorted_WhenSortedAndManyRepeatingValues()
 		{
 			string[][] testData = new string[][]
 			{
@@ -98,10 +107,10 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"3"},
 				new string[] {"4"}
 			};
-			AssertSortOrder("testData", testData, 0, true, DataType.String);
+			WebAssert.Sorted(testData, 0, true, DataType.String);
 		}
 
-		public void TestAssertSortOrder_WhenSortedDescending()
+		public void TestSorted_WhenSortedDescending()
 		{
 			string[][] testData = new string[][]
 			{
@@ -110,10 +119,10 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"2"},
 				new string[] {"1"},
 			};
-			AssertSortOrder("testData", testData, 0, false, DataType.String);
+			WebAssert.Sorted(testData, 0, false, DataType.String);
 		}
 
-		public void TestAssertSortOrder_WhenSortedDescendingAndEndingWithEmptyString()
+		public void TestSorted_WhenSortedDescendingAndEndingWithEmptyString()
 		{
 			string[][] testData = new string[][]
 			{
@@ -122,10 +131,10 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"2"},
 				new string[] {""},
 			};
-			AssertSortOrder("testData", testData, 0, false, DataType.String);
+			WebAssert.Sorted(testData, 0, false, DataType.String);
 		}
 
-		public void TestAssertSortOrder_WhenSortedDescendingAndManyRepeatValues()
+		public void TestSorted_WhenSortedDescendingAndManyRepeatValues()
 		{
 			string[][] testData = new string[][]
 			{
@@ -136,10 +145,10 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"2"},
 				new string[] {"1"},
 			};
-			AssertSortOrder("testData", testData, 0, false, DataType.String);
+			WebAssert.Sorted(testData, 0, false, DataType.String);
 		}
 
-		public void TestAssertSortOrder_WhenSortingOnLastColumn()
+		public void TestSorted_WhenSortingOnLastColumn()
 		{
 			string[][] testData = new string[][]
 			{
@@ -148,10 +157,10 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"2", "2"},
 				new string[] {"4", "1"},
 			};
-			AssertSortOrder("testData", testData, 1, false, DataType.String);
+			WebAssert.Sorted(testData, 1, false, DataType.String);
 		}
 
-		public void TestAssertSortOrder_WhenNotSorted()
+		public void TestSorted_WhenNotSorted()
 		{
 			string[][] testData = new string[][]
 			{
@@ -163,23 +172,23 @@ namespace NUnit.Extensions.Asp.Test
 			AssertSortOrderFails(testData, DataType.String);
 		}
 
-		public void TestAssertSortOrder_WhenNoData()
+		public void TestSorted_WhenNoData()
 		{
-			AssertSortOrder("no data", new string[][] {}, 0, true, DataType.String);
-			AssertSortOrder("no data", new string[][] {}, 0, false, DataType.String);
+			WebAssert.Sorted(new string[][] {}, 0, true, DataType.String, "ascending");
+			WebAssert.Sorted(new string[][] {}, 0, false, DataType.String, "descending");
 		}
 
-		public void TestAssertSortOrder_WhenNumber()
+		public void TestSorted_WhenNumber()
 		{
 			string[][] testData = new string[][]
 			{
 				new string[] {"9"},
 				new string[] {"10"},
 			};
-			AssertSortOrder("testData", testData, 0, true, DataType.Int);
+			WebAssert.Sorted(testData, 0, true, DataType.Int);
 		}
 
-		public void TestAssertSortOrder_WhenBlankNumber()
+		public void TestSorted_WhenBlankNumber()
 		{
 			string[][] testData = new string[][]
 			{
@@ -187,10 +196,10 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"9"},
 				new string[] {"10"},
 			};
-			AssertSortOrder("testData", testData, 0, true, DataType.Int);
+			WebAssert.Sorted(testData, 0, true, DataType.Int);
 		}
 
-		public void TestAssertSortOrder_WhenBlankNumberAtEnd()
+		public void TestSorted_WhenBlankNumberAtEnd()
 		{
 			string[][] testData = new string[][]
 			{
@@ -201,17 +210,17 @@ namespace NUnit.Extensions.Asp.Test
 			AssertSortOrderFails(testData, DataType.Int);
 		}
 
-		public void TestAssertSortOrder_WhenDate()
+		public void TestSorted_WhenDate()
 		{
 			string[][] testData = new string[][]
 			{
 				new string[] {"7/4/2002"},
 				new string[] {"7/16/2002"},
 			};
-			AssertSortOrder("testData", testData, 0, true, DataType.DateTime);
+			WebAssert.Sorted(testData, 0, true, DataType.DateTime);
 		}
 
-		public void TestAssertSortOrder_WhenBlankDate()
+		public void TestSorted_WhenBlankDate()
 		{
 			string[][] testData = new string[][]
 			{
@@ -219,10 +228,10 @@ namespace NUnit.Extensions.Asp.Test
 				new string[] {"7/4/2002"},
 				new string[] {"7/16/2002"},
 			};
-			AssertSortOrder("testData", testData, 0, true, DataType.DateTime);
+			WebAssert.Sorted(testData, 0, true, DataType.DateTime);
 		}
 
-		public void TestAssertSortOrder_WhenBlankDateAtEnd()
+		public void TestSorted_WhenBlankDateAtEnd()
 		{
 			string[][] testData = new string[][]
 			{
@@ -237,51 +246,51 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			try
 			{
-				AssertSortOrder("testData", testData, 0, true, dataType);
+				WebAssert.Sorted(testData, 0, true, dataType);
 			}
-			catch (AssertionException)
+			catch (WebAssertionException)
 			{
 				return;
 			}
-			Fail("Expected assertion");
+			NUnit.Framework.Assert.Fail("Expected assertion");
 		}
 
 		private void AssertEqualsFails(string[] expected, string[] actual)
 		{
 			try
 			{
-				AssertEquals(expected, actual);
+				WebAssert.AreEqual(expected, actual);
 			}
-			catch (AssertionException)
+			catch (WebAssertionException)
 			{
 				return;
 			}
-			Fail("Expected assertion");
+			NUnit.Framework.Assert.Fail("Expected assertion");
 		}
 
 		private void AssertEqualsFails(string[][] expected, string[][] actual)
 		{
 			try
 			{
-				AssertEquals(expected, actual);
+				WebAssert.AreEqual(expected, actual);
 			}
-			catch (AssertionException)
+			catch (WebAssertionException)
 			{
 				return;
 			}
-			Fail("Expected assertion");
+			NUnit.Framework.Assert.Fail("Expected assertion");
 		}
 
 		private void AssertArrayRenders(string expected, string[] one, string[] two)
 		{
 			try
 			{
-				AssertEquals(one, two);
-				Fail("Expected assertion");
+				WebAssert.AreEqual(one, two);
+				NUnit.Framework.Assert.Fail("Expected assertion");
 			}
-			catch (AssertionException e)
+			catch (WebAssertionException e)
 			{
-				AssertEquals(expected, e.Message);
+				NUnit.Framework.Assert.AreEqual(expected, e.Message);
 			}
 		}
 
@@ -289,12 +298,12 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			try
 			{
-				AssertEquals(one, two);
-				Fail("Expected assertion");
+				WebAssert.AreEqual(one, two);
+				NUnit.Framework.Assert.Fail("Expected assertion");
 			}
-			catch (AssertionException e)
+			catch (WebAssertionException e)
 			{
-				AssertEquals(expected, e.Message);
+				NUnit.Framework.Assert.AreEqual(expected, e.Message);
 			}
 		}
 	}

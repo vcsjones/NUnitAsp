@@ -96,13 +96,13 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("SpaceColumn", headerResult.Text);
 		}
 
-		[ExpectedException(typeof(InternalAssertionException))]
+		[ExpectedException(typeof(WebAssertionException))]
 		public void TestSortingWhenGridNotSortable()
 		{
 			grid2.Sort(1);
 		}
 
-		[ExpectedException(typeof(InternalAssertionException))]
+		[ExpectedException(typeof(WebAssertionException))]
 		public void TestSortingWithInvalidColumnNumber()
 		{
 			grid1.Sort(5);

@@ -42,7 +42,7 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			Browser.GetPage(BaseUrl + "FormVariableTestPage.aspx");
 			new ButtonTester("submit", CurrentWebForm).Click();
-			Assert("should be checked", new CheckBoxTester("checkbox", CurrentWebForm).Checked);
+			AssertTrue("should be checked", new CheckBoxTester("checkbox", CurrentWebForm).Checked);
 		}
 
 		[Test]

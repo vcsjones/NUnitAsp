@@ -60,32 +60,32 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 
 		public void TestCheckBoxSetAndNotSet() 
 		{
-			Assert("checkNotCheckedServer should not be checked", !checkNotCheckedServer.Checked);
-			Assert("checkCheckedServer should be checked", checkCheckedServer.Checked);
-			Assert("checkNotCheckedNotServer should not be checked", !checkNotCheckedNotServer.Checked);
-			Assert("checkCheckedNotServer should be checked", checkCheckedNotServer.Checked);
+			AssertTrue("checkNotCheckedServer should not be checked", !checkNotCheckedServer.Checked);
+			AssertTrue("checkCheckedServer should be checked", checkCheckedServer.Checked);
+			AssertTrue("checkNotCheckedNotServer should not be checked", !checkNotCheckedNotServer.Checked);
+			AssertTrue("checkCheckedNotServer should be checked", checkCheckedNotServer.Checked);
 		}
 
 		public void TestCheckVary() 
 		{
-			Assert("checkVaryServer should not be checked", !checkVaryServer.Checked);
+			AssertTrue("checkVaryServer should not be checked", !checkVaryServer.Checked);
 			checkVaryServer.Checked = true;
-			Assert("checkVaryServer still shouldn't be checked - not submitted yet", !checkVaryServer.Checked);
+			AssertTrue("checkVaryServer still shouldn't be checked - not submitted yet", !checkVaryServer.Checked);
 			submit.Click();
-			Assert("checkVaryServer should be checked since it's been submitted", checkVaryServer.Checked);
+			AssertTrue("checkVaryServer should be checked since it's been submitted", checkVaryServer.Checked);
 			checkVaryServer.Checked = false;
-			Assert("checkVaryServer should still be checked - not submitted yet", checkVaryServer.Checked);
+			AssertTrue("checkVaryServer should still be checked - not submitted yet", checkVaryServer.Checked);
 			submit.Click();
-			Assert("checkVaryServer should not be checked since it's been submitted", !checkVaryServer.Checked);			
+			AssertTrue("checkVaryServer should not be checked since it's been submitted", !checkVaryServer.Checked);			
 		}
 
 		public void TestCheckVaryNotServer() 
 		{
-			Assert("checkVaryNotServer should not be checked", !checkVaryNotServer.Checked);
+			AssertTrue("checkVaryNotServer should not be checked", !checkVaryNotServer.Checked);
 			checkVaryNotServer.Checked = true;
-			Assert("checkVaryNotServer still shouldn't be checked - not submitted (but won't change anyway)", !checkVaryNotServer.Checked);
+			AssertTrue("checkVaryNotServer still shouldn't be checked - not submitted (but won't change anyway)", !checkVaryNotServer.Checked);
 			submit.Click();
-			Assert("checkVaryNotServer still shouldn't be checked - plain (non ASP.NET) controls don't automatically remember state", !checkVaryNotServer.Checked);
+			AssertTrue("checkVaryNotServer still shouldn't be checked - plain (non ASP.NET) controls don't automatically remember state", !checkVaryNotServer.Checked);
 		}
 
         [ExpectedException(typeof(ControlDisabledException))]
