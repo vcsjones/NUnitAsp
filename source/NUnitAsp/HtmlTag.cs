@@ -45,7 +45,8 @@ namespace NUnit.Extensions.Asp
 			string rightQuote = "\\k<leftQuote>";
 			string attributePattern = attributeName + whiteSpace + "=" + whiteSpace + leftQuote + "(?<value>.*?)" + rightQuote;
 
-			Match match = Regex.Match(html, attributePattern, RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace);
+			RegexOptions options = RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace | RegexOptions.IgnoreCase;
+			Match match = Regex.Match(html, attributePattern, options);
 			if (!match.Success) return null;
 			return match.Groups["value"].Value;
 		}

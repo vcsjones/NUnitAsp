@@ -35,7 +35,9 @@ namespace NUnit.Extensions.Asp.HtmlTester
 
 		public void Click()
 		{
-			Browser.GetPage(HRef);
+			string link = PopupLink;
+			if (link == null) link = HRef;
+			Browser.GetPage(link);
 		}			
 		
 		public string HRef
@@ -46,7 +48,33 @@ namespace NUnit.Extensions.Asp.HtmlTester
 			}
 		}
 
-		public override string HtmlId
+		/// <summary>
+		/// Null if this anchor doesn't have a recognizable pop-up link.
+		/// </summary>
+		public string PopupLink
+		{
+			get
+			{
+				string onClick = GetOptionalAttributeValue("onclick");
+				if (onClick == null) return null;
+
+				RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
+				Match match = Regex.Match(onClick, "window.open\\('(?<link>.*?)'", options);
+				if (match.Captures.Count == 1)
+				{
+					return match.Groups["link"].Value;
+				}
+
+				if (match.Captures.Count == 0) return null;
+				else
+				{
+					string message = string.Format("Found two 'window.open' calls in onclick attribute of {0}, but only expected to find one", HtmlIdAndDescription);
+					throw new ParseException(message);
+				}
+			}
+		}
+
+			public override string HtmlId
 		{
 			get
 			{

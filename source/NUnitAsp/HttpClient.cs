@@ -149,8 +149,22 @@ namespace NUnit.Extensions.Asp
 
 		private void UpdateCurrentUrl(string url)
 		{
+			url = TrimFragmentLink(url);
 			if (currentUrl == null) currentUrl = new Uri(url);
 			else currentUrl = new Uri(currentUrl, url);
+		}
+
+		/// <summary>
+		/// A "fragment identifier" is the part of a URL that comes after a "#".  You don't
+		/// see them too often.  It's a link within a document and web servers won't 
+		/// recognize a URL that includes it.  This method strips off the fragment identifier, as 
+		/// well as the pound sign (#) that precedes it.
+		/// </summary>
+		private string TrimFragmentLink(string url)
+		{
+			int fragmentLocation = url.IndexOf('#');
+			if (fragmentLocation < 0) return url;
+			else return url.Substring(0, fragmentLocation);
 		}
 
 		private void SendHttpRequest(NetworkStream stream, string method, string formVariables)

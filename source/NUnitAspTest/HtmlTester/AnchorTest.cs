@@ -27,6 +27,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 	public class AnchorTest : NUnitAspTestCase
 	{
 		private AnchorTester testLink;
+		private AnchorTester popupLink;
 
 		public AnchorTest(string name) : base(name)
 		{
@@ -36,6 +37,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		{
 			base.SetUp();
 			testLink = new AnchorTester("testLink", CurrentWebForm, true);
+			popupLink = new AnchorTester("popupLink", CurrentWebForm, false);
 			Browser.GetPage(BaseUrl + "HtmlTester/AnchorTestPage.aspx");
 		}
 
@@ -47,6 +49,17 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		public void TestClick()
 		{
 			testLink.Click();
+			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
+		}
+
+		public void TestPopupLink()
+		{
+			AssertEquals("popup", "../RedirectionTarget.aspx", popupLink.PopupLink);
+		}
+
+		public void TestPopupWindowClick()
+		{
+			popupLink.Click();
 			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
 		}
 	}

@@ -39,6 +39,11 @@ namespace NUnit.Extensions.Asp.Test
 			RunAttributeTest("<tag foo='bar' />", "bar");
 		}
 
+		public void TestGetAttributeIgnoresCase()
+		{
+			RunAttributeTest("<tag Foo='bar' />", "bar");
+		}
+
 		public void TestGetAttributeDoubleQuotes()
 		{
 			RunAttributeTest("<tag foo=\"bar\" />", "bar");

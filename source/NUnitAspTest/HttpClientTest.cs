@@ -67,6 +67,12 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
 		}
 
+		public void TestGetWithFragment()
+		{
+			Browser.GetPage(TestUrl + "#fragment");
+			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
+		}
+
 		public void TestRedirect()
 		{
 			Browser.GetPage(TestUrl);

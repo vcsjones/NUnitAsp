@@ -11,6 +11,11 @@
 	<body>
 		<form id="AnchorTestPage" method="post" runat="server">
 			<a id="testLink" href="../RedirectionTarget.aspx?a=a&amp;b=b">Click Here</a>
+			<br />
+			<a id="popupLink" onclick="javascript: x=(screen.availWidth/2)-250; y=(screen.availHeight/2)-200;
+			some_Win = window.open('../RedirectionTarget.aspx','some_Popup',
+			'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=400,top='+y+',left='+x);" href="#">
+				Popup Link</a>
 		</form>
 	</body>
 </HTML>
