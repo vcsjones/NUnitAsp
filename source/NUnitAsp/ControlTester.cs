@@ -210,9 +210,13 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		protected bool IsPostBack(string candidate)
+		/// <summary>
+		/// Checks a URL to see if it is an automatic post-back script.
+		/// Typically you should use <see cref="OptionalPostBack"/> instead.
+		/// </summary>
+		protected bool IsPostBack(string candidatePostBackScript)
 		{
-			return (candidate != null) && (candidate.IndexOf("__doPostBack") != -1);
+			return (candidatePostBackScript != null) && (candidatePostBackScript.IndexOf("__doPostBack") != -1);
 		}
 
 		private void SetInputHiddenValue(string name, string value)
