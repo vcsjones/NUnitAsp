@@ -369,7 +369,7 @@ namespace NUnit.Extensions.Asp
 			/// <summary>
 			/// The HTTP status code returned by the server
 			/// </summary>
-			private readonly HttpStatusCode Status;
+			public readonly HttpStatusCode Status;
 
 			internal BadStatusException(HttpStatusCode status) : 
 				base("Server returned error (status code: " + (int)status + ").  HTML copied to standard output.")
