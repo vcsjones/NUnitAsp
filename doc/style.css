@@ -37,7 +37,6 @@ table {
 
 th {
 	text-align: left;
-	vertical-align: bottom;
 	text-decoration: underline;
 	font-variant: small-caps;
 	padding-right: 1em;
@@ -49,7 +48,7 @@ td {
 
 .content td {
 	text-align: left;
-	border: 0.1em solid grey;
+	border: 0.1em solid black;
 	padding: 0.25em 1em 0.25em 0.25em;
 }
 

@@ -1,8 +1,9 @@
-Changes in next version:
+Changes in current version:
 Produced by Jim Little.
 * Browser.ElapsedServerTime now works.
 * Added support for multiline text boxes.  Thanks to (luKa) for his submission.
 * Updated installation guide for error caused by XMLSpy.  Thanks to Peter Wijntjes.
+* Many improvements to tutorial, including update for NUnit 2.0.  Thanks to Andrew Enfield.
 
 
 Changes in NUnitAsp 1.2.1:
