@@ -32,8 +32,10 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.
 		/// </summary>
-		/// <param name="aspId">The ID of the control to link to.</param>
-		/// <param name="container">The control that contains the control to link to</param>
+		/// <param name="aspId">The ID of the control to test (look in the page's ASP.NET source code for the ID).</param>
+		/// <param name="container">A tester for the control's container.  (In the page's ASP.NET
+		/// source code, look for the tag that the control is nested in.  That's probably the
+		/// control's container.  Use CurrentWebForm if the control is just nested in the form tag.)</param>
 		public ButtonTester(string aspId, Tester container) : base(aspId, container)
 		{
 		}

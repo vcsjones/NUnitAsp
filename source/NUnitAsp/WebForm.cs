@@ -1,7 +1,7 @@
-#region Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
+#region Copyright (c) 2002-2004, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
+' Copyright (c) 2002-2004, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -37,11 +37,18 @@ namespace NUnit.Extensions.Asp
 	{
 		private HttpClient browser;
 
+		/// <summary>
+		/// Create the tester and link it to an ASP.NET web form.
+		/// </summary>
+		/// <param name="browser">The browser used to load this page.</param>
 		public WebForm(HttpClient browser)
 		{
 			this.browser = browser;
 		}
 
+		/// <summary>
+		/// The browser instance used to load the page containing the thing being tested.
+		/// </summary>
 		protected internal override HttpClient Browser
 		{
 			get
@@ -50,11 +57,19 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// Returns the HTML ID of a child control.  Useful when implementing
+		/// testers for container controls that do HTML ID mangling.  This method
+		/// is very likely to change in a future release.
+		/// </summary>
 		protected internal override string GetChildElementHtmlId(string aspId)
 		{
 			return aspId;
 		}
 
+		/// <summary>
+		/// Post this page to the server.  (That is, the page that contains the form being tested.)
+		/// </summary>
 		protected internal override void Submit()
 		{
 			browser.SubmitForm(this);
@@ -91,6 +106,9 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// A human-readable description of the location of the control.
+		/// </summary>
 		public override string Description
 		{
 			get
@@ -99,6 +117,10 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// The ASP.NET ID of the form being tested.  It corresponds to the
+		/// ID in the ASP.NET source code.
+		/// </summary>
 		public string AspId
 		{
 			get

@@ -1,7 +1,7 @@
-#region Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
+#region Copyright (c) 2002-2004, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
+' Copyright (c) 2002-2004, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -28,22 +28,37 @@ using System.Text.RegularExpressions;
 namespace NUnit.Extensions.Asp
 {
 	/// <summary>
-	/// Base class for all tag-based controls.  Extend this class if you're creating a
-	/// custom tester.
+	/// Base class for all tag-based controls.  Most people should
+	/// extend <see cref="AspTester.AspControlTester" /> or <see cref="HtmlTester.HtmlControlTester"/>.
 	/// 
 	/// The API for this class will change in future releases.
 	/// </summary>
 	public abstract class ControlTester : Tester
 	{
-		public readonly string AspId;
 		private Tester container;
 
-		internal ControlTester(string aspId, Tester container)
+		/// <summary>
+		/// Create the tester and link it to an ASP.NET control.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to test (look in the page's ASP.NET source code for the ID).</param>
+		/// <param name="container">A tester for the control's container.  (In the page's ASP.NET
+		/// source code, look for the tag that the control is nested in.  That's probably the
+		/// control's container.  Use CurrentWebForm if the control is just nested in the form tag.)</param>
+		protected internal ControlTester(string aspId, Tester container)
 		{
 			this.AspId = aspId;
 			this.container = container;
 		}
 
+		/// <summary>
+		/// The ASP.NET ID of the control being tested.  It corresponds to the
+		/// ID in the ASP.NET source code.
+		/// </summary>
+		public readonly string AspId;
+
+		/// <summary>
+		/// The HTML tag this tester corresponds to.
+		/// </summary>
 		protected virtual HtmlTag Tag
 		{
 			get
@@ -63,13 +78,19 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// Returns the HTML ID of a child control.  Useful when implementing
+		/// testers for container controls that do HTML ID mangling.  This method
+		/// is very likely to change in a future release.
+		/// </summary>
 		protected internal override string GetChildElementHtmlId(string aspId)
 		{
 			return container.GetChildElementHtmlId(aspId);
 		}
 
-//		private XmlElement Element 
+		/// <summary>
 		/// Deprecated--do not use.
+		/// </summary>
 		protected internal virtual XmlElement Element
 		{
 			get 
@@ -80,6 +101,9 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// The browser instance used to load the page containing the form being tested.
+		/// </summary>
 		protected internal override HttpClient Browser
 		{
 			get
@@ -88,6 +112,11 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// A human-readable description of the location of the form being tested.
+		/// This property describes the location of the form in the ASP.NET source
+		/// code as well as in the HTML page rendered by the server.
+		/// </summary>
 		public string HtmlIdAndDescription
 		{
 			get
@@ -96,6 +125,11 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// A human-readable description of the location of the control.  Unlike
+		/// <see cref="HtmlIdAndDescription"/>, this property only describes the
+		/// location of the control in the ASP.NET source code.
+		/// </summary>
 		public override string Description 
 		{
 			get 
@@ -105,6 +139,11 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// The HTML ID of the control being tested.  It corresponds to the
+		/// ID of the HTML tag rendered by the server.  It's useful for looking at 
+		/// raw HTML while debugging.
+		/// </summary>
 		public virtual string HtmlId
 		{
 			get
@@ -113,6 +152,9 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// True if the control is disabled.
+		/// </summary>
 		protected virtual bool IsDisabled
 		{
 			get
@@ -148,13 +190,17 @@ namespace NUnit.Extensions.Asp
 			RemoveInputValue(Element, name);
 		}
 
+		/// <summary>
+		/// Post this page to the server.  (That is, the page that contains the control being tested.)
+		/// </summary>
 		protected internal override void Submit()
 		{
 			container.Submit();
 		}
 
 		/// <summary>
-		/// Works properly even if candidatePostBackScript is null.
+		/// Like <see cref="PostBack"/>, but doesn't fail if the control doesn't
+		/// have an automatic post-back.
 		/// </summary>
 		protected void OptionalPostBack(string candidatePostBackScript)
 		{
@@ -175,6 +221,11 @@ namespace NUnit.Extensions.Asp
 			Browser.SetFormVariable((XmlElement)Element.SelectSingleNode(expression), name, value);
 		}
 
+		/// <summary>
+		/// Automatically post-back to the server--fails if there isn't an automatic
+		/// post-back for the tested control.
+		/// </summary>
+		/// <param name="postBackScript"></param>
 		protected void PostBack(string postBackScript)
 		{
 			string postBackPattern = @"__doPostBack\('(?<target>.*?)','(?<argument>.*?)'\)";
@@ -194,6 +245,10 @@ namespace NUnit.Extensions.Asp
 		}
 	}
 
+	/// <summary>
+	/// Exception: The tester has a bug: it was looking for some HTML and didn't find it.
+	/// Report this exception to the author of the tester.
+	/// </summary>
 	public class ParseException : ApplicationException
 	{
 		internal ParseException(string message) : base(message)
@@ -202,8 +257,8 @@ namespace NUnit.Extensions.Asp
 	}
 
 	/// <summary>
-	/// The test is trying to perform a UI operation on a disabled control.  Enable the control in your 
-	/// production code or don't change it in the test.
+	/// Exception: The test is trying to perform a UI operation on a disabled control.
+	/// Enable the control in your production code or don't change it in the test.
 	/// </summary>
 	public class ControlDisabledException : InvalidOperationException
 	{

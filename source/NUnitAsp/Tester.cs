@@ -34,12 +34,29 @@ namespace NUnit.Extensions.Asp
 	/// </summary>
 	public abstract class Tester
 	{
+		/// <summary>
+		/// Returns the HTML ID of a child control.  Useful when implementing
+		/// testers for container controls that do HTML ID mangling.  This method
+		/// is very likely to change in a future release.
+		/// </summary>
 		protected internal abstract string GetChildElementHtmlId(string aspId);
+
+		/// <summary>
+		/// Post this page to the server.  (That is, the page that contains the thing being tested.)
+		/// </summary>
 		protected internal abstract void Submit();
+
+		/// <summary>
+		/// A human-readable description of the location of the control.
+		/// </summary>
 		public abstract string Description
 		{
 			get;
 		}
+
+		/// <summary>
+		/// The browser instance used to load the page containing the thing being tested.
+		/// </summary>
 		protected internal abstract HttpClient Browser
 		{
 			get;

@@ -1,7 +1,7 @@
-#region Copyright (c) 2002, 2003 Brian Knowles, Jim Shore
+#region Copyright (c) 2002-2004 Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, 2003 Brian Knowles, Jim Shore
+' Copyright (c) 2002-2004 Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -39,7 +39,6 @@ namespace NUnit.Extensions.Asp
 		private Uri currentUrl = null;
 		private WebPage currentPage = null;
 		private CookieContainer cookies = new CookieContainer();
-		private IWebProxy proxy = null;
 
 		/// <summary>
 		/// The user-agent string to send to the server. Useful if you want to pretend to
@@ -57,10 +56,20 @@ namespace NUnit.Extensions.Asp
 		/// Username and password (null if none). Set automatically if the username and
 		/// password are supplied in the URL (i.e., "http://username:password@host").
 		/// Can be used with both "basic" and "Windows Integrated" (NTLM) authentication
-		/// methods. Set this property to <code>CredentialCache.DefaultCredentials</code> 
+		/// methods. Set this property to <c>CredentialCache.DefaultCredentials</c> 
 		/// to use your current Windows login.
 		/// </summary>
 		public ICredentials Credentials = null;
+
+		/// <summary>
+		/// The proxy server information to use to proxy HTTP requests.
+		/// If this property is set to null, the default value returned by
+		/// GlobalProxySelection.Select is used.
+		/// </summary>
+		/// <example>
+		///	Browser.Proxy = new WebProxy("http://myproxy:8080");
+		/// </example>
+		public IWebProxy Proxy = null;
 
 		/// <summary>
 		/// URL the browser most recently retrieved (null if none).  Fragments aren't
@@ -83,26 +92,6 @@ namespace NUnit.Extensions.Asp
 			get
 			{
 				return cookies;
-			}
-		}
-
-		/// <summary>
-		/// The proxy server information to use to proxy HTTP requests.
-		/// If this property is set to null, default value, returned by
-		/// GlobalProxySelection.Select is used.
-		/// </summary>
-		/// <example>
-		///	Browser.Proxy = new WebProxy("http://myproxy:8080");
-		/// </example>
-		public IWebProxy Proxy
-		{
-			get
-			{
-				return proxy;
-			}
-			set
-			{
-				proxy = value;
 			}
 		}
 
@@ -364,7 +353,7 @@ namespace NUnit.Extensions.Asp
 
 
 		/// <summary>
-		/// A request has been made that requires a page to have been loaded, but no
+		/// Exception: A request has been made that requires a page to have been loaded, but no
 		/// page has been loaded yet.  Call GetPage() before calling the method that
 		/// threw this exception.
 		/// </summary>
@@ -376,7 +365,7 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// The requested URL was not found.  Correct the URL or determine what's wrong
+		/// Exception: The requested URL was not found.  Correct the URL or determine what's wrong
 		/// with the server.
 		/// </summary>
 		public class NotFoundException : ApplicationException
@@ -387,7 +376,7 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// The server returned an unexpected status code.  Determine what's wrong with
+		/// Exception: The server returned an unexpected status code.  Determine what's wrong with
 		/// the server.
 		/// </summary>
 		public class BadStatusException : ApplicationException
@@ -405,7 +394,7 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Too many HTTP redirects were detected. Check for infinite redirection loop.
+		/// Exception: Too many HTTP redirects were detected. Check for infinite redirection loop.
 		/// </summary>
 		public class RedirectLoopException : ApplicationException
 		{
