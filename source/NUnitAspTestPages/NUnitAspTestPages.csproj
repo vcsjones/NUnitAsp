@@ -179,6 +179,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "AspTester\DropDownListTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AspTester\DropDownListTestPage.aspx.cs"
+                    DependentUpon = "DropDownListTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\DropDownListTestPage.aspx.resx"
+                    DependentUpon = "DropDownListTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "AspTester\LabelTestPage.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

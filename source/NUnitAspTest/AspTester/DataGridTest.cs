@@ -22,7 +22,7 @@ using System;
 using NUnit.Extensions.Asp;
 using NUnit.Extensions.Asp.AspTester;
 
-namespace NUnit.Extensions.Asp.Test
+namespace NUnit.Extensions.Asp.Test.AspTester
 {
 	public class DataGridTest : NUnitAspTestCase
 	{
@@ -73,6 +73,12 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEquals("1,2", clickResult.Text);
 			new LinkButtonTester("link2", grid2.GetRow(0)).Click();
 			AssertEquals("2,3", clickResult.Text);
+		}
+
+		public void TestHeaderRow()
+		{
+			string[] expected = new string[] {"", "Column1", "Column2", "SpaceColumn", "RowNumber"};
+			AssertEquals("header", expected, grid1.GetHeaderRow().TrimmedCells);
 		}
 	}
 }

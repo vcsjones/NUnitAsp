@@ -92,6 +92,11 @@
                     AssemblyName = "System.Windows.Forms"
                     HintPath = "..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Windows.Forms.dll"
                 />
+                <Reference
+                    Name = "System.Web"
+                    AssemblyName = "System.Web"
+                    HintPath = "..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -127,6 +132,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "WebFormTestCaseTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AspTester\AspTesterSuite.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -138,6 +148,11 @@
                 />
                 <File
                     RelPath = "AspTester\DataGridTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\DropDownListTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

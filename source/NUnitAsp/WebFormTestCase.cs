@@ -128,5 +128,32 @@ namespace NUnit.Extensions.Asp
 			return result + "\n}";
 		}
 
+		/// <summary>
+		/// Null strings in data[][] are not allowed.
+		/// </summary>
+		public static void AssertSortOrder(string message, string[][] data, int column, bool isAscending)
+		{
+			string lastCell = null;
+			foreach (string[] row in data)
+			{
+				string cell = row[column];
+				int comparison = cell.CompareTo(lastCell);
+
+				bool sorted;
+				string orderName;
+				if (isAscending)
+				{
+					sorted = (lastCell == null) || (comparison >= 0);
+					orderName = "ascending";
+				}
+				else
+				{
+					sorted = (lastCell == null) || (comparison <= 0);
+					orderName = "descending";
+				}
+				if (!sorted) Fail(message + " should be sorted " + orderName + ".  Was: " + Flatten(data));
+				lastCell = cell;
+			}
+		}
 	}
 }

@@ -21,7 +21,7 @@
 using System;
 using NUnit.Extensions.Asp.AspTester;
 
-namespace NUnit.Extensions.Asp.Test
+namespace NUnit.Extensions.Asp.Test.AspTester
 {
 
 	public class LabelTest : NUnitAspTestCase

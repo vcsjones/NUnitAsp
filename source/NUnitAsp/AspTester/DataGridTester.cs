@@ -51,9 +51,14 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
+		public Row GetHeaderRow()
+		{
+			return new Row(0, this);
+		}
+		
 		public Row GetRow(int rowNumber)
 		{
-			return new Row(rowNumber, this);
+			return new Row(rowNumber + 1, this);
 		}
 
 		public Row GetRowByCellValue(int columnNumber, string trimmedValue)
@@ -70,13 +75,13 @@ namespace NUnit.Extensions.Asp.AspTester
 		private XmlElement GetRowElement(int rowNumber)
 		{
 			XmlNodeList rows = Element.GetElementsByTagName("tr");
-			return (XmlElement)rows[rowNumber + 1];
+			return (XmlElement)rows[rowNumber];
 		}
 
 		internal override string GetChildElementHtmlId(string aspId)
 		{
 			int rowNumber = int.Parse(aspId);
-			return HtmlId + "__ctl" + (rowNumber + 2);
+			return HtmlId + "__ctl" + (rowNumber + 1);
 		}
 
 		public class Row : ControlTester
@@ -84,9 +89,9 @@ namespace NUnit.Extensions.Asp.AspTester
 			private int rowNumber;
 			private DataGridTester container;
 
-			public Row(int rowNumber, DataGridTester container) : base(rowNumber.ToString(), container)
+			public Row(int rowNumberWhereZeroIsHeader, DataGridTester container) : base(rowNumberWhereZeroIsHeader.ToString(), container)
 			{
-				this.rowNumber = rowNumber;
+				this.rowNumber = rowNumberWhereZeroIsHeader;
 				this.container = container;
 			}
 
