@@ -1,7 +1,7 @@
-#region Copyright (c) 2002-2004, Brian Knowles, Jim Shore
+#region Copyright (c) 2002-2005, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002-2004, Brian Knowles, Jim Shore
+' Copyright (c) 2002-2005, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -31,12 +31,26 @@ namespace NUnit.Extensions.Asp.AspTester
 	public class LabelTester : AspControlTester
 	{
 		/// <summary>
-		/// Create the tester and link it to an ASP.NET control.
+		/// Create a tester for a top-level control.  Use this constructor
+		/// for testing most controls.
 		/// </summary>
-		/// <param name="aspId">The ID of the control to test (look in the page's ASP.NET source code for the ID).</param>
-		/// <param name="container">A tester for the control's container.  (In the page's ASP.NET
-		/// source code, look for the tag that the control is nested in.  That's probably the
-		/// control's container.  Use CurrentWebForm if the control is just nested in the form tag.)</param>
+		/// <param name="aspId">The ID of the control to test (look in the
+		/// page's ASP.NET source code for the ID).</param>
+		public LabelTester(string aspId) : base(aspId)
+		{
+		}
+
+		/// <summary>
+		/// Create a tester for a nested control.  Use this constructor when 
+		/// the control you are testing is nested within another control,
+		/// such as a DataGrid or UserControl.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to test (look in the
+		/// page's ASP.NET source code for the ID).</param>
+		/// <param name="container">A tester for the control's container.  
+		/// (In the page's ASP.NET source code, look for the tag that the
+		/// control is nested in.  That's probably the control's
+		/// container.)</param>
 		public LabelTester(string aspId, Tester container) : base(aspId, container)
 		{
 		}

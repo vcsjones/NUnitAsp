@@ -22,7 +22,6 @@
 
 using System;
 using System.Xml;
-using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp
 {
@@ -83,11 +82,11 @@ namespace NUnit.Extensions.Asp
 			get
 			{
 				XmlNodeList formNodes = browser.CurrentPage.GetElementsByTagName("form");
-				Assertion.AssertEquals("page form elements", 1, formNodes.Count);
+				InternalAssert.Equal(1, formNodes.Count, "page form elements");
 				XmlElement formElement = (XmlElement)formNodes[0];
 
 				XmlAttribute id = formElement.Attributes["id"];
-				Assertion.AssertNotNull("couldn't find web form's 'id' attribute", id);
+				InternalAssert.NotNull(id, "couldn't find web form's 'id' attribute");
 
 				return new HtmlTag(browser, id.Value, this);
 			}

@@ -8,9 +8,18 @@ To do:
 * Look into HtmlAgilityPack
 
 
+Before release:
+* Update build: remove NUnit, put WebFormTestCase & WebAssertion in bin/ dir
+* Copy new constructors to every tester
+* Finish migration guide.
+
+
 Changes in CVS:
-Produced by Jim Shore and Levi Khatskevitch.
-* Added FAQ: How to test sites that require authentication.
+Produced by Jim Shore.
+* Added FAQ: How to test sites that require authentication.  Credit to Jim Shore.
+* Removed NUnit requirement.  NUnitAsp now works with any test framework.  Credit to Jim Shore.
+* Replaced Browser property with HttpClient.Default static property.  Credit to Jim Shore.
+* Replaced CurrentWebForm property with single-parameter constructor for testers.  Credit to Jim Shore.
 
 
 Changes in NUnitAsp 1.5.1:

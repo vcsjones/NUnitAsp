@@ -1,6 +1,7 @@
+#region Copyright (c) 2002-2005, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2002-2005, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -17,6 +18,7 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
 using NUnit.Extensions.Asp.AspTester;
@@ -33,27 +35,33 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			Browser.GetPage(BaseUrl + "/AspTester/LabelTestPage.aspx");
 		}
 
+		public void TestOneParameterConstructor()
+		{
+			LabelTester textLabel = new LabelTester("textLabel");
+			AssertEquals("text", "foo", textLabel.Text);
+		}
+
 		public void TestText() 
 		{
-			LabelTester textLabel = new LabelTester("textLabel", CurrentWebForm);
+			LabelTester textLabel = new LabelTester("textLabel");
 			AssertEquals("text", "foo", textLabel.Text);
 		}
 
 		public void TestSpace()
 		{
-			LabelTester spaceLabel = new LabelTester("spaceLabel", CurrentWebForm);
+			LabelTester spaceLabel = new LabelTester("spaceLabel");
 			AssertEquals("space", "foo ", spaceLabel.Text);
 		}
 
 		public void TestFormatted()
 		{
-			LabelTester formattedLabel = new LabelTester("formattedLabel", CurrentWebForm);
+			LabelTester formattedLabel = new LabelTester("formattedLabel");
 			AssertEquals("formatted", "a <i>HTML</i> tag", formattedLabel.Text);
 		}
 
 		public void TestNested()
 		{
-			LabelTester outerLabel = new LabelTester("outerLabel", CurrentWebForm);
+			LabelTester outerLabel = new LabelTester("outerLabel");
 			LabelTester innerLabel = new LabelTester("innerLabel", outerLabel);
 			AssertEquals("inner", "inner", innerLabel.Text);
 		}

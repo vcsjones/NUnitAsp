@@ -33,8 +33,6 @@ namespace NUnit.Extensions.Asp
 	[TestFixture]
 	public abstract class WebFormTestCase : WebAssertion
 	{
-		private HttpClient browser;
-
 		public WebFormTestCase()
 		{
 		}
@@ -45,7 +43,7 @@ namespace NUnit.Extensions.Asp
 		[SetUp]
 		public void BaseSetUp() 
 		{
-			browser = new HttpClient();
+			HttpClient.Default = new HttpClient();
 			SetUp();
 		}
 
@@ -83,8 +81,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get 
 			{
-				CheckSetUp();
-				return new WebForm(browser);
+				return new WebForm(HttpClient.Default);
 			}
 		}
 
@@ -95,16 +92,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get 
 			{
-				CheckSetUp();
-				return browser;
-			}
-		}
-
-		private void CheckSetUp()
-		{
-			if (browser == null) 
-			{
-				throw new InvalidOperationException("A required setup method in WebFormTestCase was not called.  This is probably because you used the [SetUp] attribute in a subclass of WebFormTestCase.  That is not supported.  Override the SetUp() method instead.");
+				return HttpClient.Default;
 			}
 		}
 	}

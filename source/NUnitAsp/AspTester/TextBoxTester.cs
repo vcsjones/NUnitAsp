@@ -23,7 +23,6 @@
 using System;
 using System.Xml;
 using System.Web.UI.WebControls;
-using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
@@ -81,12 +80,12 @@ namespace NUnit.Extensions.Asp.AspTester
 				}
 				else 
 				{
-					Assertion.AssertEquals("tag name", "input", Tag.Name);
+					InternalAssert.Equal("input", Tag.Name, "tag name");
 					string type = Tag.Attribute("type");
 					if (type == "password") return TextBoxMode.Password;
 					else 
 					{
-						Assertion.AssertEquals("type", "text", type);
+						InternalAssert.Equal("text", type, "type");
 						return TextBoxMode.SingleLine;
 					}
 				}
@@ -101,7 +100,10 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				Assertion.Assert("max length is ignored on a TextBox when TextMode is MultiLine", TextMode != TextBoxMode.MultiLine);
+				if (TextMode != TextBoxMode.MultiLine) 
+				{
+					throw new ApplicationException("max length is ignored on a TextBox when TextMode is MultiLine");
+				}
 
 				string maxLength = Tag.OptionalAttribute("maxlength");
 				if (maxLength == null || maxLength == "") return 0;

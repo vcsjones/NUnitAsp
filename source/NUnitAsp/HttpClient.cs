@@ -24,7 +24,6 @@ using System;
 using System.IO;
 using System.Net;
 using System.Xml;
-using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp 
 {
@@ -39,6 +38,14 @@ namespace NUnit.Extensions.Asp
 		private Uri currentUrl = null;
 		private WebPage currentPage = null;
 		private CookieContainer cookies = new CookieContainer();
+
+		/// <summary>
+		/// <p>The HttpClient that's used by default in all tests.</p>
+		/// 
+		/// <p>If you're creating a custom tester, don't use this property!
+		/// Use ControlTester.<see cref="ControlTester.Browser"/> instead.</p>
+		/// </summary>
+		public static HttpClient Default = new HttpClient();
 
 		/// <summary>
 		/// The user-agent string to send to the server. Useful if you want to pretend to
@@ -149,7 +156,7 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		public string CookieValue(string cookieName)
 		{
-			if (!HasCookie(cookieName)) Assertion.Fail("Expected cookie '" + cookieName + "' to be set");
+			if (!HasCookie(cookieName)) InternalAssert.Fail("Expected cookie '" + cookieName + "' to be set");
 			CookieCollection cc = cookies.GetCookies(currentUrl);
 			return cc[cookieName].Value;
 		}

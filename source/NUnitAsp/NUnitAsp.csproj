@@ -105,11 +105,6 @@
                     AssemblyName = "System.Windows.Forms"
                     HintPath = "..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Windows.Forms.dll"
                 />
-                <Reference
-                    Name = "nunit.framework"
-                    AssemblyName = "nunit.framework"
-                    HintPath = "..\..\lib\NUnit\nunit.framework.dll"
-                />
             </References>
         </Build>
         <Files>
@@ -135,22 +130,17 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "InternalAssert.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Tester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "WebAssertion.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "WebForm.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "WebFormTestCase.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
