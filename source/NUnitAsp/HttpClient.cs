@@ -36,7 +36,6 @@ namespace NUnit.Extensions.Asp
 	public class HttpClient
 	{
 		private TimeSpan serverTime = new TimeSpan(0);
-		public TimeSpan parseTime = new TimeSpan(0);
 		private Hashtable cookies = new Hashtable();
 		private Uri currentUrl = null;
 		private WebPage currentPage = null;
@@ -89,21 +88,44 @@ namespace NUnit.Extensions.Asp
 		private void DoHttp(string url, string method, string formVariables)
 		{
 			TcpClient tcp = null;
-			try 
+			UpdateCurrentUrl(url);
+
+			// This is an ugly, ugly hack, so it deserves comment.
+			// We've seen a weird, intermittent problem in which the server
+			// closes the connection in the middle of returning data to us.
+			// So the ugly ugly hack here is to simply retry, up to three times.
+			// A real fix is needed.  Please fix me.  Please!
+			int numTries = 0;
+			bool socketProblemOccurred = true;
+			while (socketProblemOccurred && numTries < 3)
 			{
-				UpdateCurrentUrl(url);
-				tcp = new TcpClient(currentUrl.Host, currentUrl.Port);
-				NetworkStream stream = tcp.GetStream();
-				SendHttpRequest(stream, method, formVariables);
-				HttpResponse response = ReadHttpResponse(stream);
-				tcp.Close();
-				ParseHttpResponse(response);
-				if (response.IsRedirect) GetPage(response.RedirectUrl);
+				try
+				{
+					socketProblemOccurred = false;
+					numTries++;
+					tcp = new TcpClient(currentUrl.Host, currentUrl.Port);
+					NetworkStream stream = tcp.GetStream();
+					SendHttpRequest(stream, method, formVariables);
+					HttpResponse response = ReadHttpResponse(stream);
+					tcp.Close();
+					ParseHttpResponse(response);
+					if (response.IsRedirect) GetPage(response.RedirectUrl);
+				}
+				catch (IOException e)
+				{
+					if (e.GetBaseException() is SocketException)
+					{
+						Console.WriteLine("Attempt #" + numTries + ": " + e);
+						socketProblemOccurred = true;
+					}
+					else throw e;
+				}
+				finally
+				{
+					if (tcp != null) tcp.Close();
+				}
 			}
-			finally
-			{
-				if (tcp != null) tcp.Close();
-			}
+			if (socketProblemOccurred) throw new ApplicationException("Got socket exception three times in a row... giving up.  Somebody please fix this bug!");
 		}
 
 		private void UpdateCurrentUrl(string url)

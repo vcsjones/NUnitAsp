@@ -42,7 +42,6 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			TimeSpan elapsedTime = DateTime.Now - startTime;
 			TimeSpan overheadTime = elapsedTime - Browser.ElapsedServerTime;
-			Console.WriteLine("{0}: server {1}, tests {2}, parse {3}", Name, Browser.ElapsedServerTime, overheadTime, Browser.parseTime);
 			base.TearDown();
 		}
 	}
