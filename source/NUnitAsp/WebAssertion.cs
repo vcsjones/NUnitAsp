@@ -67,6 +67,7 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// Asserts that two "tables" of strings are identical.
 		/// </summary>
+		[CLSCompliant(false)]
 		public static void AssertEquals(string[][] expected, string[][] actual)
 		{
 			AssertEquals(Flatten(expected), Flatten(actual));
@@ -75,6 +76,7 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// Asserts that two "tables" of strings are identical.
 		/// </summary>
+		[CLSCompliant(false)]
 		public static void AssertEquals(string message, string[][] expected, string[][] actual)
 		{
 			AssertEquals(Flatten(expected), Flatten(actual));
@@ -85,6 +87,7 @@ namespace NUnit.Extensions.Asp
 		/// differences.  Individual rows in the tables must match, but the order of the
 		/// rows may differ.
 		/// </summary>
+		[CLSCompliant(false)]
 		public static void AssertEqualsIgnoreOrder(string message, string[][] expected, string[][] actual)
 		{
 			if (expected.Length != actual.Length) Fail(message, expected, actual);
@@ -137,6 +140,7 @@ namespace NUnit.Extensions.Asp
 		/// <param name="column">The column that must be sorted.</param>
 		/// <param name="isAscending">'true' if the table should be sorted from low to high; 'false' if the table should be sorted from high to low.</param>
 		/// <param name="type">The type of data in the column that's sorted.</param>
+		[CLSCompliant(false)]
 		public static void AssertSortOrder(string message, string[][] data, int column, bool isAscending, DataType type)
 		{
 			string lastCell = null;

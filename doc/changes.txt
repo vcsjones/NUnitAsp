@@ -9,7 +9,7 @@ To do:
 Changes in CVS:
 Produced by Jim Shore and Levi Khatskevitch.
 * Added an ImageButtonTester.Click overload that takes no arguments.  Credit to Kyle Heon.
-
+* Added CLS compliance (except for certain members).  Credit to Levi Khatskevitch and Michael Ridgway.
 
 Changes in NUnitAsp 1.4.1:
 Produced by Jim Shore and Levi Khatskevitch.

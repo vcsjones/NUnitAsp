@@ -58,6 +58,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// represents cells within the rows.  Whitespace has been trimmed from the front and
 		/// back of the cells.
 		/// </summary>
+		[CLSCompliant(false)]
 		public string[][] TrimmedCells
 		{
 			get
