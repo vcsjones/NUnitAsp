@@ -1,4 +1,4 @@
-'********************************************************************************************************************
+/********************************************************************************************************************
 '
 ' Copyright (c) 2002, Brian Knowles, Jim Little
 '
@@ -16,9 +16,4 @@
 ' CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 ' DEALINGS IN THE SOFTWARE.
 '
-'*******************************************************************************************************************
-
-Acknowledgements
-- Russell Gage for pairing with me on this
-- Philip Craig for NUnit - http://sourceforge.net/projects/nunit
-- Kent Beck and Erich Gamma for JUnit - http://www.junit.org
+'*******************************************************************************************************************/
