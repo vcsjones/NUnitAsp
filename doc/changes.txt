@@ -1,4 +1,4 @@
-Changes in CVS:
+Changes in NUnitAsp 1.4:
 Produced by Jim Shore and Levi Khatskevitch.
 * Updated installation guide in response to user comments.  Credit to Jim Shore.
 * Added support for https: protocol.  Credit to Daniel Granath.
