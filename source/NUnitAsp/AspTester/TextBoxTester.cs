@@ -49,7 +49,16 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 			get
 			{
-				string text = GetOptionalAttributeValue("value");
+				string text;
+				if (TextMode == TextBoxMode.MultiLine)
+				{
+					text = Element.InnerText;       
+				}
+				else 
+				{                                  
+					text = GetOptionalAttributeValue("value");
+				}
+
 				if (text == null) return "";
 				return text;
 			}

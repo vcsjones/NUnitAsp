@@ -16,6 +16,10 @@ namespace NUnitAspTestPages.AspTester
 	/// </summary>
 	public class TextBoxTestPage : System.Web.UI.Page
 	{
+		protected System.Web.UI.WebControls.TextBox multiline;
+		protected System.Web.UI.WebControls.Button postback;
+		protected System.Web.UI.WebControls.TextBox textBox;
+	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			// Put user code to initialize the page here
@@ -38,6 +42,7 @@ namespace NUnitAspTestPages.AspTester
 		private void InitializeComponent()
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
+
 		}
 		#endregion
 	}

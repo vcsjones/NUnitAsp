@@ -25,12 +25,33 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 {
 	public class TextBoxTest : NUnitAspTestCase
 	{
-		public void TestTextWhenEmpty()
+		private TextBoxTester textBox;
+		private TextBoxTester multiline;
+		private ButtonTester postback;
+
+		protected override void SetUp()
 		{
-			TextBoxTester textBox = new TextBoxTester("textBox", CurrentWebForm);
+			textBox = new TextBoxTester("textBox", CurrentWebForm);
+			multiline = new TextBoxTester("multiline", CurrentWebForm);
+			postback = new ButtonTester("postback", CurrentWebForm);
 
 			Browser.GetPage(BaseUrl + "AspTester/TextBoxTestPage.aspx");
+		}
+
+		public void TestTextWhenEmpty()
+		{
 			AssertEquals("empty text box", "", textBox.Text);
+			multiline.Text = "";
+			postback.Click();
+			AssertEquals("empty multiline text box", "", multiline.Text);
+		}
+
+		public void TestMultiline()
+		{
+			AssertEquals("default multiline", "default", multiline.Text);
+			multiline.Text="new text";
+			postback.Click();
+			AssertEquals("multiline text box setting", "new text", multiline.Text);
 		}
 	}
 }
