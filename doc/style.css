@@ -83,8 +83,9 @@ li {
 	text-align: left;
 	font-family: monospace;
 	margin: 1.5em 5em 1.5em 5em;
-	border: 0.25em solid black;
+	border: 1px dashed black;
 	padding: 0.5em;
+	background-color: #FFFFCC;
 }
 
 .emph {

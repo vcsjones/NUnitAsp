@@ -3,8 +3,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuestBookTests", "GuestBook
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuestBook", "http://localhost/NUnitAsp/sample/tutorial/GuestBook/GuestBook.csproj", "{719EA919-682E-4171-8D5A-F527A2C2DD3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitAsp", "..\..\source\NUnitAsp\NUnitAsp.csproj", "{18E46492-3A7D-4BCC-88D2-2B598D955348}"
-EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		ConfigName.0 = Clientele Package
@@ -26,12 +24,6 @@ Global
 		{719EA919-682E-4171-8D5A-F527A2C2DD3F}.Debug.Build.0 = Debug|.NET
 		{719EA919-682E-4171-8D5A-F527A2C2DD3F}.Release.ActiveCfg = Release|.NET
 		{719EA919-682E-4171-8D5A-F527A2C2DD3F}.Release.Build.0 = Release|.NET
-		{18E46492-3A7D-4BCC-88D2-2B598D955348}.Clientele Package.ActiveCfg = Clientele Package|.NET
-		{18E46492-3A7D-4BCC-88D2-2B598D955348}.Clientele Package.Build.0 = Clientele Package|.NET
-		{18E46492-3A7D-4BCC-88D2-2B598D955348}.Debug.ActiveCfg = Debug|.NET
-		{18E46492-3A7D-4BCC-88D2-2B598D955348}.Debug.Build.0 = Debug|.NET
-		{18E46492-3A7D-4BCC-88D2-2B598D955348}.Release.ActiveCfg = Release|.NET
-		{18E46492-3A7D-4BCC-88D2-2B598D955348}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

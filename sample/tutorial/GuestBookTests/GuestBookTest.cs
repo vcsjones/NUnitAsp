@@ -8,15 +8,24 @@ namespace GuestBookTests
 	[TestFixture]
 	public class GuestBookTest : WebFormTestCase
 	{
+		private TextBoxTester name;
+		private TextBoxTester comments;
+		private ButtonTester save;
+		private DataGridTester book;
+
+		protected override void SetUp() 
+		{
+			name = new TextBoxTester("name", CurrentWebForm);
+			comments = new TextBoxTester("comments", CurrentWebForm);
+			save = new ButtonTester("save", CurrentWebForm);
+			book = new DataGridTester("book", CurrentWebForm);
+
+			Browser.GetPage("http://localhost/NUnitAsp/sample/tutorial/GuestBook/GuestBook.aspx");
+		}
+		
 		[Test]
 		public void TestLayout()
 		{
-			TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
-			TextBoxTester comments = new TextBoxTester("comments", CurrentWebForm);
-			ButtonTester save = new ButtonTester("save", CurrentWebForm);
-			DataGridTester book = new DataGridTester("book", CurrentWebForm);
-
-			Browser.GetPage("http://localhost/NUnitAsp/sample/tutorial/GuestBook/GuestBook.aspx");
 			AssertVisibility(name, true);
 			AssertVisibility(comments, true);
 			AssertVisibility(save, true);
@@ -26,15 +35,7 @@ namespace GuestBookTests
 		[Test]
 		public void TestSave()
 		{
-			TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
-			TextBoxTester comments = new TextBoxTester("comments", CurrentWebForm);
-			ButtonTester save = new ButtonTester("save", CurrentWebForm);
-			DataGridTester book = new DataGridTester("book", CurrentWebForm);
-
-			Browser.GetPage("http://localhost/NUnitAsp/sample/tutorial/GuestBook/GuestBook.aspx");
-			name.Text = "Dr. Seuss";
-			comments.Text = "One Guest, Two Guest!  Guest Book, Best Book!";
-			save.Click();
+			SignGuestBook("Dr. Seuss", "One Guest, Two Guest!  Guest Book, Best Book!");
 
 			AssertEquals("name", "", name.Text);
 			AssertEquals("comments", "", comments.Text);
@@ -45,5 +46,27 @@ namespace GuestBookTests
 			};
 			AssertEquals("book", expected, book.TrimmedCells);
 		}
+
+		[Test]
+		public void TestSaveTwoItems()
+		{
+			SignGuestBook("Dr. Seuss", "One Guest, Two Guest!  Guest Book, Best Book!");
+			SignGuestBook("Dr. Freud", "That's quite a slip you have there.");
+
+			string[][] expected = new string[][]
+			{
+				new string[] {"Dr. Seuss", "One Guest, Two Guest!  Guest Book, Best Book!"},
+				new string[] {"Dr. Freud", "That's quite a slip you have there."}
+			};
+			AssertEquals("book", expected, book.TrimmedCells);
+		}
+
+		private void SignGuestBook(string nameToSign, string commentToSign)
+		{
+			name.Text = nameToSign;
+			comments.Text = commentToSign;
+			save.Click();
+		}
+			
 	}
 }

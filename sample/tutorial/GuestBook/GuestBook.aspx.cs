@@ -20,6 +20,27 @@ namespace GuestBook
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+		}
+
+		protected void Save_Clicked(object sender, EventArgs e)
+		{
+			DataTable table = (DataTable)Session["GuestBookData"];
+			if (table == null) 
+			{
+				table = new DataTable();
+				table.Columns.Add(new DataColumn("Name", typeof(string)));
+				table.Columns.Add(new DataColumn("Comments", typeof(string)));
+			}
+
+			DataRow row = table.NewRow();
+			row["Name"] = name.Text;
+			row["Comments"] = comments.Text;
+			table.Rows.Add(row);
+
+			book.DataSource = table;
+			book.DataBind();
+
+			Session["GuestBookData"] = table;
 			name.Text = "";
 			comments.Text = "";
 		}

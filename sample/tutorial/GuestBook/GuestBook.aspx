@@ -3,16 +3,23 @@
 <HTML>
 	<HEAD>
 		<title>GuestBook</title>
-		<meta name="GENERATOR" Content="Microsoft Visual Studio 7.0" />
-		<meta name="CODE_LANGUAGE" Content="C#" />
-		<meta name="vs_defaultClientScript" content="JavaScript" />
-		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+		<meta content="Microsoft Visual Studio 7.0" name="GENERATOR">
+		<meta content="C#" name="CODE_LANGUAGE">
+		<meta content="JavaScript" name="vs_defaultClientScript">
+		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 	</HEAD>
 	<body>
 		<form id="GuestBook" method="post" runat="server">
-			<asp:TextBox ID="name" Runat="server"></asp:TextBox>
-			<asp:TextBox ID="comments" Runat="server"></asp:TextBox>
-			<asp:Button ID="save" Runat="server" Text="Save"></asp:Button>
+			<p><b>Guest Book:</b></p>
+			
+			<u>Enter your name:</u>
+			<table>
+			<tr><td>Name:</td><td><asp:textbox id="name" Runat="server"></asp:textbox></td></tr>
+			<tr><td>Comments:</td><td><asp:TextBox ID="comments" Runat="server"></asp:TextBox></td></tr>
+			</table>
+			<asp:Button ID="save" Runat="server" Text="Save" OnClick="Save_Clicked"></asp:Button>
+
+			<br /><br /><u>Previous Guests:</u>
 			<asp:DataGrid id="book" runat="server"></asp:DataGrid>
 		</form>
 	</body>
