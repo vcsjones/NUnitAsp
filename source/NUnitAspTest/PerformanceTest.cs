@@ -29,14 +29,40 @@ namespace NUnit.Extensions.Asp.Test
 	public class PerformanceTest : NUnitAspTestCase
 	{
 		private const int expectedTestsPerSecond = 2;
+		private const long speedOfMinimumComputer = 997576;
 
 		[Test]
 		public void TestPerformance() 
 		{
 			TimeSpan actualTime = BestOutOfThree();
+			actualTime = AdjustForSpeedOfComputer(actualTime);
 			TimeSpan expectedTime = new TimeSpan(0, 0, 0, 0, 1000 / expectedTestsPerSecond);
-			string failureMessage = String.Format("performance must be at least {0} but was {1}", expectedTime, actualTime);
+			string failureMessage = String.Format("performance must be at least {0} but was {1} (adjusted for speed of computer)", expectedTime, actualTime);
 			Assert(failureMessage, actualTime <= expectedTime);
+		}
+
+		private TimeSpan AdjustForSpeedOfComputer(TimeSpan time)
+		{
+			long speed = CalculateComputerSpeedSuchThatLargerIsBetter();
+
+			double speedRatio = speed / speedOfMinimumComputer;
+			long adjustedTime = (long)(speedRatio * time.Ticks);
+			return new TimeSpan(adjustedTime);
+		}
+
+		private long CalculateComputerSpeedSuchThatLargerIsBetter()
+		{
+			DateTime start = DateTime.Now;
+			TimeSpan runTime = new TimeSpan(0, 0, 0, 0, 200);
+			long speed = 0;
+			int timeWaster = 153;
+			do
+			{
+				speed++;
+				if (timeWaster / 2 * 2 == timeWaster) timeWaster /= 2;
+				else timeWaster = timeWaster * 3 + 1;
+			} while ((DateTime.Now - start) < runTime);
+			return speed;
 		}
 
 		private TimeSpan BestOutOfThree()
@@ -44,13 +70,13 @@ namespace NUnit.Extensions.Asp.Test
 			TimeSpan bestPerformance = TimeSpan.MaxValue;
 			for (int i = 0; i < 3; i++) 
 			{
-				TimeSpan currentPerformance = OneTest();
+				TimeSpan currentPerformance = TimedTest();
 				if (currentPerformance < bestPerformance) bestPerformance = currentPerformance;
 			}
 			return bestPerformance;
 		}
 
-		private TimeSpan OneTest()
+		private TimeSpan TimedTest()
 		{
 			TimeSpan accumulatedServerTime = Browser.ElapsedServerTime;
 			DateTime start = DateTime.Now;
