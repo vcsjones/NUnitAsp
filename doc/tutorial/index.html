@@ -54,7 +54,7 @@
               <br />Create a project
             </div>
 
-            <p>Start by creating a class library project to contain your tests. We created a Visual Studio .NET solution named "GuestBook" and a C# class library project named "GuestBookTests."  Create a text fixture class that describes what you're testing.  We used "GuestBookTest."  Finally, add references to the NUnitAsp and NUnit frameworks.  NUnitAsp.dll is in the \bin directory of the NUnitAsp download and nunit.framework.dll is in the \bin directory of your NUnit install. The NUnitASP framework appears in the VS.NET References tree as "NUnitASP." The NUnit framework appears as "nunit.framework."</p>
+            <p>Start by creating a class library project to contain your tests. We created a Visual Studio .NET solution named "GuestBook" and a C# class library project named "GuestBookTests."  Create a text fixture class that describes what you're testing.  We used "GuestBookTest."  Finally, add references to the NUnitAsp and NUnit frameworks.  NUnitAsp.dll is in the \bin directory of the NUnitAsp download and nunit.framework.dll is in the \bin directory of your NUnit install. The NUnitAsp framework appears in the VS.NET References tree as "NUnitAsp." The NUnit framework appears as "nunit.framework."</p>
 
             <p>Once your project and text fixture class have been created, modify your class to extend WebFormTestCase.  WebFormTestCase provides a "Browser" property for loading web pages.  It also provides some handy extra assertions.</p>
 
@@ -309,7 +309,7 @@
                 </tr>
               </table>
 
-            <p>Stop and take another look at the code.  This is the heart of what NUnitAsp is all about.  Although the test isn't actually working with an ASP.NET page&mdash;the page is raw HTML, like any rendered ASP.NET page&mdash;you can manipulate the controls on it with simple ASP.NET-like properties and methods. Pretty cool, and very easy. To write a test like this without NUnitASP, you would have to know how ASP.NET renders each control to HTML, and then you'd have to manage that complexity every time you examined or set a control on the page. NUnitASP abstracts this complexity away from you, enabling you to use ASP.NET-like syntax rather than worrying about how each control appears in rendered HTML.</p>
+            <p>Stop and take another look at the code.  This is the heart of what NUnitAsp is all about.  Although the test isn't actually working with an ASP.NET page&mdash;the page is raw HTML, like any rendered ASP.NET page&mdash;you can manipulate the controls on it with simple ASP.NET-like properties and methods. Pretty cool, and very easy. To write a test like this without NUnitAsp, you would have to know how ASP.NET renders each control to HTML, and then you'd have to manage that complexity every time you examined or set a control on the page. NUnitAsp abstracts this complexity away from you, enabling you to use ASP.NET-like syntax rather than worrying about how each control appears in rendered HTML.</p>
 
             <p>Run the test.  It passes, unsurprisingly.  We're filling in the text and clicking "Save," but we're not actually asserting anything.  Let's fix that.  We'll start by asserting that the name and comment fields are reset to be blank after you save.</p>
 
@@ -380,7 +380,7 @@
 
             <p>Notice how similar the code-behind is to the tests?  That's intentional.  NUnitAsp will generally have the same methods on its testers that are on real ASP.NET objects.</p>
 
-            <p>Now for the meat of the test.  We want to assert that the "book" data grid is populated with the user's name and comments.  Since checking the contents of a data grid is a common need, NUnitASP includes functionality to make this easy.</p>
+            <p>Now for the meat of the test.  We want to assert that the "book" data grid is populated with the user's name and comments.  Since checking the contents of a data grid is a common need, NUnitAsp includes functionality to make this easy.</p>
 
             <p>NUnitAsp allows you to treat a data grid as an array of cells.  More accurately, it enables you to treat a data grid as an array of string arrays.  The string arrays in the outer array correspond to the rows of the data grid, and the strings in the inner arrays correspond to the cells of the data grid.  This is best illustrated by an example.  A string array that looks like this:</p>
 
@@ -431,7 +431,7 @@
               <span class="demph"><br />}</span>
             </div>
 
-            <p>If you run the tests now, you see that the save test fails because NUnitASP can't find a control named "book".</p>
+            <p>If you run the tests now, you see that the save test fails because NUnitAsp can't find a control named "book".</p>
 
             <p>Remember when we changed the TestLayout test to succeed when the "book" element wasn't visible, because it didn't yet hold any data? TestSave is failing right now for a similar reason, except that we now want the grid to be visible, and to contain the information we've entered in the text boxes. Since we haven't added any functionality to the page to update the data grid when we click "Save," the data grid is still not visible.</p>
 
@@ -965,7 +965,7 @@
 
             <p class="end">
               by Jim Shore with Andrew Enfield
-              <br />Last updated for v1.4.
+              <br />Last updated for v1.5.
             </p>
           </div>
         </td>

@@ -47,8 +47,8 @@ namespace NUnit.Extensions.Asp.AspTester
 		public void Click(int x, int y)
 		{
 			string name = Tag.Attribute("name");
-			EnterInputValue( name + ".x", x.ToString() );
-			EnterInputValue( name + ".y", y.ToString() );
+			EnterInputValue(name + ".x", x.ToString());
+			EnterInputValue(name + ".y", y.ToString());
 			Submit();
 		}
 

@@ -38,16 +38,21 @@
             <p>A: Use the <a href="api/NUnit.Extensions.Asp.HttpClient.CurrentUrl.html">Browser.CurrentUrl</a> property to look at the current URL or the <a href="api/NUnit.Extensions.Asp.WebForm.AspId.html">CurrentWebForm.AspId</a> property to look at the ASP.NET ID of the current web form.</p>
 
 
-            <h2>Q: How do I test user controls / data grids?</h2>
+            <h2>Q: How do I test user controls and stuff in data grids?</h2>
 
             <p>A: See the section titled "User Controls, Data Grids, and Other Control Nesting" in the <a href="quickstart.html">Quick-Start Guide</a>.</p>
 
 
-            <h2>Q: When will NUnitAsp support frames / Javascript / pop-up windows / more HTML controls?</h2>
+            <h2>Q: How do I test a site that requires authentication?</h2>
 
-            <p>A: NUnitAsp is a <em>unit testing</em> tool.  Its purpose is to test logic in ASP.NET code-behind classes.  When you write an NUnitAsp test, focus on testing the behavior of a specific page or even a specific user control.  We expect you to ignore frames, Javascript, and other client-side issues and focus on ASP.NET's interaction with the server.</p>
+            <p>A: It is possible, and it's not a subject I understand well.  Can somebody send me (via the nunitasp-devl@lists.sourceforge.net mailing list) a good explanation of ASP.NET authentication and how it works with NUnitAsp?  I'll include it with the next release.
 
-            <p>The NUnitAsp team agrees that client-side support would make it easier to test the whole UI.  Given our limited manpower, we have decided to focus on the code-behind unit-testing aspect of NUnitAsp instead.  If these features are important to you, well-written and tested <a href="contribute.html">code contributions</a> are always welcome.  You may also <a href="consulting.html">fund development</a>.</p>
+
+            <h2>Q: Why doesn't NUnitAsp support frames / Javascript / pop-up windows / more HTML controls?</h2>
+
+            <p>A: NUnitAsp's purpose is to enable test-driven development of ASP.NET code-behind methods.  If you use NUnitAsp to do so, you'll find that the lack of Javascript, etc. is much less of an issue.  When you write an NUnitAsp test, focus on testing the behavior of a specific page or even a specific user control.  We expect you to ignore frames, Javascript, and other client-side issues and focus on testing code-behind logic.</p>
+
+            <p>We would like to provide more robust client-side support, but given our limited manpower, we have decided to focus on the code-behind unit-testing aspect of NUnitAsp instead.  If these features are important to you, well-written and tested <a href="contribute.html">code contributions</a> are always welcome.  You may also <a href="consulting.html">fund development</a>.</p>
 
 
             <h2>Q: When I try to compile NUnitAsp in VS.NET, I get a &quot;cryptographic failure&quot; error.  What's wrong?</h2>
@@ -61,7 +66,7 @@
 
             <h2>Q: When I try to compile NUnitAsp with NAnt, the build says &quot;External program returned errors&quot;.  What's wrong?</h2>
 
-            <p>A: In order to sign the NUnitAsp DLL, the build uses a program called "sn.exe".  If it's not available, your build will fail with this error:</p>
+            <p>A: The build script is set up to work with .NET 1.0 by default.  It sets an environment variable called DotNetToolDir to point to your .NET 1.0 directory.  If that directory doesn't exist, the build won't be able to find "sn.exe" and will fail with this error:</p>
 
             <p class="code">keypair:
               <br />[exec] sn -k NUnitAsp.snk
@@ -71,7 +76,7 @@
               <br />Try 'nant -help' for more information
             </p>
 
-            <p>To correct this, make sure sn.exe is in your path or in the DotNetToolDir environment variable path.  If you don't have a DotNetToolDir environment variable, the build script will set it to a default, but this may be wrong.  Make sure it's set properly.</p>
+            <p>To correct this, make sure you've set DotNetToolDir correctly and that sn.exe is in that path.</p>
 
 
             <h2>Q: When will NUnitAsp stop requiring XHTML?</h2>
@@ -79,17 +84,21 @@
             <p>A: <b>Done!</b> As of version 1.4, NUnitAsp no longer requires XHTML.</p>
 
 
-            <h2>Q: When will NUnitAsp support NUnit v2.1?</h2>
+            <h2>Q: When will NUnitAsp support NUnit v2.2?</h2>
 
-            <p>A: <b>Done!</b> As of version 1.4.1, NUnitAsp supports NUnit v2.1.4.</p>
+            <p>A: Expect it in November 2004.</p>
 
 
             <h2>Q: When will NUnitAsp support Visual Studio .NET 2003?</h2>
 
-            <p>A: <b>Done!</b> As of version 1.4, NUnitAsp works with Visual Studio .NET 2003.  The NUnitAsp solution will remain on the original version of Visual Studio .NET unless someone sends <a href="mailto:jlittle82@sourceforge.net">Jim Shore</a> a complementary copy of VS.NET 2003.  (Microsoft: hint, hint.)</p>
+            <p>A: <b>Done!</b> As of version 1.4, NUnitAsp works with Visual Studio .NET 2003.  The NUnitAsp solution will remain on the original version of Visual Studio .NET unless someone sends <a href="mailto:jlittle82@sourceforge.net">me</a> a complementary copy of VS.NET 2003.  (Microsoft: hint, hint.)</p>
 
 
-            <p class="end">Last updated for UPCOMING VERSION.</p>
+            <h2>Q: How do you spell "NUnitAsp?"</h2>
+
+            <p>A: "NUnitAsp" is spelled in accordance with .NET framework naming standards.  Like .NET's "HttpWebRequest" and "SqlConnection" classes, the first letter of each word is capitalized and acronyms are treated as a single word: N Unit Asp.  It's pronounced "en unit a ess pee."  It is <em>not</em> spelled "NunitAsp," "NUnitASP," or (heaven forbid) "nUnitASP."</p>
+
+            <p class="end">Last updated for v1.5.</p>
           </div>
         </td>
       </tr>

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD><TITLE>NUnitAsp: ReleaseCheckList</TITLE>
+To release NUnitAsp, follow these steps.  You'll need admin priviliges.
+<p>
+
+<UL>
+<li> <b>Update the web site content</b>
+<UL>
+<li> Check out the latest files from CVS
+<li> Update the "current version" info at the bottom of website/index.html
+<li> Update the current version in website/download.html.  Don't forget to update the HTML link.
+<li> Update changes.txt.  Don't forget to update the "changes in CVS" to "changes in v#.#"
+</UL>
+</UL>
+<p>
+<UL>
+
+<li> <b>Create the release</b>
+<UL>
+<li> Announce release freeze on nunitasp-devl
+<li> Update source\<a href="wiki.pl?NUnitAsp">NUnitAsp</a>\AssemblyInfo<a href="wiki.pl?action=edit&id=AssemblyInfo">?</a>.cs with the correct version info (e.g., "[assembly: AssemblyVersion<a href="wiki.pl?action=edit&id=AssemblyVersion">?</a>("1.1.1.*")]"
+<li> Use NAnt to create the release: nant clean package
+<li> Rename the release file so that includes the correct version info (e.g., "<a href="wiki.pl?NUnitAsp">NUnitAsp</a>-1.1.1.zip")
+
+<li> Double-check the release file and web site
+<li> Commit your changes to CVS
+<li> Tag the CVS tree with the name of the release (e.g., "Release1-1-1")
+</UL>
+</UL>
+<p>
+<UL>
+<li> <b>Upload the release</b>
+<UL>
+<li> Upload the release file to <a href="ftp://upload.sourceforge.net/incoming">ftp://upload.sourceforge.net/incoming</a> (anonymous login; may need to shutdown ZoneAlarm<a href="wiki.pl?action=edit&id=ZoneAlarm">?</a>)
+
+<li> Register release with SourceForge<a href="wiki.pl?action=edit&id=SourceForge">?</a> at https://sourceforge.net/project/admin/newrelease.php?package_id=43375&amp;group_id=49940
+<li> Release name: "<a href="wiki.pl?NUnitAsp">NUnitAsp</a>-x.x" (e.g., <a href="wiki.pl?NUnitAsp">NUnitAsp</a>-1.1.1)
+<li> Processor: i386
+<li> File Type: .zip
+<li> After finishing, double-check that the link on website/download.html works.
+
+</UL>
+</UL>
+<p>
+<UL>
+<li> <b>Update the web site</b>
+<UL>
+<li> Log into nunitasp.sf.net shell server using SSH: ssh -l <i>username</i> nunitasp.sf.net
+<li> Change to the <a href="wiki.pl?NUnitAsp">NUnitAsp</a> project's directory: /home/groups/n/nu/nunitasp
+
+<li> Rename ('mv') htdocs to htdocs.v#.# (e.g., htdocs.v1.4)
+<li> Delete ('rm -rf') the old htdocs backup
+<li> At Windows command prompt, copy the docs to the server: scp -r doc <i>username</i>@nunitasp.sf.net:/home/groups/n/nu/nunitasp/htdocs
+<li> At Unix (ssh) command prompt, update doc permissions: chmod 775 htdocs
+<li> Check that the update worked: <a href="http://nunitasp.sf.net">http://nunitasp.sf.net</a>
+</UL>
+</UL>
+<p>
+
+<UL>
+<li> <b>Announce the release</b>
+<UL>
+<li> At minimum, announce the release on the nunitasp-devl and nunitasp-announce mailing lists.
+</UL>
+</UL>
+</FORM></BODY></HTML>
