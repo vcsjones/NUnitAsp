@@ -186,7 +186,7 @@ namespace NUnit.Extensions.Asp
 			StreamWriter writer = new StreamWriter(stream, Encoding.ASCII);
 			writer.NewLine = "\r\n";
 			writer.WriteLine("{0} {1} HTTP/1.0", method.ToUpper(), url);
-			writer.WriteLine("User-Agent: NUnitAsp/0.x");
+			writer.WriteLine("User-Agent: NUnitAsp");
 			writer.WriteLine("Cookie: {0}", CreateCookieString());
 			if (method.ToLower() == "get") 
 			{
