@@ -29,28 +29,55 @@ namespace NUnit.Extensions.Asp
 	public enum DataType {String, DateTime, Int};
  
 	/// <summary>
-	/// An ASP.NET test case.  Extend this clss from your test cases to use NUnitAsp
-	/// in your tests.
+	/// Base class for NUnitAsp test fixtures.  Extend this class to use NUnitAsp.
 	/// </summary>
-	public abstract class WebFormTestCase : TestCase 
+	[TestFixture]
+	public abstract class WebFormTestCase : Assertion
 	{
 		private HttpClient browser;
 		private WebForm form;
 
-		public WebFormTestCase(string name) : base(name) 
+		public WebFormTestCase()
 		{
 		}
 
 		/// <summary>
-		/// Executed before each test method is run.  If you override this method, BE
-		/// SURE to call <code>base.SetUp()</code>.  Otherwise your tests won't work.
+		/// Do not call.  For use by NUnit only.
 		/// </summary>
-		protected override void SetUp() 
+		[SetUp]
+		public void BaseSetUp() 
 		{
-			base.SetUp();
 			browser = new HttpClient();
 			form = new WebForm(browser);
-   		}
+			SetUp();
+		}
+
+		/// <summary>
+		/// Executed before each test method is run.  Override in subclasses to do subclass
+		/// set up.  NOTE: [SetUp] attribute cannot be used in subclasses because it is already
+		/// in use.
+		/// </summary>
+		protected virtual void SetUp()
+		{
+		}
+
+		/// <summary>
+		/// Do not call.  For use by NUnit only.
+		/// </summary>
+		[TearDown]
+		protected void BaseTearDown()
+		{
+			TearDown();
+		}
+
+		/// <summary>
+		/// Executed after each test method is run.  Override in subclasses to do subclass
+		/// clean up.  NOTE: [TearDown] attribute cannot be used in subclasses because it is
+		/// already in use.
+		/// </summary>
+		protected virtual void TearDown()
+		{
+		}
 
 		/// <summary>
 		/// The web form currently loaded by the browser.

@@ -38,10 +38,6 @@ namespace NUnit.Extensions.Asp.Test
 		private LinkButtonTester postBack;
 		private LabelTester cookie;
 
-		public HttpClientTest(string name) : base(name)
-		{
-		}
-
 		protected override void SetUp()
 		{
 			base.SetUp();

@@ -29,7 +29,7 @@
 
 						<p>This guide contains a brief description of how to use NUnitAsp and a daily use checklist.  It assumes that you are familiar with NUnit, ASP.NET, and unit testing in general.  For a more detailed tutorial, see the <a href="tutorial/index.html">NUnitAsp Tutorial</a> instead.  It also assumes that you're using C#, Windows, Microsoft Internet Information Server, and Visual Studio .NET.  NUnitAsp will work in other environments, but you'll need to modify these directions for your environment.  If you do, please let us know how you did it!  We'll expand this guide to include your information.
 
-						<p>This guide was last updated for NUnitAsp v1.2.</p>
+						<p>This guide was last updated for NUnitAsp v1.2.1.</p>
 
 
 						<h2>About NUnitAsp</h2>
@@ -59,7 +59,7 @@
 
 						<h2>Daily Use Checklist</h2>
 
-						<p>Follow this checklist when creating NUnitAsp tests.  Easily-forgotten requirements are listed in bold.</p>
+						<p>Follow this checklist when creating NUnitAsp tests.  Easily-forgotten requirements are marked with asterisks.</p>
 
 						<ul>
 							<li><b>In your test projects:</b>
@@ -74,8 +74,8 @@
 								<li>Include your Tester packages.  You'll usually want the ASP testers by default.  To include these in C#, add the line <code>using NUnit.Extensions.Asp.AspTester;</code> to the top of the file.</li>
 								<li>Extend NUnitAspTestCase.</li>
 								<li>Declare common testers that are used by more than one test case.</li>
-								<li>Create an empty constructor that takes "string name" as a parameter and passes it to the base class.</li>
-								<li><b>If you override SetUp(), call base.SetUp().</b>
+								<li><b>Override SetUp() rather than using the [SetUp] attribute.</b>
+								<li><b>Override TearDown() rather than using the [TearDown] attribute.</b>
 								<li>If you declared common testers, initialize them in SetUp().</li>
 							</ul></li>
 

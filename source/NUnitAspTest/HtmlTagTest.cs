@@ -19,15 +19,12 @@
 '*******************************************************************************************************************/
 
 using System;
+using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp.Test
 {
 	public class HtmlTagTest : NUnitAspTestCase
 	{
-		public HtmlTagTest(string name) : base(name)
-		{
-		}
-
 		private void RunAttributeTest(string tagText, string expectedValue)
 		{
 			HtmlTag tag = new HtmlTag(tagText);

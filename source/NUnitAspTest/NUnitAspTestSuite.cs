@@ -24,31 +24,31 @@ using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp.Test
 {
-	public class NUnitAspTestSuite : TestSuite
+	public class NUnitAspTestSuite //: TestSuite
 	{
-		public NUnitAspTestSuite() : base() 
-		{
-			AddAllTestCaseClassesInThisAssemblyToSuite(this);
-		}
-
-		private void AddAllTestCaseClassesInThisAssemblyToSuite(TestSuite suite)
-		{			
-			Assembly assembly = Assembly.GetExecutingAssembly();
-			foreach(Type type in assembly.GetTypes()) 
-			{
-				if (type.IsSubclassOf(typeof(TestCase)) && !type.IsAbstract)
-				{
-					suite.AddTestSuite(type);
-				}
-			}
-		}
-
-		public static ITest Suite 
-		{
-			get 
-			{
-				return new NUnitAspTestSuite();
-			}
-		}
+//		public NUnitAspTestSuite() : base() 
+//		{
+//			AddAllTestCaseClassesInThisAssemblyToSuite(this);
+//		}
+//
+//		private void AddAllTestCaseClassesInThisAssemblyToSuite(TestSuite suite)
+//		{			
+//			Assembly assembly = Assembly.GetExecutingAssembly();
+//			foreach(Type type in assembly.GetTypes()) 
+//			{
+//				if (type.IsSubclassOf(typeof(TestCase)) && !type.IsAbstract)
+//				{
+//					suite.AddTestSuite(type);
+//				}
+//			}
+//		}
+//
+//		public static ITest Suite 
+//		{
+//			get 
+//			{
+//				return new NUnitAspTestSuite();
+//			}
+//		}
 	}
 }

@@ -3,7 +3,7 @@
 	<description>NUnitAsp - ASP.NET Unit Testing</description>
 	
 	<property name="source.dir" value="source" />
-	<property name="nunit.dir" value="lib\NUnit1.11\bin" />
+	<property name="nunit.dir" value="lib\NUnit2.0\bin" />
 	<property name="build.dir" value="build" />
 	<property name="bin.dir" value="${build.dir}\bin" />
 	<property name="testPagesBuild.dir" value="${source.dir}\NUnitAspTestPages\bin" />
@@ -113,9 +113,7 @@
 	* test
 	*****-->	
 	<target name="test" depends="build" description="Test project">
-		<nunit>
-			<test class="NUnit.Extensions.Asp.Test.NUnitAspTestSuite" assembly="${testdll.path}" />
-		</nunit>
+		<exec program="${nunit.dir}\nunit-console.exe" commandline="/assembly:${testdll.path}" />
 	</target>
 			
 	<!--*****

@@ -25,10 +25,6 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 {
 	public class TextBoxTest : NUnitAspTestCase
 	{
-		public TextBoxTest(string name) : base(name)
-		{
-		}
-
 		public void TestTextWhenEmpty()
 		{
 			TextBoxTester textBox = new TextBoxTester("textBox", CurrentWebForm);

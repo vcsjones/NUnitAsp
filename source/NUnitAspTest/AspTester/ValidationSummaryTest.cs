@@ -31,10 +31,6 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		private ValidationSummaryTester validator;
 		private ButtonTester button;
 
-		public ValidationSummaryTest(string name) : base(name)
-		{
-		}
-
 		protected override void SetUp()
 		{
 			base.SetUp();

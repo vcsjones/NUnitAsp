@@ -26,10 +26,6 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 
 	public class LabelTest : NUnitAspTestCase
 	{
-		public LabelTest(string name) : base(name)
-		{
-		}
-
 		protected override void SetUp()
 		{
 			base.SetUp();

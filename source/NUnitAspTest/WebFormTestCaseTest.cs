@@ -25,10 +25,6 @@ namespace NUnit.Extensions.Asp.Test
 {
 	public class WebFormTestCaseTest : NUnitAspTestCase
 	{
-		public WebFormTestCaseTest(string name) : base(name)
-		{
-		}
-
 		public void TestAssertSortOrder_WhenSorted()
 		{
 			string[][] testData = new string[][]
@@ -205,7 +201,7 @@ namespace NUnit.Extensions.Asp.Test
 			{
 				AssertSortOrder("testData", testData, 0, true, dataType);
 			}
-			catch (AssertionFailedError)
+			catch (AssertionException)
 			{
 				return;
 			}

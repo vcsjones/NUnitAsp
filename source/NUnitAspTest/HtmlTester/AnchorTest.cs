@@ -29,10 +29,6 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		private AnchorTester testLink;
 		private AnchorTester popupLink;
 
-		public AnchorTest(string name) : base(name)
-		{
-		}
-
 		protected override void SetUp()
 		{
 			base.SetUp();

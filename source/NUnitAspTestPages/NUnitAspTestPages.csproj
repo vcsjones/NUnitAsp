@@ -93,9 +93,9 @@
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
-                    Name = "NUnitCore"
-                    AssemblyName = "NUnitCore"
-                    HintPath = "..\..\lib\NUnit1.11\bin\NUnitCore.dll"
+                    Name = "nunit.framework"
+                    AssemblyName = "nunit.framework"
+                    HintPath = "..\..\lib\NUnit2.0\bin\nunit.framework.dll"
                 />
             </References>
         </Build>

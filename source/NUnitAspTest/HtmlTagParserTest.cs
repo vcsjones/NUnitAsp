@@ -25,10 +25,6 @@ namespace NUnit.Extensions.Asp.Test
 {
 	public class HtmlTagParserTest : NUnitAspTestCase
 	{
-		public HtmlTagParserTest(string name) : base(name)
-		{
-		}
-
 		private void RunTest(string tag)
 		{
 			RunTest(tag, tag);

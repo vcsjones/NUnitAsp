@@ -30,10 +30,6 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		private DataGridTester grid2;
 		private LabelTester clickResult;
 
-		public DataGridTest(string name) : base(name)
-		{
-		}
-
 		protected override void SetUp() 
 		{
 			base.SetUp();

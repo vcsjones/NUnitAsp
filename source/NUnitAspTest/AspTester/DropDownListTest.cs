@@ -32,10 +32,6 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		private LinkButtonTester clearSelection;
 		private CheckBoxTester autoPostBack;
 
-		public DropDownListTest(string name) : base(name)
-		{
-		}
-
 		protected override void SetUp()
 		{
 			base.SetUp();

@@ -27,10 +27,6 @@ namespace NUnit.Extensions.Asp.Test
 		protected const string BaseUrl = "http://localhost/NUnitAsp/source/NUnitAspTestPages/";
 		private DateTime startTime;
 
-		public NUnitAspTestCase(string name) : base(name)
-		{
-		}
-
 		protected override void SetUp()
 		{
 			base.SetUp();

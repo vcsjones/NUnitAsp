@@ -28,10 +28,6 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		private CheckBoxTester checkBox;
 		private LinkButtonTester submit;
 		
-		public CheckBoxTest(string name) : base(name)
-		{
-		}
-
 		protected override void SetUp()
 		{
 			base.SetUp();
