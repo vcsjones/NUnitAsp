@@ -3,7 +3,7 @@ To Do:
 * Incorporate Dominique's latest contributions.
 * Check out the changes in the patch on SourceForge.
 * Fix common error: TestdpValues.Items.FindByText("Not Running").Selected = "True"
-  - FAQ: lstHospitals.Items[2].Selected = true ; should be lstHospitals.Selected = 2;
+  - FAQ: lstHospitals.Items[2].Selected = true ; should be lstHospitals.SelectedIndex = 2;
 * Report missing DTD more clearly (currently gives 404 Not Found)
 * Support NUnit 2.1
 
