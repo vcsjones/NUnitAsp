@@ -108,7 +108,7 @@
                 <Reference
                     Name = "nunit.framework"
                     AssemblyName = "nunit.framework"
-                    HintPath = "..\..\lib\NUnit2.0\bin\nunit.framework.dll"
+                    HintPath = "..\..\lib\NUnit\nunit.framework.dll"
                 />
             </References>
         </Build>

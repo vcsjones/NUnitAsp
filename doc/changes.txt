@@ -4,6 +4,7 @@ To do:
 * Exceptions need to be organized
 * Explanatory message: UserControlTester.FindControl should throw exception explaining control nesting
 * Make these HttpClient methods public: SetFormVariable, ClearFormVariable, SubmitForm
+* FAQ: No change to "get" without postback
 
 
 Changes in CVS:
@@ -11,6 +12,7 @@ Produced by Jim Shore and Levi Khatskevitch.
 * Added PostBack() overload that takes actual event target and argument.  Credit to Jim Shore.
 * Fixed parsing error that occurred when combining <style> tag with HTML comments.  Credit to Jim Shore.
 * Added UrlReferrer support to the Browser (HttpClient) object.  Credit to Levi Khatskevitch.
+* Upgraded to NUnit 2.2.0.  Credit to Jim Shore.
 
 
 Changes in NUnitAsp 1.5:

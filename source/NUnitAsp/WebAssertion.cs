@@ -37,8 +37,8 @@ namespace NUnit.Extensions.Asp
 	public class WebAssertion : Assertion
 	{
 		/// <summary>
-		/// Asserts that a specific tester is on the current web page, with the "Visible"
-		/// parameter set to "true."  This method does not assert that the tester is actually
+		/// Asserts that a specific control is on the current web page, with the "Visible"
+		/// parameter set to "true."  This method does not assert that the control is actually
 		/// visible to the user.
 		/// </summary>
 		public static void AssertVisibility(ControlTester tester, bool expectedVisibility)

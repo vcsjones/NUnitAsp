@@ -4,18 +4,32 @@
         <name>nunit.framework</name>
     </assembly>
     <members>
+        <member name="T:NUnit.Framework.Assert">
+            <summary>
+            A set of Assert methods
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Assert.#ctor">
             <summary>
             A private constructor disallows any instances of this object. 
             </summary>
         </member>
-        <member name="M:NUnit.Framework.Assert.IsTrue(System.Boolean,System.String)">
+        <member name="M:NUnit.Framework.Assert.IsTrue(System.Boolean,System.String,System.Object[])">
             <summary>
             Asserts that a condition is true. If the condition is false the method throws
             an <see cref="T:NUnit.Framework.AssertionException"/>.
             </summary> 
-            <param name="message">The message to display if the condition is false</param>
             <param name="condition">The evaluated condition</param>
+            <param name="message">The message to display if the condition is false</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.IsTrue(System.Boolean,System.String)">
+            <summary>
+            Asserts that a condition is true. If the condition is false the method throws
+            an <see cref="T:NUnit.Framework.AssertionException"/>.
+            </summary>
+            <param name="condition">The evaluated condition</param>
+            <param name="message">The message to display if the condition is false</param>
         </member>
         <member name="M:NUnit.Framework.Assert.IsTrue(System.Boolean)">
             <summary>
@@ -24,13 +38,22 @@
             </summary>
             <param name="condition">The evaluated condition</param>
         </member>
+        <member name="M:NUnit.Framework.Assert.IsFalse(System.Boolean,System.String,System.Object[])">
+            <summary>
+            Asserts that a condition is false. If the condition is true the method throws
+            an <see cref="T:NUnit.Framework.AssertionException"/>.
+            </summary>
+            <param name="condition">The evaluated condition</param>
+            <param name="message">The message to display if the condition is true</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
         <member name="M:NUnit.Framework.Assert.IsFalse(System.Boolean,System.String)">
             <summary>
             Asserts that a condition is false. If the condition is true the method throws
             an <see cref="T:NUnit.Framework.AssertionException"/>.
             </summary>
-            <param name="message">The message to display if the condition is true</param>
             <param name="condition">The evaluated condition</param>
+            <param name="message">The message to display if the condition is true</param>
         </member>
         <member name="M:NUnit.Framework.Assert.IsFalse(System.Boolean)">
             <summary>
@@ -39,6 +62,20 @@
             </summary>
             <param name="condition">The evaluated condition</param>
         </member>
+        <member name="M:NUnit.Framework.Assert.AreEqual(System.Double,System.Double,System.Double,System.String,System.Object[])">
+            <summary>
+            Verifies that two doubles are equal considering a delta. If the
+            expected value is infinity then the delta value is ignored. If 
+            they are not equals then an <see cref="T:NUnit.Framework.AssertionException"/> is
+            thrown.
+            </summary>
+            <param name="expected">The expected value</param>
+            <param name="actual">The actual value</param>
+            <param name="delta">The maximum acceptable difference between the
+            the expected and the actual</param>
+            <param name="message">The message that will be printed on failure</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
         <member name="M:NUnit.Framework.Assert.AreEqual(System.Double,System.Double,System.Double,System.String)">
             <summary>
             Verifies that two doubles are equal considering a delta. If the
@@ -46,11 +83,11 @@
             they are not equals then an <see cref="T:NUnit.Framework.AssertionException"/> is
             thrown.
             </summary>
-            <param name="message">The message that will be printed on failure</param>
             <param name="expected">The expected value</param>
             <param name="actual">The actual value</param>
             <param name="delta">The maximum acceptable difference between the
             the expected and the actual</param>
+            <param name="message">The message that will be printed on failure</param>
         </member>
         <member name="M:NUnit.Framework.Assert.AreEqual(System.Double,System.Double,System.Double)">
             <summary>
@@ -64,6 +101,20 @@
             <param name="delta">The maximum acceptable difference between the
             the expected and the actual</param>
         </member>
+        <member name="M:NUnit.Framework.Assert.AreEqual(System.Single,System.Single,System.Single,System.String,System.Object[])">
+            <summary>
+            Verifies that two floats are equal considering a delta. If the
+            expected value is infinity then the delta value is ignored. If 
+            they are not equals then an <see cref="T:NUnit.Framework.AssertionException"/> is
+            thrown.
+            </summary>
+            <param name="expected">The expected value</param>
+            <param name="actual">The actual value</param>
+            <param name="delta">The maximum acceptable difference between the
+            the expected and the actual</param>
+            <param name="message">The message printed out upon failure</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
         <member name="M:NUnit.Framework.Assert.AreEqual(System.Single,System.Single,System.Single,System.String)">
             <summary>
             Verifies that two floats are equal considering a delta. If the
@@ -71,11 +122,11 @@
             they are not equals then an <see cref="T:NUnit.Framework.AssertionException"/> is
             thrown.
             </summary>
-            <param name="message">The message printed out upon failure</param>
             <param name="expected">The expected value</param>
             <param name="actual">The actual value</param>
             <param name="delta">The maximum acceptable difference between the
             the expected and the actual</param>
+            <param name="message">The message printed out upon failure</param>
         </member>
         <member name="M:NUnit.Framework.Assert.AreEqual(System.Single,System.Single,System.Single)">
             <summary>
@@ -89,15 +140,26 @@
             <param name="delta">The maximum acceptable difference between the
             the expected and the actual</param>
         </member>
+        <member name="M:NUnit.Framework.Assert.AreEqual(System.Decimal,System.Decimal,System.String,System.Object[])">
+            <summary>
+            Verifies that two decimals are equal. If 
+            they are not equals then an <see cref="T:NUnit.Framework.AssertionException"/> is
+            thrown.
+            </summary>
+            <param name="expected">The expected value</param>
+            <param name="actual">The actual value</param>
+            <param name="message">The message printed out upon failure</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
         <member name="M:NUnit.Framework.Assert.AreEqual(System.Decimal,System.Decimal,System.String)">
             <summary>
             Verifies that two decimals are equal. If 
             they are not equals then an <see cref="T:NUnit.Framework.AssertionException"/> is
             thrown.
             </summary>
-            <param name="message">The message printed out upon failure</param>
             <param name="expected">The expected value</param>
             <param name="actual">The actual value</param>
+            <param name="message">The message printed out upon failure</param>
         </member>
         <member name="M:NUnit.Framework.Assert.AreEqual(System.Decimal,System.Decimal)">
             <summary>
@@ -108,15 +170,26 @@
             <param name="expected">The expected value</param>
             <param name="actual">The actual value</param>
         </member>
+        <member name="M:NUnit.Framework.Assert.AreEqual(System.Int32,System.Int32,System.String,System.Object[])">
+            <summary>
+            Verifies that two ints are equal. If 
+            they are not equals then an <see cref="T:NUnit.Framework.AssertionException"/> is
+            thrown.
+            </summary>
+            <param name="expected">The expected value</param>
+            <param name="actual">The actual value</param>
+            <param name="message">The message printed out upon failure</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
         <member name="M:NUnit.Framework.Assert.AreEqual(System.Int32,System.Int32,System.String)">
             <summary>
             Verifies that two ints are equal. If 
             they are not equals then an <see cref="T:NUnit.Framework.AssertionException"/> is
             thrown.
             </summary>
-            <param name="message">The message printed out upon failure</param>
             <param name="expected">The expected value</param>
             <param name="actual">The actual value</param>
+            <param name="message">The message printed out upon failure</param>
         </member>
         <member name="M:NUnit.Framework.Assert.AreEqual(System.Int32,System.Int32)">
             <summary>
@@ -127,12 +200,52 @@
             <param name="expected">The expected value</param>
             <param name="actual">The actual value</param>
         </member>
+        <member name="M:NUnit.Framework.Assert.AreEqual(System.Array,System.Array,System.String,System.Object[])">
+            <summary>
+            Verifies that two arrays are equal. If they are not,
+            then an <see cref="T:NUnit.Framework.AssertionException"/> is thrown.
+            </summary>
+            <param name="expected">The expected value</param>
+            <param name="actual">The actual value</param>
+            <param name="message">The message printed out upon failure</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.AreEqual(System.Array,System.Array,System.String)">
+            <summary>
+            Verifies that two arrays are equal. If they are not,
+            then an <see cref="T:NUnit.Framework.AssertionException"/> is thrown.
+            </summary>
+            <param name="expected">The expected value</param>
+            <param name="actual">The actual value</param>
+            <param name="message">The message printed out upon failure</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.AreEqual(System.Array,System.Array)">
+            <summary>
+            Verifies that two arrays are equal. If they are not,
+            then an <see cref="T:NUnit.Framework.AssertionException"/> is thrown.
+            </summary>
+            <param name="expected">The expected value</param>
+            <param name="actual">The actual value</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.AreEqual(System.Object,System.Object,System.String,System.Object[])">
+            <summary>
+            Verifies that two objects are equal.  Two objects are considered
+            equal if both are null, or if both have the same value.  All
+            non-numeric types are compared by using the <c>Equals</c> method.
+            Arrays are compared by comparing each element using the same rules.
+            If they are not equal an <see cref="T:NUnit.Framework.AssertionException"/> is thrown.
+            </summary>
+            <param name="expected">The value that is expected</param>
+            <param name="actual">The actual value</param>
+            <param name="message">The message to display if objects are not equal</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
         <member name="M:NUnit.Framework.Assert.AreEqual(System.Object,System.Object,System.String)">
             <summary>
             Verifies that two objects are equal.  Two objects are considered
             equal if both are null, or if both have the same value.  All
             non-numeric types are compared by using the <c>Equals</c> method.
-            If they are not equal an <see cref="!:AssertionFailedError"/> is thrown.
+            If they are not equal an <see cref="T:NUnit.Framework.AssertionException"/> is thrown.
             </summary>
             <param name="expected">The value that is expected</param>
             <param name="actual">The actual value</param>
@@ -143,7 +256,7 @@
             Verifies that two objects are equal.  Two objects are considered
             equal if both are null, or if both have the same value.  All
             non-numeric types are compared by using the <c>Equals</c> method.
-            If they are not equal an <see cref="!:AssertionFailedError"/> is thrown.
+            If they are not equal an <see cref="T:NUnit.Framework.AssertionException"/> is thrown.
             </summary>
             <param name="expected">The value that is expected</param>
             <param name="actual">The actual value</param>
@@ -175,16 +288,25 @@
         </member>
         <member name="M:NUnit.Framework.Assert.ObjectsEqual(System.Object,System.Object)">
             <summary>
-            Used to compare numeric types.  Comparisons between
-            same types are fine (Int32 to Int32, or Int64 to Int64),
-            but the Equals method fails across different types.
-            This method was added to allow any numeric type to
-            be handled correctly, by using <c>ToString</c> and
-            comparing the result
+            Used to compare two objects.  Two nulls are equal and null
+            is not equal to non-null. Comparisons between the same
+            numeric types are fine (Int32 to Int32, or Int64 to Int64),
+            but the Equals method fails across different types so we
+            use <c>ToString</c> and compare the results.
             </summary>
             <param name="expected"></param>
             <param name="actual"></param>
             <returns></returns>
+        </member>
+        <member name="M:NUnit.Framework.Assert.IsNotNull(System.Object,System.String,System.Object[])">
+            <summary>
+            Verifies that the object that is passed in is not equal to <code>null</code>
+            If the object is not <code>null</code> then an <see cref="T:NUnit.Framework.AssertionException"/>
+            is thrown.
+            </summary>
+            <param name="anObject">The object that is to be tested</param>
+            <param name="message">The message to be printed when the object is null</param>
+            <param name="args">Arguments to be used in formatting the message</param>
         </member>
         <member name="M:NUnit.Framework.Assert.IsNotNull(System.Object,System.String)">
             <summary>
@@ -192,7 +314,6 @@
             If the object is not <code>null</code> then an <see cref="T:NUnit.Framework.AssertionException"/>
             is thrown.
             </summary>
-            <param name="message">The message to be printed when the object is null</param>
             <param name="anObject">The object that is to be tested</param>
         </member>
         <member name="M:NUnit.Framework.Assert.IsNotNull(System.Object)">
@@ -203,13 +324,22 @@
             </summary>
             <param name="anObject">The object that is to be tested</param>
         </member>
+        <member name="M:NUnit.Framework.Assert.IsNull(System.Object,System.String,System.Object[])">
+            <summary>
+            Verifies that the object that is passed in is equal to <code>null</code>
+            If the object is <code>null</code> then an <see cref="T:NUnit.Framework.AssertionException"/>
+            is thrown.
+            </summary>
+            <param name="anObject">The object that is to be tested</param>
+            <param name="message">The message to be printed when the object is not null</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
         <member name="M:NUnit.Framework.Assert.IsNull(System.Object,System.String)">
             <summary>
             Verifies that the object that is passed in is equal to <code>null</code>
             If the object is <code>null</code> then an <see cref="T:NUnit.Framework.AssertionException"/>
             is thrown.
             </summary>
-            <param name="message">The message to be printed when the object is not null</param>
             <param name="anObject">The object that is to be tested</param>
         </member>
         <member name="M:NUnit.Framework.Assert.IsNull(System.Object)">
@@ -220,14 +350,24 @@
             </summary>
             <param name="anObject">The object that is to be tested</param>
         </member>
+        <member name="M:NUnit.Framework.Assert.AreSame(System.Object,System.Object,System.String,System.Object[])">
+            <summary>
+            Asserts that two objects refer to the same object. If they
+            are not the same an <see cref="T:NUnit.Framework.AssertionException"/> is thrown.
+            </summary>
+            <param name="expected">The expected object</param>
+            <param name="actual">The actual object</param>
+            <param name="message">The message to be printed when the two objects are not the same object.</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
         <member name="M:NUnit.Framework.Assert.AreSame(System.Object,System.Object,System.String)">
             <summary>
             Asserts that two objects refer to the same object. If they
             are not the same an <see cref="T:NUnit.Framework.AssertionException"/> is thrown.
             </summary>
-            <param name="message">The message to be printed when the two objects are not the same object.</param>
             <param name="expected">The expected object</param>
             <param name="actual">The actual object</param>
+            <param name="message">The message to be printed when the object is null</param>
         </member>
         <member name="M:NUnit.Framework.Assert.AreSame(System.Object,System.Object)">
             <summary>
@@ -236,6 +376,14 @@
             </summary>
             <param name="expected">The expected object</param>
             <param name="actual">The actual object</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.Fail(System.String,System.Object[])">
+            <summary>
+            Throws an <see cref="T:NUnit.Framework.AssertionException"/> with the message and arguments 
+            that are passed in. This is used by the other Assert functions. 
+            </summary>
+            <param name="message">The message to initialize the <see cref="T:NUnit.Framework.AssertionException"/> with.</param>
+            <param name="args">Arguments to be used in formatting the message</param>
         </member>
         <member name="M:NUnit.Framework.Assert.Fail(System.String)">
             <summary>
@@ -246,11 +394,33 @@
         </member>
         <member name="M:NUnit.Framework.Assert.Fail">
             <summary>
-            Throws an <see cref="T:NUnit.Framework.AssertionException"/> with the message that is 
-            passed in. This is used by the other Assert functions. 
+            Throws an <see cref="T:NUnit.Framework.AssertionException"/>. 
+            This is used by the other Assert functions. 
             </summary>
         </member>
-        <member name="M:NUnit.Framework.Assert.FailNotEquals(System.Object,System.Object,System.String)">
+        <member name="M:NUnit.Framework.Assert.Ignore(System.String,System.Object[])">
+            <summary>
+            Throws an <see cref="T:NUnit.Framework.IgnoreException"/> with the message and arguments 
+            that are passed in.  This causes the test to be reported as ignored.
+            </summary>
+            <param name="message">The message to initialize the <see cref="T:NUnit.Framework.AssertionException"/> with.</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.Ignore(System.String)">
+            <summary>
+            Throws an <see cref="T:NUnit.Framework.IgnoreException"/> with the message that is 
+            passed in. This causes the test to be reported as ignored. 
+            </summary>
+            <param name="message">The message to initialize the <see cref="T:NUnit.Framework.AssertionException"/> with.</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.Ignore">
+            <summary>
+            Throws an <see cref="T:NUnit.Framework.IgnoreException"/>. 
+            This causes the test to be reported as ignored. 
+            </summary>
+            <param name="message">The message to initialize the <see cref="T:NUnit.Framework.AssertionException"/> with.</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.FailNotEquals(System.Object,System.Object,System.String,System.Object[])">
             <summary>
             This method is called when two objects have been compared and found to be
             different. This prints a nice message to the screen. 
@@ -258,14 +428,33 @@
             <param name="message">The message that is to be printed prior to the comparison failure</param>
             <param name="expected">The expected object</param>
             <param name="actual">The actual object</param>
+            <param name="args">Arguments to be used in formatting the message</param>
         </member>
-        <member name="M:NUnit.Framework.Assert.FailNotSame(System.Object,System.Object,System.String)">
+        <member name="M:NUnit.Framework.Assert.FailArraysNotEqual(System.Int32,System.Array,System.Array,System.String,System.Object[])">
+            <summary>
+            This method is called when two arrays have been compared and found to be
+            different. This prints a nice message to the screen. 
+            </summary>
+            <param name="index">The index at which the failure occured</param>
+            <param name="expected">The expected array</param>
+            <param name="actual">The actual array</param>
+            <param name="message">The message that is to be printed prior to the comparison failure</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.FailNotSame(System.Object,System.Object,System.String,System.Object[])">
             <summary>
              This method is called when the two objects are not the same. 
             </summary>
             <param name="message">The message to be printed on the screen</param>
             <param name="expected">The expected object</param>
             <param name="actual">The actual object</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
+        <member name="P:NUnit.Framework.Assert.Counter">
+            <summary>
+            Gets the number of assertions executed so far and 
+            resets the counter to zero.
+            </summary>
         </member>
         <member name="T:NUnit.Framework.Assertion">
             <summary>A set of Assert methods.</summary>
@@ -274,7 +463,7 @@
         <member name="M:NUnit.Framework.Assertion.Assert(System.String,System.Boolean)">
             <summary>
             Asserts that a condition is true. If it isn't it throws
-            an <see cref="!:AssertionFailedError"/>.
+            an <see cref="T:NUnit.Framework.AssertionException"/>.
             </summary>
             <param name="message">The message to display is the condition
             is false</param>
@@ -283,7 +472,7 @@
         <member name="M:NUnit.Framework.Assertion.Assert(System.Boolean)">
             <summary>
             Asserts that a condition is true. If it isn't it throws
-            an <see cref="!:AssertionFailedError"/>.
+            an <see cref="T:NUnit.Framework.AssertionException"/>.
             </summary>
             <param name="condition">The evaluated condition</param>
         </member>
@@ -309,7 +498,15 @@
         </member>
         <member name="M:NUnit.Framework.Assertion.AssertEquals(System.Object,System.Object)">
             <summary>Asserts that two objects are equal. If they are not
-            an <see cref="!:AssertionFailedError"/> is thrown.</summary>
+            an <see cref="T:NUnit.Framework.AssertionException"/> is thrown.</summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.AssertEquals(System.Int32,System.Int32)">
+            <summary>Asserts that two ints are equal. If they are not
+            an <see cref="T:NUnit.Framework.AssertionException"/> is thrown.</summary>
+        </member>
+        <member name="M:NUnit.Framework.Assertion.AssertEquals(System.String,System.Int32,System.Int32)">
+            <summary>Asserts that two ints are equal. If they are not
+            an <see cref="T:NUnit.Framework.AssertionException"/> is thrown.</summary>
         </member>
         <member name="M:NUnit.Framework.Assertion.AssertEquals(System.String,System.Double,System.Double,System.Double)">
             <summary>Asserts that two doubles are equal concerning a delta.
@@ -328,7 +525,7 @@
             types are compared via string comparision on their contents to
             avoid problems comparing values between different types.  All
             non-numeric types are compared by using the <c>Equals</c> method.
-            If they are not equal an <see cref="!:AssertionFailedError"/> is thrown.
+            If they are not equal an <see cref="T:NUnit.Framework.AssertionException"/> is thrown.
             </summary>
         </member>
         <member name="M:NUnit.Framework.Assertion.AssertNotNull(System.Object)">
@@ -345,12 +542,12 @@
         </member>
         <member name="M:NUnit.Framework.Assertion.AssertSame(System.Object,System.Object)">
             <summary>Asserts that two objects refer to the same object. If they
-            are not the same an <see cref="!:AssertionFailedError"/> is thrown.
+            are not the same an <see cref="T:NUnit.Framework.AssertionException"/> is thrown.
             </summary>
         </member>
         <member name="M:NUnit.Framework.Assertion.AssertSame(System.String,System.Object,System.Object)">
             <summary>Asserts that two objects refer to the same object. 
-            If they are not an <see cref="!:AssertionFailedError"/> is thrown.
+            If they are not an <see cref="T:NUnit.Framework.AssertionException"/> is thrown.
             </summary>
         </member>
         <member name="M:NUnit.Framework.Assertion.Fail">
@@ -490,6 +687,20 @@
             <param name="expected"></param>
             <param name="actual"></param>
         </member>
+        <member name="M:NUnit.Framework.AssertionFailureMessage.DisplayString(System.Object)">
+            <summary>
+            Display an object as a string
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Framework.AssertionFailureMessage.Quoted(System.String)">
+            <summary>
+            Quote a string
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
         <member name="M:NUnit.Framework.AssertionFailureMessage.AppendPositionMarker(System.Text.StringBuilder,System.Int32)">
             <summary>
             Draws a marker under the expected/actual strings that highlights
@@ -513,6 +724,14 @@
             <param name="sExpected"></param>
             <param name="sActual"></param>
             <returns>True if string lengths are different</returns>
+        </member>
+        <member name="M:NUnit.Framework.AssertionFailureMessage.LengthsDifferent(System.Object[],System.Object[])">
+            <summary>
+            Tests if two arrays are different lengths.
+            </summary>
+            <param name="sExpected"></param>
+            <param name="sActual"></param>
+            <returns>True if array lengths are different</returns>
         </member>
         <member name="M:NUnit.Framework.AssertionFailureMessage.BuildLengthsDifferentMessage(System.Text.StringBuilder,System.String,System.String)">
             <summary>
@@ -548,6 +767,31 @@
             <param name="sbOutput"></param>
             <param name="sExpected"></param>
             <param name="sActual"></param>
+        </member>
+        <member name="M:NUnit.Framework.AssertionFailureMessage.BuildArrayLengthDifferentReport(System.Text.StringBuilder,System.Array,System.Array)">
+            <summary>
+            Reports the length of two arrays that are different lengths
+            </summary>
+            <param name="sbOutput"></param>
+            <param name="expected"></param>
+            <param name="actual"></param>
+        </member>
+        <member name="M:NUnit.Framework.AssertionFailureMessage.BuildArrayLengthSameReport(System.Text.StringBuilder,System.Array,System.Array)">
+            <summary>
+            Reports the length of two arrays that are the same length
+            </summary>
+            <param name="sbOutput"></param>
+            <param name="expected"></param>
+            <param name="actual"></param>
+        </member>
+        <member name="M:NUnit.Framework.AssertionFailureMessage.BuildArrayLengthReport(System.Text.StringBuilder,System.Array,System.Array)">
+            <summary>
+            Reports whether the array lengths are the same or different, and
+            what the array lengths are.
+            </summary>
+            <param name="sbOutput"></param>
+            <param name="expected"></param>
+            <param name="actual"></param>
         </member>
         <member name="M:NUnit.Framework.AssertionFailureMessage.BuildContentDifferentAtPosition(System.Text.StringBuilder,System.String,System.String,System.Int32)">
             <summary>
@@ -603,7 +847,17 @@
             <param name="expected"></param>
             <param name="actual"></param>
         </member>
-        <member name="M:NUnit.Framework.AssertionFailureMessage.CreateStringBuilder(System.String)">
+        <member name="M:NUnit.Framework.AssertionFailureMessage.BuildArraysDifferentMessage(System.Text.StringBuilder,System.Int32,System.Array,System.Array)">
+            <summary>
+            Called to append a message when the input arrays are different.
+            A different message is rendered when the lengths are mismatched,
+            and when the lengths match but content is mismatched.
+            </summary>
+            <param name="sbOutput"></param>
+            <param name="expected"></param>
+            <param name="actual"></param>
+        </member>
+        <member name="M:NUnit.Framework.AssertionFailureMessage.CreateStringBuilder(System.String,System.Object[])">
             <summary>
             Used to create a StringBuilder that is used for constructing
             the output message when text is different.  Handles initialization
@@ -613,7 +867,7 @@
             <param name="message"></param>
             <returns></returns>
         </member>
-        <member name="M:NUnit.Framework.AssertionFailureMessage.FormatMessageForFailNotEquals(System.Object,System.Object,System.String)">
+        <member name="M:NUnit.Framework.AssertionFailureMessage.FormatMessageForFailNotEquals(System.Object,System.Object,System.String,System.Object[])">
             <summary>
             Called to create a message when two objects have been found to
             be unequal.  If the inputs are strings, a special message is
@@ -622,6 +876,16 @@
             
             If the inputs are not strings, the ToString method of the objects
             is used to show what is different about them.
+            </summary>
+            <param name="expected"></param>
+            <param name="actual"></param>
+            <param name="message"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NUnit.Framework.AssertionFailureMessage.FormatMessageForFailArraysNotEqual(System.Int32,System.Array,System.Array,System.String,System.Object[])">
+            <summary>
+            Called to create a message when two arrays are not equal. 
             </summary>
             <param name="message"></param>
             <param name="expected"></param>
@@ -647,14 +911,21 @@
             Property called to insert newline characters into a string
             </summary>
         </member>
-        <member name="T:NUnit.Core.ConsoleWriter">
+        <member name="T:NUnit.Framework.CategoryAttribute">
             <summary>
-            Summary description for ConsoleWriter.
+            Summary description for CategoryAttribute.
             </summary>
+            
         </member>
-        <member name="T:NUnit.Core.EventListener">
+        <member name="M:NUnit.Framework.CategoryAttribute.#ctor(System.String)">
             <summary>
-            Summary description for EventListener.
+            Construct attribute for a given category
+            </summary>
+            <param name="name">The name of the category</param>
+        </member>
+        <member name="P:NUnit.Framework.CategoryAttribute.Name">
+            <summary>
+            The name of the category
             </summary>
         </member>
         <member name="T:NUnit.Framework.ExpectedExceptionAttribute">
@@ -663,123 +934,40 @@
             </summary>
             
         </member>
-        <member name="T:NUnit.Core.ExpectedExceptionTestCase">
+        <member name="M:NUnit.Framework.ExpectedExceptionAttribute.#ctor(System.Type)">
             <summary>
-            Summary description for ExpectedExceptionTestCase.
+            Constructor for a given type of exception
+            </summary>
+            <param name="exceptionType"></param>
+        </member>
+        <member name="M:NUnit.Framework.ExpectedExceptionAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            Constructor for a given type of exception and expected message text
+            </summary>
+            <param name="exceptionType"></param>
+            <param name="expectedMessage"></param>
+        </member>
+        <member name="P:NUnit.Framework.ExpectedExceptionAttribute.ExceptionType">
+            <summary>
+            The expected exception type
             </summary>
         </member>
-        <member name="T:NUnit.Core.TemplateTestCase">
+        <member name="P:NUnit.Framework.ExpectedExceptionAttribute.ExpectedMessage">
             <summary>
-            Summary description for TestCase.
+            The expected message
             </summary>
         </member>
-        <member name="T:NUnit.Core.TestCase">
+        <member name="T:NUnit.Framework.ExplicitAttribute">
             <summary>
-            Summary description for TestCase.
+            ExplicitAttribute marks a test or test fixture so that it will
+            only be run if explicitly executed from the gui or command line
+            or if it is included by use of a filter. The test will not be
+            run simply because an enclosing suite is run.
             </summary>
         </member>
-        <member name="T:NUnit.Core.Test">
+        <member name="M:NUnit.Framework.ExplicitAttribute.#ctor">
             <summary>
-            	Test Class.
-            </summary>
-        </member>
-        <member name="T:NUnit.Core.LongLivingMarshalByRefObject">
-            <summary>
-            All objects which are marshalled by reference
-            and whose lifetime is manually controlled by
-            the app, should derive from this class rather
-            than MarshalByRefObject.
-            
-            This includes the remote test domain objects
-            which are accessed by the client and those
-            client objects which are called back by the
-            remote test domain.
-            
-            Objects in this category that already inherit
-            from some other class (e.g. from TextWriter)
-            which in turn inherits from MarshalByRef object 
-            should override InitializeLifetimeService to 
-            return null to obtain the same effect.
-            </summary>
-        </member>
-        <member name="T:NUnit.Core.ITest">
-            <summary>
-            Common interface supported by all representations
-            of a test. Only includes informational fields.
-            The Run method is specifically excluded to allow
-            for data-only representations of a test.
-            </summary>
-        </member>
-        <member name="P:NUnit.Core.ITest.Name">
-            <summary>
-            Name of the test
-            </summary>
-        </member>
-        <member name="P:NUnit.Core.ITest.FullName">
-            <summary>
-            Full Name of the test
-            </summary>
-        </member>
-        <member name="P:NUnit.Core.ITest.ShortName">
-            <summary>
-            Last part of the full name
-            </summary>
-        </member>
-        <member name="P:NUnit.Core.ITest.AssemblyKey">
-            <summary>
-            Int used to distinguish suites of the same
-            name across multiple assemblies.
-            </summary>
-        </member>
-        <member name="P:NUnit.Core.ITest.UniqueName">
-            <summary>
-            Key used to look up a test in a hash table
-            </summary>
-        </member>
-        <member name="P:NUnit.Core.ITest.ShouldRun">
-            <summary>
-            Whether or not the test should be run
-            </summary>
-        </member>
-        <member name="P:NUnit.Core.ITest.IgnoreReason">
-            <summary>
-            Reason for not running the test, if applicable
-            </summary>
-        </member>
-        <member name="P:NUnit.Core.ITest.CountTestCases">
-            <summary>
-            Count of the test cases ( 1 if this is a test case )
-            </summary>
-        </member>
-        <member name="P:NUnit.Core.ITest.Tests">
-            <summary>
-            For a test suite, the child tests or suites
-            Null if this is not a test suite
-            </summary>
-        </member>
-        <member name="P:NUnit.Core.ITest.IsSuite">
-            <summary>
-            True if this is a suite
-            </summary>
-        </member>
-        <member name="P:NUnit.Core.ITest.IsFixture">
-            <summary>
-            True if this is a TestFixture
-            </summary>
-        </member>
-        <member name="P:NUnit.Core.ITest.IsTestCase">
-            <summary>
-            True if this is a TestCase
-            </summary>
-        </member>
-        <member name="P:NUnit.Core.ITest.Description">
-            <summary>
-            Return the description field. 
-            </summary>
-        </member>
-        <member name="P:NUnit.Core.Test.ShortName">
-            <summary>
-            If the name is a path, this just returns the file part
+            Constructor
             </summary>
         </member>
         <member name="T:NUnit.Framework.IgnoreAttribute">
@@ -788,19 +976,30 @@
             </summary>
             
         </member>
-        <member name="T:NUnit.Core.InvalidFixture">
+        <member name="M:NUnit.Framework.IgnoreAttribute.#ctor(System.String)">
             <summary>
-            Summary description for InvalidFixture.
+            Constructor
+            </summary>
+            <param name="reason"></param>
+        </member>
+        <member name="P:NUnit.Framework.IgnoreAttribute.Reason">
+            <summary>
+            The reason for ignoring a test
             </summary>
         </member>
-        <member name="M:NUnit.Core.InvalidSuiteException.#ctor(System.String)">
+        <member name="T:NUnit.Framework.IgnoreException">
             <summary>
-            Standard constructor
+            Thrown when an assertion failed.
             </summary>
-            <param name="message">The error message that explains 
-            the reason for the exception</param>
+            
         </member>
-        <member name="M:NUnit.Core.InvalidSuiteException.#ctor(System.String,System.Exception)">
+        <member name="M:NUnit.Framework.IgnoreException.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:NUnit.Framework.IgnoreException.#ctor(System.String,System.Exception)">
             <summary>
             Standard constructor
             </summary>
@@ -809,67 +1008,7 @@
             <param name="inner">The exception that caused the 
             current exception</param>
         </member>
-        <member name="M:NUnit.Core.InvalidSuiteException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Serialization Constructor
-            </summary>
-        </member>
-        <member name="T:NUnit.Core.InvalidTestFixtureException">
-            <summary>
-            Summary description for NoTestMethodsException.
-            </summary>
-            
-        </member>
-        <member name="M:NUnit.Core.InvalidTestFixtureException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Serialization Constructor
-            </summary>
-        </member>
-        <member name="T:NUnit.Core.NormalTestCase">
-            <summary>
-            Summary description for TestCase.
-            </summary>
-        </member>
-        <member name="T:NUnit.Core.NoTestFixturesException">
-            <summary>
-            Summary description for NoTestFixtureException.
-            </summary>
-        </member>
-        <member name="T:NUnit.Core.NotRunnableTestCase">
-            <summary>
-            Summary description for NotRunnableTestCase.
-            </summary>
-        </member>
-        <member name="T:NUnit.Core.NullListener">
-            <summary>
-            Summary description for NullListener.
-            </summary>
-            
-        </member>
-        <member name="T:NUnit.Core.NunitException">
-            <summary>
-            Thrown when an assertion failed. Here to preserve the inner
-            exception and hence its stack trace.
-            </summary>
-            
-        </member>
-        <member name="M:NUnit.Core.NunitException.#ctor(System.String)">
-            <summary>
-            Standard constructor
-            </summary>
-            <param name="message">The error message that explains 
-            the reason for the exception</param>
-        </member>
-        <member name="M:NUnit.Core.NunitException.#ctor(System.String,System.Exception)">
-            <summary>
-            Standard constructor
-            </summary>
-            <param name="message">The error message that explains 
-            the reason for the exception</param>
-            <param name="inner">The exception that caused the 
-            current exception</param>
-        </member>
-        <member name="M:NUnit.Core.NunitException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+        <member name="M:NUnit.Framework.IgnoreException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
             Serialization Constructor
             </summary>
@@ -880,61 +1019,14 @@
             </summary>
             
         </member>
-        <member name="T:NUnit.Core.RemoteTestRunner">
+        <member name="M:NUnit.Framework.TestCase.SetUp">
             <summary>
-            Summary description for RemoteTestRunner.
-            </summary>
-            
-        </member>
-        <member name="F:NUnit.Core.RemoteTestRunner.suite">
-            <summary>
-            The loaded test suite
+            SetUp method
             </summary>
         </member>
-        <member name="F:NUnit.Core.RemoteTestRunner.testName">
+        <member name="M:NUnit.Framework.TestCase.TearDown">
             <summary>
-            The test Fixture name to load
-            </summary>
-        </member>
-        <member name="F:NUnit.Core.RemoteTestRunner.testFileName">
-            <summary>
-            The test file to load. If assemblies is null,
-            this must be an assembly file, otherwise it
-            is only used to provide a name for the root
-            test node having the assemblies as children.
-            </summary>
-        </member>
-        <member name="F:NUnit.Core.RemoteTestRunner.assemblies">
-            <summary>
-            The list of assemblies to load
-            </summary>
-        </member>
-        <member name="T:NUnit.Core.ResultSummarizer">
-            <summary>
-            Summary description for ResultSummarizer.
-            </summary>
-        </member>
-        <member name="T:NUnit.Core.ResultVisitor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:NUnit.Core.RootTestSuite">
-            <summary>
-            TestSuite forming the root of a test project
-            </summary>
-        </member>
-        <member name="T:NUnit.Core.TestSuite">
-            <summary>
-            Summary description for TestSuite.
-            </summary>
-            
-        </member>
-        <member name="P:NUnit.Core.TestSuite.IsFixture">
-            <summary>
-            True if this is a fixture. May populate the test's
-            children as a side effect.
-            TODO: An easier way to tell this?
+            TearDown method
             </summary>
         </member>
         <member name="T:NUnit.Framework.SetUpAttribute">
@@ -943,48 +1035,17 @@
             </summary>
             
         </member>
-        <member name="T:NUnit.Core.StackTraceFilter">
-            <summary>
-            Summary description for StackTraceFilter.
-            </summary>
-        </member>
-        <member name="T:NUnit.Core.StringTextWriter">
-            <summary>
-            Use this wrapper to ensure that only strings get passed accross the AppDomain
-            boundary.  Otherwise tests will break when non-remotable objects are passed to
-            Console.Write/WriteLine.
-            </summary>
-        </member>
-        <member name="T:NUnit.Core.BufferedStringTextWriter">
-            <summary>
-            This wrapper derives from StringTextWriter and adds buffering
-            to improve cross-domain performance. The buffer is flushed whenever
-            it reaches or exceeds a maximum size or when WriteLine is called.
-            </summary>
-        </member>
         <member name="T:NUnit.Framework.SuiteAttribute">
             <summary>
             SuiteAttribute.
             </summary>
             
         </member>
-        <member name="T:NUnit.Core.SummaryVisitor">
-            <summary>
-            Summary description for SiummaryVisitor.
-            </summary>
-        </member>
         <member name="T:NUnit.Framework.TearDownAttribute">
             <summary>
             TearDownAttribute.
             </summary>
             
-        </member>
-        <member name="T:NUnit.Core.AssemblyTestSuite">
-            <summary>
-            Test Suite formed from an assembly. 
-            Class name changed from TestAssembly
-            to avoid conflict with namespace.
-            </summary>
         </member>
         <member name="T:NUnit.Framework.TestAttribute">
             <summary>
@@ -1009,52 +1070,10 @@
             </example>
             
         </member>
-        <member name="T:NUnit.Core.TestCaseBuilder">
+        <member name="P:NUnit.Framework.TestAttribute.Description">
             <summary>
-            Summary description for TestCaseBuilder.
+            Descriptive text for this test
             </summary>
-        </member>
-        <member name="T:NUnit.Core.TestCaseResult">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:NUnit.Core.TestResult">
-            <summary>
-            Summary description for TestResult.
-            </summary>
-            
-        </member>
-        <member name="F:NUnit.Core.TestDomain.domain">
-            <summary>
-            The appdomain used  to load tests
-            </summary>
-        </member>
-        <member name="F:NUnit.Core.TestDomain.cachePath">
-            <summary>
-            The path to our cache
-            </summary>
-        </member>
-        <member name="F:NUnit.Core.TestDomain.testRunner">
-            <summary>
-            The remote runner loaded in the test appdomain
-            </summary>
-        </member>
-        <member name="M:NUnit.Core.TestDomain.MakeAppDomain(System.String,System.String,System.String,System.String)">
-            <summary>
-            This method creates appDomains for the framework.
-            </summary>
-            <param name="domainName">Name of the domain</param>
-            <param name="appBase">ApplicationBase for the domain</param>
-            <param name="configFile">ConfigurationFile for the domain</param>
-            <param name="binPath">PrivateBinPath for the domain</param>
-            <returns></returns>
-        </member>
-        <member name="M:NUnit.Core.TestDomain.ConfigureCachePath(System.AppDomain)">
-            <summary>
-            Set the location for caching and delete any old cache info
-            </summary>
-            <param name="domain">Our domain</param>
         </member>
         <member name="T:NUnit.Framework.TestFixtureAttribute">
             <summary>
@@ -1066,33 +1085,19 @@
             {}
             </example>
         </member>
-        <member name="T:NUnit.Core.TestSuiteBuilder">
+        <member name="P:NUnit.Framework.TestFixtureAttribute.Description">
             <summary>
-            Summary description for TestSuiteBuilder.
+            Descriptive text for this fixture
             </summary>
         </member>
-        <member name="M:NUnit.Core.TestSuiteBuilder.MakeSuiteFromProperty(System.Type)">
+        <member name="T:NUnit.Framework.TestFixtureSetUpAttribute">
             <summary>
-            Uses reflection to obtain the suite property for the Type
-            </summary>
-            <param name="testClass"></param>
-            <returns>The Suite property of the Type, or null if the property 
-            does not exist</returns>
-        </member>
-        <member name="T:NUnit.Core.TestSuiteResult">
-            <summary>
-            	TestSuiteResult
-            </summary>
-            
-        </member>
-        <member name="T:NUnit.Core.WarningSuite">
-            <summary>
-            Summary description for WarningSuite.
+            TestFixtureSetUpAttribute
             </summary>
         </member>
-        <member name="T:NUnit.Core.XmlResultVisitor">
+        <member name="T:NUnit.Framework.TestFixtureTearDownAttribute">
             <summary>
-            Summary description for XmlResultVisitor.
+            TestFixtureTearDownAttribute
             </summary>
         </member>
     </members>
