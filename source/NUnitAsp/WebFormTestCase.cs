@@ -66,25 +66,49 @@ namespace NUnit.Extensions.Asp
 
 		protected static void AssertEquals(string[] expected, string[] actual)
 		{
-			AssertEquals(flatten(expected), flatten(actual));
+			AssertEquals(Flatten(expected), Flatten(actual));
 		}
 
 		protected static void AssertEquals(string message, string[] expected, string[] actual)
 		{
-			Assertion.AssertEquals(message, flatten(expected), flatten(actual));
+			Assertion.AssertEquals(message, Flatten(expected), Flatten(actual));
 		}
 
 		protected static void AssertEquals(string[][] expected, string[][] actual)
 		{
-			AssertEquals(flatten(expected), flatten(actual));
+			AssertEquals(Flatten(expected), Flatten(actual));
 		}
 
 		protected static void AssertEquals(string message, string[][] expected, string[][] actual)
 		{
-			AssertEquals(flatten(expected), flatten(actual));
+			AssertEquals(Flatten(expected), Flatten(actual));
 		}
 
-		private static string flatten(string[] a)
+		protected static void AssertEqualsIgnoreOrder(string message, string[][] expected, string[][] actual)
+		{
+			if (expected.Length != actual.Length) Fail(message, expected, actual);
+
+			foreach (string[] row in actual)
+			{
+				AssertTableContainsRow(message, expected, actual, row);
+			}
+		}
+
+		private static void AssertTableContainsRow(string message, string[][] expected, string[][] actual, string[] actualRow)
+		{
+			foreach (string[] expectedRow in expected)
+			{
+				if (Flatten(expectedRow) == Flatten(actualRow)) return;
+			}
+			Fail(message, expected, actual);
+		}
+
+		private static void Fail(string message, string[][] expected, string[][] actual)
+		{
+			AssertEquals(message, expected, actual);
+		}
+		
+		private static string Flatten(string[] a)
 		{
 			string result = "{";
 			foreach (string element in a)
@@ -94,12 +118,12 @@ namespace NUnit.Extensions.Asp
 			return result + "}";
 		}
 
-		private static string flatten(string[][] a)
+		private static string Flatten(string[][] a)
 		{
 			string result = "{";
 			foreach (string[] element in a)
 			{
-				result += "\n   " + flatten(element);
+				result += "\n   " + Flatten(element);
 			}
 			return result + "\n}";
 		}

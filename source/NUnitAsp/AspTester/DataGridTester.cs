@@ -20,10 +20,10 @@
 
 using System;
 using System.Xml;
+using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
-
 	public class DataGridTester : ControlTester
 	{
 		public DataGridTester(string aspId, Control container) : base(aspId, container)
@@ -51,31 +51,42 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
-		public Row GetRow(int rowNum)
+		public Row GetRow(int rowNumber)
 		{
-			return new Row(rowNum, this);
+			return new Row(rowNumber, this);
 		}
 
-		private XmlElement GetRowElement(int rowNum)
+		public Row GetRowByCellValue(int columnNumber, string trimmedValue)
+		{
+			string[][] cells = TrimmedCells;
+			for (int i = 0; i < cells.GetLength(0); i++)
+			{
+				if (cells[i][columnNumber] == trimmedValue) return GetRow(i);
+			}
+			Assertion.Fail(string.Format("Expected to find a row with '{0}' in column {1} of {2}", trimmedValue, columnNumber, HtmlIdAndDescription));
+			throw new ApplicationException("This line cannot execute.  Fail() throws an exception.");
+		}
+
+		private XmlElement GetRowElement(int rowNumber)
 		{
 			XmlNodeList rows = Element.GetElementsByTagName("tr");
-			return (XmlElement)rows[rowNum + 1];
+			return (XmlElement)rows[rowNumber + 1];
 		}
 
 		internal override string GetChildElementHtmlId(string aspId)
 		{
-			int rowNum = int.Parse(aspId);
-			return HtmlId + "__ctl" + (rowNum + 2);
+			int rowNumber = int.Parse(aspId);
+			return HtmlId + "__ctl" + (rowNumber + 2);
 		}
 
 		public class Row : ControlTester
 		{
-			private int rowNum;
+			private int rowNumber;
 			private DataGridTester container;
 
-			public Row(int rowNum, DataGridTester container) : base(rowNum.ToString(), container)
+			public Row(int rowNumber, DataGridTester container) : base(rowNumber.ToString(), container)
 			{
-				this.rowNum = rowNum;
+				this.rowNumber = rowNumber;
 				this.container = container;
 			}
 
@@ -88,7 +99,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			{
 				get
 				{
-					return container.GetRowElement(rowNum);
+					return container.GetRowElement(rowNumber);
 				}
 			}
 
