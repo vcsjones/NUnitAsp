@@ -47,6 +47,14 @@ namespace NUnit.Extensions.Asp.AspTester
 			return HtmlId + "_" + aspId;
 		}
 
+		protected override bool IsDisabled
+		{
+			get
+			{
+				return false;
+			}
+		}
+
 		/// <summary>
 		/// Visibility of user controls cannot be determined.  This method always throws an
 		/// exception.
