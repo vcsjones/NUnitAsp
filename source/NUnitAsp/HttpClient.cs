@@ -345,6 +345,7 @@ namespace NUnit.Extensions.Asp
 
 			if (response.StatusCode == HttpStatusCode.InternalServerError)
 			{
+				// error info is the first comment node after the root element
 				XmlNodeList errorInfo = new WebPage(body).Document.ChildNodes;
 				if (errorInfo.Count == 2 && errorInfo[1] is XmlComment)
 				{
