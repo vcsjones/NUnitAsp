@@ -34,8 +34,6 @@ namespace NUnit.Extensions.Asp
 
 	public class Browser : System.IDisposable 
 	{
-
-		private XhtmlWebForm _page;
 		private XmlDocument _pageDocument;
 		private string _pageDocumentText;
 		private WebClient _client = new WebClient();
@@ -66,16 +64,6 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 			
-
-		public XhtmlWebForm CurrentPage 
-		{
-			
-			get 
-			{
-				return _page;
-			}
-		}
-
 		public void GetPage(string url) 
 		{
 			try 
@@ -93,12 +81,7 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		internal XhtmlWebForm SubmitForm() 
-		{
-			return SubmitForm(_page.GetForm().Action, _page.GetForm().Method);
-		}
-
-		internal XhtmlWebForm SubmitForm(string url, string method)
+		internal void SubmitForm(string url, string method)
 		{
 			try 
 			{
@@ -106,7 +89,6 @@ namespace NUnit.Extensions.Asp
 				byte[] response = _client.UploadValues(url, method, _headers);
 				_serverTime += (DateTime.Now - startTime);
 				LoadPage(response);
-				return _page;
 			}
 			catch (WebException e) 
 			{
@@ -121,7 +103,6 @@ namespace NUnit.Extensions.Asp
 			UTF8Encoding decoder = new UTF8Encoding();
 			_pageDocumentText = decoder.GetString(output);
 			_pageDocument = new XmlDocument();
-			_page = new XhtmlWebForm(this, _pageDocumentText);
 			try 
 			{
 				_pageDocument.LoadXml(_pageDocumentText);

@@ -67,7 +67,7 @@ namespace NUnit.Extensions.Asp
 			return container.GetElement(aspId);
 		}
 
-		internal override bool HasElement(string aspId)
+		public override bool HasElement(string aspId)
 		{
 			return container.HasElement(aspId);
 		}

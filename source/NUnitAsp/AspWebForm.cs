@@ -34,7 +34,7 @@ namespace NUnit.Extensions.Asp
 			this.browser = browser;
 		}
 
-		internal override bool HasElement(string aspId)
+		public override bool HasElement(string aspId)
 		{
 			return (GetElementInternal(aspId) != null);
 		}
@@ -58,26 +58,39 @@ namespace NUnit.Extensions.Asp
 
 		internal override void Submit()
 		{
-			browser.SubmitForm();
+			browser.SubmitForm(GetAttributeValue("action"), GetAttributeValue("method"));
 		}
 
 		public override string Description
 		{
 			get
 			{
-				return "web form '" + HtmlId + "'";
+				return "web form '" + AspId + "'";
 			}
 		}
 
-		private string HtmlId
+		private XmlElement Element
 		{
 			get
 			{
-				XmlNodeList bodyList = browser.CurrentDocument.GetElementsByTagName("form");
-				Assertion.AssertEquals("page form elements", 1, bodyList.Count);
-				XmlAttribute id = bodyList[0].Attributes["id"];
-				if (id == null) throw new AttributeMissingException("id", Description);
-				return id.Value;
+				XmlNodeList formNodes = browser.CurrentDocument.GetElementsByTagName("form");
+				Assertion.AssertEquals("page form elements", 1, formNodes.Count);
+				return (XmlElement)formNodes[0];
+			}
+		}
+
+		private string GetAttributeValue(string name) 
+		{
+			XmlAttribute attribute = Element.Attributes[name];
+			if (attribute == null) throw new AttributeMissingException(name, Description);
+			return attribute.Value;
+		}
+
+		public string AspId
+		{
+			get
+			{
+				return GetAttributeValue("id");
 			}
 		}
 

@@ -45,14 +45,6 @@ namespace NUnit.Extensions.Asp
 			base.TearDown();
 		}
 
-		protected XhtmlWebForm Page 
-		{
-			get 
-			{
-				return Browser.CurrentPage;
-			}
-		}
-
 		protected AspWebForm CurrentWebForm
 		{
 			get 

@@ -40,7 +40,7 @@ namespace NUnit.Extensions.Asp
 			return base.GetElement(HtmlId + "_" + aspId);
 		}
 
-		internal override bool HasElement(string aspId)
+		public override bool HasElement(string aspId)
 		{
 			return base.HasElement(HtmlId + "_" + aspId);
 		}
