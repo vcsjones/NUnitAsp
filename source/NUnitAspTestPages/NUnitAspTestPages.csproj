@@ -289,6 +289,21 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "AspTester\ImageButtonTestPage.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AspTester\ImageButtonTestPage.aspx.cs"
+                    DependentUpon = "ImageButtonTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\ImageButtonTestPage.aspx.resx"
+                    DependentUpon = "ImageButtonTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "AspTester\LabelTestPage.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -349,6 +364,21 @@
                 <File
                     RelPath = "HtmlTester\AnchorTestPage.aspx.resx"
                     DependentUpon = "AnchorTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlInputCheckBoxTestPage.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlInputCheckBoxTestPage.aspx.cs"
+                    DependentUpon = "HtmlInputCheckBoxTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlInputCheckBoxTestPage.aspx.resx"
+                    DependentUpon = "HtmlInputCheckBoxTestPage.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
             </Include>

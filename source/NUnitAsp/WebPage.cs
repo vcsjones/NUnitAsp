@@ -225,6 +225,11 @@ namespace NUnit.Extensions.Asp
 			formVariables.Add(name, value);
 		}	
 
+		public void ClearFormVariable(string name)
+		{
+			formVariables.Remove(name);
+		}
+
 		public override string ToString()
 		{
 			return pageText;

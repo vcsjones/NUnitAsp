@@ -11,7 +11,7 @@
 	<body MS_POSITIONING="FlowLayout">
 		<form id="AspLabelTestPage" method="post" runat="server">
 			<asp:Label ID="textLabel" runat="server"></asp:Label>
-			<asp:Label ID="spaceLabel" Runat="server">foo </asp:Label>
+			<br />[<asp:Label ID="spaceLabel" Runat="server">foo </asp:Label>]
 		</form>
 	</body>
 </HTML>

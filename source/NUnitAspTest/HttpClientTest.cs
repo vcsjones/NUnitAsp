@@ -1,7 +1,7 @@
-#region Copyright (c) 2002, Brian Knowles, Jim Little
+#region Copyright (c) 2002, 2003, Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Little
+' Copyright (c) 2002, 2003, Brian Knowles, Jim Little
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -31,14 +31,16 @@ namespace NUnit.Extensions.Asp.Test
 	public class HttpClientTest : NUnitAspTestCase
 	{
 		public const string TEST_COOKIE_NAME = "TestCookieName";
-		public  const string TEST_COOKIE_VALUE = "TestCookieValue";
+		public const string TEST_COOKIE_VALUE = "TestCookieValue";
 		private static readonly string TestUrl = BaseUrl + "HttpClientTestPage.aspx";
 
 		private LinkButtonTester redirect;
 		private LinkButtonTester dropCookie;
 		private LinkButtonTester dropCookieAndRedirect;
+		private LinkButtonTester dropCookieWithExpiry;
 		private LinkButtonTester postBack;
 		private LabelTester cookie;
+		private LabelTester testParm;
 
 		protected override void SetUp()
 		{
@@ -46,8 +48,10 @@ namespace NUnit.Extensions.Asp.Test
 			redirect = new LinkButtonTester("redirect", CurrentWebForm);
 			dropCookie = new LinkButtonTester("dropCookie", CurrentWebForm);
 			dropCookieAndRedirect = new LinkButtonTester("dropCookieAndRedirect", CurrentWebForm);
+			dropCookieWithExpiry = new LinkButtonTester("dropCookieWithExpiry", CurrentWebForm);
 			postBack = new LinkButtonTester("postBack", CurrentWebForm);
 			cookie = new LabelTester("cookie", CurrentWebForm);
+			testParm = new LabelTester("testParm", CurrentWebForm);
 		}
 
 		[Test]
@@ -74,6 +78,13 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			Browser.GetPage(TestUrl + "#fragment");
 			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
+		}
+
+		[Test]
+		public void TestGetWithUrlEncoding()
+		{
+			Browser.GetPage(TestUrl + "?testparm=some+%2b+text");
+			AssertEquals("some + text", testParm.Text);
 		}
 
 		[Test]
@@ -126,6 +137,17 @@ namespace NUnit.Extensions.Asp.Test
 		}
 
 		[Test]
+		public void TestCookiesWithExpiry()
+		{
+			Browser.GetPage(TestUrl);
+			AssertCookieNotSet();
+			dropCookieWithExpiry.Click();
+			Browser.GetPage(TestUrl);
+			AssertCookieSet();
+			AssertEquals("Browser.CookieValue", TEST_COOKIE_VALUE, Browser.CookieValue(TEST_COOKIE_NAME));
+		}
+
+		[Test]
 		public void Test404NotFound()
 		{
 			try
@@ -156,6 +178,23 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			Browser.GetPage(BaseUrl + "ServerTimeTestPage.aspx");
 			Assert("Elapsed server time should not be zero", Browser.ElapsedServerTime > TimeSpan.Zero);
+		}
+
+		[Test]
+		public void TestUserLanguages()
+		{
+			LabelTester userLanguages = new LabelTester("userLanguages", CurrentWebForm);
+
+			Browser.GetPage(TestUrl);
+			AssertEquals("default user language", "Not Set", userLanguages.Text);
+
+			Browser.UserLanguages = new string[] {"en-gb"};
+			Browser.GetPage(TestUrl);
+			AssertEquals("modified single user language", "[en-gb]", userLanguages.Text);
+
+			Browser.UserLanguages = new string[] {"en-us", "en-gb"};
+			Browser.GetPage(TestUrl);
+			AssertEquals("modified multiple user languages", "[en-us][en-gb]", userLanguages.Text);
 		}
 
 		private void AssertCookieNotSet()

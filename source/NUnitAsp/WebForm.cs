@@ -77,6 +77,11 @@ namespace NUnit.Extensions.Asp.AspTester
 			browser.SetFormVariable(name, value);
 		}
 
+		protected internal override void RemoveInputValue(string name)
+		{
+			browser.ClearFormVariable(name);
+		}
+
 		protected internal override void Submit()
 		{
 			browser.SubmitForm(GetAttributeValue("action"), GetAttributeValue("method"));

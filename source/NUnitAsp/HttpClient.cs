@@ -41,15 +41,21 @@ namespace NUnit.Extensions.Asp
 	public class HttpClient
 	{
 		private TimeSpan serverTime = new TimeSpan(0);
-		private Hashtable cookies = new Hashtable();
 		private Uri currentUrl = null;
 		private WebPage currentPage = null;
+		private CookieContainer cookies = new CookieContainer();
 
 		/// <summary>
 		/// The user-agent string to send to the server.  Useful if you want to pretend to
 		/// be a specific browser.
 		/// </summary>
 		public string UserAgent = "NUnitAsp";
+
+ 		/// <summary>
+		/// The language-tag elements to send to the server.  These are used to set the
+		/// Request.UserLanguages array in the target page.
+		/// </summary>
+		public string[] UserLanguages = null;
 
 		/// <summary>
 		/// Retrieves a page from a web server.
@@ -70,6 +76,11 @@ namespace NUnit.Extensions.Asp
 			currentPage.SetFormVariable(name, value);
 		}
 
+		internal void ClearFormVariable(string name)
+		{
+			currentPage.ClearFormVariable(name);
+		}
+
 		/// <summary>
 		/// Checks to see if a cookie has been set.
 		/// </summary>
@@ -77,7 +88,8 @@ namespace NUnit.Extensions.Asp
 		/// <returns>'true' if the cookie has been set.</returns>
 		public bool HasCookie(string cookieName) 
 		{
-			return cookies.ContainsKey(cookieName);
+			CookieCollection cc = cookies.GetCookies(currentUrl);
+			return (cc[cookieName] != null);
 		}
 
 		/// <summary>
@@ -86,7 +98,8 @@ namespace NUnit.Extensions.Asp
 		public string CookieValue(string cookieName)
 		{
 			if (!HasCookie(cookieName)) Assertion.Fail("Expected cookie '" + cookieName + "' to be set");
-			return (string)cookies[cookieName];
+			CookieCollection cc = cookies.GetCookies(currentUrl);
+			return cc[cookieName].Value;
 		}
 
 		/// <summary>
@@ -166,13 +179,16 @@ namespace NUnit.Extensions.Asp
 				request.UserAgent = UserAgent;
 				request.AllowAutoRedirect = false;
 				request.CookieContainer = new CookieContainer();
-				request.CookieContainer.SetCookies(target.Uri, CreateCookieString());
+				request.CookieContainer.Add(target.Uri, cookies.GetCookies(target.Uri));
 			} 
 			else if (method.ToLower() == "post")
 			{
 				request = (HttpWebRequest)HttpWebRequest.Create(currentUrl);
 				request.Method = "POST";
 				request.AllowAutoRedirect = false;
+				request.UserAgent = UserAgent;
+				request.CookieContainer = new CookieContainer();
+				request.CookieContainer.Add( currentUrl, cookies.GetCookies( currentUrl));
 				request.ContentType = "application/x-www-form-urlencoded";
 				request.ContentLength = formVariables.Length;
 				StreamWriter sw = new StreamWriter(request.GetRequestStream());
@@ -183,7 +199,23 @@ namespace NUnit.Extensions.Asp
 			{
 				Assertion.Fail("Unknown HTTP method: " + method);
 			}
+			AddUserLanguageHeaders(request);
+
 			return request;
+		}
+
+		private	void AddUserLanguageHeaders(HttpWebRequest request)
+		{
+			if (UserLanguages == null) return;
+
+			string languages = "";
+			string separator = "";
+			foreach (string language in UserLanguages)
+			{
+				languages += separator + language;
+				separator = ", ";
+			}
+			request.Headers.Add("Accept-Language", languages);
 		}
 
 		private void SupportBasicAuth(HttpWebRequest request)
@@ -227,33 +259,13 @@ namespace NUnit.Extensions.Asp
 				throw new BadStatusException(response.StatusCode);
 			}
 			currentPage = new WebPage(response.Body);
-			ParseCookies(response.Headers.GetValues("Set-Cookie"));
+			ParseCookies(response.Cookies);
 		}
 
-		private void ParseCookies(string[] newCookies) 
+		private void ParseCookies(CookieCollection newCookies) 
 		{
 			if (newCookies == null) return;
-
-			foreach (string cookieString in newCookies) 
-			{
-				string[] cookieParameters = cookieString.Split(new char[] {';'});
-				string[] nameValue = cookieParameters[0].Split(new char[] {'='});
-				string name = nameValue[0];
-				if (cookies.Contains(name)) cookies.Remove(name);
-				cookies.Add(name, nameValue[1]);
-			}
-		}
-
-		private string CreateCookieString() 
-		{
-			string result = "";
-			string cookieJoiner = "";
-			foreach (DictionaryEntry cookie in cookies) 
-			{
-				result += cookieJoiner + cookie.Key + "=" + cookie.Value;
-				cookieJoiner = "; ";
-			}
-			return result;
+			cookies.Add(currentUrl, newCookies);
 		}
 
 		private class HttpResponse

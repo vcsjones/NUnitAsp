@@ -1,3 +1,4 @@
+#region Copyright (c) 2002, 2003 Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
 ' Copyright (c) 2002, Brian Knowles, Jim Little
@@ -17,8 +18,10 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
+using NUnit.Framework;
 using NUnit.Extensions.Asp;
 using NUnit.Extensions.Asp.AspTester;
 
@@ -29,6 +32,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		private DataGridTester grid1;
 		private DataGridTester grid2;
 		private LabelTester clickResult;
+		private LabelTester headerResult;
 
 		protected override void SetUp() 
 		{
@@ -36,6 +40,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			grid1 = new DataGridTester("dataGrid1", CurrentWebForm);
 			grid2 = new DataGridTester("dataGrid2", CurrentWebForm);
 			clickResult = new LabelTester("clickResult", CurrentWebForm);
+			headerResult = new LabelTester("headerResult", CurrentWebForm);
 
 			Browser.GetPage(BaseUrl + "AspTester/DataGridTestPage.aspx");
 		}
@@ -75,6 +80,26 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		{
 			string[] expected = new string[] {"", "Column1", "Column2", "SpaceColumn", "RowNumber"};
 			AssertEquals("header", expected, grid1.GetHeaderRow().TrimmedCells);
+		}
+
+		public void TestSorting()
+		{
+			grid1.Sort(1);
+			AssertEquals("Column1", headerResult.Text);
+			grid1.Sort(3);
+			AssertEquals("SpaceColumn", headerResult.Text);
+		}
+
+		[ExpectedException(typeof(AssertionException))]
+		public void TestSortingWhenGridNotSortable()
+		{
+			grid2.Sort(1);
+		}
+
+		[ExpectedException(typeof(AssertionException))]
+		public void TestSortingWithInvalidColumnNumber()
+		{
+			grid1.Sort(5);
 		}
 	}
 }

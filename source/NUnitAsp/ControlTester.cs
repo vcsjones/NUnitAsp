@@ -150,6 +150,11 @@ namespace NUnit.Extensions.Asp
 			container.EnterInputValue(name, value);
 		}
 
+		protected internal override void RemoveInputValue(string name)
+		{
+			container.RemoveInputValue(name);
+		}
+
 		protected internal override void Submit()
 		{
 			container.Submit();

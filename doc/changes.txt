@@ -3,7 +3,11 @@ Produced by Jim Little.
 * Updated installation guide in response to user comments.  Credit to Jim Little.
 * Added support for https: protocol.  Credit to Daniel Granath.
 * Added support for basic authentication.  Credit to Daniel Granath.
-
+* Added support for cookies with expiration date.  Credit to Rich Tebb.
+* Added support for defining user languages.  Credit to Rich Tebb.
+* Added HtmlInputCheckBoxTester.  Credit to Andrew Enfield.
+* Added ImageButtonTester.  Credit to Clifton F. Vaughn.
+* Added support for sorting data grids.  Credit to Clifton F. Vaughn and Jim Little.
 
 Changes in NUnitAsp 1.3:
 Produced by Jim Little.

@@ -1,3 +1,4 @@
+#region Copyright (c) 2002, 2003 Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
 ' Copyright (c) 2002, Brian Knowles, Jim Little
@@ -17,10 +18,12 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
 using System.Xml;
 using NUnit.Framework;
+using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
@@ -101,6 +104,22 @@ namespace NUnit.Extensions.Asp.AspTester
 			throw new ApplicationException("This line cannot execute.  Fail() throws an exception.");
 		}
 
+		/// <summary>
+		/// Click a column heading link that was generated with the "allowSorting='true'" attribute.
+		/// </summary>
+		/// <param name="columnNumberZeroBased">The column to sort (zero-based)</param>
+		public void Sort(int columnNumberZeroBased)
+		{
+			Row header = GetHeaderRow();
+			XmlElement element = header.GetCellElement(columnNumberZeroBased);
+			XmlNodeList links = element.GetElementsByTagName("a");
+			Assertion.Assert("Attempted to sort non-sortable grid (" + HtmlIdAndDescription + ")", links.Count != 0);
+			Assertion.Assert("Expect sort link to have exactly one anchor tag", links.Count == 1);
+
+			XmlElement link = (XmlElement)links[0];
+			PostBack(link.GetAttribute("href"));
+		}
+
 		private XmlElement GetRowElement(int rowNumber)
 		{
 			XmlNodeList rows = Element.GetElementsByTagName("tr");
@@ -162,6 +181,13 @@ namespace NUnit.Extensions.Asp.AspTester
 					}
 					return cellText;
 				}
+			}
+
+			internal XmlElement GetCellElement(int columnNumberZeroBased)
+			{
+				XmlNodeList cells = Element.GetElementsByTagName("td");
+				Assertion.Assert("There is no column #" + columnNumberZeroBased + " in " + HtmlIdAndDescription, columnNumberZeroBased >= 0 && columnNumberZeroBased < cells.Count);
+				return (XmlElement)cells[columnNumberZeroBased];
 			}
 		}
 	}

@@ -1,3 +1,4 @@
+#region Copyright (c) 2002, 2003 Brian Knowles, Jim Little
 /********************************************************************************************************************
 '
 ' Copyright (c) 2002, Brian Knowles, Jim Little
@@ -17,6 +18,7 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
 using System.Collections;
@@ -35,6 +37,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 	{
 		protected System.Web.UI.WebControls.DataGrid dataGrid1;
 		protected System.Web.UI.WebControls.DataGrid dataGrid2;
+		protected System.Web.UI.WebControls.Label headerResult;
 		protected System.Web.UI.WebControls.Label clickResult;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -60,6 +63,11 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		protected void link2_Clicked(object sender, EventArgs args)
 		{
 			clickResult.Text = "2," + ((LinkButton)sender).CommandArgument;
+		}
+
+		protected void dataGrid1_Sort(object sender, DataGridSortCommandEventArgs args)
+		{
+			headerResult.Text = args.SortExpression;
 		}
 
 		private class RowData
@@ -122,7 +130,6 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		private void InitializeComponent()
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
-
 		}
 		#endregion
 	}
