@@ -1,3 +1,12 @@
+To Do:
+* Update contribution documentation: Contributors should check CVS first!
+* Incorporate Dominique's latest contributions.
+* Check out the changes in the patch on SourceForge.
+* Fix common error: TestdpValues.Items.FindByText("Not Running").Selected = "True"
+* Report missing DTD more clearly (currently gives 404 Not Found)
+* Support NUnit 2.1
+
+
 Changes in CVS:
 Produced by Jim Little.
 * Updated installation guide in response to user comments.  Credit to Jim Little.
