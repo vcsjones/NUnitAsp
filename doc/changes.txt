@@ -1,5 +1,4 @@
 To do:
-* FAQ: How to test redirection
 * FAQ: How to test HTTPS
 * Address InnerText vs. InnerXml.  Remove HtmlTag.BodyNoTags.
 * Review form variables' use of Element/Tag (Tag should be protected, not internal or public)
@@ -15,7 +14,8 @@ Produced by Jim Shore and Levi Khatskevitch.
 * Added postback (server-side click) support.  Credit to Rick Spiewak.
 * Renamed AnchorTester HTML control tester to HtmlAnchorTester.  Credit to Levi Khatskevitch.
 * Added simple ASP.NET error page parsing to display meaningful exceptions in tests.  Credit to Levi Khatskevitch.
-
+* Added FAQ: How to test redirection.  Credit to Jim Shore.
+* Added FAQ: Support for frames/pop-up windows/Javascript/HTML controls.  Credit to Jim Shore.
 
 Changes in NUnitAsp 1.4.1:
 Produced by Jim Shore and Levi Khatskevitch.

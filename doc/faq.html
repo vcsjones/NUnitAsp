@@ -30,7 +30,12 @@
 
             <h1>Frequently Asked Questions</h1>
 
-            <p>The NUnitAsp team sees frequently asked questions as indicators of problems with NUnitAsp.  We strive to eliminate FAQs by improving NUnitAsp itself.  So this isn't the best place to start for general information about NUnitAsp.  For an overview, see the <a href="quickstart.html">NUnitAsp QuickStart Guide</a>.  For a detailed tutorial, see the <a href="tutorial/index.html">NUnitAsp Tutorial</a>.  For installation issues, see the <a href="installation.html">Installation Guide</a>.  NUnitAsp is available for download at the <a href="http://nunitasp.sourceforge.net">NUnitAsp web site</a>.</p>
+            <p>The NUnitAsp team sees frequently asked questions as indicators of problems with NUnitAsp.  We strive to eliminate FAQs by improving NUnitAsp itself, so this isn't the best place to start for general information about NUnitAsp.  For an overview, see the <a href="quickstart.html">NUnitAsp QuickStart Guide</a>.  For a detailed tutorial, see the <a href="tutorial/index.html">NUnitAsp Tutorial</a>.  For installation issues, see the <a href="installation.html">Installation Guide</a>.  NUnitAsp is available for download at the <a href="http://nunitasp.sourceforge.net">NUnitAsp web site</a>.</p>
+
+
+            <h2>Q: How do I test if a page has redirected properly?</h2>
+
+            <p>A: Use the <a href="api/NUnit.Extensions.Asp.HttpClient.CurrentUrl.html">Browser.CurrentUrl</a> property to look at the current URL or the <a href="api/NUnit.Extensions.Asp.WebForm.AspId.html">CurrentWebForm.AspId</a> property to look at the ASP.NET ID of the current web form.</p>
 
 
             <h2>Q: How do I test user controls / data grids?</h2>
@@ -42,7 +47,7 @@
 
             <p>A: NUnitAsp is a <em>unit testing</em> tool.  Its purpose is to test logic in ASP.NET code-behind classes.  When you write an NUnitAsp test, focus on testing the behavior of a specific page or even a specific user control.  We expect you to ignore frames, Javascript, and other client-side issues and focus on ASP.NET's interaction with the server.</p>
 
-            <p>The NUnitAsp team agrees that client-side support would make it easier to test the whole UI.  Given our limited manpower, we have decided to focus on the code-behind unit-testing aspect of NUnitAsp first.  If these feature is important to you, well-written and tested <a href="contribute.html">code contributions</a> are always welcome.  You may also <a href="consulting.html">fund development</a>.</p>
+            <p>The NUnitAsp team agrees that client-side support would make it easier to test the whole UI.  Given our limited manpower, we have decided to focus on the code-behind unit-testing aspect of NUnitAsp instead.  If these features are important to you, well-written and tested <a href="contribute.html">code contributions</a> are always welcome.  You may also <a href="consulting.html">fund development</a>.</p>
 
 
             <h2>Q: When I try to compile NUnitAsp in VS.NET, I get a &quot;cryptographic failure&quot; error.  What's wrong?</h2>
