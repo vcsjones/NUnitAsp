@@ -73,7 +73,8 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Contains all cookies (per domain) that used and update with each HTTP request.
+		/// The cookies sent to the server.  These are usually set by the server but
+                /// your test can add cookies to the container and they'll be sent too.
 		/// </summary>
 		public CookieContainer Cookies
 		{
