@@ -39,7 +39,9 @@ namespace NUnit.Extensions.Asp.AspTester
 			{
 				if (value == true) 
 				{
-					EnterInputValue(GetAttributeValue("name"), "on");
+					string checkBoxValue = GetOptionalAttributeValue("value");
+					if (checkBoxValue == null) checkBoxValue = "on";
+					EnterInputValue(GetAttributeValue("name"), checkBoxValue);
 				}
 				else
 				{
