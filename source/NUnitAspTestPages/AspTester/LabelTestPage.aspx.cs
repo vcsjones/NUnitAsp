@@ -28,6 +28,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
@@ -35,11 +36,16 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 	{
 		protected System.Web.UI.WebControls.Label spaceLabel;
 		protected System.Web.UI.WebControls.TextBox textBox;
+		protected System.Web.UI.WebControls.Label formattedLabel;
+		protected System.Web.UI.WebControls.Label outerLabel;
 		protected System.Web.UI.WebControls.Label textLabel;
+		protected System.Web.UI.WebControls.Label innerLabel;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			textLabel.Text="foo";
+			Assertion.AssertEquals("outer label", "", outerLabel.Text); 
+			Assertion.AssertEquals("inner label", "inner", innerLabel.Text);
 		}
 
 		#region Web Form Designer generated code

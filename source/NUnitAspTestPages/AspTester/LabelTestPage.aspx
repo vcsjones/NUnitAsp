@@ -15,8 +15,8 @@
 			<br />
 			<br /><asp:Label ID="formattedLabel" Runat="server">a <i>HTML</i> tag</asp:Label>
 			<br />
-			<asp:Label ID="outerLabel" Runat="server">
-				<asp:Label ID="innerLabel" Runat="server">foo</asp:Label>
+			<asp:Label ID="outerLabel" Runat="server">outer
+				<asp:Label ID="innerLabel" Runat="server">inner</asp:Label>
 			</asp:Label>
 		</form>
 	</body>
