@@ -1,8 +1,13 @@
 Changes in NUnitAsp 1.2.1:
+Produced by Jim Little.
 * NUnit 2.0 support.  Thanks to R. Owen Rogers and Drew Noakes for their submissions.
+* NUnit 2.0 migration guide.
+* Compilation FAQ question.
+* Minor documentation fixes.
 
 
 Changes in NUnitAsp 1.2:
+Produced by Jim Little.
 * Documentation.  Lots of it.
 * Added support for pop-up windows in AnchorTester (thanks to Jacob Lawlor)
 * 404 errors no longer occur when retrieving links to document fragments (http://foo.com/index.html#name).  The fragment link is ignored and the main page is retrieved.

@@ -25,6 +25,8 @@
 	* deploy
 	*****-->
 	<target name="deploy" depends="build" description="Copies build files to correct locations for deployment">
+		<mkdir dir="bin" failonerror="false" />
+		<delete dir="bin" />
 		<copy todir="bin">
 			<fileset basedir="${bin.dir}">
 				<includes name="NUnitAsp.dll" />
@@ -32,9 +34,9 @@
 		</copy>
 		<copy todir="bin">
 			<fileset basedir="${nunit.dir}">
-				<includes name="NUnitCore.dll" />
-				<includes name="NUnitGUI.exe" />
-				<includes name="NUnitConsole.exe" />
+				<includes name="nunit.framework.dll" />
+				<includes name="nunit-gui.exe*" />
+				<includes name="nunit-console.exe*" />
 			</fileset>
 		</copy>
 		
@@ -117,7 +119,7 @@
 	</target>
 			
 	<!--*****
-	* dist
+	* zip
 	*****-->	
 	<target name="zip" depends="deploy, test" description="Creates a releasable .zip file">
 		<zip zipfile="${build.dir}\NUnitAsp.zip">
@@ -133,7 +135,6 @@
 				<excludes name="source\**\bin\**" />
 				<excludes name="sample\**\obj\**" />
 				<excludes name="sample\**\bin\**" />
-				<excludes name="**\NUnit2.0\**" />
 			</fileset>
 		</zip>
 	</target>
