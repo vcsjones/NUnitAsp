@@ -22,13 +22,23 @@ using System;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
-
+	/// <summary>
+	/// Tester for System.Web.UI.WebControls.CheckBox
+	/// </summary>
 	public class CheckBoxTester : ControlTester
 	{
+		/// <summary>
+		/// Create the tester and link it to an ASP.NET control.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to link to.</param>
+		/// <param name="container">The control that contains the control to link to</param>
 		public CheckBoxTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
 
+		/// <summary>
+		/// True if the checkbox is checked, false if not.
+		/// </summary>
 		public bool Checked
 		{
 			get

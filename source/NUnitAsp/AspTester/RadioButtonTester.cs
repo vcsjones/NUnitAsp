@@ -22,12 +22,23 @@ using System;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
+	/// <summary>
+	/// Tester for System.Web.UI.WebControls.RadioButton
+	/// </summary>
 	public class RadioButtonTester : CheckBoxTester
 	{
+		/// <summary>
+		/// Create the tester and link it to an ASP.NET control.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to link to.</param>
+		/// <param name="container">The control that contains the control to link to</param>
 		public RadioButtonTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
 
+		/// <summary>
+		/// The name of the group that the radio button is part of.
+		/// </summary>
 		public string GroupName
 		{
 			get

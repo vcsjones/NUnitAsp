@@ -23,12 +23,23 @@ using System.Xml;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
+	/// <summary>
+	/// Tester for System.Web.UI.WebControls.Label
+	/// </summary>
 	public class LabelTester : ControlTester
 	{
+		/// <summary>
+		/// Create the tester and link it to an ASP.NET control.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to link to.</param>
+		/// <param name="container">The control that contains the control to link to</param>
 		public LabelTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
 
+		/// <summary>
+		/// The text of the label.
+		/// </summary>
 		public string Text
 		{
 			get 

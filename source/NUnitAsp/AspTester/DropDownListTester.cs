@@ -26,12 +26,23 @@ using System.Web.UI.WebControls;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
+	/// <summary>
+	/// Tester for System.Web.UI.WebControls.DropDownList
+	/// </summary>
 	public class DropDownListTester : ControlTester
 	{
+		/// <summary>
+		/// Create the tester and link it to an ASP.NET control.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to link to.</param>
+		/// <param name="container">The control that contains the control to link to</param>
 		public DropDownListTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
 
+		/// <summary>
+		/// The items in the list.
+		/// </summary>
 		public ListItemCollection Items 
 		{
 			get 
@@ -48,6 +59,9 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
+		/// <summary>
+		/// The currently-selected item in the list.
+		/// </summary>
 		public ListItem SelectedItem 
 		{
 			get 
@@ -64,6 +78,10 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
+		/// <summary>
+		/// The index of the currently-selected item in the list.  If this is changed and 
+		/// auto post-back is turned on, the form will be submitted.
+		/// </summary>
 		public int SelectedIndex
 		{
 			get
@@ -101,6 +119,11 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
+		/// <summary>
+		/// The index of the drop-down list was set to a value that doesn't correspond to a
+		/// list item.  Fix the test so that it sets the value correctly, or fix the production
+		/// code so that it generates the correct number of list items.
+		/// </summary>
 		public class IllegalInputException : ApplicationException
 		{
 			internal IllegalInputException(string message) : base(message)
@@ -108,6 +131,11 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
+		/// <summary>
+		/// The test asked a drop-down list what item was selected when no items were selected.
+		/// Fix the test so that it doesn't ask the question, or fix the production code so
+		/// that a list item is selected.
+		/// </summary>
 		public class NoSelectionException : ApplicationException
 		{
 			internal NoSelectionException() : base("None of the list items have been selected.")

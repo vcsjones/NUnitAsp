@@ -23,17 +23,31 @@ using System.Text.RegularExpressions;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
+	/// <summary>
+	/// Tester for System.Web.UI.WebControls.LinkButton
+	/// </summary>
 	public class LinkButtonTester : ControlTester
 	{
+		/// <summary>
+		/// Create the tester and link it to an ASP.NET control.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to link to.</param>
+		/// <param name="container">The control that contains the control to link to</param>
 		public LinkButtonTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
 
+		/// <summary>
+		/// Click the link.
+		/// </summary>
 		public void Click()
 		{
 			PostBack(GetAttributeValue("href"));
 		}
 
+		/// <summary>
+		/// The text of the link.
+		/// </summary>
 		public string Text
 		{
 			get

@@ -25,14 +25,23 @@ using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
-
+	/// <summary>
+	/// Tester for System.Web.UI.WebControls.TextBox
+	/// </summary>
 	public class TextBoxTester : ControlTester
 	{
-
+		/// <summary>
+		/// Create the tester and link it to an ASP.NET control.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to link to.</param>
+		/// <param name="container">The control that contains the control to link to</param>
 		public TextBoxTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
 
+		/// <summary>
+		/// The text in the text box.
+		/// </summary>
 		public string Text {
 			set 
 			{
@@ -46,6 +55,9 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
+		/// <summary>
+		/// The kind of text box.
+		/// </summary>
 		public TextBoxMode TextMode 
 		{
 			get 
@@ -66,7 +78,8 @@ namespace NUnit.Extensions.Asp.AspTester
 		}
 
 		/// <summary>
-		/// Returns 0 if there is no max length
+		/// Maximum number of characters to display in the text box.  
+		/// Returns 0 if there is no max length.
 		/// </summary>
 		public int MaxLength
 		{

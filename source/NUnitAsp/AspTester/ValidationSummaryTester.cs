@@ -25,12 +25,23 @@ using System.Xml;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
+	/// <summary>
+	/// Tester for System.Web.UI.WebControls.ValidationSummary
+	/// </summary>
 	public class ValidationSummaryTester : ControlTester
 	{
+		/// <summary>
+		/// Create the tester and link it to an ASP.NET control.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to link to.</param>
+		/// <param name="container">The control that contains the control to link to</param>
 		public ValidationSummaryTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
 
+		/// <summary>
+		/// The messages in the validation summary.
+		/// </summary>
 		public string[] Messages
 		{
 			get { return ReadMessages(); }

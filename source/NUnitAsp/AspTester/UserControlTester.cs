@@ -23,12 +23,19 @@ using System.Xml;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
-
+	/// <summary>
+	/// Tester for System.Web.UI.UserControl
+	/// </summary>
 	public class UserControlTester : ControlTester
 	{
 		private string aspId;
 		private Control container;
 
+		/// <summary>
+		/// Create the tester and link it to an ASP.NET control.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to link to.</param>
+		/// <param name="container">The control that contains the control to link to</param>
 		public UserControlTester(string aspId, Control container) : base(aspId, container)
 		{
 			this.aspId = aspId;
@@ -40,6 +47,10 @@ namespace NUnit.Extensions.Asp.AspTester
 			return HtmlId + "_" + aspId;
 		}
 
+		/// <summary>
+		/// Visibility of user controls cannot be determined.  This method always throws an
+		/// exception.
+		/// </summary>
 		public override bool Visible
 		{
 			get
@@ -48,13 +59,17 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
+		/// <summary>
+		/// The test tried to check the visibility of a user control.  There's no way to 
+		/// directly check user control visibility because they don't generate any HTML of
+		/// their own.  Change the test to check the visibility of a control inside the user
+		/// control instead.
+		/// </summary>
 		private class VisibilityException : ApplicationException
 		{
 			internal VisibilityException(string className) : base(className + "s cannot be tested for visibility because they don't directly generate HTML tags")
 			{
 			}
 		}
-
 	}
-
 }

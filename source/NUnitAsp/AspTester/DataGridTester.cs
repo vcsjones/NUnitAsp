@@ -24,12 +24,23 @@ using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
+	/// <summary>
+	/// Tester for System.Web.UI.WebControls.DataGrid
+	/// </summary>
 	public class DataGridTester : ControlTester
 	{
+		/// <summary>
+		/// Create the tester and link it to an ASP.NET control.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to link to.</param>
+		/// <param name="container">The control that contains the control to link to</param>
 		public DataGridTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
 
+		/// <summary>
+		/// The number of rows in the data grid, not counting the header.
+		/// </summary>
 		public int RowCount 
 		{
 			get
@@ -38,6 +49,12 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
+		/// <summary>
+		/// An array of string arrays containing the contents of the data grid, 
+		/// not counting the header.  The outer array represents rows and the inner arrays
+		/// represents cells within the rows.  Whitespace has been trimmed from the front and
+		/// back of the cells.
+		/// </summary>
 		public string[][] TrimmedCells
 		{
 			get
@@ -51,16 +68,28 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
+		/// <summary>
+		/// The data grid's header row.  The first row is always assumed to be the header row.
+		/// </summary>
 		public Row GetHeaderRow()
 		{
 			return new Row(0, this);
 		}
-		
+
+		/// <summary>
+		/// Returns a row from the data grid.  Row number zero is the first row <b>after</b>
+		/// the header row.
+		/// </summary>
 		public Row GetRow(int rowNumber)
 		{
 			return new Row(rowNumber + 1, this);
 		}
 
+		/// <summary>
+		/// Returns a row containing a specific cell.
+		/// </summary>
+		/// <param name="columnNumber">The column containing the cell to look for (zero-based).</param>
+		/// <param name="trimmedValue">The cell to look for.</param>
 		public Row GetRowByCellValue(int columnNumber, string trimmedValue)
 		{
 			string[][] cells = TrimmedCells;
@@ -84,11 +113,19 @@ namespace NUnit.Extensions.Asp.AspTester
 			return HtmlId + "__ctl" + (rowNumber + 1);
 		}
 
+		/// <summary>
+		/// Tests a row within a data grid.
+		/// </summary>
 		public class Row : ControlTester
 		{
 			private int rowNumber;
 			private DataGridTester container;
 
+			/// <summary>
+			/// Create the tester and link it to a row in a specific data grid.
+			/// </summary>
+			/// <param name="rowNumberWhereZeroIsHeader">The row to test.</param>
+			/// <param name="container">The data grid that contains the row.</param>
 			public Row(int rowNumberWhereZeroIsHeader, DataGridTester container) : base(rowNumberWhereZeroIsHeader.ToString(), container)
 			{
 				this.rowNumber = rowNumberWhereZeroIsHeader;
@@ -108,6 +145,10 @@ namespace NUnit.Extensions.Asp.AspTester
 				}
 			}
 
+			/// <summary>
+			/// The cells in the row.  Whitespace has been trimmed from the front and back
+			/// of the cells.
+			/// </summary>
 			public string[] TrimmedCells
 			{
 				get

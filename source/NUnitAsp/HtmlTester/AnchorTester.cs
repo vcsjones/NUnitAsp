@@ -24,15 +24,27 @@ using System.Web;
 
 namespace NUnit.Extensions.Asp.HtmlTester
 {
+	/// <summary>
+	/// Tester for System.Web.UI.HtmlControls.HtmlAnchor
+	/// </summary>
 	public class AnchorTester : ControlTester
 	{
 		private bool runAtServer;
 
+		/// <summary>
+		/// Create the tester and link it to an ASP.NET control.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to link to.</param>
+		/// <param name="container">The control that contains the control to link to</param>
+		/// <param name="runAtServer">True if the control to link to has the 'runAt="server"' attribute.</param>
 		public AnchorTester(string aspId, Control container, bool runAtServer) : base(aspId, container)
 		{
 			this.runAtServer = runAtServer;
 		}
 
+		/// <summary>
+		/// Click the link.  Supports pop-up windows.
+		/// </summary>
 		public void Click()
 		{
 			string link = PopupLink;
@@ -40,6 +52,9 @@ namespace NUnit.Extensions.Asp.HtmlTester
 			Browser.GetPage(link);
 		}			
 		
+		/// <summary>
+		/// The HRef of the link.
+		/// </summary>
 		public string HRef
 		{
 			get
@@ -49,7 +64,8 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		}
 
 		/// <summary>
-		/// Null if this anchor doesn't have a recognizable pop-up link.
+		/// The HRef of the pop-up window's link.  Null if this anchor doesn't have 
+		/// a recognizable pop-up link.
 		/// </summary>
 		public string PopupLink
 		{
