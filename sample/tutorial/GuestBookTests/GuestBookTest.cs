@@ -16,7 +16,7 @@ namespace GuestBookTests
 			ButtonTester save = new ButtonTester("save", CurrentWebForm);
 			DataGridTester book = new DataGridTester("book", CurrentWebForm);
 
-			Browser.GetPage("http://localhost/NUnitAsp/sample/GuestBook/GuestBook/GuestBook.aspx");
+			Browser.GetPage("http://localhost/NUnitAsp/sample/tutorial/GuestBook/GuestBook.aspx");
 			AssertVisibility(name, true);
 			AssertVisibility(comments, true);
 			AssertVisibility(save, true);
@@ -31,7 +31,7 @@ namespace GuestBookTests
 			ButtonTester save = new ButtonTester("save", CurrentWebForm);
 			DataGridTester book = new DataGridTester("book", CurrentWebForm);
 
-			Browser.GetPage("http://localhost/NUnitAsp/sample/GuestBook/GuestBook/GuestBook.aspx");
+			Browser.GetPage("http://localhost/NUnitAsp/sample/tutorial/GuestBook/GuestBook.aspx");
 			name.Text = "Dr. Seuss";
 			comments.Text = "One Guest, Two Guest!  Guest Book, Best Book!";
 			save.Click();
