@@ -68,7 +68,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 				if (match.Captures.Count == 0) return null;
 				else
 				{
-					string message = string.Format("Found two 'window.open' calls in onclick attribute of {0}, but only expected to find one", HtmlIdAndDescription);
+					string message = string.Format("Found more than one 'window.open' call in onclick attribute of {0}, but only expected to find one", HtmlIdAndDescription);
 					throw new ParseException(message);
 				}
 			}
