@@ -90,15 +90,48 @@ namespace NUnit.Extensions.Asp.Test
 		}
 
 		[Test]
-		public void TestChildren()
+		public void TestChildrenAndHasChildren()
 		{
 			string test = "<html><c>Left</c><p id='parent'><c>0</c><c>1</c><r>red herring</r><c>2</c><c>3<c>nested</c></c><c>4</c></p><c>Right</c></html>";
 			HtmlTag tag = new HtmlTag(test, "parent", test);
+
+			Assert.IsTrue(tag.HasChildren("c"));
+			Assert.IsFalse(tag.HasChildren("x"));
+
 			Assert.AreEqual("0", tag.Children("c")[0].Body);
 			Assert.AreEqual("1", tag.Children("c")[1].Body);
 			Assert.AreEqual("2", tag.Children("c")[2].Body);
 			Assert.AreEqual("3<c>nested</c>", tag.Children("c")[3].Body);
 			Assert.AreEqual("4", tag.Children("c")[4].Body);
+		}
+
+		[Test]
+		public void TestChild()
+		{
+			string test = "<p id='parent'><one>1</one><two>A</two><two>B</two></p>";
+			HtmlTag tag = new HtmlTag(test, "parent", test);
+
+			Assert.AreEqual("1", tag.Child("one").Body);
+		}
+
+		[Test]
+		[ExpectedException(typeof(WebAssertionException))]
+		public void TestChild_WhenNoChildren()
+		{
+			string test = "<p id='parent'><one>1</one><two>A</two><two>B</two></p>";
+			HtmlTag tag = new HtmlTag(test, "parent", test);
+
+			tag.Child("none");
+		}
+		
+		[Test]
+		[ExpectedException(typeof(WebAssertionException))]
+		public void TestChild_WhenTwoManyChildren()
+		{
+			string test = "<p id='parent'><one>1</one><two>A</two><two>B</two></p>";
+			HtmlTag tag = new HtmlTag(test, "parent", test);
+
+			tag.Child("two");
 		}
 	}
 }

@@ -192,7 +192,7 @@ namespace NUnit.Extensions.Asp.Test
 			LabelTester userAgent = new LabelTester("userAgent", CurrentWebForm);
 
 			Browser.GetPage(TestUrl);
-			AssertEquals("default user agent", "NUnitAsp", userAgent.Text);
+			AssertEquals("default user agent", HttpClient.IE_USER_AGENT, userAgent.Text);
 			Browser.UserAgent = "Foo Explorer/4.2";
 			Browser.GetPage(TestUrl);
 			AssertEquals("modified user agent", "Foo Explorer/4.2", userAgent.Text);

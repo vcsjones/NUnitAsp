@@ -59,8 +59,8 @@ namespace NUnit.Extensions.Asp
 
 		private static void Visibility(ControlTester tester, bool expectedVisibility)
 		{
-			string not = expectedVisibility ? "" : " not";
-			string message = String.Format("{0} control should{1} be visible (HTML ID: {2}; ASP location: {3})", tester.AspId, not, tester.HtmlId, tester.Description);
+			string not = expectedVisibility ? "" : " non-";
+			string message = String.Format("Expected {0} control to be {1}visible (HTML ID: {2}; ASP location: {3})", tester.AspId, not, tester.HtmlId, tester.Description);
 			True(tester.Visible == expectedVisibility, message);
 		}
 

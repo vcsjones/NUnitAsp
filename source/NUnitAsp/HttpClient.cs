@@ -40,6 +40,18 @@ namespace NUnit.Extensions.Asp
 		private CookieContainer cookies = new CookieContainer();
 
 		/// <summary>
+		/// A User Agent string provided by Firefox 1.0.  Use this with <see cref="UserAgent"/>
+		/// when you want NUnitAsp to see what Firefox sees.
+		/// </summary>
+		public const string FIREFOX_USER_AGENT = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.5) Gecko/20041107 Firefox/1.0";
+
+		/// <summary>
+		/// A user agent string provided by Internet Explorer 6.0.  Use this with <see cref="UserAgent"/>
+		/// when you want NUnitAsp to see what IE sees.
+		/// </summary>
+		public const string IE_USER_AGENT = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)";
+
+		/// <summary>
 		/// <p>The HttpClient that's used by default in all tests.</p>
 		/// 
 		/// <p>If you're creating a custom tester, don't use this property!
@@ -48,10 +60,13 @@ namespace NUnit.Extensions.Asp
 		public static HttpClient Default = new HttpClient();
 
 		/// <summary>
-		/// The user-agent string to send to the server. Useful if you want to pretend to
-		/// be a specific browser.
+		/// <p>The user-agent string to send to the server. Useful if you want to pretend to
+		/// be a specific browser.  Defaults to <see cref="IE_USER_AGENT"/>.</p>
+		/// <p>Be careful when changing this, as ASP.NET renders controls differently
+		/// for different user agents.  NUnitAsp's testers may not be able to recognize
+		/// a control that was rendered for a different browser.</p>
 		/// </summary>
-		public string UserAgent = "NUnitAsp";
+		public string UserAgent = IE_USER_AGENT;
 
 		/// <summary>
 		/// The language-tag elements to send to the server (null if none). These appear 

@@ -1,6 +1,7 @@
+#region Copyright (c) 2002, 2005, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2002, 2005, Brian Knowles, Jim Shore
 ' Originally written by David Paxson.  Copyright assigned to Brian Knowles and Jim Shore
 ' on the nunitasp-devl@lists.sourceforge.net mailing list on 28 Aug 2002.
 '
@@ -19,6 +20,7 @@
 ' DEALINGS IN THE SOFTWARE.
 '
 '*******************************************************************************************************************/
+#endregion
 
 using System;
 using NUnit.Extensions.Asp.AspTester;
@@ -27,7 +29,9 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 {
 	public class ValidationSummaryTest : NUnitAspTestCase
 	{
-		private TextBoxTester textBox;
+		private TextBoxTester textBox1;
+		private TextBoxTester textBox2;
+		private TextBoxTester textBox3;
 		private ValidationSummaryTester bulletedSummary;
 		private ValidationSummaryTester listSummary;
 		private ButtonTester button;
@@ -37,7 +41,10 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			base.SetUp();
 			Browser.GetPage(BaseUrl + "AspTester/ValidationSummaryTestPage.aspx");
 
-			textBox = new TextBoxTester("textbox", CurrentWebForm);
+			textBox1 = new TextBoxTester("textbox1", CurrentWebForm);
+			textBox2 = new TextBoxTester("textbox2", CurrentWebForm);
+			textBox3 = new TextBoxTester("textbox3", CurrentWebForm);
+
 			bulletedSummary = new ValidationSummaryTester("bulletedSummary", CurrentWebForm);
 			listSummary = new ValidationSummaryTester("listSummary", CurrentWebForm);
 			button = new ButtonTester("submit", CurrentWebForm);
@@ -45,32 +52,61 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 
 		public void TestPageLayout()
 		{
-			AssertEquals("", textBox.Text);
+			AssertEquals("", textBox1.Text);
+			AssertEquals("", textBox2.Text);
+			AssertEquals("", textBox3.Text);
 
 			AssertVisibility(bulletedSummary, false);
 			AssertVisibility(listSummary, false);
 			AssertVisibility(button, true);
 		}
 
-		public void TestBulletedSummary()
+		public void TestThreeMessages()
 		{
-			AssertCorrectMessages(bulletedSummary);
-		}
-
-		public void TestListSummary()
-		{
-			AssertCorrectMessages(listSummary);
-		}
-
-
-		private void AssertCorrectMessages(ValidationSummaryTester summary)
-		{
-			AssertEquals("", textBox.Text);
 			button.Click();
-			AssertVisibility(summary, true);
 
 			string[] expected = new string[] {"First message", "Second message", "Third message"};
-			AssertEquals("messages", expected, summary.Messages);
+			AssertEquals("bulleted", expected, bulletedSummary.Messages);
+			AssertEquals("list", expected, listSummary.Messages);
+		}
+
+		public void TestOneMessage()
+		{
+			textBox1.Text = "hi";
+			textBox2.Text = "bye";
+			button.Click();
+	
+			string[] expected = new string[] {"Third message"};
+			AssertEquals("bulleted", expected, bulletedSummary.Messages);
+			AssertEquals("list", expected, listSummary.Messages);
+		}
+
+		public void TestNoMessages()
+		{
+			textBox1.Text = "hi";
+			textBox2.Text = "bye";
+			textBox3.Text = "fly";
+			button.Click();
+
+			WebAssert.NotVisible(bulletedSummary);
+			WebAssert.NotVisible(listSummary);
+
+			try
+			{
+				string[] ignored = bulletedSummary.Messages;
+				Fail("expected exception");
+			}
+			catch (WebAssertionException)
+			{
+			}
+			try
+			{
+				string[] ignored = listSummary.Messages;
+				Fail("expected exception");
+			}
+			catch (WebAssertionException)
+			{
+			}
 		}
 	}
 }

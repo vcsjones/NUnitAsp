@@ -39,6 +39,8 @@ namespace NUnitAspTestPages.AspTester
 		protected System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
 		protected System.Web.UI.WebControls.ValidationSummary bulletedSummary;
 		protected System.Web.UI.WebControls.ValidationSummary listSummary;
+		protected System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+		protected System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
 		protected System.Web.UI.WebControls.Button submit;
 	
 		private void Page_Load(object sender, System.EventArgs e)

@@ -203,7 +203,7 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		/// <param name="tag">The type of tag to return.  Don't include angle brackets.</param>
 		/// <example>To get all rows in a table: <code>HtmlTag[] rows = table.Children("tr");</code></example>
-		/// <returns>The tags.</returns>
+		/// <returns>The tags, or an empty array if none.</returns>
 		public HtmlTag[] Children(string tag)
 		{
 			XmlNodeList children = Element.SelectNodes(tag);
@@ -213,6 +213,31 @@ namespace NUnit.Extensions.Asp
 				result[i] = new HtmlTag((XmlElement)children[i], "<" + tag + "> child #" + i + " of " + Description);
 			}
 			return result;													  
+		}
+
+		/// <summary>
+		/// Returns 'true' if this tag has any immediate children that match a particular type
+		/// (such as &lt;tr&gt;.  Does not check "grand-children" -- i.e., calling 
+		/// <c>table.HasChildren("tr")</c> will usually return true and calling
+		/// <c>table.HasChildren("td")</c> will usually return false.
+		/// </summary>
+		/// <param name="tag">The type of tag to look for.  Don't include angle brackets.</param>
+		public bool HasChildren(string tag)
+		{
+			return Children(tag).Length != 0;
+		}
+
+		/// <summary>
+		/// Returns the only child (of a particular type) of this tag.  If this tag has more
+		/// that one child of the requested type, or if it has no children of the requested type,
+		/// this method will throw an exception.
+		/// </summary>
+		/// <param name="tag">The type of tag to look for.  Don't include angle brackets.</param>
+		public HtmlTag Child(string tag)
+		{
+			HtmlTag[] tags = Children(tag);
+			WebAssert.True(tags.Length == 1, "Expected " + Description + " to have exactly one <" + tag + "> child tag.");
+			return tags[0];
 		}
 
 		private XmlElement Element

@@ -51,7 +51,8 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				if (Element.SelectSingleNode(".//ul") != null)
+				WebAssert.Visible(this);
+				if (Tag.HasChildren("ul"))
 				{
 					return ReadBulletedMessages();
 				}
@@ -64,20 +65,19 @@ namespace NUnit.Extensions.Asp.AspTester
 
 		private string[] ReadBulletedMessages()
 		{
-			XmlNodeList nodes = Element.SelectNodes(".//ul/li");
-			string[] messages = new string[nodes.Count];
-			for (int i = 0; i < nodes.Count; i++)
+			HtmlTag[] liTags = Tag.Child("ul").Children("li");
+			string[] messages = new string[liTags.Length];
+			for (int i = 0; i < liTags.Length; i++)
 			{
-				messages[i] = nodes[i].InnerXml;
+				messages[i] = liTags[i].Body;
 			}
 			return messages;
 		}
 
 		private string[] ReadListMessages() 
 		{
-			XmlNode node = Element.SelectSingleNode(".//font");
 			string delim = "<br />";
-			string inner = node.InnerXml.Trim();
+			string inner = Tag.Body.Trim();
 			if (inner.Length >= delim.Length)
 			{
 				inner = inner.Substring(0, inner.Length - delim.Length);
