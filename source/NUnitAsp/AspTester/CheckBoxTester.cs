@@ -34,8 +34,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return (XmlElement)Element.ParentNode
-					.SelectSingleNode("label[@for=\"" + HtmlId + "\"]");
+				return (XmlElement)Element.SelectSingleNode("../label[@for='" + HtmlId + "']");
 			}
 		}
 
