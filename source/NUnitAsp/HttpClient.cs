@@ -34,31 +34,25 @@ namespace NUnit.Extensions.Asp
 
 	public class HttpClient
 	{
-		// Lifetime of object
 		private TimeSpan serverTime = new TimeSpan(0);
+		public TimeSpan parseTime = new TimeSpan(0);
 		private Hashtable cookies = new Hashtable();
-
-		// Lifetime of current page
 		private Uri currentUrl = null;
-		private XmlDocument page;
-		private string pageText;
-		private NameValueCollection formVariables = new NameValueCollection();
-			
+		private WebPage currentPage = null;
+
 		public void GetPage(string url) 
 		{
-			formVariables.Clear();
-			DoHttp(url, "get");
+			DoHttp(url, "get", "");
 		}
 
 		internal void SubmitForm(string url, string method)
 		{
-			DoHttp(url, method);
+			DoHttp(url, method, currentPage.FormVariables);
 		}
 
 		public void SetFormVariable(string name, string value) 
 		{
-			formVariables.Remove(name);
-			formVariables.Add(name, value);
+			currentPage.SetFormVariable(name, value);
 		}
 
 		public bool HasCookie(string cookieName) 
@@ -70,8 +64,8 @@ namespace NUnit.Extensions.Asp
 		{
 			get 
 			{
-				if (page == null) throw new NoPageException();
-				return page;
+				if (currentPage == null) throw new NoPageException();
+				return currentPage.Document;
 			}
 		}
 
@@ -83,12 +77,11 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		private void DoHttp(string url, string method)
+		private void DoHttp(string url, string method, string formVariables)
 		{
 			UpdateCurrentUrl(url);
-			WebRequest request = CreateWebRequest(method);
-			string[] newCookies = ReadHttpResponse(request);
-			ParseHttpResponse(newCookies);
+			WebRequest request = CreateWebRequest(method, formVariables);
+			ReadHttpResponse(request);
 		}
 
 		private void UpdateCurrentUrl(string url)
@@ -97,14 +90,13 @@ namespace NUnit.Extensions.Asp
 			else currentUrl = new Uri(currentUrl, url);
 		}
 
-		private WebRequest CreateWebRequest(string method)
+		private WebRequest CreateWebRequest(string method, string formVariables)
 		{
 			StreamWriter writer = null;
 			try 
 			{
-				string parameters = CreateParameterString();
 				string url = currentUrl.ToString();
-				if (method.ToLower() == "get" && formVariables.Count > 0) url += "?" + parameters;
+				if ((method.ToLower() == "get") && (formVariables != "")) url += "?" + formVariables;
 
 				WebRequest request = WebRequest.Create(url);
 				request.Method = method;
@@ -114,7 +106,7 @@ namespace NUnit.Extensions.Asp
 				{
 					request.ContentType = "application/x-www-form-urlencoded";
 					writer = new StreamWriter(request.GetRequestStream(), Encoding.ASCII);
-					writer.WriteLine(parameters);
+					writer.WriteLine(formVariables);
 					writer.Close();
 				}
 				return request;
@@ -125,7 +117,7 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		private string[] ReadHttpResponse(WebRequest request)
+		private void ReadHttpResponse(WebRequest request)
 		{
 			WebResponse response = null;
 			try
@@ -135,9 +127,8 @@ namespace NUnit.Extensions.Asp
 				serverTime += (DateTime.Now - startTime);
 
 				StreamReader pageReader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
-				pageText = pageReader.ReadToEnd();
-
-				return response.Headers.GetValues("Set-Cookie");
+				currentPage = new WebPage(pageReader.ReadToEnd());
+				ParseCookies(response.Headers.GetValues("Set-Cookie"));
 			}
 			finally
 			{
@@ -145,32 +136,20 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		private void ParseHttpResponse(string[] newCookies) 
+		private void ParseCookies(string[] newCookies) 
 		{
-			try 
+			if (newCookies == null) return;
+
+			foreach (string cookieString in newCookies) 
 			{
-				page = new XmlDocument();
-				page.LoadXml(pageText);
-				ParseCookies(newCookies);
-				ParseDefaultFormVariables();
-			}
-			catch (XmlException e) 
-			{
-				throw new XmlException("Error parsing page...\n" +  pageText, e);
+				string[] cookieParameters = cookieString.Split(new char[] {';'});
+				string[] nameValue = cookieParameters[0].Split(new char[] {'='});
+				string name = nameValue[0];
+				if (cookies.Contains(name)) cookies.Remove(name);
+				cookies.Add(name, nameValue[1]);
 			}
 		}
 
-		private string CreateParameterString()
-		{
-			string joiner = "";
-			string result = "";
-			foreach (string key in formVariables.Keys)
-			{
-				result += joiner + HttpUtility.UrlEncode(key) + "=" + HttpUtility.UrlEncode(formVariables.Get(key));
-				joiner = "&";
-			}
-			return result;
-		}
 
 		private string CreateCookieString() 
 		{
@@ -188,120 +167,6 @@ namespace NUnit.Extensions.Asp
 		{
 			Uri uri = new Uri(url);
 			return uri.AbsoluteUri;
-		}
-
-		private void ParseDefaultFormVariables() 
-		{
-			formVariables = new NameValueCollection();
-			ParseFormHiddenValues();
-			ParseFormTextValues("//input[@type='file']");
-			ParseFormTextValues("//input[@type='password']");
-			ParseFormTextValues("//input[@type='text']");
-			ParseFormTextValues("//input[@type='radio'][@checked]");
-			ParseFormTextAreaValues();
-			ParseFormSelectValues();
-		}
-
-		private void ParseCookies(string[] newCookies) 
-		{
-			if (newCookies == null) return;
-
-			foreach (string cookieString in newCookies) 
-			{
-				string[] cookieParameters = cookieString.Split(new char[] {';'});
-				string[] nameValue = cookieParameters[0].Split(new char[] {'='});
-				string name = nameValue[0];
-				if (cookies.Contains(name)) cookies.Remove(name);
-				cookies.Add(name, nameValue[1]);
-			}
-		}
-
-		private void ParseFormHiddenValues() 
-		{
-			XmlNodeList nodes = page.SelectNodes("//input[@type='hidden']");
-			if (nodes == null) return;
-
-			foreach (XmlNode item in nodes) 
-			{
-				XmlAttribute name = item.Attributes["name"];
-				XmlAttribute aValue = item.Attributes["value"];
-				if ((name != null) && (aValue != null)) 
-				{
-					SetFormVariable(name.Value, aValue.Value);
-				}
-			}
-		}
-
-		private void ParseFormTextValues(string expression) 
-		{
-			XmlAttribute name;
-			XmlAttribute aValue;
-			XmlNodeList nodes = page.SelectNodes(expression);
-			if (nodes == null) return;
-
-			foreach (XmlNode item in nodes) 
-			{
-				name = item.Attributes["name"];
-				aValue = item.Attributes["value"];
-				if ((name != null) && (aValue != null)) 
-				{
-					SetFormVariable(name.Value, aValue.Value);
-				}
-			}
-		}
-
-		private void ParseFormTextAreaValues() 
-		{
-			XmlAttribute name;
-			XmlNodeList nodes = page.SelectNodes("//textarea");
-			if (nodes == null) return;
-
-			foreach (XmlNode item in nodes) 
-			{
-				name = item.Attributes["name"];
-				if (name != null) 
-				{
-					SetFormVariable(name.Value, item.InnerText.Trim());
-				}
-			}
-		}
-
-		private void ParseFormSelectValues() 
-		{
-			string expression = "//select";
-			XmlAttribute name;
-			XmlNode aValue = null;
-			XmlNodeList nodes = page.SelectNodes(expression);
-
-			if (nodes == null) return;
-
-			foreach (XmlNode item in nodes) 
-			{
-				name = item.Attributes["name"];
-				if (name == null) 
-				{
-					throw new XmlException("A select form element on the page does not have a name.", null);
-				}
-
-				// Look for the option that is selected
-				foreach (XmlNode child in item.ChildNodes) 
-				{
-					if (child.Attributes["selected"] != null) 
-					{
-						aValue = child.Attributes["value"];
-					}
-				}
-
-				// If there is no value then we will just set it as empty
-				if (aValue == null) 
-				{
-					SetFormVariable(name.Value, String.Empty);
-				}
-				else 
-				{
-					SetFormVariable(name.Value, aValue.Value);
-				}
-			}
 		}
 
 		public class NoPageException : ApplicationException
