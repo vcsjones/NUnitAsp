@@ -3,6 +3,7 @@ To do:
 * Address InnerText vs. InnerXml.  Remove HtmlTag.BodyNoTags.
 * Review form variables' use of Element/Tag (Tag should be protected, not internal or public)
 * Exceptions need to be organized
+* Simple parse of ASP.NET exception pages (clue: HTTP 500 error) to display meaningful exception in test 
 
 
 Changes in CVS:

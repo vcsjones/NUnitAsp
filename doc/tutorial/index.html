@@ -511,7 +511,7 @@
 
             <p>If you write code this way all the time, always taking the simplest, easiest approach, you'll end up with a disjointed mess.  Indeed, if you look at our code so far, it's not very good.  And we've only implemented one little feature!  The key to preventing the mess is to refactor each time you get a test to pass.</p>
 
-            <p>Refactoring is to big a topic for me to cover here, so if you're not familiar with refactoring, check out Martin Fowler's <a href="http://www.refactoring.com">Refactoring website</a>, or search the web for more information.  To summarize, refactoring is changing the design of your code without changing its functionality, using small, predictable steps.</p>
+            <p>Refactoring is too big of a topic for me to cover here, so if you're not familiar with refactoring, check out Martin Fowler's <a href="http://www.refactoring.com">Refactoring website</a>, or search the web for more information.  In brief, refactoring is changing the design of your code without changing its functionality, using small, predictable steps.</p>
 
             <p>You decide what to refactor by looking for "code smells:" areas where the design of the code is poor.  One of the easiest code smells to spot is duplication.  If you have the same concept in multiple places, there's probably a design problem.  Fixing this one issue aggressively whenever you see it will do a lot to keep your design quality high.</p>
 
@@ -582,6 +582,7 @@
               <br />&nbsp;&nbsp;&nbsp;[Test]
               <br />&nbsp;&nbsp;&nbsp;public void TestLayout()
               <br />&nbsp;&nbsp;&nbsp;{
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="emph"><i><span class="comment">(duplication removed here)</span></i></span>
               <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AssertVisibility(name, true);
               <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AssertVisibility(comments, true);
               <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AssertVisibility(save, true);
@@ -591,6 +592,7 @@
               <br />&nbsp;&nbsp;&nbsp;[Test]
               <br />&nbsp;&nbsp;&nbsp;public void TestSave()
               <br />&nbsp;&nbsp;&nbsp;{
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="emph"><i><span class="comment">(duplication removed here)</span></i></span>
               <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name.Text = "Dr. Seuss";
               <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;comments.Text = "One Guest, Two Guest!  Guest Book, Best Book!";
               <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;save.Click();
@@ -607,7 +609,7 @@
               <br />}</span>
             </div>
 
-            <p>Readers familiar with NUnit will notice that we're not using the [SetUp] attribute.  We're using a "protected override void SetUp" method instead.  That's a quirk of the way NUnitAsp is put together.  We're already using [SetUp] in NUnitAsp, so you can't use it yourself.  Use the "protected override void SetUp" method will yield the same results.  If you use [SetUp] with NUnitAsp, you'll get an exception.</p>
+            <p>Readers familiar with NUnit will notice that we're not using the [SetUp] attribute.  We're using a "protected override void SetUp" method instead.  That's a quirk of the way NUnitAsp is put together.  We're already using [SetUp] in NUnitAsp, so you can't use it yourself.  Using the "protected override void SetUp" method will yield the same results.  If you use [SetUp] with NUnitAsp, you'll get an exception.</p>
 
             <h2>Refactor More (with a note about debugging)</h2>
 
@@ -664,7 +666,7 @@
               <br />
               <br />&nbsp;&nbsp;&nbsp;DataRow row = table.NewRow();
               <br />&nbsp;&nbsp;&nbsp;row["Name"] = </span><span class="emph">name.Text</span><span class="demph">;
-              <br />&nbsp;&nbsp;&nbsp;row["Comments"] = </span><span class="emph">comments.Text</span><span class="demph">
+              <br />&nbsp;&nbsp;&nbsp;row["Comments"] = </span><span class="emph">comments.Text</span><span class="demph">;
               <br />&nbsp;&nbsp;&nbsp;table.Rows.Add(row);
               <br />
               <br />&nbsp;&nbsp;&nbsp;book.DataSource = table;
@@ -690,11 +692,12 @@
               <br />}
             </div>
 
-            <p>Page_Load is called every time the page is loaded, before my Save_Click method is called.  So by the time the program gets to Save_Click, my name ane comments have been reset!  I needed to move that code to a better spot.  Fortunately, there's an obvious spot: the end of the Save_Click method.</p>
+            <p>Page_Load is called every time the page is loaded, before my Save_Click method is called.  So by the time the program gets to Save_Click, my name and comments have been reset!  I needed to move that code to a better spot.  Fortunately, there's an obvious spot: the end of the Save_Click method.</p>
 
             <div class="code">
               <span class="demph">private void Page_Load(object sender, System.EventArgs e)
               <br />{
+              <br />&nbsp;&nbsp;&nbsp;<span class="emph"><i><span class="comment">(code moved from here)</span></i></span>
               <br />}
               <br />
               <br />protected void Save_Clicked(object sender, EventArgs e)
@@ -742,13 +745,13 @@
               <br />}
             </div>
 
-            <p>Again, we're doing the simplest thing we can to get the test working, even though it means duplicating some code from TestSave.  We know we're going to come back in refactor in just a few minutes.</p>
+            <p>Again, we're doing the simplest thing we can to get the test working, even though it means duplicating some code from TestSave.  We know we're coming back to refactor in just a few minutes.</p>
 
             <h2>Implement a Little Bit More Functionality</h2>
 
             <p>The test fails, as expected.  To get it to pass, we have to get our DataTable to persist across multiple invocations.  We'll use the user's session for that.</p>
 
-            <p>(Storing it in the session isn't really correct, as it doesn't allow multiple people to access the same guest book.  But this tutorial is too long already.)</p>
+            <p>(Storing it in the session isn't really correct, as it doesn't allow multiple people to access the same guest book.  But it's good enough for the purposes of this tutorial.)</p>
 
             <div class="code">
               <span class="demph">protected void Save_Clicked(object sender, EventArgs e)
@@ -865,7 +868,7 @@
 
             <p>I'm going to leave these tests as an exercise for you to do on your own.  There's several tests that you could write.  I would write tests for empty fields.  What do we want to happen if the user clicks save but hasn't filled in his name?  What if he filled in his name, but not a comment?  What happens if the user comes back to the page after leaving it?</p>
 
-            <p>And if you're not thinking about security, give yourself a good shaking.  What happens when a user enters HTML into one of these fields?  What do we want to happen?  Write a test for those cases.</p>
+            <p>And if you're not thinking about security, give yourself a good shaking.  What happens when a user enters HTML into one of these fields?  What do we want to happen?  Write tests for those cases.</p>
 
             <p>Questions about these sorts of boundary conditions will come up as you're writing the main line of your code.  Don't let them distract you, but don't forget them, either.  Once you have the main case working, start writing tests for the boundary conditions.  Brainstorm and let them all come out.  By this time, your test fixture has probably been refactored a few times, so adding lots of tests for obscure cases should be easy.  Some of them might pass right away; others will require you to update your production code.</p>
 
