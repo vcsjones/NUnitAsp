@@ -23,9 +23,12 @@
 using System;
 using System.IO;
 using System.Xml;
+using System.Collections;
 using System.Collections.Specialized;
 using System.Web;
 using System.Text.RegularExpressions;
+
+using Sgml;
 
 namespace NUnit.Extensions.Asp
 {
@@ -49,32 +52,6 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		private string ConvertToXhtml(string html)
-		{
-			// doctype
-			html = Regex.Replace(html, @"[<][!]DOCTYPE.*[>]", "<!DOCTYPE HTML PUBLIC \"-//w3c//dtd xhtml 1.0 transitional//en\" \"http://localhost/nunitasp/web/dtd/xhtml1-transitional.dtd\">", RegexOptions.IgnoreCase);
-
-			// lowercase <html>
-			html = Regex.Replace(html, @"<html>", "<HTML>");
-			html = Regex.Replace(html, @"</html>", "</HTML>");
-
-			// unclosed tags with attributes
-			html = Regex.Replace(html, "<(INPUT|IMG|META|LINK|BASE|BGSOUND)([^<]+)(\"| |')>", "<$1$2$3 />", RegexOptions.IgnoreCase);
-
-			// unclosed tags with no attributes
-			html = Regex.Replace(html, "<(BR|HR)>", "<$1 />", RegexOptions.IgnoreCase);
-
-			// nowrap (DataGrids)
-			html = Regex.Replace(html, "nowrap=\"nowrap\"", "  nowrap=\"TRUE\"  ", RegexOptions.IgnoreCase);
-			html = Regex.Replace(html, @"nowrap([^=])", " nowrap=\"true\"$1  ", RegexOptions.IgnoreCase);
-
-			// anchor tags
-			html = Regex.Replace(html, "<A ", "<a ");
-			html = Regex.Replace(html, "</A>", "</a>");
-
-			return html;
-		}
-
 		internal string FormVariables
 		{
 			get
@@ -90,16 +67,27 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		private SgmlDtd ParseDtd(XmlNameTable nt)
+		{
+			string name = string.Format("{0}.{1}.Html.dtd",
+				typeof(WebPage).Namespace, typeof(SgmlDtd).Namespace);
+
+			Stream stream = typeof(SgmlDtd).Assembly.GetManifestResourceStream(name);
+			StreamReader reader = new StreamReader(stream);
+			return SgmlDtd.Parse(null, "HTML", null, reader, null, null, nt);
+		}
+
 		private void ParsePageText()
 		{
-			XmlValidatingReader reader = new XmlValidatingReader(
-				new XhtmlTextReader(new StringReader(ConvertToXhtml(pageText))));
+			SgmlReader reader = new SgmlReader();
 			try 
 			{
-				reader.EntityHandling = EntityHandling.ExpandCharEntities;
-				reader.ValidationType = ValidationType.None;
+				reader.InputStream = new StringReader(pageText);
+				reader.Dtd = ParseDtd(reader.NameTable);
+				reader.ErrorLog = Console.Error;
+				reader.DocType = "HTML";
 
-				document = new XmlDocument(reader.NameTable);
+				document = new XhtmlDocument(reader.NameTable);
 				document.Load(reader);
 				ParseDefaultFormVariables();
 			}
@@ -249,21 +237,44 @@ namespace NUnit.Extensions.Asp
 		}
 
 
-		private class XhtmlTextReader : XmlTextReader
+		private class XhtmlDocument : XmlDocument
 		{
-			public XhtmlTextReader(TextReader reader) : base(reader)
+			private readonly Hashtable byHtmlId = new Hashtable();
+
+			public XhtmlDocument(XmlNameTable nt) : base(nt)
 			{
 			}
 
-			public override string LocalName
+			public override void Load(XmlReader reader)
 			{
-				get
+				XmlNodeChangedEventHandler insertHandler = 
+					new XmlNodeChangedEventHandler(XhtmlDocument_NodeInserted);
+
+				byHtmlId.Clear();
+				NodeInserted += insertHandler;
+				try
 				{
-					if (NodeType == XmlNodeType.Attribute)
-					{
-						return base.LocalName.ToLower();
-					}
-					return base.LocalName;
+					base.Load(reader);
+				}
+				finally
+				{
+					NodeInserted -= insertHandler;
+				}
+			}
+
+			public override XmlElement GetElementById(string htmlId)
+			{
+				return (XmlElement)byHtmlId[htmlId];
+			}
+
+			private void XhtmlDocument_NodeInserted(object sender, XmlNodeChangedEventArgs e)
+			{
+				if (e.Node.NodeType != XmlNodeType.Element) return;
+
+				XmlAttribute id = e.Node.Attributes["id"];
+				if (id != null)
+				{
+					byHtmlId[id.Value] = e.Node;
 				}
 			}
 		}
