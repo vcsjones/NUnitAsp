@@ -32,8 +32,6 @@ namespace NUnit.Extensions.Asp.Test
 		[Test]
 		public void TestMalformedDocument()
 		{
-			// NOTE: Still need to fix <meta> tags and other unclosed tags.
-
 			CheckBoxTester control = new CheckBoxTester("control", CurrentWebForm);
 			Browser.GetPage(BaseUrl + "MalformedTestPage.aspx");
 			AssertVisibility(control, true);

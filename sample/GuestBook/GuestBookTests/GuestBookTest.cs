@@ -1,11 +1,14 @@
 using System;
+using NUnit.Framework;
 using NUnit.Extensions.Asp;
 using NUnit.Extensions.Asp.AspTester;
 
 namespace GuestBookTests
 {
+	[TestFixture]
 	public class GuestBookTest : WebFormTestCase
 	{
+		[Test]
 		public void TestLayout()
 		{
 			TextBoxTester name = new TextBoxTester("name", CurrentWebForm);
@@ -20,6 +23,7 @@ namespace GuestBookTests
 			AssertVisibility(book, false);
 		}
 
+		[Test]
 		public void TestSave()
 		{
 			TextBoxTester name = new TextBoxTester("name", CurrentWebForm);

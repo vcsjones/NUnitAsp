@@ -55,12 +55,15 @@
 						<br />&nbsp;&nbsp;&nbsp;<span class="comment">// Second, visit the page being tested:</span>
 						<br />&nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/example/example.aspx");
 						<br />
-						<br />&nbsp;&nbsp;&nbsp;<span class="comment">// Third, use tester objects and assertions to test the page:</span>
-						<br />&nbsp;&nbsp;&nbsp;AssertEquals("label before click", "Link has not been clicked.", label.Text);
+						<br />&nbsp;&nbsp;&nbsp;<span class="comment">// Third, use tester objects to test the page:</span>
+						<br />&nbsp;&nbsp;&nbsp;AssertEquals("Not clicked.", label.Text);
 						<br />&nbsp;&nbsp;&nbsp;link.Click();
-						<br />&nbsp;&nbsp;&nbsp;AssertEquals("label after click", "Link has been clicked.", label.Text);
+						<br />&nbsp;&nbsp;&nbsp;AssertEquals("Clicked once.", label.Text);
+						<br />&nbsp;&nbsp;&nbsp;link.Click();
+						<br />&nbsp;&nbsp;&nbsp;AssertEquals("Clicked twice.", label.Text);
 						<br />}
 					</p>
+
 					<p>
 						NUnitAsp can test complex web sites involving multiple pages and nested controls. The common ASP.NET controls are supported (see complete list below), and support for additional controls is easy to add.
 					</p>
@@ -104,7 +107,7 @@
 						</table>
 					</p>
 
-					<p class="end">(End.  Last updated for v1.3.)</p>
+					<p class="end">Last updated for v1.3.</p>
 
 				</td>
 			</tr>

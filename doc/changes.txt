@@ -1,17 +1,19 @@
 Changes in NUnitAsp 1.3:
 Produced by Jim Little.
 * Browser.ElapsedServerTime now works.  Credit to Jim Little.
-* Added support for multiline text boxes.  Thanks to (luKa) for his submission.
+* Added support for multiline text boxes.  Credit to "(luKa)."
 * Updated installation guide for error caused by XMLSpy.  Credit to Peter Wijntjes.
 * Many improvements to tutorial, including update for NUnit 2.0.  Credit to Andrew Enfield.
 * Trimmed number of third-party files included in distribution.  Credit to Jim Little.
 * Fixed defect which caused NUnitAsp to forget that checkboxes were checked.  Credit to Jim Little.
 * Significantly reduced XHTML requirement.  Credit to Rick Currence.
+* Rewrote Quick-Start Guide.  Credit to Jim Little.
+* Added run-time exception to explain common problem with [SetUp] attribute.  Credit to Jim Little. 
 
 
 Changes in NUnitAsp 1.2.1:
 Produced by Jim Little.
-* NUnit 2.0 support.  Thanks to R. Owen Rogers and Drew Noakes for their submissions.
+* NUnit 2.0 support.  Credit to R. Owen Rogers, Drew Noakes, and Jim Little.
 * NUnit 2.0 migration guide.  Credit to Jim Little.
 * Compilation FAQ question.  Credit to Jim Little.
 * Minor documentation fixes.  Credit to Jim Little.
@@ -32,9 +34,9 @@ Produced by Jim Little.
 Changes in NUnitAsp 1.1:
 Produced by Jim Little.
 * Changes not recorded in detail.  Sorry.
-* Added Anchor, DropDownList, and ValidationSummary.
-* Minor changes to usability.
-* Fixed a few defects.
+* Added Anchor, DropDownList, and ValidationSummary.  Credit to Jim Little.
+* Minor changes to usability.  Credit to Jim Little.
+* Fixed a few defects.  Credit to Jim Little.
 
 
 Changes in NUnitAsp 1.0:
