@@ -60,7 +60,7 @@
 	</target>
 
 	<!--*****
-	* compile_nunitasptest
+	* compile_nunitasp
 	*****-->	
 	<target name="compile_nunitasp" depends="build_dir, keypair">
 		<csc target="library" output="${dll.path}" doc="${bin.dir}\NUnitAsp.xml" debug="true">
@@ -98,6 +98,8 @@
 				<includes name="**\*.cs" />
 			</sources>
 			<references>
+				<includes name="${nunit.dir}\*.dll" />
+				<includes name="${bin.dir}\*.dll" />
 			</references>
 		</csc>
 		<copy todir="${testPagesBuild.dir}">

@@ -82,6 +82,21 @@
                     AssemblyName = "System.Xml"
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.XML.dll"
                 />
+                <Reference
+                    Name = "NUnitAspTest"
+                    Project = "{9B344403-AB76-4420-BA97-115A147F7B7D}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "NUnitAsp"
+                    Project = "{5D5FCC6A-44FE-4A25-8F20-B95E904866B0}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "NUnitCore"
+                    AssemblyName = "NUnitCore"
+                    HintPath = "..\..\lib\NUnit1.11\bin\NUnitCore.dll"
+                />
             </References>
         </Build>
         <Files>

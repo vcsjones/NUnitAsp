@@ -28,6 +28,8 @@ namespace NUnit.Extensions.Asp.Test
 {
 	public class HttpClientTest : NUnitAspTestCase
 	{
+		public const string TEST_COOKIE_NAME = "TestCookieName";
+		public  const string TEST_COOKIE_VALUE = "TestCookieValue";
 		private static readonly string TestUrl = BaseUrl + "HttpClientTestPage.aspx";
 
 		private LinkButtonTester redirect;
@@ -87,6 +89,7 @@ namespace NUnit.Extensions.Asp.Test
 			dropCookie.Click();
 			Browser.GetPage(TestUrl);
 			AssertCookieSet();
+			AssertEquals("Browser.CookieValue", TEST_COOKIE_VALUE, Browser.CookieValue(TEST_COOKIE_NAME));
 		}
 
 		public void TestCookiesPreserved()
@@ -130,7 +133,7 @@ namespace NUnit.Extensions.Asp.Test
 
 		private void AssertCookieSet()
 		{
-			AssertEquals("TestCookieValue", cookie.Text);
+			AssertEquals(TEST_COOKIE_VALUE, cookie.Text);
 		}
 	}
 }

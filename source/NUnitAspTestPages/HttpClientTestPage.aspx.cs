@@ -8,6 +8,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using NUnit.Extensions.Asp.Test;
 
 namespace NUnitAspTestPages
 {
@@ -57,12 +58,12 @@ namespace NUnitAspTestPages
 
 		private void SetCookie()
 		{
-			Response.SetCookie(new HttpCookie("TestCookie", "TestCookieValue"));
+			Response.SetCookie(new HttpCookie(HttpClientTest.TEST_COOKIE_NAME, HttpClientTest.TEST_COOKIE_VALUE));
 		}
 
 		private void SetCookieLabel()
 		{
-			HttpCookie requestCookie = Request.Cookies["TestCookie"];
+			HttpCookie requestCookie = Request.Cookies[HttpClientTest.TEST_COOKIE_NAME];
 			if (requestCookie == null) cookie.Text = "Not Set";
 			else cookie.Text = requestCookie.Value;
 		}

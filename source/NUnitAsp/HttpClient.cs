@@ -29,6 +29,7 @@ using System.Web;
 using System.Xml;
 using System.Xml.XPath;
 using System.Collections;
+using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp 
 {
@@ -70,6 +71,15 @@ namespace NUnit.Extensions.Asp
 		public bool HasCookie(string cookieName) 
 		{
 			return cookies.ContainsKey(cookieName);
+		}
+
+		/// <summary>
+		/// Returns the value of a cookie.  Throws exception if the cookie hasn't been set.
+		/// </summary>
+		public string CookieValue(string cookieName)
+		{
+			if (!HasCookie(cookieName)) Assertion.Fail("Expected cookie '" + cookieName + "' to be set");
+			return (string)cookies[cookieName];
 		}
 
 		/// <summary>
@@ -149,7 +159,7 @@ namespace NUnit.Extensions.Asp
 
 		private void UpdateCurrentUrl(string url)
 		{
-			url = TrimFragmentLink(url);
+			url = TrimFragmentIdentifier(url);
 			if (currentUrl == null) currentUrl = new Uri(url);
 			else currentUrl = new Uri(currentUrl, url);
 		}
@@ -160,7 +170,7 @@ namespace NUnit.Extensions.Asp
 		/// recognize a URL that includes it.  This method strips off the fragment identifier, as 
 		/// well as the pound sign (#) that precedes it.
 		/// </summary>
-		private string TrimFragmentLink(string url)
+		private string TrimFragmentIdentifier(string url)
 		{
 			int fragmentLocation = url.IndexOf('#');
 			if (fragmentLocation < 0) return url;
