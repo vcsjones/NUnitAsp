@@ -31,7 +31,7 @@ Produced by Jim Shore and Levi Khatskevitch.
 * Fixed exception when clicking buttons inside UserControl.  Credit to Levi Khatskevitch.
 * CheckBoxTester.Checked can now be set to false.  Credit to Simon Jackson.
 * Added Text property to CheckBoxTester.  Credit to Levi Khatskevitch.
-* Removed all XHTML related requirements. Credit to Simon Jackson and Levi Khatskevitch.
+* Removed all XHTML and DTD requirements. Credit to Chris Lovett, Simon Jackson and Levi Khatskevitch.
 
 (Note: Jim Shore was named Jim Little before the release of version 1.4.)
 
