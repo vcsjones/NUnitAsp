@@ -19,66 +19,22 @@
 '*******************************************************************************************************************/
 
 using System;
-using System.Xml;
-using System.Web.UI.WebControls;
-using NUnit.Framework;
+using NUnit.Extensions.Asp.AspTester;
 
-namespace NUnit.Extensions.Asp.AspTester
+namespace NUnit.Extensions.Asp.Test.AspTester
 {
-
-	public class TextBoxTester : ControlTester
+	public class CheckBoxTest : NUnitAspTestCase
 	{
-
-		public TextBoxTester(string aspId, Control container) : base(aspId, container)
+		public CheckBoxTest(string name) : base(name)
 		{
 		}
 
-		public string Text {
-			set 
-			{
-				EnterInputValue(GetAttributeValue("name"), value);
-			}
-			get
-			{
-				string text = GetOptionalAttributeValue("value");
-				if (text == null) return "";
-				return text;
-			}
-		}
-
-		public TextBoxMode TextMode 
+		public void TestNotChecked()
 		{
-			get 
-			{
-				if (TagName == "textarea") return TextBoxMode.MultiLine;
-				else 
-				{
-					Assertion.AssertEquals("tag name", "input", TagName);
-					string type = GetAttributeValue("type");
-					if (type == "password") return TextBoxMode.Password;
-					else 
-					{
-						Assertion.AssertEquals("type", "text", type);
-						return TextBoxMode.SingleLine;
-					}
-				}
-			}
+			CheckBoxTester checkBox = new CheckBoxTester("checkBox", CurrentWebForm);
+
+			Browser.GetPage(BaseUrl + "/AspTester/CheckBoxTestPage.aspx");
+			Assert("should not be checked", !checkBox.Checked);
 		}
-
-		/// <summary>
-		/// Returns 0 if there is no max length
-		/// </summary>
-		public int MaxLength
-		{
-			get
-			{
-				Assertion.Assert("max length is ignored on a TextBox when TextMode is MultiLine", TextMode != TextBoxMode.MultiLine);
-
-				string maxLength = GetOptionalAttributeValue("maxlength");
-				if (maxLength == null || maxLength == "") return 0;
-				else return int.Parse(maxLength);
-			}
-		}
-
 	}
 }

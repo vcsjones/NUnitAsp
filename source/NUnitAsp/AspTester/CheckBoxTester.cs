@@ -33,7 +33,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return GetOptionalAttributeValue("checked") != "";
+				return GetOptionalAttributeValue("checked") != null;
 			}
 			set
 			{

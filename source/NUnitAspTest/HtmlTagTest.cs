@@ -19,66 +19,59 @@
 '*******************************************************************************************************************/
 
 using System;
-using System.Xml;
-using System.Web.UI.WebControls;
-using NUnit.Framework;
 
-namespace NUnit.Extensions.Asp.AspTester
+namespace NUnit.Extensions.Asp.Test
 {
-
-	public class TextBoxTester : ControlTester
+	public class HtmlTagTest : NUnitAspTestCase
 	{
-
-		public TextBoxTester(string aspId, Control container) : base(aspId, container)
+		public HtmlTagTest(string name) : base(name)
 		{
 		}
 
-		public string Text {
-			set 
-			{
-				EnterInputValue(GetAttributeValue("name"), value);
-			}
-			get
-			{
-				string text = GetOptionalAttributeValue("value");
-				if (text == null) return "";
-				return text;
-			}
-		}
-
-		public TextBoxMode TextMode 
+		private void RunAttributeTest(string tagText, string expectedValue)
 		{
-			get 
-			{
-				if (TagName == "textarea") return TextBoxMode.MultiLine;
-				else 
-				{
-					Assertion.AssertEquals("tag name", "input", TagName);
-					string type = GetAttributeValue("type");
-					if (type == "password") return TextBoxMode.Password;
-					else 
-					{
-						Assertion.AssertEquals("type", "text", type);
-						return TextBoxMode.SingleLine;
-					}
-				}
-			}
+			HtmlTag tag = new HtmlTag(tagText);
+			AssertEquals("attribute", expectedValue, tag.GetAttributeValue("foo"));
 		}
 
-		/// <summary>
-		/// Returns 0 if there is no max length
-		/// </summary>
-		public int MaxLength
+		public void TestGetAttributeSingleQuotes()
 		{
-			get
-			{
-				Assertion.Assert("max length is ignored on a TextBox when TextMode is MultiLine", TextMode != TextBoxMode.MultiLine);
-
-				string maxLength = GetOptionalAttributeValue("maxlength");
-				if (maxLength == null || maxLength == "") return 0;
-				else return int.Parse(maxLength);
-			}
+			RunAttributeTest("<tag foo='bar' />", "bar");
 		}
 
+		public void TestGetAttributeDoubleQuotes()
+		{
+			RunAttributeTest("<tag foo=\"bar\" />", "bar");
+		}
+
+		public void TestGetAttributeEmbeddedSingleQuotes()
+		{
+			RunAttributeTest("<tag foo=\"bar'quote\" />", "bar'quote");
+		}			
+
+		public void TestGetAttributeEmbeddedDoubleQuotes()
+		{
+			RunAttributeTest("<tag foo='bar\"quote' />", "bar\"quote");
+		}
+
+		public void TestGetAttributeMultipleLines()
+		{
+			RunAttributeTest("<tag \nfoo='bar'\n />", "bar");
+		}
+
+		public void TestGetAttributeNoValueSingleQuotes()
+		{
+			RunAttributeTest("<tag foo='' />", "");
+		}
+
+		public void TestGetAttributeNoValueDoubleQuotes()
+		{
+			RunAttributeTest("<tag foo=\"\" />", "");
+		}
+
+		public void TestGetAttributeNoAttribute()
+		{
+			RunAttributeTest("<tag />", null);
+		}
 	}
 }

@@ -107,6 +107,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "HtmlTagTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "HttpClientTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -127,6 +132,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "AspTester\CheckBoxTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AspTester\DataGridTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -137,12 +147,17 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "HtmlTester\HtmlTesterSuite.cs"
+                    RelPath = "AspTester\TextBoxTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "HtmlTester\LinkTest.cs"
+                    RelPath = "HtmlTester\AnchorTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlTesterSuite.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

@@ -27,7 +27,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 	{
 		public HtmlTesterSuite() : base() 
 		{
-			AddTestSuite(typeof(LinkTest));
+			AddTestSuite(typeof(AnchorTest));
 		}
 
 		public static ITest Suite 

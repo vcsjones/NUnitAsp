@@ -52,15 +52,16 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		protected string GetOptionalAttributeValue(string name)
 		{
-			return Element.GetAttribute(name);
+			HtmlTag tag = new HtmlTag(Element.OuterXml);
+			return tag.GetAttributeValue(name);
 		}
 
 		protected string GetAttributeValue(string name) 
 		{
-			XmlAttribute attribute = Element.GetAttributeNode(name);
+			string attributeValue = GetOptionalAttributeValue(name);
 			string message = string.Format("Expected attribute '{0}' in {1}", name, HtmlIdAndDescription);
-			Assertion.AssertNotNull(message, attribute);
-			return attribute.Value;
+			Assertion.AssertNotNull(message, attributeValue);
+			return attributeValue;
 		}
 
 		protected string TagName

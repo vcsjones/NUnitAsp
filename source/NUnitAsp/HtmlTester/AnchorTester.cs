@@ -20,6 +20,7 @@
 
 using System;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace NUnit.Extensions.Asp.HtmlTester
 {
@@ -34,8 +35,16 @@ namespace NUnit.Extensions.Asp.HtmlTester
 
 		public void Click()
 		{
-			Browser.GetPage(GetAttributeValue("href"));
-		}								 
+			Browser.GetPage(HRef);
+		}			
+		
+		public string HRef
+		{
+			get
+			{
+				return HttpUtility.HtmlDecode(GetAttributeValue("href"));
+			}
+		}
 
 		public override string HtmlId
 		{

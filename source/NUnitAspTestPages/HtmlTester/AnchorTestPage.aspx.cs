@@ -31,7 +31,7 @@ using System.Web.UI.HtmlControls;
 
 namespace NUnit.Extensions.Asp.Test.HtmlTester
 {
-	public class LinkTestPage : System.Web.UI.Page
+	public class AnchorTestPage : System.Web.UI.Page
 	{
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -53,6 +53,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.ID = "AnchorTestPage";
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}

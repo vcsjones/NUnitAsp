@@ -33,6 +33,8 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 {
 	public class LabelTestPage : System.Web.UI.Page
 	{
+		protected System.Web.UI.WebControls.Label spaceLabel;
+		protected System.Web.UI.WebControls.TextBox textBox;
 		protected System.Web.UI.WebControls.Label textLabel;
 	
 		private void Page_Load(object sender, System.EventArgs e)

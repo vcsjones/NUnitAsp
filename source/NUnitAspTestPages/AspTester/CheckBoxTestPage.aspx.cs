@@ -19,66 +19,45 @@
 '*******************************************************************************************************************/
 
 using System;
-using System.Xml;
+using System.Collections;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Web;
+using System.Web.SessionState;
+using System.Web.UI;
 using System.Web.UI.WebControls;
-using NUnit.Framework;
+using System.Web.UI.HtmlControls;
 
-namespace NUnit.Extensions.Asp.AspTester
+namespace NUnitAspTestPages.AspTester
 {
-
-	public class TextBoxTester : ControlTester
+	public class CheckBoxTestPage : System.Web.UI.Page
 	{
-
-		public TextBoxTester(string aspId, Control container) : base(aspId, container)
+		protected System.Web.UI.WebControls.CheckBox checkBox;
+	
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 		}
 
-		public string Text {
-			set 
-			{
-				EnterInputValue(GetAttributeValue("name"), value);
-			}
-			get
-			{
-				string text = GetOptionalAttributeValue("value");
-				if (text == null) return "";
-				return text;
-			}
-		}
-
-		public TextBoxMode TextMode 
+		#region Web Form Designer generated code
+		override protected void OnInit(EventArgs e)
 		{
-			get 
-			{
-				if (TagName == "textarea") return TextBoxMode.MultiLine;
-				else 
-				{
-					Assertion.AssertEquals("tag name", "input", TagName);
-					string type = GetAttributeValue("type");
-					if (type == "password") return TextBoxMode.Password;
-					else 
-					{
-						Assertion.AssertEquals("type", "text", type);
-						return TextBoxMode.SingleLine;
-					}
-				}
-			}
+			//
+			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
+			//
+			InitializeComponent();
+			base.OnInit(e);
 		}
-
+		
 		/// <summary>
-		/// Returns 0 if there is no max length
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
 		/// </summary>
-		public int MaxLength
-		{
-			get
-			{
-				Assertion.Assert("max length is ignored on a TextBox when TextMode is MultiLine", TextMode != TextBoxMode.MultiLine);
+		private void InitializeComponent()
+		{    
+			this.Load += new System.EventHandler(this.Page_Load);
 
-				string maxLength = GetOptionalAttributeValue("maxlength");
-				if (maxLength == null || maxLength == "") return 0;
-				else return int.Parse(maxLength);
-			}
 		}
-
+		#endregion
 	}
 }

@@ -29,6 +29,7 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			AddTestSuite(typeof(HttpClientTest));
 			AddTestSuite(typeof(HtmlTagParserTest));
+			AddTestSuite(typeof(HtmlTagTest));
 
 			AddTest(new AspTester.AspTesterSuite());
 			AddTest(new HtmlTester.HtmlTesterSuite());

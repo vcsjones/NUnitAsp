@@ -147,6 +147,22 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "AspTester\CheckBoxTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AspTester\CheckBoxTestPage.aspx.cs"
+                    DependentUpon = "CheckBoxTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\CheckBoxTestPage.aspx.resx"
+                    DependentUpon = "CheckBoxTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "AspTester\DataGridTestPage.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -179,19 +195,35 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "HtmlTester\LinkTestPage.aspx"
+                    RelPath = "AspTester\TextBoxTestPage.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "HtmlTester\LinkTestPage.aspx.cs"
-                    DependentUpon = "LinkTestPage.aspx"
+                    RelPath = "AspTester\TextBoxTestPage.aspx.cs"
+                    DependentUpon = "TextBoxTestPage.aspx"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "HtmlTester\LinkTestPage.aspx.resx"
-                    DependentUpon = "LinkTestPage.aspx.cs"
+                    RelPath = "AspTester\TextBoxTestPage.aspx.resx"
+                    DependentUpon = "TextBoxTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "HtmlTester\AnchorTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "HtmlTester\AnchorTestPage.aspx.cs"
+                    DependentUpon = "AnchorTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\AnchorTestPage.aspx.resx"
+                    DependentUpon = "AnchorTestPage.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
             </Include>

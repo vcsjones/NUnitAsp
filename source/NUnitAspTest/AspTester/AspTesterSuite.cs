@@ -29,8 +29,10 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 
 		public AspTesterSuite() : base() 
 		{
+			AddTestSuite(typeof(CheckBoxTest));
 			AddTestSuite(typeof(DataGridTest));
 			AddTestSuite(typeof(LabelTest));
+			AddTestSuite(typeof(TextBoxTest));
 		}
 
 		public static ITest Suite 

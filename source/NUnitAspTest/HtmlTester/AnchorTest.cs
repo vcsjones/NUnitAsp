@@ -19,66 +19,35 @@
 '*******************************************************************************************************************/
 
 using System;
-using System.Xml;
-using System.Web.UI.WebControls;
-using NUnit.Framework;
+using NUnit.Extensions.Asp.HtmlTester;
 
-namespace NUnit.Extensions.Asp.AspTester
+namespace NUnit.Extensions.Asp.Test.HtmlTester
 {
 
-	public class TextBoxTester : ControlTester
+	public class AnchorTest : NUnitAspTestCase
 	{
+		private AnchorTester testLink;
 
-		public TextBoxTester(string aspId, Control container) : base(aspId, container)
+		public AnchorTest(string name) : base(name)
 		{
 		}
 
-		public string Text {
-			set 
-			{
-				EnterInputValue(GetAttributeValue("name"), value);
-			}
-			get
-			{
-				string text = GetOptionalAttributeValue("value");
-				if (text == null) return "";
-				return text;
-			}
-		}
-
-		public TextBoxMode TextMode 
+		protected override void SetUp()
 		{
-			get 
-			{
-				if (TagName == "textarea") return TextBoxMode.MultiLine;
-				else 
-				{
-					Assertion.AssertEquals("tag name", "input", TagName);
-					string type = GetAttributeValue("type");
-					if (type == "password") return TextBoxMode.Password;
-					else 
-					{
-						Assertion.AssertEquals("type", "text", type);
-						return TextBoxMode.SingleLine;
-					}
-				}
-			}
+			base.SetUp();
+			testLink = new AnchorTester("testLink", CurrentWebForm, true);
+			Browser.GetPage(BaseUrl + "HtmlTester/AnchorTestPage.aspx");
 		}
 
-		/// <summary>
-		/// Returns 0 if there is no max length
-		/// </summary>
-		public int MaxLength
+		public void TestHRef()
 		{
-			get
-			{
-				Assertion.Assert("max length is ignored on a TextBox when TextMode is MultiLine", TextMode != TextBoxMode.MultiLine);
-
-				string maxLength = GetOptionalAttributeValue("maxlength");
-				if (maxLength == null || maxLength == "") return 0;
-				else return int.Parse(maxLength);
-			}
+			AssertEquals("url", "../RedirectionTarget.aspx?a=a&b=b", testLink.HRef);
 		}
 
+		public void TestClick()
+		{
+			testLink.Click();
+			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
+		}
 	}
 }

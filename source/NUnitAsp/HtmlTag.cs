@@ -19,24 +19,29 @@
 '*******************************************************************************************************************/
 
 using System;
-using NUnit.Extensions.Asp.HtmlTester;
+using System.Text.RegularExpressions;
 
-namespace NUnit.Extensions.Asp.Test
+namespace NUnit.Extensions.Asp
 {
-
-	public class LinkTest : NUnitAspTestCase
+	public class HtmlTag
 	{
-		public LinkTest(string name) : base(name)
+		string html;
+
+		public HtmlTag(string html)
 		{
+			this.html = html;
 		}
 
-		public void TestClick()
+		public string GetAttributeValue(string attributeName)
 		{
-			AnchorTester testLink = new AnchorTester("testLink", CurrentWebForm, true);
+			string whiteSpace = "\\s*";
+			string leftQuote = "(?<leftQuote>['\"])";
+			string rightQuote = "\\k<leftQuote>";
+			string attributePattern = attributeName + whiteSpace + "=" + whiteSpace + leftQuote + "(?<value>.*?)" + rightQuote;
 
-			Browser.GetPage(BaseUrl + "HtmlTester/LinkTestPage.aspx");
-			testLink.Click();
-			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
+			Match match = Regex.Match(html, attributePattern, RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace);
+			if (!match.Success) return null;
+			return match.Groups["value"].Value;
 		}
 	}
 }
