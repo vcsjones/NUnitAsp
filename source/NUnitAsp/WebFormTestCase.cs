@@ -58,14 +58,22 @@ namespace NUnit.Extensions.Asp
 
 		protected static void AssertEquals(string[] a, string[] b)
 		{
-			AssertEquals("", a, b);
+			AssertEquals(flatten(a), flatten(b));
 		}
 
 		protected static void AssertEquals(string message, string[] a, string[] b)
 		{
-			string aFlat = flatten(a);
-			string bFlat = flatten(b);
-			Assertion.AssertEquals(message, aFlat, bFlat);
+			Assertion.AssertEquals(message, flatten(a), flatten(b));
+		}
+
+		protected static void AssertEquals(string[][] a, string[][] b)
+		{
+			AssertEquals(flatten(a), flatten(b));
+		}
+
+		protected static void AssertEquals(string message, string[][] a, string[][] b)
+		{
+			AssertEquals(flatten(a), flatten(b));
 		}
 
 		private static string flatten(string[] a)
@@ -76,6 +84,16 @@ namespace NUnit.Extensions.Asp
 				result += "<" + element + ">";
 			}
 			return result + "}";
+		}
+
+		private static string flatten(string[][] a)
+		{
+			string result = "{";
+			foreach (string[] element in a)
+			{
+				result += "\n   " + flatten(element);
+			}
+			return result + "\n}";
 		}
 
 	}

@@ -38,6 +38,18 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		public string[][] Cells
+		{
+			get
+			{
+				string[][] result = new string[RowCount][];
+				for (int i = 0; i < RowCount; i++)
+				{
+					result[i] = GetRow(i).Cells;
+				}
+				return result;
+			}
+		}
 
 		public Row GetRow(int rowNum)
 		{
