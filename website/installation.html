@@ -1,0 +1,57 @@
+<html>
+<head><title>NUnitAsp Installation Guide</title></head>
+<body>
+<h1 align="center">NUnitAsp Installation Guide</h1>
+
+<p>This guide describes how to install NUnitAsp.  It assumes that you are using Windows 2000 or Windows XP and Microsoft Internet Information Server as your web server.  NUnitAsp will work with any server that supports ASP.NET, but you'll have to modify these instructions to work in your environment.  If you do, please let us know what you did!  We'll expand this guide to include your information.
+
+<p>This guide was last updated for NUnitAsp v1.2.</p>
+
+<h2>Installation</h2>
+
+<p>Installing NUnitAsp requires only a few steps:</p>
+
+<p>
+<ol type="I">
+	<li><b>Download and unzip NUnitAsp.</b>
+	<li><b>Create an NUnitAsp virtual directory in IIS</b></li>
+	<li><b>Test the installation</b>
+</ol>
+</p>
+
+<p>Here's a more detailed description of these steps:</p>
+
+<p>
+<ol type="I">
+	<li><b>Download and unzip NUnitAsp.</b>
+	<ol>
+		<li>NUnitAsp may be downloaded from the NUnitAsp home page, <a href="http://nunitasp.sourceforge.net">nunitasp.sourceforge.net</a>.</li>
+		<li>Unzip the NUnitAsp package into a directory of your choice, such as "C:\Program Files\NUnitAsp"</li>
+	</ol></li>
+
+	<br />
+	<li><b>Create an NUnitAsp virtual directory in IIS</b></li>
+	<ol>
+		<li>Right-click "My Computer" and select "Manage"</li>
+		<li>Expand "Services and Applications" -> "Internet Information Services" -> "Default Web Site"</li>
+		<li>Right-click "Default Web Site" and select "New" -> "Virtual Directory"</li>
+		<li>Enter the following information into the Virtual Directory Creation Wizard:
+		<ul>
+			<li>Alias: NUnitAsp</li>
+			<li>Directory: <b><i>installation directory</i></b> (For example, if you unzipped NUnitAsp into "C:\Program Files\NUnitAsp", you would enter "C:\Program Files\NUnitAsp" here.)</li>
+			<li>Access Permissions: "Read" should be checked.  The other options should not be checked.</li>
+		</ul></li>
+	</ol></li>
+
+	<br />
+	<li><b>Test Installation</b>
+	<ol>
+		<li>Verify that you can visit <a href="http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd">http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd</a>.</li>
+	</ol></li>
+</ol>
+</p>
+
+<p><small>(End of Installation Guide)</small></p>
+
+</body>
+</html>

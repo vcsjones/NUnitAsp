@@ -26,14 +26,6 @@ Global
 		{7D7986CC-8D3D-433E-94EC-35D753E894DC}.Release.ActiveCfg = Release|.NET
 		{7D7986CC-8D3D-433E-94EC-35D753E894DC}.Release.Build.0 = Release|.NET
 	EndGlobalSection
-	GlobalSection(SolutionItems) = postSolution
-		Item:1 = doc\ClassDiagram.vsd
-		Item:2 = scripts\DevSetup.vbs
-		Item:3 = doc\NUnit Runner Configuration.gif
-		Item:4 = doc\NUnitAspSequence.vsd
-		Item:5 = doc\NUnitWiring.vsd
-		Item:6 = doc\Sample.xhtml
-	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
 	GlobalSection(ExtensibilityAddIns) = postSolution

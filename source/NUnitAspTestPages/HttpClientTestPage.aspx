@@ -1,5 +1,5 @@
 <%@ Page language="c#" Codebehind="HttpClientTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnitAspTestPages.HttpBrowserTestPage" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://localhost/NUnitAsp/dtd/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd">
 <HTML>
 	<head>
 		<title>HttpBrowserTestPage</title>

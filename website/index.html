@@ -7,18 +7,17 @@
     <h3 align="center">ASP.NET unit testing</h3>
     <table border="0" cellpadding="10">
       <tr>
-        <td valign="top">
+        <td valign="top" nowrap="true">
           <a href="download.html"><b>Download</b></a>
           <br />
+          <br /><a href="index.html">Overview</a>
+          <br /><a href="documentation.html">Documentation</a>
+          <br /><a href="support.html">Support</a>
+          <br /><a href="consulting.html">Training and Consulting</a>
           <br />
-          <a href="index.html">Overview</a>
+          <br /><a href="contribute.html">Contribute</a>
           <br />
-          <a href="support.html">Support</a>
-          <br />
-          <a href="contribute.html">Contribute</a>
-          <br />
-          <br />
-          <A href="http://sourceforge.net/projects/nunitasp/"><IMG src="http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" border="0" alt="SourceForge Logo"></A>
+          <br /><A href="http://sourceforge.net/projects/nunitasp/"><IMG src="http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" border="0" alt="SourceForge Logo"></A>
         </td>
         <td valign="top">
           <p>NUnitAsp allows you to test ASP.NET web pages. It's freely available under the
@@ -26,48 +25,54 @@
           <p>NUnitAsp acts as a client to a regular web server running ASP.NET. Using
             NUnitAsp, you may download web pages and work with the controls on it as if
             they were actual ASP.NET controls.</p>
-          <p>
-            <table border="0" bgcolor="black" align="center">
-              <tr>
-                <td><table border="0" bgcolor="white">
-                    <tr>
-                      <td><code> <font color="blue">public void</font> TestExample()
-                          <br />
-                          {
-                          <br />
-                          &nbsp;&nbsp;&nbsp;LabelTester label = <font color="blue">new</font> LabelTester("textLabel",
-                          CurrentWebForm);
-                          <br />
-                          &nbsp;&nbsp;&nbsp;LinkButtonTester link = <font color="blue">new</font> LinkButtonTester("linkButton",
-                          CurrentWebForm);
-                          <br />
-                          <br />
-                          &nbsp;&nbsp;&nbsp;AssertEquals("first page", "FirstExample",
-                          CurrentWebForm.AspId);
-                          <br />
-                          &nbsp;&nbsp;&nbsp;AssertEquals("label", "Example Label", label.Text);
-                          <br />
-                          &nbsp;&nbsp;&nbsp;link.Click();
-                          <br />
-                          &nbsp;&nbsp;&nbsp;AssertEquals("second page", "SecondExample",
-                          CurrentWebForm.AspId);
-                          <br />
-                          } </code>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </p>
+			<p>
+			<table border="0" bgcolor="black" align="center">
+			  <tr>
+				<td><table border="0" bgcolor="white">
+					<tr>
+					  <td><code> <font color="blue">public void</font> TestExample()
+						  <br />
+						  {
+						  <br />
+						  &nbsp;&nbsp;&nbsp;<font color="green">// First, instantiate "Tester" objects:</font>
+						  <br />
+						  &nbsp;&nbsp;&nbsp;LabelTester label = <font color="blue">new</font> LabelTester("textLabel", CurrentWebForm);
+						  <br />
+						  &nbsp;&nbsp;&nbsp;LinkButtonTester link = <font color="blue">new</font> LinkButtonTester("linkButton", CurrentWebForm);
+						  <br />
+						  <br />
+						  &nbsp;&nbsp;&nbsp;<font color="green">// Second, visit the page being tested:</font>
+						  <br />
+						  &nbsp;&nbsp;&nbsp;Browser.GetPage("http://localhost/example/example.aspx");
+
+
+						  <br />
+						  <br />
+						  &nbsp;&nbsp;&nbsp;<font color="green">// Third, use tester objects and assertions to test the page:</font>
+						  <br />
+						  &nbsp;&nbsp;&nbsp;AssertEquals("label before click", "Link has not been clicked.", label.Text);
+						  <br />
+						  &nbsp;&nbsp;&nbsp;link.Click();
+						  <br />
+						  &nbsp;&nbsp;&nbsp;AssertEquals("label after click", "Link has been clicked.",
+						  label.Text);
+						  <br />
+						  } </code>
+					  </td>
+					</tr>
+				  </table>
+				</td>
+			  </tr>
+			</table>
+			</p>
           <p>
           NUnitAsp can test complex web sites involving multiple pages and nested
-          controls. The common ASP.NET controls (see complete list below) are supported,
+          controls. The common ASP.NET controls are supported (see complete list below),
           and support for additional controls is easy to add.
 
           <p>NUnitAsp is a tool for testing server-side ASP.NET logic only.  It does not support JavaScript or other client-specific behavior, although support for this may be added in the future.
 
-          <p>NUnitAsp is an extension for <a href="http://nunit.sourceforge.net">NUnit</a>, which is part of the xUnit family of freely-available test-first programming
+          <p>NUnitAsp is an extension to <a href="http://nunit.sourceforge.net">NUnit</a>, which is part of the xUnit family of freely-available test-driven development
           products.
 
           <h3>Latest Release: Version 1.1.1</h3>

@@ -19,6 +19,7 @@ namespace NUnitAspTestPages
 		protected System.Web.UI.WebControls.LinkButton dropCookieAndRedirect;
 		protected Label cookie;
 		protected Label postBackStatus;
+		protected System.Web.UI.WebControls.LinkButton postBack;
 		protected Label testParm;
 
 		private void Page_Load(object sender, System.EventArgs e)
