@@ -1,7 +1,7 @@
-#region Copyright (c) 2002, 2003 by Brian Knowles and Jim Shore
+#region Copyright (c) 2002-2004 by Brian Knowles and Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, 2003 by Brian Knowles and Jim Shore
+' Copyright (c) 2002-2004 by Brian Knowles and Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -53,7 +53,7 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		public static void AssertEquals(string[] expected, string[] actual)
 		{
-			AssertEquals(Flatten(expected), Flatten(actual));
+			AssertEquals("", expected, actual);
 		}
 
 		/// <summary>
@@ -61,7 +61,19 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		public static void AssertEquals(string message, string[] expected, string[] actual)
 		{
-			Assertion.AssertEquals(message, Flatten(expected), Flatten(actual));
+			if (expected == null && actual == null) return;
+			if (actual == null || expected == null) Fail(message, expected, actual);
+			if (expected.Length != actual.Length) Fail(message, expected, actual);
+			if (!ArraysEqual(expected, actual)) Fail(message, expected, actual);
+		}
+
+		private static bool ArraysEqual(string[] expected, string[] actual)
+		{
+			for (int i = 0; i < expected.Length; i++)
+			{
+				if (expected[i] != actual[i]) return false;
+			}
+			return true;
 		}
 
 		/// <summary>
@@ -70,7 +82,7 @@ namespace NUnit.Extensions.Asp
 		[CLSCompliant(false)]
 		public static void AssertEquals(string[][] expected, string[][] actual)
 		{
-			AssertEquals(Flatten(expected), Flatten(actual));
+			AssertEquals("", expected, actual);
 		}
 
 		/// <summary>
@@ -79,7 +91,14 @@ namespace NUnit.Extensions.Asp
 		[CLSCompliant(false)]
 		public static void AssertEquals(string message, string[][] expected, string[][] actual)
 		{
-			AssertEquals(Flatten(expected), Flatten(actual));
+			if (expected == null && actual == null) return;
+			if (actual == null || expected == null) Fail(message, expected, actual);
+			if (expected.Length != actual.Length) Fail(message, expected, actual);
+
+			for (int i = 0; i < expected.Length; i++)
+			{
+				if (!ArraysEqual(expected[i], actual[i])) Fail(message, expected, actual);
+			}
 		}
 
 		/// <summary>
@@ -107,13 +126,45 @@ namespace NUnit.Extensions.Asp
 			Fail(message, expected, actual);
 		}
 
+		private static void Fail(string message, string[] expected, string[] actual)
+		{
+			message += "\r\nexpected: " + RenderArray(expected);
+			message += "\r\n but was: " + RenderArray(actual);
+			Fail(message);
+		}
+
+		private static string RenderArray(string[] array)
+		{
+			if (array == null) return "<null>";
+			if (array.Length == 0) return "{}";
+
+			return "{\"" + string.Join("\", \"", array) + "\"}";
+		}
+
 		private static void Fail(string message, string[][] expected, string[][] actual)
 		{
-			AssertEquals(message, expected, actual);
+			message += "\r\nexpected: " + RenderDoubleArray(expected);
+			message += "\r\n but was: " + RenderDoubleArray(actual);
+			Fail(message);
 		}
-		
+
+		private static string RenderDoubleArray(string[][] doubleArray)
+		{
+			if (doubleArray == null) return "<null>";
+			if (doubleArray.Length == 0) return "{}";
+
+			string result = "\r\n   {";
+			foreach (string[] array in doubleArray)
+			{
+				result += "\r\n      " + RenderArray(array);
+			}
+			return result + "\r\n   }";
+		}
+
 		private static string Flatten(string[] a)
 		{
+			if (a == null) return "null";
+
 			string result = "{";
 			foreach (string element in a)
 			{
@@ -124,12 +175,14 @@ namespace NUnit.Extensions.Asp
 
 		private static string Flatten(string[][] a)
 		{
+			if (a == null) return "null";
+
 			string result = "{";
 			foreach (string[] element in a)
 			{
-				result += "\n   " + Flatten(element);
+				result += "\r\n   " + Flatten(element);
 			}
-			return result + "\n}";
+			return result + "\r\n}";
 		}
 
 		/// <summary>

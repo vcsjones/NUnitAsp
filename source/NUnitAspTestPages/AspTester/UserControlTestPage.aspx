@@ -10,8 +10,11 @@
 	</head>
 	<body>
 		<form id="UserControlTestPage" method="post" runat="server">
-			Nested controls: <asp:PlaceHolder id="placeHolder" runat="server" />
-			<br />Click result: <asp:Label id="clickResult" runat="server" />
+			Nested controls:
+			<asp:PlaceHolder id="placeHolder" runat="server" />
+			<br />
+			Click result:
+			<asp:Label id="clickResult" runat="server" />
 		</form>
 	</body>
 </html>

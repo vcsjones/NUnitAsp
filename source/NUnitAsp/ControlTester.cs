@@ -91,7 +91,6 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// Deprecated--do not use.
 		/// </summary>
-		[Obsolete("Use the 'Tag' property instead")]
 		protected internal virtual XmlElement Element
 		{
 			get 

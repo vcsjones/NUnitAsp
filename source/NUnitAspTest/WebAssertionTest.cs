@@ -1,7 +1,7 @@
-#region Copyright (c) 2002, 2003 by Brian Knowles and Jim Shore
+#region Copyright (c) 2002-2004 by Brian Knowles and Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, 2003 by Brian Knowles and Jim Shore
+' Copyright (c) 2002-2004 by Brian Knowles and Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -27,6 +27,42 @@ namespace NUnit.Extensions.Asp.Test
 {
 	public class WebAssertionTest : NUnitAspTestCase
 	{
+		public void TestAssertEquals_WhenArrays()
+		{
+			AssertEqualsFails(new string[] {"1"}, new string[] {});
+			AssertEquals(new string[] {}, new string[] {});
+			AssertEqualsFails(new string[] {"1"}, new string[] {"2"});
+
+			AssertEqualsFails(new string[] {}, null);
+			AssertEqualsFails(null, new string[] {});
+			AssertEquals((string[])null, (string[])null);
+
+			AssertArrayRenders("\r\nexpected: {\"1\", \"2\", \"3\"}\r\n but was: {}", new string[] {"1", "2", "3"}, new string[] {});
+			AssertArrayRenders("\r\nexpected: {}\r\n but was: <null>", new string[] {}, null);
+		}
+
+		public void TestAssertEquals_WhenDoubleArrays()
+		{
+			AssertEqualsFails(new string[][] {new string[] {"1"}}, new string[][] {});
+			AssertEquals(new string[][] {}, new string[][] {});
+			AssertEqualsFails(new string[][] {new string[] {"1"}}, new string[][] {new string[] {"2"}});
+			
+			AssertEqualsFails(new string[][] {}, null);
+			AssertEqualsFails(null, new string[][] {});
+			AssertEquals((string[][])null, (string[][])null);
+
+			string expected = "\r\nexpected: \r\n   {\r\n      {\"1\"}\r\n   }\r\n but was: \r\n   {\r\n      {\"1\"}\r\n      {\"2\"}\r\n   }";
+			string[][] one = new string[][] {
+				new string[] {"1"}
+			};
+			string[][] two = new string[][] {
+				new string[] {"1"},
+				new string[] {"2"}
+			};
+			AssertArrayRenders(expected, one, two);							
+			AssertArrayRenders("\r\nexpected: {}\r\n but was: <null>", new string[][] {},  null);
+		}
+
 		public void TestAssertSortOrder_WhenSorted()
 		{
 			string[][] testData = new string[][]
@@ -208,6 +244,59 @@ namespace NUnit.Extensions.Asp.Test
 				return;
 			}
 			Fail("Expected assertion");
+		}
+
+		private void AssertEqualsFails(string[] expected, string[] actual)
+		{
+			try
+			{
+				AssertEquals(expected, actual);
+			}
+			catch (AssertionException)
+			{
+				return;
+			}
+			Fail("Expected assertion");
+		}
+
+		private void AssertEqualsFails(string[][] expected, string[][] actual)
+		{
+			try
+			{
+				AssertEquals(expected, actual);
+			}
+			catch (AssertionException)
+			{
+				return;
+			}
+			Fail("Expected assertion");
+		}
+
+		private void AssertArrayRenders(string expected, string[] one, string[] two)
+		{
+			try
+			{
+				AssertEquals(one, two);
+				Fail("Expected assertion");
+			}
+			catch (AssertionException e)
+			{
+				AssertEquals(expected, e.Message);
+			}
+		}
+
+	
+		private void AssertArrayRenders(string expected, string[][] one, string[][] two)
+		{
+			try
+			{
+				AssertEquals(one, two);
+				Fail("Expected assertion");
+			}
+			catch (AssertionException e)
+			{
+				AssertEquals(expected, e.Message);
+			}
 		}
 	}
 }

@@ -51,7 +51,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("# of rows", 1, grid2.RowCount);
 		}
 
-		public void TestCells()
+		public void TestTrimmedCells()
 		{
 			string[][] expected = new string[][]
 			{
