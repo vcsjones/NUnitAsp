@@ -270,6 +270,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "UnicodeTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "UnicodeTestPage.aspx.cs"
+                    DependentUpon = "UnicodeTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "UnicodeTestPage.aspx.resx"
+                    DependentUpon = "UnicodeTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Web.config"
                     BuildAction = "Content"
                 />
