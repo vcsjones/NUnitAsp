@@ -29,7 +29,7 @@ table {
 	font-size: 12px;
 }
 
-table.content {
+.content table {
 	border-collapse: collapse;
 	margin-left: 3em;
 	margin-right: 3em;
@@ -46,7 +46,7 @@ td {
 	vertical-align: top;
 }
 
-td.content {
+.content td {
 	text-align: left;
 	border: 0.1em solid black;
 	padding: 0.25em 1em 0.25em 0.25em;
