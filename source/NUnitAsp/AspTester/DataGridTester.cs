@@ -21,12 +21,12 @@
 using System;
 using System.Xml;
 
-namespace NUnit.Extensions.Asp
+namespace NUnit.Extensions.Asp.AspTester
 {
 
-	public class AspDataGrid : AspControl
+	public class DataGridTester : ControlTester
 	{
-		public AspDataGrid(string aspId, Control container) : base(aspId, container)
+		public DataGridTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
 
@@ -67,12 +67,12 @@ namespace NUnit.Extensions.Asp
 			return base.GetChildElement(AspId + "_" + aspId);
 		}
 
-		public class Row : AspControl
+		public class Row : ControlTester
 		{
 			private int rowNum;
-			private AspDataGrid container;
+			private DataGridTester container;
 
-			public Row(int rowNum, AspDataGrid container) : base("_ctl" + (rowNum + 2).ToString(), container)
+			public Row(int rowNum, DataGridTester container) : base("_ctl" + (rowNum + 2).ToString(), container)
 			{
 				this.rowNum = rowNum;
 				this.container = container;

@@ -19,22 +19,13 @@
 '*******************************************************************************************************************/
 
 using System;
-using System.Xml;
 
-namespace NUnit.Extensions.Asp
+namespace NUnit.Extensions.Asp.AspTester
 {
-	public class AspLabel : AspControl
+	public class RadioButtonTester : CheckBoxTester
 	{
-		public AspLabel(string aspId, Control container) : base(aspId, container)
+		public RadioButtonTester(string aspId, Control container) : base(aspId, container)
 		{
-		}
-
-		public string Text
-		{
-			get 
-			{
-				return Element.InnerXml;
-			}
 		}
 	}
 }

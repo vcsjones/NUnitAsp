@@ -30,11 +30,11 @@ namespace NUnit.Extensions.Asp.Test
 	{
 		private static readonly string TestUrl = BaseUrl + "HttpClientTestPage.aspx";
 
-		private AspLinkButton redirect;
-		private AspLinkButton dropCookie;
-		private AspLinkButton dropCookieAndRedirect;
-		private AspLinkButton postBack;
-		private AspLabel cookie;
+		private LinkButtonTester redirect;
+		private LinkButtonTester dropCookie;
+		private LinkButtonTester dropCookieAndRedirect;
+		private LinkButtonTester postBack;
+		private LabelTester cookie;
 
 		public HttpClientTest(string name) : base(name)
 		{
@@ -43,11 +43,11 @@ namespace NUnit.Extensions.Asp.Test
 		protected override void SetUp()
 		{
 			base.SetUp();
-			redirect = new AspLinkButton("redirect", CurrentWebForm);
-			dropCookie = new AspLinkButton("dropCookie", CurrentWebForm);
-			dropCookieAndRedirect = new AspLinkButton("dropCookieAndRedirect", CurrentWebForm);
-			postBack = new AspLinkButton("postBack", CurrentWebForm);
-			cookie = new AspLabel("cookie", CurrentWebForm);
+			redirect = new LinkButtonTester("redirect", CurrentWebForm);
+			dropCookie = new LinkButtonTester("dropCookie", CurrentWebForm);
+			dropCookieAndRedirect = new LinkButtonTester("dropCookieAndRedirect", CurrentWebForm);
+			postBack = new LinkButtonTester("postBack", CurrentWebForm);
+			cookie = new LabelTester("cookie", CurrentWebForm);
 		}
 
 		public void TestGetAndPostPage()
@@ -56,7 +56,7 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
 			postBack.Click();
 			AssertEquals("HttpBrowserTestPage", CurrentWebForm.AspId);
-			AssertEquals("Clicked", new AspLabel("postBackStatus", CurrentWebForm).Text);
+			AssertEquals("Clicked", new LabelTester("postBackStatus", CurrentWebForm).Text);
 		}
 
 		public void TestRelativeGet()

@@ -20,12 +20,12 @@
 
 using System;
 
-namespace NUnit.Extensions.Asp
+namespace NUnit.Extensions.Asp.AspTester
 {
 
-	public class AspButton : AspControl
+	public class ButtonTester : ControlTester
 	{
-		public AspButton(string aspId, Control container) : base(aspId, container)
+		public ButtonTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
 

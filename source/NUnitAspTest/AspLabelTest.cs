@@ -37,13 +37,13 @@ namespace NUnit.Extensions.Asp.Test
 
 		public void TestText() 
 		{
-			AspLabel textLabel = new AspLabel("textLabel", CurrentWebForm);
+			LabelTester textLabel = new LabelTester("textLabel", CurrentWebForm);
 			AssertEquals("text", "foo", textLabel.Text);
 		}
 
 		public void TestSpace()
 		{
-			AspLabel spaceLabel = new AspLabel("spaceLabel", CurrentWebForm);
+			LabelTester spaceLabel = new LabelTester("spaceLabel", CurrentWebForm);
 			AssertEquals("space", "foo ", spaceLabel.Text);
 		}
 	}

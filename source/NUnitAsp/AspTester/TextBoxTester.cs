@@ -19,41 +19,39 @@
 '*******************************************************************************************************************/
 
 using System;
-using System.Text.RegularExpressions;
+using System.Xml;
+using System.Web.UI.WebControls;
+using NUnit.Framework;
 
-namespace NUnit.Extensions.Asp
+namespace NUnit.Extensions.Asp.AspTester
 {
 
-	public class AspLinkButton : AspControl
+	public class TextBoxTester : ControlTester
 	{
-		public AspLinkButton(string aspId, Control container) : base(aspId, container)
+
+		public TextBoxTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
 
-		public void Click()
-		{
-			string postBackCall = GetAttributeValue("href");
-			string postBackPattern = @"__doPostBack\('(?<target>.*?)',''\)";
-
-			Match match = Regex.Match(postBackCall, postBackPattern, RegexOptions.IgnoreCase);
-			if (!match.Success)
+		public string Text {
+			set 
 			{
-				throw new ParseException(HtmlIdAndDescription + " doesn't look like a link button");
+				EnterInputValue(GetAttributeValue("name"), value);
 			}
-
-			string target = match.Groups["target"].Captures[0].Value;
-
-			EnterInputValue("__EVENTTARGET", target);
-			EnterInputValue("__EVENTARGUMENT", "");
-			Submit();
-		}
-
-		private class ParseException : ApplicationException
-		{
-			internal ParseException(string message) : base(message)
+			get
 			{
+				return GetOptionalAttributeValue("value");
 			}
 		}
-								 
+
+		public TextBoxMode TextMode 
+		{
+			get 
+			{
+				if (GetAttributeValue("type") == "password") return TextBoxMode.Password;
+				else return TextBoxMode.SingleLine;
+			}
+		}
+
 	}
 }

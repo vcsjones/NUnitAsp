@@ -26,9 +26,9 @@ namespace NUnit.Extensions.Asp.Test
 
 	public class AspDataGridTest : NUnitAspTestCase
 	{
-		private AspDataGrid grid1;
-		private AspDataGrid grid2;
-		private AspLabel clickResult;
+		private DataGridTester grid1;
+		private DataGridTester grid2;
+		private LabelTester clickResult;
 
 		public AspDataGridTest(string name) : base(name)
 		{
@@ -37,9 +37,9 @@ namespace NUnit.Extensions.Asp.Test
 		protected override void SetUp() 
 		{
 			base.SetUp();
-			grid1 = new AspDataGrid("dataGrid1", CurrentWebForm);
-			grid2 = new AspDataGrid("dataGrid2", CurrentWebForm);
-			clickResult = new AspLabel("clickResult", CurrentWebForm);
+			grid1 = new DataGridTester("dataGrid1", CurrentWebForm);
+			grid2 = new DataGridTester("dataGrid2", CurrentWebForm);
+			clickResult = new LabelTester("clickResult", CurrentWebForm);
 
 			Browser.GetPage("http://localhost/NUnitAsp/NUnitAspTestPages/AspDataGridTestPage.aspx");
 		}
@@ -69,9 +69,9 @@ namespace NUnit.Extensions.Asp.Test
 
 		public void TestNestedControls()
 		{
-			new AspLinkButton("link1", grid1.GetRow(1)).Click();
+			new LinkButtonTester("link1", grid1.GetRow(1)).Click();
 			AssertEquals("1,2", clickResult.Text);
-			new AspLinkButton("link2", grid2.GetRow(0)).Click();
+			new LinkButtonTester("link2", grid2.GetRow(0)).Click();
 			AssertEquals("2,3", clickResult.Text);
 		}
 

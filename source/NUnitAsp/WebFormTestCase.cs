@@ -21,13 +21,14 @@
 using System;
 using NUnit.Framework;
 using System.Xml;
+using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp 
 {
 	public abstract class WebFormTestCase : TestCase 
 	{
 		private HttpClient browser;
-		private AspWebForm form;
+		private WebFormTester form;
 
 		public WebFormTestCase(string name) : base(name) 
 		{
@@ -37,10 +38,10 @@ namespace NUnit.Extensions.Asp
 		{
 			base.SetUp();
 			browser = new HttpClient();
-			form = new AspWebForm(browser);
+			form = new WebFormTester(browser);
    		}
 
-		protected AspWebForm CurrentWebForm
+		protected WebFormTester CurrentWebForm
 		{
 			get 
 			{

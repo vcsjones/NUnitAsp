@@ -22,14 +22,14 @@ using System;
 using System.Xml;
 using NUnit.Framework;
 
-namespace NUnit.Extensions.Asp
+namespace NUnit.Extensions.Asp.AspTester
 {
 
-	public class AspWebForm : Control
+	public class WebFormTester : Control
 	{
 		HttpClient browser;
 
-		public AspWebForm(HttpClient browser)
+		public WebFormTester(HttpClient browser)
 		{
 			this.browser = browser;
 		}

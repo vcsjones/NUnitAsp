@@ -19,33 +19,22 @@
 '*******************************************************************************************************************/
 
 using System;
+using System.Xml;
 
-namespace NUnit.Extensions.Asp
+namespace NUnit.Extensions.Asp.AspTester
 {
-
-	public class AspCheckBox : AspControl
+	public class LabelTester : ControlTester
 	{
-		public AspCheckBox(string aspId, Control container) : base(aspId, container)
+		public LabelTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
 
-		public bool Checked
+		public string Text
 		{
-			get
+			get 
 			{
-				return GetOptionalAttributeValue("checked") != "";
+				return Element.InnerXml;
 			}
-			set
-			{
-				if (value == true) 
-				{
-					EnterInputValue(GetAttributeValue("name"), GetAttributeValue("value"));
-				}
-				else
-				{
-					throw new ApplicationException("not implemented");
-				}
-			}
-		}	
+		}
 	}
 }

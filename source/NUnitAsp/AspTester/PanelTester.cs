@@ -19,39 +19,14 @@
 '*******************************************************************************************************************/
 
 using System;
-using System.Xml;
-using System.Web.UI.WebControls;
-using NUnit.Framework;
 
-namespace NUnit.Extensions.Asp
+namespace NUnit.Extensions.Asp.AspTester
 {
 
-	public class AspTextBox : AspControl
+	public class PanelTester : ControlTester
 	{
-
-		public AspTextBox(string aspId, Control container) : base(aspId, container)
+		public PanelTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
-
-		public string Text {
-			set 
-			{
-				EnterInputValue(GetAttributeValue("name"), value);
-			}
-			get
-			{
-				return GetOptionalAttributeValue("value");
-			}
-		}
-
-		public TextBoxMode TextMode 
-		{
-			get 
-			{
-				if (GetAttributeValue("type") == "password") return TextBoxMode.Password;
-				else return TextBoxMode.SingleLine;
-			}
-		}
-
 	}
 }

@@ -22,22 +22,22 @@ using System;
 using NUnit.Framework;
 using System.Xml;
 
-namespace NUnit.Extensions.Asp
+namespace NUnit.Extensions.Asp.AspTester
 {
 
-	public abstract class AspControl : Control
+	public abstract class ControlTester : Control
 	{
 
 		private string aspId;
 		private Control container;
 
-		internal AspControl(string aspId, Control container)
+		internal ControlTester(string aspId, Control container)
 		{
 			this.aspId = aspId;
 			this.container = container;
 		}
 
-		protected AspControl()
+		protected ControlTester()
 		{
 		}
 

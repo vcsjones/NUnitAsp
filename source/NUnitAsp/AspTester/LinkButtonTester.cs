@@ -19,14 +19,41 @@
 '*******************************************************************************************************************/
 
 using System;
+using System.Text.RegularExpressions;
 
-namespace NUnit.Extensions.Asp
+namespace NUnit.Extensions.Asp.AspTester
 {
 
-	public class AspPanel : AspControl
+	public class LinkButtonTester : ControlTester
 	{
-		public AspPanel(string aspId, Control container) : base(aspId, container)
+		public LinkButtonTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
+
+		public void Click()
+		{
+			string postBackCall = GetAttributeValue("href");
+			string postBackPattern = @"__doPostBack\('(?<target>.*?)',''\)";
+
+			Match match = Regex.Match(postBackCall, postBackPattern, RegexOptions.IgnoreCase);
+			if (!match.Success)
+			{
+				throw new ParseException(HtmlIdAndDescription + " doesn't look like a link button");
+			}
+
+			string target = match.Groups["target"].Captures[0].Value;
+
+			EnterInputValue("__EVENTTARGET", target);
+			EnterInputValue("__EVENTARGUMENT", "");
+			Submit();
+		}
+
+		private class ParseException : ApplicationException
+		{
+			internal ParseException(string message) : base(message)
+			{
+			}
+		}
+								 
 	}
 }

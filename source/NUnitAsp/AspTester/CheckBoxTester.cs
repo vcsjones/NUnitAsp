@@ -20,12 +20,32 @@
 
 using System;
 
-namespace NUnit.Extensions.Asp
+namespace NUnit.Extensions.Asp.AspTester
 {
-	public class AspRadioButton : AspCheckBox
+
+	public class CheckBoxTester : ControlTester
 	{
-		public AspRadioButton(string aspId, Control container) : base(aspId, container)
+		public CheckBoxTester(string aspId, Control container) : base(aspId, container)
 		{
 		}
+
+		public bool Checked
+		{
+			get
+			{
+				return GetOptionalAttributeValue("checked") != "";
+			}
+			set
+			{
+				if (value == true) 
+				{
+					EnterInputValue(GetAttributeValue("name"), GetAttributeValue("value"));
+				}
+				else
+				{
+					throw new ApplicationException("not implemented");
+				}
+			}
+		}	
 	}
 }

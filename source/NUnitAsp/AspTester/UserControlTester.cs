@@ -21,15 +21,15 @@
 using System;
 using System.Xml;
 
-namespace NUnit.Extensions.Asp
+namespace NUnit.Extensions.Asp.AspTester
 {
 
-	public class AspUserControl : AspControl
+	public class UserControlTester : ControlTester
 	{
 		private string aspId;
 		private Control container;
 
-		public AspUserControl(string aspId, Control container) : base(aspId, container)
+		public UserControlTester(string aspId, Control container) : base(aspId, container)
 		{
 			this.aspId = aspId;
 			this.container = container;
