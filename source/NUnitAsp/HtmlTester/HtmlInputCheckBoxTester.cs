@@ -39,6 +39,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// <param name="container">A tester for the control's container.  (In the page's ASP.NET
 		/// source code, look for the tag that the control is nested in.  That's probably the
 		/// control's container.  Use CurrentWebForm if the control is just nested in the form tag.)</param>
+		/// <param name="runAtServer">Tells tester whether the control under test is running on the server side.</param>
 		public HtmlInputCheckBoxTester(String aspId, Tester container, bool runAtServer) : base(aspId, container) 
 		{
 			this.runAtServer = runAtServer;
