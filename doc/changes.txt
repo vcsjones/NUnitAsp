@@ -4,8 +4,13 @@ To do:
 * Exceptions need to be organized
 * Explanatory message: UserControlTester.FindControl should throw exception explaining control nesting
 * Make these HttpClient methods public: SetFormVariable, ClearFormVariable, SubmitForm
-* FAQ: No change to "get" without postback
+* FAQ: No change to "get" without postback (eg, tracker #1106130)
 * Look into HtmlAgilityPack
+
+
+Changes in CVS:
+Produced by Jim Shore and Levi Khatskevitch.
+* Added FAQ: How to test sites that require authentication.
 
 
 Changes in NUnitAsp 1.5.1:

@@ -45,7 +45,13 @@
 
             <h2>Q: How do I test a site that requires authentication?</h2>
 
-            <p>A: It is possible, and it's not a subject I understand well.  Can somebody send me (via the nunitasp-devl@lists.sourceforge.net mailing list) a good explanation of ASP.NET authentication and how it works with NUnitAsp?  I'll include it with the next release.
+            <p>A: Use the <a href="api/NUnit.Extensions.Asp.HttpClient.Credentials.html">Credentials property</a> on HttpClient to set your login credentials.  For example, to use your current login, you would use this code:
+
+            <p class="code">Browser.Credentials = CredentialCache.DefaultCredentials;</p>
+
+            <p>You may also include a username and password when you retrieve a URL:</p>
+
+            <p class="code">Browser.GetPage("http://username:password@example.com/myPage.aspx");</p>
 
 
             <h2>Q: Why doesn't NUnitAsp support frames / Javascript / pop-up windows / more HTML controls?</h2>
