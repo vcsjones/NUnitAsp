@@ -70,10 +70,27 @@
 							<br />
 							<li><b>Test Installation.</b>
 							<ol>
-								<li>Verify that you can visit <a href="http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd">http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd</a>.</li>
+								<li>Verify that you can visit <a href="http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd">http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd</a>.  <b>Note:</b> If you have XMLSpy installed, you may get a false error during this step.  See below.</li>
 							</ol></li>
 						</ol>
 						</p>
+
+						<h2>Error While Testing DTD</h2>
+
+						<p>If you have XMLSpy installed, you may see the following error when you test the installation:
+
+						<p class="code">
+							The XML page cannot be displayed
+							<br />
+							<br />Cannot view XML input using style sheet.  Please correct the error and then click the Refresh button, or try again later.   Cannot have a DTD declaration outside of a DTD. Error processing resource 'http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd'. Line 51, Position 12
+							<br />
+							<br />&lt;!ENTITY % HTMLlat1 PUBLIC
+							<br />-----------^
+						</p>
+
+						<p><b>You may ignore this error.</b>  Even though your browser can't read the file, the web server is serving it correctly.</p>
+
+						<p>This error reportedly occurs because XMLSpy causes Internet Explorer to see DTD files as XML files.  Thanks to Peter Wijntjes for the report.</p>
 
 						<p class="end">(End of Installation Guide)</p>
 					</div>
