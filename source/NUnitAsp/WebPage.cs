@@ -41,22 +41,26 @@ namespace NUnit.Extensions.Asp
 
 		private string ConvertToXhtml(string html)
 		{
-			// fix <DOCTYPE> tag
-			html = Regex.Replace(html, "[<][!]DOCTYPE.*[>]", "<!DOCTYPE HTML PUBLIC \"-//w3c//dtd xhtml 1.0 transitional//en\" \"http://localhost/nunitasp/web/dtd/xhtml1-transitional.dtd\">", RegexOptions.IgnoreCase);
+			// doctype
+			html = Regex.Replace(html, @"[<][!]DOCTYPE.*[>]", "<!DOCTYPE HTML PUBLIC \"-//w3c//dtd xhtml 1.0 transitional//en\" \"http://localhost/nunitasp/web/dtd/xhtml1-transitional.dtd\">", RegexOptions.IgnoreCase);
 
-			// fix lowercase <HTML> tag
-			html = Regex.Replace(html, "<html>", "<HTML>");
-			html = Regex.Replace(html, "</html>", "</HTML>");
+			// lowercase <html>
+			html = Regex.Replace(html, @"<html>", "<HTML>");
+			html = Regex.Replace(html, @"</html>", "</HTML>");
 
-			// fix unclosed tags
-//			html = Regex.Replace(html, "<(INPUT|IMG|META|LINK|BASE|BGSOUND|BR|P|HR|LI|DT|DD)([^<]+)(\"| |')>", "<$1$2$3 />", RegexOptions.IgnoreCase);
-			html = Regex.Replace(html, "<br>", "<br />", RegexOptions.IgnoreCase);
+			// unclosed tags with attributes
+			html = Regex.Replace(html, "<(INPUT|IMG|META|LINK|BASE|BGSOUND)([^<]+)(\"| |')>", "<$1$2$3 />", RegexOptions.IgnoreCase);
 
-			// fix nowrap="nowrap" attributes (DataGrids)
+			// unclosed tags with no attributes
+			html = Regex.Replace(html, "<(BR|HR)>", "<$1 />", RegexOptions.IgnoreCase);
+
+			// nowrap (DataGrids)
 			html = Regex.Replace(html, "nowrap=\"nowrap\"", "  nowrap=\"TRUE\"  ", RegexOptions.IgnoreCase);
+			html = Regex.Replace(html, @"nowrap([^=])", " nowrap=\"true\"$1  ", RegexOptions.IgnoreCase);
 
-			// fix nowrap attributes
-			html = Regex.Replace(html, "nowrap([^=])", "  nowrap=\"true\"$1  ", RegexOptions.IgnoreCase);
+			// anchor tags
+			html = Regex.Replace(html, "<A ", "<a ");
+			html = Regex.Replace(html, "</A>", "</a>");
 
 			return html;
 		}

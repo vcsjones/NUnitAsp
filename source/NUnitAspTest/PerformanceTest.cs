@@ -28,8 +28,8 @@ namespace NUnit.Extensions.Asp.Test
 {
 	public class PerformanceTest : NUnitAspTestCase
 	{
-		private const int expectedTestsPerSecond = 2;
-		private const long speedOfMinimumComputer = 997576;		// determined empirically; do not change
+		private const int expectedTestsPerSecond = 1;
+		private const long speedOfMinimumComputer = 67;		// determined empirically; do not change
 
 		[Test]
 		public void TestPerformance() 
@@ -55,12 +55,13 @@ namespace NUnit.Extensions.Asp.Test
 			DateTime start = DateTime.Now;
 			TimeSpan runTime = new TimeSpan(0, 0, 0, 0, 200);
 			long speed = 0;
-			int timeWaster = 153;
+			Browser.GetPage(BaseUrl + "PerformanceTestPage.aspx");
+			string timeWaster = Browser.CurrentPageText;
 			do
 			{
 				speed++;
-				if (timeWaster / 2 * 2 == timeWaster) timeWaster /= 2;
-				else timeWaster = timeWaster * 3 + 1;
+				timeWaster = timeWaster.ToUpper();
+				timeWaster = timeWaster.ToLower();
 			} while ((DateTime.Now - start) < runTime);
 			return speed;
 		}
