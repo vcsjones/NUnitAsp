@@ -26,7 +26,6 @@ using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test
 {
-
 	public class HttpClientTest : NUnitAspTestCase
 	{
 		private static readonly string TestUrl = BaseUrl + "HttpClientTestPage.aspx";
@@ -127,6 +126,5 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			AssertEquals("TestCookieValue", cookie.Text);
 		}
-
 	}
 }

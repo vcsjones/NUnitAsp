@@ -24,7 +24,6 @@ using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test
 {
-
 	public class DataGridTest : NUnitAspTestCase
 	{
 		private DataGridTester grid1;
@@ -75,6 +74,5 @@ namespace NUnit.Extensions.Asp.Test
 			new LinkButtonTester("link2", grid2.GetRow(0)).Click();
 			AssertEquals("2,3", clickResult.Text);
 		}
-
 	}
 }

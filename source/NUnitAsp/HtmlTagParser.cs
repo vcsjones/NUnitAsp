@@ -35,14 +35,12 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// Returns null if no tag matches.
 		/// </summary>
-		/// <param name="id"></param>
-		/// <returns></returns>
 		public string GetTagById(string id)
 		{
 			string whiteSpace = "\\s*";
 			string requiredWhiteSpace = "\\s+";
 			string elementName = "(?<name>\\w*)";
-			string optionalQuote = "\"?";
+			string optionalQuote = "['\"]?";
 			string optionalLeadingAttributes = "(.*?\\s)?";
 			string optionalTrailingAttributes = "(\\s.*?)?";
 			string idPattern = "id" + whiteSpace + "=" + whiteSpace + optionalQuote + id + optionalQuote;
@@ -51,14 +49,22 @@ namespace NUnit.Extensions.Asp
 			string basicPattern = "<" + whiteSpace + elementName + requiredWhiteSpace + optionalLeadingAttributes + idPattern + optionalTrailingAttributes + whiteSpace;
 			string leafPattern = basicPattern + "/" + whiteSpace + ">";
 			string branchPattern = basicPattern + ">.*?<" + whiteSpace + "/" + whiteSpace + backReferenceToElementName + whiteSpace + ">";
+			RegexOptions options = RegexOptions.Singleline | RegexOptions.IgnoreCase;
 
-			Match match = Regex.Match(html, leafPattern, RegexOptions.Singleline | RegexOptions.IgnoreCase);
-			if (!match.Success)
+			MatchCollection matches = Regex.Matches(html, leafPattern, options);
+			if (matches.Count == 0)
 			{
-				match = Regex.Match(html, branchPattern, RegexOptions.Singleline | RegexOptions.IgnoreCase);
-				if (!match.Success) return null;
+				matches = Regex.Matches(html, branchPattern, options);
+				if (matches.Count == 0) return null;
 			}
-			return match.Captures[0].Value;
+			return matches[0].Value;
+		}
+
+		public class UniqueIdException : ApplicationException
+		{
+			public UniqueIdException(string id) : base("HTML ID '" + id + "' is not unique")
+			{
+			}
 		}
 	}
 }

@@ -23,14 +23,12 @@ using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp.Test
 {
-
 	public class NUnitAspTestSuite : TestSuite
 	{
-
 		public NUnitAspTestSuite() : base() 
 		{
 			AddTestSuite(typeof(HttpClientTest));
-//			AddTestSuite(typeof(HtmlTagParserTest));
+			AddTestSuite(typeof(HtmlTagParserTest));
 
 			AddTest(new AspTester.AspTesterSuite());
 			AddTest(new HtmlTester.HtmlTesterSuite());
@@ -43,7 +41,5 @@ namespace NUnit.Extensions.Asp.Test
 				return new NUnitAspTestSuite();
 			}
 		}
-
 	}
-
 }
