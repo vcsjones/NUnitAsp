@@ -61,8 +61,9 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		protected string GetOptionalAttributeValue(string name)
 		{
-			HtmlTag tag = new HtmlTag(Element.OuterXml);
-			return tag.GetAttributeValue(name);
+			XmlAttribute attrib = Element.Attributes[name];
+			if (attrib == null) return null;
+			return attrib.Value;
 		}
 
 		protected string GetAttributeValue(string name) 

@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.IO;
 using System.Xml;
 using System.Collections.Specialized;
 using System.Web;
@@ -43,23 +44,8 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				try 
-				{
-					if (document == null)
-					{
-						document = new XmlDocument();
-						document.LoadXml(ConvertToXhtml(pageText));
-						ParseDefaultFormVariables();
-					}
-					return document;
-				}
-				catch (XmlException e)
-				{
-                    Console.WriteLine("vvvvvv The following HTML could not be parsed by NUnitAsp vvvvvv");
-					Console.WriteLine(pageText);
-                    Console.WriteLine("^^^^^^ The preceding HTML could not be parsed by NUnitAsp ^^^^^^");
-					throw new ParseException("Could not parse HTML.  See standard out for the HTML and use a validator (such as the one at validator.w3.org) to troubleshoot.  Parser error was: " + e.Message);
-				}
+				if (document == null) ParsePageText();
+				return document;
 			}
 		}
 
@@ -104,6 +90,31 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		private void ParsePageText()
+		{
+			XmlValidatingReader reader = new XmlValidatingReader(
+				new XhtmlTextReader(new StringReader(ConvertToXhtml(pageText))));
+			try 
+			{
+				reader.EntityHandling = EntityHandling.ExpandCharEntities;
+				reader.ValidationType = ValidationType.None;
+
+				document = new XmlDocument(reader.NameTable);
+				document.Load(reader);
+				ParseDefaultFormVariables();
+			}
+			catch (XmlException e)
+			{
+				Console.WriteLine("vvvvvv The following HTML could not be parsed by NUnitAsp vvvvvv");
+				Console.WriteLine(pageText);
+				Console.WriteLine("^^^^^^ The preceding HTML could not be parsed by NUnitAsp ^^^^^^");
+				throw new ParseException("Could not parse HTML.  See standard out for the HTML and use a validator (such as the one at validator.w3.org) to troubleshoot.  Parser error was: " + e.Message);
+			}
+			finally
+			{
+				reader.Close();
+			}
+		}
 		private void ParseDefaultFormVariables() 
 		{
 			formVariables = new NameValueCollection();
@@ -235,6 +246,26 @@ namespace NUnit.Extensions.Asp
 		public override string ToString()
 		{
 			return pageText;
+		}
+
+
+		private class XhtmlTextReader : XmlTextReader
+		{
+			public XhtmlTextReader(TextReader reader) : base(reader)
+			{
+			}
+
+			public override string LocalName
+			{
+				get
+				{
+					if (NodeType == XmlNodeType.Attribute)
+					{
+						return base.LocalName.ToLower();
+					}
+					return base.LocalName;
+				}
+			}
 		}
 	}
 }

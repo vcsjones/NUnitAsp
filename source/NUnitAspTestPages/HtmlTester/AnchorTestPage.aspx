@@ -10,14 +10,16 @@
 	</HEAD>
 	<body>
 		<form id="AnchorTestPage" method="post" runat="server">
-			<a id="testLink" href="../RedirectionTarget.aspx?a=a&amp;b=b">Click Here</a>
+			<!-- NOTE: href attribute of this anchor is capitalized to test case insensitivity of HTML parser -->
+			<a id="testLink" Href="../RedirectionTarget.aspx?a=a&amp;b=b">Click Here</a>
 			<br />
 			<a id="popupLink" onclick="javascript: x=(screen.availWidth/2)-250; y=(screen.availHeight/2)-200;
 			some_Win = window.open('../RedirectionTarget.aspx','some_Popup',
 			'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=400,top='+y+',left='+x);" href="#">
 				Popup Link</a>
 			<br />
-			<a id="disabledLink" disabled="disabled" href="../RedirectionTarget.aspx?a=a&amp;b=b">
+			<!-- NOTE: id attribute of this anchor is capitalized to test case insensitivity of HTML parser -->
+			<a ID="disabledLink" disabled="disabled" href="../RedirectionTarget.aspx?a=a&amp;b=b">
 				Disabled Link</a>
 		</form>
 	</body>
