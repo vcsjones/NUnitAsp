@@ -38,6 +38,12 @@ namespace GuestBookTests
 
 			AssertEquals("name", "", name.Text);
 			AssertEquals("comments", "", comments.Text);
+
+			string[][] expected = new string[][]
+			{
+				new string[] {"Dr. Seuss", "One Guest, Two Guest!  Guest Book, Best Book!"}
+			};
+			AssertEquals("book", expected, book.TrimmedCells);
 		}
 	}
 }
