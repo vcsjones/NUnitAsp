@@ -137,7 +137,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				return CurrentPage.ToString();
+				return currentPage.ToString();
 			}
 		}
 

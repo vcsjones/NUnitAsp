@@ -57,18 +57,18 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				if (formVariables.Count == 0) return "";
-
-				StringBuilder result = new StringBuilder();
+				string result = "";
+				string joiner = "";
 				foreach (DictionaryEntry entry in formVariables)
 				{
 					FormKey key = (FormKey)entry.Key;
-					result.AppendFormat("{0}={1}&", 
+					result += String.Format("{0}{1}={2}",
+						joiner,
 						HttpUtility.UrlEncode((string)key.Name),
 						HttpUtility.UrlEncode((string)entry.Value));
+					joiner = "&";
 				}
-				result.Length--; // Trim last &
-				return result.ToString();
+				return result;
 			}
 		}
 
@@ -136,7 +136,7 @@ namespace NUnit.Extensions.Asp
 				XmlAttribute name = (XmlAttribute)element.SelectSingleNode(nameExpr);
 				string value = element.GetAttribute("value");
 
-				if (name == null) continue; // if no name - skip it
+				if (name == null) continue;
 				if (value == null || value == "") 
 				{
 					if (defaultValue != null)

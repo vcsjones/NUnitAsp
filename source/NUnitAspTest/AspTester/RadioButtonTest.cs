@@ -47,12 +47,14 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			Browser.GetPage(BaseUrl + "/AspTester/RadioButtonTestPage.aspx");
 		}
 
+		[Test]
 		[ExpectedException(typeof(RadioButtonTester.CannotUncheckException))]
 		public override void TestUncheck()
 		{
 			CheckBox.Checked = false;
 		}
 
+		[Test]
 		public void TestGroupedCheck()
 		{
 			AssertEquals(true, groupedOne.Checked);

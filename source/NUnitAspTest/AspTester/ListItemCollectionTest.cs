@@ -26,6 +26,7 @@ using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
+	[TestFixture]
 	public class ListItemCollectionTest : NUnitAspTestCase
 	{
 		private ListItemCollectionTester collectionOne;
@@ -40,21 +41,25 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			collectionTwo = new ListBoxTester("disabledList", CurrentWebForm).Items;
 		}
 
+		[Test]
 		public void TestContains_True()
 		{
 			AssertEquals(true, collectionOne.Contains(collectionOne[1]));
 		}
 
+		[Test]
 		public void TestContains_False()
 		{
 			AssertEquals(false, collectionOne.Contains(collectionTwo[0]));
 		}
 
+		[Test]
 		public void TestFindByText()
 		{
 			AssertEquals("two", collectionOne.FindByText("two").Text);
 		}
 
+		[Test]
 		public void TestFindByValue()
 		{
 			AssertEquals("2", collectionOne.FindByValue("2").Value);

@@ -92,22 +92,25 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("item #2 selected", true, List.Items[2].Selected);
 		}
 
-
+		[Test]
 		public void TestEnabled_True()
 		{
 			AssertEquals("enabled", true, List.Enabled);
 		}
 
+		[Test]
 		public void TestEnabled_False()
 		{
 			AssertEquals("enabled", false, disabledList.Enabled);
 		}
 
+		[Test]
 		public void TestSelectedIndex()
 		{
 			AssertEquals("selected index", 1, List.SelectedIndex);
 		}
 
+		[Test]
 		public void TestSelectedItem()
 		{
 			ListItemTester item = List.SelectedItem;
@@ -120,6 +123,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 				!List.Items[0].Selected);
 		}
 
+		[Test]
 		public void TestItems()
 		{
 			ListItemCollection expectedItems = new ListItemCollection();
@@ -136,6 +140,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			}
 		}
 
+		[Test]
 		public void TestSetSelectedIndex()
 		{
 			AssertEquals(1, List.SelectedIndex);
@@ -147,12 +152,14 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals(2, List.SelectedIndex);
 		}
 
+		[Test]
 		[ExpectedException(typeof(ControlDisabledException))]
 		public void TestSetSelectedIndex_WhenDisabled()
 		{
 			disabledList.SelectedIndex = 1;
 		}
 
+		[Test]
 		public void TestImmediatePostBack()
 		{
 			autoPostBack.Checked = true;
@@ -163,6 +170,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("selected index (after modification)", 2, List.SelectedIndex);
 		}
 
+		[Test]
 		public void TestSetSelectedIndexOutOfRange()
 		{
 			try
@@ -176,6 +184,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			}
 		}
 
+		[Test]
 		public void TestServerSideClearSelection()
 		{
 			try
@@ -190,6 +199,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			}
 		}
 
+		[Test]
 		public void TestSelectedIndex_WhenEmptyList()
 		{
 			try
@@ -203,6 +213,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			}
 		}
 
+		[Test]
 		public void TestSelectedItem_WhenEmptyList()
 		{
 			try
@@ -216,11 +227,13 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			}
 		}
 
+		[Test]
 		public void TestItems_WhenEmptyList()
 		{
 			AssertEquals("# of items", 0, emptyList.Items.Count);
 		}
 
+		[Test]
 		public void TestSetSelectedIndex_WhenEmptyList()
 		{
 			try
@@ -234,6 +247,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			}
 		}
 
+		[Test]
 		public void TestSelectedIndexChangedEvent_WhenItemAddedToList()
 		{
 			ButtonTester addItem = new ButtonTester("add", CurrentWebForm);

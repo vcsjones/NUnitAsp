@@ -32,14 +32,13 @@ namespace NUnit.Extensions.Asp.Test
 		private const long speedOfMinimumComputer = 67;		// determined empirically; do not change
 
 		[Test]
-		[Ignore("Failing, not sure why.  Fix before 1.4 release")]
 		public void TestPerformance() 
 		{
-			TimeSpan actualTime = BestOutOfThree();
-			actualTime = AdjustForSpeedOfComputer(actualTime);
+			TimeSpan runTime = BestOutOfThree();
+			TimeSpan calibratedTime = AdjustForSpeedOfComputer(runTime);
 			TimeSpan expectedTime = new TimeSpan(0, 0, 0, 0, 1000 / expectedTestsPerSecond);
-			string failureMessage = String.Format("performance must be at least {0} but was {1} (adjusted for speed of computer)", expectedTime, actualTime);
-			Assert(failureMessage, actualTime <= expectedTime);
+			string failureMessage = String.Format("calibrated test time must be better than {0} h:m:s but was {1}", expectedTime, calibratedTime);
+			Assert(failureMessage, calibratedTime <= expectedTime);
 		}
 
 		private TimeSpan AdjustForSpeedOfComputer(TimeSpan time)

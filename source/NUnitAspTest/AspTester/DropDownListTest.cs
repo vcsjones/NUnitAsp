@@ -27,6 +27,7 @@ using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
+	[TestFixture]
 	public class DropDownListTest : ListControlTest
 	{
 		protected override void SetUp()
@@ -40,12 +41,13 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			return new DropDownListTester(aspId, container);
 		}
 
-
+		[Test]
 		public void TestSetItemSelected()
 		{
 			DoTestSetItemsSelected_WhenSingleSelect();
 		}
 
+		[Test]
 		public void TestSeletionPreserved()
 		{
 			DoTestSelectionPreserved_WhenSingle();

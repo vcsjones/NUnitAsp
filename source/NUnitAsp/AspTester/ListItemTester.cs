@@ -42,7 +42,6 @@ namespace NUnit.Extensions.Asp.AspTester
 			Element = element;
 		}
 
-
 		/// <summary>
 		/// Gets the text displayed in a list control for the item represented by the ListItemTester.
 		/// </summary>

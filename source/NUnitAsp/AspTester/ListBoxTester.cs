@@ -67,12 +67,11 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
-
 		protected internal override void ChangeItemSelectState(ListItemTester item, bool selected)
 		{
 			if (!selected || SelectionMode == ListSelectionMode.Single)
 			{
-				base.ChangeItemSelectState(item, selected);
+				ChangeItemSelectState(item, selected);
 			}
 			else
 			{

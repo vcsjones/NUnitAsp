@@ -1,7 +1,7 @@
-#region Copyright (c) 2003, Brian Knowles, Jim Shore
+#region Copyright (c) 2002, 2003, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2002, 2003 Brian Knowles, Jim Shore
 ' Originally written by David Paxson.  Copyright assigned to Brian Knowles and Jim Shore.
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
