@@ -142,7 +142,7 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "WebFormTestCaseTest.cs"
+                    RelPath = "WebAssertionTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

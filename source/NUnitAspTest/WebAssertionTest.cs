@@ -1,6 +1,7 @@
+#region Copyright (c) 2002, 2003 by Brian Knowles and Jim Little
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Little
+' Copyright (c) 2002, 2003 by Brian Knowles and Jim Little
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -16,14 +17,15 @@
 ' CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 ' DEALINGS IN THE SOFTWARE.
 '
-'*******************************************************************************************************************/
+'******************************************************************************************************************/
+#endregion
 
 using System;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp.Test
 {
-	public class WebFormTestCaseTest : NUnitAspTestCase
+	public class WebAssertionTest : NUnitAspTestCase
 	{
 		public void TestAssertSortOrder_WhenSorted()
 		{
