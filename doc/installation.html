@@ -1,98 +1,58 @@
 <html>
   <head>
     <title>NUnitAsp - ASP.NET unit testing - Installation Guide</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-		<p class="title">NUnitAsp
-		<br /><small>ASP.NET unit testing</small></p>
+    <p class="title">NUnitAsp
+    <br /><small>ASP.NET unit testing</small></p>
 
-		<table class="layout">
-			<tr>
-				<td>
-					<div class="menu">
-						<p><a href="download.html"><b>Download</b></a></p>
-						<p>
-							<a href="index.html">Overview</a>
-							<br /><a href="documentation.html">Documentation</a>
-							<br /><a href="support.html">Support</a>
-							<br /><a href="consulting.html">Training and Consulting</a>
-						</p>
-						<p><a href="contribute.html">Contribute</p>
-						<p><A href="http://sourceforge.net/projects/nunitasp/"><IMG src=
-						"http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" border="0" alt="SourceForge Logo"></A></p>
-					</div>
-				</td>
-				<td>
-					<div class="content">
-						<h1>Installation Guide</h1>
+    <table class="layout">
+      <tr>
+        <td>
+          <div class="menu">
+            <p><a href="download.html"><b>Download</b></a></p>
+            <p>
+              <a href="index.html">Overview</a>
+              <br /><a href="documentation.html">Documentation</a>
+              <br /><a href="support.html">Support</a>
+              <br /><a href="consulting.html">Training and Consulting</a>
+            </p>
+            <p><a href="contribute.html">Contribute</p>
+            <p><A href="http://sourceforge.net/projects/nunitasp/"><IMG src=
+            "http://sourceforge.net/sflogo.php?group_id=49940" width="88" height="31" border="0" alt="SourceForge Logo"></A></p>
+          </div>
+        </td>
+        <td>
+          <div class="content">
+            <h1>Installation Guide</h1>
 
-						<p>This guide describes how to install NUnitAsp.  It assumes that you are using Windows 2000 or Windows XP and Microsoft Internet Information Server as your web server.  NUnitAsp will work with any server that supports ASP.NET, but you'll have to modify these instructions to work in your environment.  If you do, please let us know what you did!  We'll expand this guide to include your information.
+            <p>This guide describes how to install NUnitAsp.  It assumes that you are using Windows 2000 or Windows XP and Microsoft Internet Information Server as your web server.  NUnitAsp will work with any server that supports ASP.NET, but you'll have to modify these instructions to work in your environment.  If you do, please let us know what you did!  We'll expand this guide to include your information.
 
-						<h2>Installation</h2>
+            <h2>Installation</h2>
 
-						<p>Installing NUnitAsp requires only a few steps:</p>
+            <p>Installing NUnitAsp requires only a few steps:</p>
 
-						<p>
-						<ol type="I">
-							<li><b>Download and unzip NUnitAsp.</b>
-							<ol>
-							  <li>You've probably already done this step, but if not, read on.</li>
-								<li>NUnitAsp may be downloaded from the NUnitAsp home page, <a href="http://nunitasp.sourceforge.net">nunitasp.sourceforge.net</a>.</li>
-								<li>Unzip the NUnitAsp package into a directory of your choice, such as "C:\Program Files\NUnitAsp"</li>
-							</ol></li>
+            <p>
+            <ol type="I">
+              <li><b>Download and unzip NUnitAsp.</b>
+              <ol>
+                <li>You've probably already done this step, but if not, read on.</li>
+                <li>NUnitAsp may be downloaded from the NUnitAsp home page, <a href="http://nunitasp.sourceforge.net">nunitasp.sourceforge.net</a>.</li>
+                <li>Unzip the NUnitAsp package into a directory of your choice, such as "C:\Program Files\NUnitAsp"</li>
+              </ol></li>
 
-							<br />
-							<li><b>Install NUnit 2.0.</b>
-							<ol>
-								<li>We include an install file for NUnit 2.0 in the NUnitAsp distribution.  It's in the bin directory.  (For example, if you unzipped NUnitAsp into C:\Program Files\NUnitAsp, it's in C:\Program Files\NUnitAsp\bin.)</li>
-							</ol>
+              <br />
+              <li><b>Install NUnit 2.0.</b>
+              <ol>
+                <li>We include an install file for NUnit 2.0 in the NUnitAsp distribution.  It's in the bin directory.  (For example, if you unzipped NUnitAsp into C:\Program Files\NUnitAsp, it's in C:\Program Files\NUnitAsp\bin.)</li>
+              </ol>
+            </ol>
 
-							<br />
-							<li><b>Create an NUnitAsp virtual directory in IIS.</b></li>
-							<ol>
-								<li>Right-click "My Computer" and select "Manage"</li>
-								<li>Expand "Services and Applications" -> "Internet Information Services" -> "Default Web Site"</li>
-								<li>Right-click "Default Web Site" and select "New" -> "Virtual Directory"</li>
-								<li>Enter the following information into the Virtual Directory Creation Wizard:
-								<ul>
-									<li>Alias: NUnitAsp</li>
-									<li>Directory: <b><i>installation directory</i></b> (For example, if you unzipped NUnitAsp into "C:\Program Files\NUnitAsp", you would enter "C:\Program Files\NUnitAsp" here.)</li>
-									<li>Access Permissions: "Read" should be checked.  The other options should not be checked.</li>
-								</ul></li>
-							</ol></li>
-
-							<br />
-							<li><b>Test Installation.</b>
-							<ol>
-								<li>Verify that you can visit <a href="http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd">http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd</a>.
-								<br /><b>Note:</b> If you have XMLSpy installed, you may get a false error during this step.  See below.
-								<br /><b>Note 2:</b> Some browsers, including Netscape and Phoenix, display a download window rather than showing you the DTD.  This is also a sign of success.</li>
-							</ol></li>
-						</ol>
-						</p>
-
-						<h2>Error While Testing DTD</h2>
-
-						<p>If you have XMLSpy installed, you may see the following error when you test the installation:
-
-						<p class="code">
-							The XML page cannot be displayed
-							<br />
-							<br />Cannot view XML input using style sheet.  Please correct the error and then click the Refresh button, or try again later.   Cannot have a DTD declaration outside of a DTD. Error processing resource 'http://localhost/NUnitAsp/web/dtd/xhtml1-transitional.dtd'. Line 51, Position 12
-							<br />
-							<br />&lt;!ENTITY % HTMLlat1 PUBLIC
-							<br />-----------^
-						</p>
-
-						<p><b>You may ignore this error.</b>  Even though your browser can't read the file, the web server is serving it correctly.</p>
-
-						<p>This error reportedly occurs because XMLSpy causes Internet Explorer to see DTD files as XML files.  Thanks to Peter Wijntjes for the report.</p>
-
-						<p class="end">Last updated for v1.3.</p>
-					</div>
-				</td>
-			</tr>
-		</table>
-	</body>
+            <p class="end">Last updated for v1.4.</p>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
 </html>
