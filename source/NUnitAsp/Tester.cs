@@ -26,14 +26,58 @@ using System.Xml;
 namespace NUnit.Extensions.Asp
 {
 	/// <summary>
-	/// Base class for all NUnitAsp testers.  To create your own tester 
-	/// classes, you should usually extend ControlTester instead.
+	/// <p>Base class for all NUnitAsp testers.  To create your own tester 
+	/// classes, you should usually extend <see cref="AspTester.AspControlTester"/>
+	/// or <see cref="HtmlTester.HtmlControlTester"/> instead.</p>
 	///
-	/// Not intended for third-party use.  The API for this class will change 
-	/// in future releases.  
+	/// <p>Not intended for third-party use.  The API for this class will change 
+	/// in future releases.  Currently, this class assumes that every tester
+	/// corresponds to exactly one tag in the web page.  That may change in the
+	/// future.</p>
 	/// </summary>
 	public abstract class Tester
 	{
+		/// <summary>
+		/// The ASP.NET ID of the thing being tested.  It corresponds to the
+		/// ID in the ASP.NET source code.
+		/// </summary>
+		public abstract string AspId
+		{
+			get;
+		}
+
+		/// <summary>
+		/// The HTML tag we're testing.
+		/// </summary>
+		protected virtual HtmlTag Tag
+		{
+			get
+			{
+				return new HtmlTag(Browser, HtmlId, this);
+			}
+		}
+
+		/// <summary>
+		/// Returns true if the control is visible on the current page.
+		/// </summary>
+		public virtual bool Visible
+		{
+			get
+			{
+				return Tag.Visible;
+			}
+		}
+
+		/// <summary>
+		/// The HTML ID of the tag being tested.  It corresponds to the
+		/// ID of the HTML tag rendered by the server.  It's useful for looking at 
+		/// raw HTML while debugging.
+		/// </summary>
+		public abstract string HtmlId
+		{
+			get;
+		}
+
 		/// <summary>
 		/// Returns the HTML ID of a child control.  Useful when implementing
 		/// testers for container controls that do HTML ID mangling.  This method

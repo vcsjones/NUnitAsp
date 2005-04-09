@@ -234,6 +234,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "MultipleFormTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "MultipleFormTestPage.aspx.cs"
+                    DependentUpon = "MultipleFormTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MultipleFormTestPage.aspx.resx"
+                    DependentUpon = "MultipleFormTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "NUnitAspTestPages.csproj.webinfo"
                     BuildAction = "None"
                 />

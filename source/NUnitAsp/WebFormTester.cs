@@ -26,14 +26,15 @@ using System.Xml;
 namespace NUnit.Extensions.Asp
 {
 	/// <summary>
-	/// A tester for an ASP.NET form.  Most of the methods in this class aren't meant to
-	/// be called by third parties.
+	/// <p>A tester for an ASP.NET form.  Most of the methods in this class aren't meant to
+	/// be called by third parties.</p>
 	/// 
-	/// The API for this class will change in future releases.  
+	/// <p>The API for this class will change in future releases.</p>
 	/// </summary>
 	public class WebFormTester : Tester
 	{
 		private HttpClient browser;
+		private string aspId = null;
 
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET web form.
@@ -41,6 +42,12 @@ namespace NUnit.Extensions.Asp
 		/// <param name="browser">The browser used to load this page.</param>
 		public WebFormTester(HttpClient browser)
 		{
+			this.browser = browser;
+		}
+
+		public WebFormTester(string aspId, HttpClient browser)
+		{
+			this.aspId = aspId;
 			this.browser = browser;
 		}
 
@@ -70,25 +77,37 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		protected internal override void Submit()
 		{
+			WebAssert.Visible(this);
 			browser.SubmitForm(this);
 		}
 
 		/// <summary>
 		/// The HTML tag this tester corresponds to.
 		/// </summary>
-		protected HtmlTag Tag
+		protected override HtmlTag Tag
 		{
 			get
 			{
-				XmlNodeList formNodes = browser.CurrentPage.GetElementsByTagName("form");
-				WebAssert.AreEqual(1, formNodes.Count, "page form elements");
-				XmlElement formElement = (XmlElement)formNodes[0];
-
-				XmlAttribute id = formElement.Attributes["id"];
-				WebAssert.NotNull(id, "couldn't find web form's 'id' attribute");
-
-				return new HtmlTag(browser, id.Value, this);
+				if (aspId == null) return FindTagByForm();
+				else return FindTagById();
 			}
+		}
+
+		private HtmlTag FindTagByForm()
+		{
+			XmlNodeList formNodes = browser.CurrentPage.GetElementsByTagName("form");
+			WebAssert.True(formNodes.Count == 1, "The current page has more than one form.  To test it, construct a WebFormTester and use it as the 'container' parameter for your other testers.");
+			XmlElement formElement = (XmlElement)formNodes[0];
+
+			XmlAttribute id = formElement.Attributes["id"];
+			WebAssert.NotNull(id, "couldn't find web form's 'id' attribute");
+
+			return new HtmlTag(browser, id.Value, this);
+		}
+
+		private HtmlTag FindTagById()
+		{
+			return new HtmlTag(browser, aspId, this);
 		}
 
 		/// <summary>
@@ -128,12 +147,35 @@ namespace NUnit.Extensions.Asp
 		/// The ASP.NET ID of the form being tested.  It corresponds to the
 		/// ID in the ASP.NET source code.
 		/// </summary>
-		public string AspId
+		public override string AspId
 		{
 			get
 			{
-				return Tag.Attribute("id");
+				if (aspId != null) return aspId;
+				else return Tag.Attribute("id");
 			}
 		}
+
+		
+		/// <summary>
+		/// The HTML ID of the form being tested.  It corresponds to the
+		/// ID of the HTML tag rendered by the server.  It's useful for looking at 
+		/// raw HTML while debugging.
+		/// </summary>
+		public override string HtmlId
+		{
+			get
+			{
+				return aspId;
+			}
+		}
+
+//		public FormVariables Variables
+//		{
+//			get
+//			{
+//				return Browser.currentPage.Variables;
+//			}
+//		}
 	}
 }

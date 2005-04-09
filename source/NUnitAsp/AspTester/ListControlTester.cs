@@ -122,19 +122,6 @@ namespace NUnit.Extensions.Asp.AspTester
 			OptionalPostBack(Tag.OptionalAttribute("onchange"));
 		}
 
-		protected void ToggleItemSelection(ListItemTester item, bool selected)
-		{
-			if (selected) 
-			{
-				EnterInputValue(item.Element, Tag.Attribute("name"), item.Value);
-			}
-			else
-			{
-				RemoveInputValue(item.Element, Tag.Attribute("name"));
-			}
-			OptionalPostBack(Tag.OptionalAttribute("onchange"));
-		}
-
 		protected internal virtual void ChangeItemSelectState(ListItemTester item, bool selected)
 		{
 			SetListSelection(item, selected);

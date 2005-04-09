@@ -34,14 +34,13 @@ namespace NUnit.Extensions.Asp
 			True(o != null, message);
 		}
 
-
 		/// <summary>
 		/// Asserts that a specific control is on the current web page, with the "Visible"
 		/// parameter set to "true."  This method does not assert that the control is actually
 		/// visible to the user.
 		/// </summary>
 		/// <param name="tester">The tester for the control to check.</param>
-		public static void Visible(ControlTester tester)
+		public static void Visible(Tester tester)
 		{
 			Visibility(tester, true);
 		}
@@ -52,15 +51,15 @@ namespace NUnit.Extensions.Asp
 		/// between non-existant controls and non-visible controls: use with caution.
 		/// </summary>
 		/// <param name="tester">The tester for the control to check.</param>
-		public static void NotVisible(ControlTester tester)
+		public static void NotVisible(Tester tester)
 		{
 			Visibility(tester, false);
 		}
 
-		private static void Visibility(ControlTester tester, bool expectedVisibility)
+		private static void Visibility(Tester tester, bool expectedVisibility)
 		{
 			string not = expectedVisibility ? "" : " non-";
-			string message = String.Format("Expected {0} control to be {1}visible (HTML ID: {2}; ASP location: {3})", tester.AspId, not, tester.HtmlId, tester.Description);
+			string message = String.Format("Expected visibility: {1} (HTML ID: '{2}'; URL: '{3}')", not, tester.Description, tester.HtmlId, tester.Browser.CurrentUrl);
 			True(tester.Visible == expectedVisibility, message);
 		}
 

@@ -34,7 +34,7 @@
                     OutputPath = "bin\Debug\"
                     RegisterForComInterop = "false"
                     RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
+                    TreatWarningsAsErrors = "true"
                     WarningLevel = "4"
                 />
                 <Config
@@ -116,6 +116,11 @@
                 />
                 <File
                     RelPath = "ControlTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "FormVariables.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

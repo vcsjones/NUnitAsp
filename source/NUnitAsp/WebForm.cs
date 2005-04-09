@@ -28,7 +28,7 @@ namespace NUnit.Extensions.Asp
 	/// <summary>
 	/// Obsolete; use WebFormTester instead.
 	/// </summary>
-	[Obsolete("Rename to WebFormTester.  This class will be removed in future versions.")]
+	[Obsolete("Renamed to WebFormTester after v1.5.1.  This class will be removed in future versions.")]
 	public class WebForm : WebFormTester
 	{
 		/// <summary>

@@ -230,7 +230,7 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// Returns the only child (of a particular type) of this tag.  If this tag has more
 		/// that one child of the requested type, or if it has no children of the requested type,
-		/// this method will throw an exception.
+		/// this method will throw an exception.  Don't cache the results of this call.
 		/// </summary>
 		/// <param name="tag">The type of tag to look for.  Don't include angle brackets.</param>
 		public HtmlTag Child(string tag)
@@ -245,7 +245,7 @@ namespace NUnit.Extensions.Asp
 			get
 			{
 				XmlElement element = OptionalElement;
-				if (element == null) throw new ElementNotVisibleException("Couldn't find '" + id + "' on '" + description + "'");
+				if (element == null) throw new ElementNotVisibleException("Couldn't find " + Description);
 				return element;
 			}
 		}
@@ -268,7 +268,7 @@ namespace NUnit.Extensions.Asp
 				if (nodes.Count == 0) return null;
 				return (XmlElement)nodes[0];
 
-				// BTW, in case we ever go back to using GetElementById: it doesn't work on 
+				// BTW, we didn't use GetElementById here because it didn't work on 
 				// pageForTestingOnly. Not sure why. No DOCTYPE, perhaps?
 			}
 		}
@@ -279,7 +279,14 @@ namespace NUnit.Extensions.Asp
 			{
 				if (owner != null) 
 				{
-					return owner.Description;
+					try
+					{
+						return owner.Description;
+					}
+					catch (StackOverflowException)
+					{
+						return "? (" + owner.GetType() + ".Description malfunction: stack overflow)";
+					}
 				}
 				else
 				{

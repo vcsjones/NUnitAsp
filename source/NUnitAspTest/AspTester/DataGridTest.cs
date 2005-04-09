@@ -27,86 +27,86 @@ using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
-	public class DataGridTest : NUnitAspTestCase
-	{
-		private DataGridTester grid1;
-		private DataGridTester grid2;
-		private LabelTester clickResult;
-		private LabelTester headerResult;
+  public class DataGridTest : NUnitAspTestCase
+  {
+    private DataGridTester grid1;
+    private DataGridTester grid2;
+    private LabelTester clickResult;
+    private LabelTester headerResult;
 
-		protected override void SetUp() 
-		{
-			base.SetUp();
-			grid1 = new DataGridTester("dataGrid1", CurrentWebForm);
-			grid2 = new DataGridTester("dataGrid2", CurrentWebForm);
-			clickResult = new LabelTester("clickResult", CurrentWebForm);
-			headerResult = new LabelTester("headerResult", CurrentWebForm);
+    protected override void SetUp() 
+    {
+      base.SetUp();
+      grid1 = new DataGridTester("dataGrid1", CurrentWebForm);
+      grid2 = new DataGridTester("dataGrid2", CurrentWebForm);
+      clickResult = new LabelTester("clickResult", CurrentWebForm);
+      headerResult = new LabelTester("headerResult", CurrentWebForm);
 
-			Browser.GetPage(BaseUrl + "AspTester/DataGridTestPage.aspx");
-		}
+      Browser.GetPage(BaseUrl + "AspTester/DataGridTestPage.aspx");
+    }
 
-		public void TestRowCount() 
-		{
-			AssertEquals("# of rows", 2, grid1.RowCount);
-			AssertEquals("# of rows", 1, grid2.RowCount);
-		}
+    public void TestRowCount() 
+    {
+      AssertEquals("# of rows", 2, grid1.RowCount);
+      AssertEquals("# of rows", 1, grid2.RowCount);
+    }
 
-		public void TestTrimmedCells()
-		{
-			string[][] expected = new string[][]
-			{
-				new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "Space:", "1"}, 
-				new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "Space:", "2"}, 
-			};
-			AssertEquals("cells", expected, grid1.TrimmedCells);				
-		}
+    public void TestTrimmedCells()
+    {
+      string[][] expected = new string[][]
+      {
+        new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "Space:", "1"}, 
+        new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "Space:", "2"}, 
+      };
+      AssertEquals("cells", expected, grid1.TrimmedCells);        
+    }
 
-		public void TestRowCells()
-		{
-			AssertEquals("row 1", new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "Space:", "1"}, grid1.GetRow(0).TrimmedCells);
-			AssertEquals("row 2", new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "Space:", "2"}, grid1.GetRow(1).TrimmedCells);
-			AssertEquals("row 3", new string[] {"Link", "Cell 3, 1", "Cell 3, 2", "Space:", "3"}, grid2.GetRow(0).TrimmedCells);
-		}
+    public void TestRowCells()
+    {
+      AssertEquals("row 1", new string[] {"Link", "Cell 1, 1", "Cell 1, 2", "Space:", "1"}, grid1.GetRow(0).TrimmedCells);
+      AssertEquals("row 2", new string[] {"Link", "Cell 2, 1", "Cell 2, 2", "Space:", "2"}, grid1.GetRow(1).TrimmedCells);
+      AssertEquals("row 3", new string[] {"Link", "Cell 3, 1", "Cell 3, 2", "Space:", "3"}, grid2.GetRow(0).TrimmedCells);
+    }
 
-		public void TestNestedControls()
-		{
-			new LinkButtonTester("link1", grid1.GetRow(1)).Click();
-			AssertEquals("1,2", clickResult.Text);
-			new LinkButtonTester("link2", grid2.GetRow(0)).Click();
-			AssertEquals("2,3", clickResult.Text);
-		}
+    public void TestNestedControls()
+    {
+      new LinkButtonTester("link1", grid1.GetRow(1)).Click();
+      AssertEquals("1,2", clickResult.Text);
+      new LinkButtonTester("link2", grid2.GetRow(0)).Click();
+      AssertEquals("2,3", clickResult.Text);
+    }
 
-		[ExpectedException(typeof(ContainerMustBeRowException))]
-		public void TestNestedControlsWhenContainerIsIncorrect()
-		{
-			new LinkButtonTester("link1", grid1).Click();
-		}
+    [ExpectedException(typeof(ContainerMustBeRowException))]
+    public void TestNestedControlsWhenContainerIsIncorrect()
+    {
+      new LinkButtonTester("link1", grid1).Click();
+    }
 
-		public void TestHeaderRow()
-		{
-			string[] expected = new string[] {"", "Column1", "Column2", "SpaceColumn", "RowNumber"};
-			AssertEquals("header", expected, grid1.GetHeaderRow().TrimmedCells);
-		}
+    public void TestHeaderRow()
+    {
+      string[] expected = new string[] {"", "Column1", "Column2", "SpaceColumn", "RowNumber"};
+      AssertEquals("header", expected, grid1.GetHeaderRow().TrimmedCells);
+    }
 
-		public void TestSorting()
-		{
-			grid1.Sort(1);
-			AssertEquals("Column1", headerResult.Text);
-			grid1.Sort(3);
-			AssertEquals("SpaceColumn", headerResult.Text);
-		}
+    public void TestSorting()
+    {
+      grid1.Sort(1);
+      AssertEquals("Column1", headerResult.Text);
+      grid1.Sort(3);
+      AssertEquals("SpaceColumn", headerResult.Text);
+    }
 
-		[ExpectedException(typeof(WebAssertionException))]
-		public void TestSortingWhenGridNotSortable()
-		{
-			grid2.Sort(1);
-		}
+    [ExpectedException(typeof(WebAssertionException))]
+    public void TestSortingWhenGridNotSortable()
+    {
+      grid2.Sort(1);
+    }
 
-		[ExpectedException(typeof(WebAssertionException))]
-		public void TestSortingWithInvalidColumnNumber()
-		{
-			grid1.Sort(5);
-		}
+    [ExpectedException(typeof(WebAssertionException))]
+    public void TestSortingWithInvalidColumnNumber()
+    {
+      grid1.Sort(5);
+    }
 
-	}
+  }
 }

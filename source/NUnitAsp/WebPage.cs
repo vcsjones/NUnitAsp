@@ -37,7 +37,7 @@ namespace NUnit.Extensions.Asp
 	{
 		private string pageText;
 		private XmlDocument document = null;
-		private Hashtable formVariables = new Hashtable();
+		public FormVariables formVariables = new FormVariables();
 
 		internal WebPage(string htmlPage)
 		{
@@ -57,18 +57,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				string result = "";
-				string joiner = "";
-				foreach (DictionaryEntry entry in formVariables)
-				{
-					FormKey key = (FormKey)entry.Key;
-					result += String.Format("{0}{1}={2}",
-						joiner,
-						HttpUtility.UrlEncode((string)key.Name),
-						HttpUtility.UrlEncode((string)entry.Value));
-					joiner = "&";
-				}
-				return result;
+				return formVariables.ToString();
 			}
 		}
 
@@ -160,31 +149,17 @@ namespace NUnit.Extensions.Asp
 
 		public void SetFormVariable(object owner, string name, string value) 
 		{
-			if (owner == null) throw new ArgumentNullException("owner");
-			formVariables[new FormKey(owner, name)] = value;
+			formVariables.SetFormVariable(owner, name, value);
 		}	
 
 		public void ClearFormVariable(object owner, string name)
 		{
-			if (owner == null) throw new ArgumentNullException("owner");
-			formVariables.Remove(new FormKey(owner, name));
+			formVariables.ClearFormVariable(owner, name);
 		}
 
 		public override string ToString()
 		{
 			return pageText;
-		}
-
-		private struct FormKey
-		{
-			public readonly object Owner;
-			public readonly string Name;
-
-			public FormKey(object owner, string name)
-			{
-				Owner = owner;
-				Name = name;
-			}
 		}
 
 		private class XhtmlDocument : XmlDocument

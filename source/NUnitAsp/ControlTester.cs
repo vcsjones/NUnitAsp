@@ -35,6 +35,7 @@ namespace NUnit.Extensions.Asp
 	public abstract class ControlTester : Tester
 	{
 		private Tester container;
+		private string aspId;
 
 		/// <summary>
 		/// <p>Create a tester for a top-level control.  Use this constructor
@@ -81,7 +82,7 @@ namespace NUnit.Extensions.Asp
 		/// </example>
 		public ControlTester(string aspId, Tester container)
 		{
-			this.AspId = aspId;
+			this.aspId = aspId;
 			this.container = container;
 		}
 
@@ -89,27 +90,11 @@ namespace NUnit.Extensions.Asp
 		/// The ASP.NET ID of the control being tested.  It corresponds to the
 		/// ID in the ASP.NET source code.
 		/// </summary>
-		public readonly string AspId;
-
-		/// <summary>
-		/// The HTML tag we're testing.
-		/// </summary>
-		protected virtual HtmlTag Tag
+		public override string AspId
 		{
 			get
 			{
-				return new HtmlTag(Browser, HtmlId, this);
-			}
-		}
-
-		/// <summary>
-		/// Returns true if the control is visible on the current page.
-		/// </summary>
-		public virtual bool Visible
-		{
-			get
-			{
-				return Tag.Visible;
+				return aspId;
 			}
 		}
 
@@ -179,7 +164,7 @@ namespace NUnit.Extensions.Asp
 		/// ID of the HTML tag rendered by the server.  It's useful for looking at 
 		/// raw HTML while debugging.
 		/// </summary>
-		public virtual string HtmlId
+		public override string HtmlId
 		{
 			get
 			{
