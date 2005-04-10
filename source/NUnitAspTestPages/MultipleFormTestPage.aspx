@@ -15,9 +15,11 @@
 				<asp:Label ID="submitted" Runat="server"></asp:Label></p>
 			<input type="hidden" id="one_tag" name="one_tag" value="one_tag" />
 		</form>
+<!--
 		<form id="MultipleFormTestPage_2" method="post">
 			<p><input id="two" type="submit" name="two" value="two" /></p>
 			<p><input type="hidden" id="two_tag" name="two_tag" value="two_tag" /></p>
 		</form>
+-->
 	</body>
 </HTML>

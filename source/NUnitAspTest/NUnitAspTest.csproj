@@ -112,6 +112,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "FormVariablesTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "HtmlTagTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -123,11 +128,6 @@
                 />
                 <File
                     RelPath = "HttpClientTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "MultipleFormTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -163,6 +163,11 @@
                 />
                 <File
                     RelPath = "WebAssertTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "WebFormTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

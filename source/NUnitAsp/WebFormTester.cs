@@ -170,12 +170,12 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-//		public FormVariables Variables
-//		{
-//			get
-//			{
-//				return Browser.currentPage.Variables;
-//			}
-//		}
+		public FormVariables Variables
+		{
+			get
+			{
+				return Browser.currentPage.Variables;
+			}
+		}
 	}
 }

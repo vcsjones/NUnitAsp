@@ -5,11 +5,11 @@ To do:
 * Explanatory message: UserControlTester.FindControl should throw exception explaining control nesting
 * Make these HttpClient methods public: SetFormVariable, ClearFormVariable, SubmitForm
 * FAQ: No change to "get" without postback (eg, tracker #1106130)
-* Look into HtmlAgilityPack
+* Look into HtmlAgilityPack HTML parser: http://blogs.msdn.com/smourier/archive/2003/06/04/8265.aspx
 
 
 Before release:
-* Update build: remove NUnit, put WebFormTestCase & WebAssertion in bin/ dir
+* Update build: remove NUnit, put NUnitAdapter.cs in bin/ dir
 * Copy new constructors to every tester
 * Finish migration guide.
 

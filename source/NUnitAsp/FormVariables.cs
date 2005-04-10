@@ -26,76 +26,68 @@ using System.Web;
 
 namespace NUnit.Extensions.Asp
 {
-	public class FormVariables : Hashtable
+	public class FormVariables
 	{
-//		public override string ToString()
-//		{
-//			string result = "";
-//			string joiner = "";
-//			foreach (DictionaryEntry entry in this)
-//			{
-////				FormKey key = (FormKey)entry.Key;
-////				result += String.Format("{0}{1}={2}",
-////					joiner,
-////					HttpUtility.UrlEncode((string)key.Name),
-////					HttpUtility.UrlEncode((string)entry.Value));
-////				joiner = "&";
-//				result += String.Format("{0}{1}={2}",
-//					joiner,
-//					HttpUtility.UrlEncode((string)entry.Key),
-//					HttpUtility.UrlEncode((string)entry.Value));
-//				joiner = "&";
-//			}
-//			return result;
-//		}
-//
-//		//delete me
-//		public void Dump()
-//		{
-//			Console.WriteLine();
-//			foreach (DictionaryEntry entry in this)
-//			{
-////				FormKey key = (FormKey)entry.Key;
-//				Console.WriteLine("{0}: {1}", entry.Key, entry.Value);
-//			}
-//		}
-//
-//		public void SetFormVariable(object owner, string name, string value) 
-//		{
-////			if (owner == null) throw new ArgumentNullException("owner");
-////			this[new FormKey(owner, name)] = value;
-//			this[name] = value;
-//Dump();
-//Console.WriteLine("added {0}: {1}", name, value);
-//		}	
-//
-//		public void ClearFormVariable(object owner, string name)
-//		{
-////			if (owner == null) throw new ArgumentNullException("owner");
-////			this.Remove(new FormKey(owner, name));
-//			this.Remove(name);
-//Dump();
-//Console.WriteLine("removed " + name);
-//		}
-
+		private Hashtable variables = new Hashtable();
+		private ArrayList newVars = new ArrayList();
 		
-		public void SetFormVariable(object owner, string name, string value) 
+		public void Add(string name, string value)
+		{
+			newVars.Add(new DictionaryEntry(name, value));
+		}
+
+		public void Remove(string name, string value)
+		{
+			for (int i = 0; i < newVars.Count; i++)
+			{
+				DictionaryEntry entry = (DictionaryEntry)newVars[i];
+			
+				if (entry.Key.Equals(name) && entry.Value.Equals(value))
+				{
+					newVars.RemoveAt(i);
+					return;
+				}
+			}
+			WebAssert.Fail(String.Format("Couldn't find form variable '{0}={1}'", name, value));
+		}
+
+		public string newString()
+		{
+			string result = "";
+			string joiner = "";
+
+			foreach(DictionaryEntry entry in newVars)
+			{
+				result += String.Format("{0}{1}={2}",
+					joiner,
+					HttpUtility.UrlEncode((string)entry.Key),
+					HttpUtility.UrlEncode((string)entry.Value));
+				joiner = "&";
+			}
+			return result;
+		}
+
+
+
+
+
+	public void SetFormVariable(object owner, string name, string value) 
 		{
 			if (owner == null) throw new ArgumentNullException("owner");
-			this[new FormKey(owner, name)] = value;
+			variables[new FormKey(owner, name)] = value;
 		}	
 
 		public void ClearFormVariable(object owner, string name)
 		{
 			if (owner == null) throw new ArgumentNullException("owner");
-			this.Remove(new FormKey(owner, name));
+			variables.Remove(new FormKey(owner, name));
 		}
 
 		public override string ToString()
 		{
 			string result = "";
 			string joiner = "";
-			foreach (DictionaryEntry entry in this)
+			foreach (DictionaryEntry entry in variables)
 			{
 				FormKey key = (FormKey)entry.Key;
 				result += String.Format("{0}{1}={2}",

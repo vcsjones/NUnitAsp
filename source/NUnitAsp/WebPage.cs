@@ -53,6 +53,14 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		internal FormVariables Variables
+		{
+			get
+			{
+				return formVariables;
+			}
+		}
+
 		internal string FormVariables
 		{
 			get
