@@ -25,17 +25,17 @@ namespace NUnit.Extensions.Asp.Test
 		[Test]
 		public void TestAdd()
 		{
-			Assert.AreEqual("var=val&var2=val2&var=valB", variables.newString());
+			Assert.AreEqual("var=val&var2=val2&var=valB", variables.ToString());
 		}
 
 		[Test]
 		public void TestRemove()
 		{
 			variables.Remove("var2", "val2");
-			Assert.AreEqual("var=val&var=valB", variables.newString());
+			Assert.AreEqual("var=val&var=valB", variables.ToString());
 
 			variables.Remove("var", "valB");
-			Assert.AreEqual("var=val", variables.newString());
+			Assert.AreEqual("var=val", variables.ToString());
 		}
 
 		[Test]
@@ -43,6 +43,20 @@ namespace NUnit.Extensions.Asp.Test
 		public void TestRemove_WhenNotPresent()
 		{
 			variables.Remove("var2", "noSuchValue");
+		}
+
+		[Test]
+		public void TestRemoveAll()
+		{
+			variables.RemoveAll("var");
+			Assert.AreEqual("var2=val2", variables.ToString());
+		}
+
+		[Test]
+		public void TestReplaceAll()
+		{
+			variables.ReplaceAll("var2", "val2B");
+			Assert.AreEqual("var=val&var=valB&var2=val2B", variables.ToString());
 		}
 	}
 }

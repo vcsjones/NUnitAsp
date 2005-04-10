@@ -33,25 +33,64 @@ namespace NUnit.Extensions.Asp
 		
 		public void Add(string name, string value)
 		{
-			newVars.Add(new DictionaryEntry(name, value));
+			Add(null, name, value);
+		}
+
+		public void Add(object owner, string name, string value)
+		{
+			newVars.Add(new DictionaryEntry(new FormKey(owner, name), value));
 		}
 
 		public void Remove(string name, string value)
+		{
+			Remove(null, name, value);
+		}
+
+		public void Remove(object owner, string name, string value)
 		{
 			for (int i = 0; i < newVars.Count; i++)
 			{
 				DictionaryEntry entry = (DictionaryEntry)newVars[i];
 			
-				if (entry.Key.Equals(name) && entry.Value.Equals(value))
+				if (entry.Key.Equals(new FormKey(owner, name)) && entry.Value.Equals(value))
 				{
 					newVars.RemoveAt(i);
 					return;
 				}
 			}
-			WebAssert.Fail(String.Format("Couldn't find form variable '{0}={1}'", name, value));
+			WebAssert.Fail(String.Format("Couldn't find form variable '{0}={1}' to remove", name, value));
 		}
 
-		public string newString()
+		public void RemoveAll(string name)
+		{
+			RemoveAll(null, name);
+		}
+
+		public void RemoveAll(object owner, string name)
+		{
+			for (int i = 0; i < newVars.Count; i++)
+			{
+				DictionaryEntry entry = (DictionaryEntry)newVars[i];
+			
+				if (entry.Key.Equals(new FormKey(owner, name)))
+				{
+					newVars.RemoveAt(i);
+				}
+			}
+		}
+
+		public void ReplaceAll(string name, string newValue)
+		{
+			ReplaceAll(null, name, newValue);
+		}
+
+		public void ReplaceAll(object owner, string name, string newValue)
+		{
+			RemoveAll(owner, name);
+			Add(owner, name, newValue);
+		}
+
+		public override string ToString()
 		{
 			string result = "";
 			string joiner = "";
@@ -60,39 +99,7 @@ namespace NUnit.Extensions.Asp
 			{
 				result += String.Format("{0}{1}={2}",
 					joiner,
-					HttpUtility.UrlEncode((string)entry.Key),
-					HttpUtility.UrlEncode((string)entry.Value));
-				joiner = "&";
-			}
-			return result;
-		}
-
-
-
-
-
-	public void SetFormVariable(object owner, string name, string value) 
-		{
-			if (owner == null) throw new ArgumentNullException("owner");
-			variables[new FormKey(owner, name)] = value;
-		}	
-
-		public void ClearFormVariable(object owner, string name)
-		{
-			if (owner == null) throw new ArgumentNullException("owner");
-			variables.Remove(new FormKey(owner, name));
-		}
-
-		public override string ToString()
-		{
-			string result = "";
-			string joiner = "";
-			foreach (DictionaryEntry entry in variables)
-			{
-				FormKey key = (FormKey)entry.Key;
-				result += String.Format("{0}{1}={2}",
-					joiner,
-					HttpUtility.UrlEncode((string)key.Name),
+					HttpUtility.UrlEncode(((FormKey)entry.Key).Name),
 					HttpUtility.UrlEncode((string)entry.Value));
 				joiner = "&";
 			}

@@ -157,12 +157,12 @@ namespace NUnit.Extensions.Asp
 
 		public void SetFormVariable(object owner, string name, string value) 
 		{
-			formVariables.SetFormVariable(owner, name, value);
+			formVariables.ReplaceAll(owner, name, value);
 		}	
 
 		public void ClearFormVariable(object owner, string name)
 		{
-			formVariables.ClearFormVariable(owner, name);
+			formVariables.RemoveAll(owner, name);
 		}
 
 		public override string ToString()
