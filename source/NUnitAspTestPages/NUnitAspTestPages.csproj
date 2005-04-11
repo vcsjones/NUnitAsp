@@ -234,22 +234,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "MultipleFormTestPage.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "MultipleFormTestPage.aspx.cs"
-                    DependentUpon = "MultipleFormTestPage.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "MultipleFormTestPage.aspx.resx"
-                    DependentUpon = "MultipleFormTestPage.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "NUnitAspTestPages.csproj.webinfo"
                     BuildAction = "None"
                 />
@@ -335,6 +319,21 @@
                 <File
                     RelPath = "WebAssertTestPage.aspx.resx"
                     DependentUpon = "WebAssertTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "WebFormTestPage.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "WebFormTestPage.aspx.cs"
+                    DependentUpon = "WebFormTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "WebFormTestPage.aspx.resx"
+                    DependentUpon = "WebFormTestPage.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

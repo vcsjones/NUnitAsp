@@ -37,7 +37,7 @@ namespace NUnit.Extensions.Asp
 	{
 		private string pageText;
 		private XmlDocument document = null;
-		public FormVariables formVariables = new FormVariables();
+		public FormVariables formVariables = null;
 
 		internal WebPage(string htmlPage)
 		{
@@ -57,6 +57,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
+				if (formVariables == null) ParsePageText();
 				return formVariables;
 			}
 		}
@@ -113,6 +114,7 @@ namespace NUnit.Extensions.Asp
 
 		private void ParseInitialFormValues() 
 		{
+			formVariables = new FormVariables();
 			ParseFormElementValues("//form//input[@type='file']", "@name", "");
 			ParseFormElementValues("//form//input[@type='password']", "@name", "");
 			ParseFormElementValues("//form//input[@type='text']", "@name", "");

@@ -12,6 +12,7 @@ Before release:
 * Update build: remove NUnit, put NUnitAdapter.cs in bin/ dir
 * Copy new constructors to every tester
 * Finish migration guide.
+* Remove ControlTester.EnterInputValue/RemoveInputValue?  Make AssertEnabled explicit in tester?
 
 
 Changes in CVS:
@@ -22,6 +23,8 @@ Produced by Jim Shore.
 * Replaced CurrentWebForm property with single-parameter constructor for testers.  Credit to Jim Shore.
 * Created NUnitAdapter.cs file that provides backwards compatibility and quick-start for NUnit users.  Credit Jim Shore.
 * Created new migration guide for v1.6.  Removed old NUnit 2.0 migration guide.  Credit to Jim Shore.
+* Renamed WebForm to WebFormTester.  Credit to Jim Shore.
+* Added "Variables" property to WebFormTester and created FormVariables class to enable direct control and access to form variables.  Credit to Jim Shore.
 
 
 Changes in NUnitAsp 1.5.1:

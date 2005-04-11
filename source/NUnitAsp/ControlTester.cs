@@ -220,7 +220,7 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Like <see cref="PostBack"/>, but doesn't fail if <see cref="candidatePostBackScript"/>
+		/// Like <see cref="PostBack"/>, but doesn't fail if candidatePostBackScript
 		/// doesn't contain a post-back script.
 		/// </summary>
 		protected void OptionalPostBack(string candidatePostBackScript)
@@ -244,7 +244,7 @@ namespace NUnit.Extensions.Asp
 		/// Trigger a post-back.  ASP.NET has a post-back idiom that often shows up
 		/// as a Javascript "__doPostBack" call.  This method exists to make it easy to write
 		/// testers for controls that do so.  Just take the string that contains the post-
-		/// back script and pass it to this method.  Use <see cref="optionalPostBack"/>
+		/// back script and pass it to this method.  Use <see cref="OptionalPostBack"/>
 		/// if the script isn't always present.
 		/// </summary>
 		protected void PostBack(string postBackScript)

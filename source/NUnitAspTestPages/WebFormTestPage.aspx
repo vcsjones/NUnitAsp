@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="MultipleFormTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnitAspTestPages.WebFormTestPage" %>
+<%@ Page language="c#" Codebehind="WebFormTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnitAspTestPages.WebFormTestPage" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -13,7 +13,7 @@
 			<p><asp:LinkButton ID="one" Runat="server">one</asp:LinkButton></p>
 			<p>Submitted:
 				<asp:Label ID="submitted" Runat="server"></asp:Label></p>
-			<input type="hidden" id="one_tag" name="one_tag" value="one_tag" />
+			<input type="hidden" id="one_tag" name="one_tag_name" value="one_tag_value" />
 		</form>
 <!--
 		<form id="MultipleFormTestPage_2" method="post">

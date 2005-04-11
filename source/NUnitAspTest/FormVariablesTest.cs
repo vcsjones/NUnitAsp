@@ -53,10 +53,67 @@ namespace NUnit.Extensions.Asp.Test
 		}
 
 		[Test]
+		public void TestReplace()
+		{
+			variables.Replace("var2", "val2", "val2B");
+			Assert.AreEqual("var=val&var=valB&var2=val2B", variables.ToString());
+			variables.Replace("var", "val", "valC");
+			Assert.AreEqual("var=valB&var2=val2B&var=valC", variables.ToString());
+		}
+
+		[Test]
 		public void TestReplaceAll()
 		{
 			variables.ReplaceAll("var2", "val2B");
 			Assert.AreEqual("var=val&var=valB&var2=val2B", variables.ToString());
+			variables.ReplaceAll("var", "valC");
+			Assert.AreEqual("var2=val2B&var=valC", variables.ToString());
+			variables.ReplaceAll("new", "newVal");
+			Assert.AreEqual("var2=val2B&var=valC&new=newVal", variables.ToString());
+		}
+
+		[Test]
+		public void TestContains()
+		{
+			Assert.IsTrue(variables.Contains("var", "val"));
+			Assert.IsFalse(variables.Contains("var", "val2"));
+			Assert.IsTrue(variables.Contains("var", "valB"));
+		}
+
+		[Test]
+		public void TestContainsAny()
+		{
+			Assert.IsTrue(variables.ContainsAny("var"));
+			Assert.IsTrue(variables.ContainsAny("var2"));
+			Assert.IsFalse(variables.ContainsAny("not there"));
+		}
+
+		[Test]
+		public void TestAllValuesOf()
+		{
+			WebAssert.AreEqual(new string[] {"val", "valB"}, variables.AllValuesOf("var"));
+			WebAssert.AreEqual(new string[] {"val2"}, variables.AllValuesOf("var2"));
+			WebAssert.AreEqual(new string[] {}, variables.AllValuesOf("not there"));
+		}
+
+		[Test]
+		public void TestValueOf()
+		{
+			Assert.AreEqual("val2", variables.ValueOf("var2"));
+		}
+
+		[Test]
+		[ExpectedException(typeof(WebAssertionException))]
+		public void TestValueOf_WhenMoreThanOne()
+		{
+			variables.ValueOf("var");
+		}
+
+		[Test]
+		[ExpectedException(typeof(WebAssertionException))]
+		public void TestValueOf_WhenNone()
+		{
+			variables.ValueOf("not there");
 		}
 	}
 }
