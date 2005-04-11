@@ -151,18 +151,18 @@ namespace NUnit.Extensions.Asp
 						value = element.InnerText.Trim();
 					}
 				}
-				formVariables.Add(element, name.Value, value);
+				formVariables.Add(name.Value, value);
 			}
 		}
 
 		public void SetFormVariable(object owner, string name, string value) 
 		{
-			formVariables.ReplaceAll(owner, name, value);
+			formVariables.ReplaceAll(name, value);
 		}	
 
 		public void ClearFormVariable(object owner, string name)
 		{
-			formVariables.RemoveAll(owner, name);
+			formVariables.RemoveAll(name);
 		}
 
 		public override string ToString()

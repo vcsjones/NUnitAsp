@@ -33,28 +33,15 @@ namespace NUnit.Extensions.Asp
 		
 		public void Add(string name, string value)
 		{
-			Add(null, name, value);
-		}
-
-		public void Add(object owner, string name, string value)
-		{
-			owner = null;
-			newVars.Add(new DictionaryEntry(new FormKey(owner, name), value));
+			newVars.Add(new DictionaryEntry(name, value));
 		}
 
 		public void Remove(string name, string value)
 		{
-			Remove(null, name, value);
-		}
-
-		public void Remove(object owner, string name, string value)
-		{
-			owner = null;
 			for (int i = 0; i < newVars.Count; i++)
 			{
 				DictionaryEntry entry = (DictionaryEntry)newVars[i];
-			
-				if (entry.Key.Equals(new FormKey(owner, name)) && entry.Value.Equals(value))
+				if (entry.Key.Equals(name) && entry.Value.Equals(value))
 				{
 					newVars.RemoveAt(i);
 					return;
@@ -65,17 +52,10 @@ namespace NUnit.Extensions.Asp
 
 		public void RemoveAll(string name)
 		{
-			RemoveAll(null, name);
-		}
-
-		public void RemoveAll(object owner, string name)
-		{
-			owner = null;
 			for (int i = 0; i < newVars.Count; i++)
 			{
 				DictionaryEntry entry = (DictionaryEntry)newVars[i];
-			
-				if (entry.Key.Equals(new FormKey(owner, name)))
+				if (entry.Key.Equals(name))
 				{
 					newVars.RemoveAt(i);
 				}
@@ -84,14 +64,8 @@ namespace NUnit.Extensions.Asp
 
 		public void ReplaceAll(string name, string newValue)
 		{
-			ReplaceAll(null, name, newValue);
-		}
-
-		public void ReplaceAll(object owner, string name, string newValue)
-		{
-			owner = null;
-			RemoveAll(owner, name);
-			Add(owner, name, newValue);
+			RemoveAll(name);
+			Add(name, newValue);
 		}
 
 		public override string ToString()
@@ -103,23 +77,11 @@ namespace NUnit.Extensions.Asp
 			{
 				result += String.Format("{0}{1}={2}",
 					joiner,
-					HttpUtility.UrlEncode(((FormKey)entry.Key).Name),
+					HttpUtility.UrlEncode((string)entry.Key),
 					HttpUtility.UrlEncode((string)entry.Value));
 				joiner = "&";
 			}
 			return result;
-		}
-
-		public struct FormKey
-		{
-			public readonly object Owner;
-			public readonly string Name;
-
-			public FormKey(object owner, string name)
-			{
-				Owner = owner;
-				Name = name;
-			}
 		}
 	}
 }
