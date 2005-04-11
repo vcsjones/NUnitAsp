@@ -133,6 +133,17 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
+		/// The tester for the form containing the thing being tested.
+		/// </summary>
+		protected internal override WebFormTester Form
+		{
+			get
+			{
+				return container.Form;
+			}
+		}
+
+		/// <summary>
 		/// A human-readable description of the location of the form being tested.
 		/// This property describes the location of the form in the ASP.NET source
 		/// code as well as in the HTML page rendered by the server.
@@ -200,6 +211,12 @@ namespace NUnit.Extensions.Asp
 			if (IsDisabled) throw new ControlDisabledException(this);
 		}
 
+		private void SetInputHiddenValue(string name, string value)
+		{
+			string expression = string.Format("//form//input[@type='hidden'][@name='{0}']", name);
+			Browser.SetFormVariable((XmlElement)Element.SelectSingleNode(expression), name, value);
+		}
+
 		protected void EnterInputValue(string name, string value)
 		{
 			EnterInputValue(Element, name, value);
@@ -237,12 +254,6 @@ namespace NUnit.Extensions.Asp
 		protected bool IsPostBack(string candidatePostBackScript)
 		{
 			return (candidatePostBackScript != null) && (candidatePostBackScript.IndexOf("__doPostBack") != -1);
-		}
-
-		private void SetInputHiddenValue(string name, string value)
-		{
-			string expression = string.Format("//form//input[@type='hidden'][@name='{0}']", name);
-			Browser.SetFormVariable((XmlElement)Element.SelectSingleNode(expression), name, value);
 		}
 
 		/// <summary>

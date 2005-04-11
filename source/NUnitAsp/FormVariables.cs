@@ -38,6 +38,7 @@ namespace NUnit.Extensions.Asp
 
 		public void Add(object owner, string name, string value)
 		{
+			owner = null;
 			newVars.Add(new DictionaryEntry(new FormKey(owner, name), value));
 		}
 
@@ -48,6 +49,7 @@ namespace NUnit.Extensions.Asp
 
 		public void Remove(object owner, string name, string value)
 		{
+			owner = null;
 			for (int i = 0; i < newVars.Count; i++)
 			{
 				DictionaryEntry entry = (DictionaryEntry)newVars[i];
@@ -58,7 +60,7 @@ namespace NUnit.Extensions.Asp
 					return;
 				}
 			}
-			WebAssert.Fail(String.Format("Couldn't find form variable '{0}={1}' to remove", name, value));
+			WebAssert.Fail(String.Format("Couldn't find form variable '{0}={1}' to remove in {2}", name, value, ToString()));
 		}
 
 		public void RemoveAll(string name)
@@ -68,6 +70,7 @@ namespace NUnit.Extensions.Asp
 
 		public void RemoveAll(object owner, string name)
 		{
+			owner = null;
 			for (int i = 0; i < newVars.Count; i++)
 			{
 				DictionaryEntry entry = (DictionaryEntry)newVars[i];
@@ -86,6 +89,7 @@ namespace NUnit.Extensions.Asp
 
 		public void ReplaceAll(object owner, string name, string newValue)
 		{
+			owner = null;
 			RemoveAll(owner, name);
 			Add(owner, name, newValue);
 		}

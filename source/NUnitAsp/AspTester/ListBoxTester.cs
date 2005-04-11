@@ -85,11 +85,11 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			if (selected) 
 			{
-				EnterInputValue(item.Element, Tag.Attribute("name"), item.Value);
+				Form.Variables.Add(Tag.Attribute("name"), item.Value);
 			}
 			else
 			{
-				RemoveInputValue(item.Element, Tag.Attribute("name"));
+				Form.Variables.Remove(Tag.Attribute("name"), item.Value);
 			}
 			OptionalPostBack(Tag.OptionalAttribute("onchange"));
 		}

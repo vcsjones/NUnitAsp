@@ -151,7 +151,7 @@ namespace NUnit.Extensions.Asp
 						value = element.InnerText.Trim();
 					}
 				}
-				SetFormVariable(element, name.Value, value);
+				formVariables.Add(element, name.Value, value);
 			}
 		}
 

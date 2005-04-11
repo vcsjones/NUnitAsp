@@ -114,11 +114,9 @@ namespace NUnit.Extensions.Asp.AspTester
 		protected void SetListSelection(ListItemTester item, bool selected)
 		{
 			string name = Tag.Attribute("name");
-			foreach (XmlElement option in OptionList)
-			{
-				RemoveInputValue(option, name);
-			}
-			if (selected) EnterInputValue(item.Element, name, item.Value);
+			Form.Variables.RemoveAll(name);
+			if (selected) EnterInputValue(name, item.Value);
+
 			OptionalPostBack(Tag.OptionalAttribute("onchange"));
 		}
 

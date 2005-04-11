@@ -106,6 +106,14 @@ namespace NUnit.Extensions.Asp
 			get;
 		}
 
+		/// <summary>
+		/// The tester for the form containing the thing being tested.
+		/// </summary>
+		protected internal abstract WebFormTester Form
+		{
+			get;
+		}
+
 		public class AttributeMissingException : ApplicationException
 		{
 			internal AttributeMissingException(string name, string containerDescription) : base("Expected attribute '" + name + "' on " + containerDescription)

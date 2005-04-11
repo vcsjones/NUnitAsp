@@ -63,6 +63,17 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
+		/// The tester for the form containing the thing being tested.
+		/// </summary>
+		protected internal override WebFormTester Form
+		{
+			get
+			{
+				return this;
+			}
+		}
+
+		/// <summary>
 		/// Returns the HTML ID of a child control.  Useful when implementing
 		/// testers for container controls that do HTML ID mangling.  This method
 		/// is very likely to change in a future release.
