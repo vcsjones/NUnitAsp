@@ -142,17 +142,7 @@ namespace NUnit.Extensions.Asp
 		internal void SubmitForm(WebFormTester form)
 		{
 			TrackUrlReferrer();
-			DoWebRequest(form.Action, form.Method, currentPage.FormVariables);
-		}
-
-		internal void SetFormVariable(object owner, string name, string value) 
-		{
-			currentPage.SetFormVariable(owner, name, value);
-		}
-
-		internal void ClearFormVariable(object owner, string name)
-		{
-			currentPage.ClearFormVariable(owner, name);
+			DoWebRequest(form.Action, form.Method, currentPage.Variables.ToString());
 		}
 
 		/// <summary>

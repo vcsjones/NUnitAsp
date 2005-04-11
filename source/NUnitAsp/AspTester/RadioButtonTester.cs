@@ -78,13 +78,7 @@ namespace NUnit.Extensions.Asp.AspTester
 
 		private void UncheckWholeGroup()
 		{
-			string name = Tag.Attribute("name");
-			string groupExpr = string.Format("//form//input[@type='radio'][@name='{0}']", name);
-
-			foreach (XmlElement radio in Element.SelectNodes(groupExpr))
-			{
-				RemoveInputValue(radio, name);
-			}
+			RemoveInputValue(Tag.Attribute("name"));
 		}	
 
 		/// <summary>

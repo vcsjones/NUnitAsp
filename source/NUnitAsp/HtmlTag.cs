@@ -127,7 +127,8 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Returns the value of an attribute on this tag or throws an exception if the attribute isn't present.
+		/// Returns the value of an attribute on this tag or throws an exception if the attribute
+		/// isn't present.
 		/// </summary>
 		/// <param name="name">The name of the attribute.</param>
 		/// <returns>The value of the attribute</returns>
@@ -161,8 +162,8 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Returns the contents of the tag, but not the tag itself.  For example, &lt;a href='foo'&gt;My Link&lt;/a&gt;
-		/// will return "My Link".
+		/// Returns the contents of the tag, but not the tag itself.  For example,
+		/// &lt;a href='foo'&gt;My Link&lt;/a&gt; will return "My Link".
 		/// </summary>
 		public string Body
 		{

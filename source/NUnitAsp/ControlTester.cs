@@ -194,37 +194,21 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		protected internal void EnterInputValue(object owner, string name, string value)
+		protected internal void EnterInputValue(string name, string value)
 		{
 			AssertEnabled();
-			Browser.SetFormVariable(owner, name, value);
+			Form.Variables.ReplaceAll(name, value);
 		}
 
-		protected internal void RemoveInputValue(object owner, string name)
+		protected internal void RemoveInputValue(string name)
 		{
 			AssertEnabled();
-			Browser.ClearFormVariable(owner, name);
+			Form.Variables.RemoveAll(name);
 		}
 
 		private void AssertEnabled()
 		{
 			if (IsDisabled) throw new ControlDisabledException(this);
-		}
-
-		private void SetInputHiddenValue(string name, string value)
-		{
-			string expression = string.Format("//form//input[@type='hidden'][@name='{0}']", name);
-			Browser.SetFormVariable((XmlElement)Element.SelectSingleNode(expression), name, value);
-		}
-
-		protected void EnterInputValue(string name, string value)
-		{
-			EnterInputValue(Element, name, value);
-		}
-
-		protected void RemoveInputValue(string name)
-		{
-			RemoveInputValue(Element, name);
 		}
 
 		/// <summary>
@@ -284,8 +268,8 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		protected void PostBack(string eventTarget, string eventArgument)
 		{
-			SetInputHiddenValue("__EVENTTARGET", eventTarget);
-			SetInputHiddenValue("__EVENTARGUMENT", eventArgument);
+			EnterInputValue("__EVENTTARGET", eventTarget);
+			EnterInputValue("__EVENTARGUMENT", eventArgument);
 			Submit();
 		}
 	}

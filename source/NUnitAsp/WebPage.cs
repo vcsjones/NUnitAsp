@@ -61,14 +61,6 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		internal string FormVariables
-		{
-			get
-			{
-				return formVariables.ToString();
-			}
-		}
-
 		private SgmlDtd ParseDtd(XmlNameTable nt)
 		{
 			string name = string.Format("{0}.{1}.Html.dtd",
@@ -153,16 +145,6 @@ namespace NUnit.Extensions.Asp
 				}
 				formVariables.Add(name.Value, value);
 			}
-		}
-
-		public void SetFormVariable(object owner, string name, string value) 
-		{
-			formVariables.ReplaceAll(name, value);
-		}	
-
-		public void ClearFormVariable(object owner, string name)
-		{
-			formVariables.RemoveAll(name);
 		}
 
 		public override string ToString()
