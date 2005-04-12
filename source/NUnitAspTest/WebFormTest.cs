@@ -70,8 +70,6 @@ namespace NUnit.Extensions.Asp.Test
 		[Test]
 		public void TestSubmit_WhenMultipleForms()
 		{
-			Console.WriteLine(Browser.CurrentPageText);
-
 			LabelTester submitted = new LabelTester("submitted", form1);
 			Assert.AreEqual("none", submitted.Text);
 			
@@ -81,6 +79,9 @@ namespace NUnit.Extensions.Asp.Test
 
 			form2.Submit();
 			Assert.AreEqual("form 2", submitted.Text);
+
+			new WebFormTester("RedirectForm", Browser).Submit();
+			Assert.AreEqual("RedirectionTarget", CurrentWebForm.AspId);
 		}
 
 		[Test]

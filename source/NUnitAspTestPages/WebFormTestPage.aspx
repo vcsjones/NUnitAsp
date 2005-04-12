@@ -22,5 +22,7 @@
 			<p><input id="two" type="submit" name="two" value="two" /></p>
 			<p><input type="hidden" id="tag_two" name="tag_two" value="tag_two_value" /></p>
 		</form>
+		<form id="RedirectForm" method="get" action="RedirectionTarget.aspx">
+		</form>
 	</body>
 </HTML>
