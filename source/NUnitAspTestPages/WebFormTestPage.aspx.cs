@@ -20,8 +20,8 @@ namespace NUnitAspTestPages
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			string one = Request.Form["one_tag"];
-			string two = Request.Form["two_tag"];
+			string one = Request.Form["tag_one"];
+			string two = Request.Form["tag_two"];
 			if (two == null) submitted.Text = "form 1";
 			else if (one == null) submitted.Text = "form 2";
 			else submitted.Text = "both submitted??";

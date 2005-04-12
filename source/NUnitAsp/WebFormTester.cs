@@ -84,9 +84,9 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Post this page to the server.  (That is, the page that contains the form being tested.)
+		/// Submit this form to the server.
 		/// </summary>
-		protected internal override void Submit()
+		public void Submit()
 		{
 			WebAssert.Visible(this);
 			browser.SubmitForm(this);
@@ -122,13 +122,16 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// The "action" attribute of this form.
+		/// The "action" attribute of this form; will be an empty string 
+		/// if there isn't one.
 		/// </summary>
 		protected internal string Action
 		{
 			get
 			{
-				return Tag.Attribute("action");
+				string action = Tag.OptionalAttribute("action");
+				if (action == null) return "";
+				return action;
 			}
 		}
 

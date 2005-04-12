@@ -86,11 +86,6 @@ namespace NUnit.Extensions.Asp
 		protected internal abstract string GetChildElementHtmlId(string aspId);
 
 		/// <summary>
-		/// Post this page to the server.  (That is, the page that contains the thing being tested.)
-		/// </summary>
-		protected internal abstract void Submit();
-
-		/// <summary>
 		/// A human-readable description of the location of the control.
 		/// </summary>
 		public abstract string Description

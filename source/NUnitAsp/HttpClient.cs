@@ -133,7 +133,13 @@ namespace NUnit.Extensions.Asp
 			DoWebRequest(url, "GET", string.Empty);
 		}
 
-		internal void FollowLink(string url)
+		/// <summary>
+		/// Retrieves a page from a web server.  Different from
+		/// <see cref="GetPage"/> in that it sets the current page as the
+		/// referrer.  You should use normally use <see cref="GetPage"/>.
+		/// </summary>
+		/// <param name="url"></param>
+		public void FollowLink(string url)
 		{
 			TrackUrlReferrer();
 			GetPage(url);

@@ -214,9 +214,9 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// Post this page to the server.  (That is, the page that contains the control being tested.)
 		/// </summary>
-		protected internal override void Submit()
+		protected internal virtual void Submit()
 		{
-			container.Submit();
+			Form.Submit();
 		}
 
 		/// <summary>

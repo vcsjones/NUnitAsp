@@ -60,27 +60,30 @@ namespace NUnit.Extensions.Asp.Test
 			Assert.AreEqual("nested_tag_value", form1.Variables.ValueOf("nested_tag"));
 		}
 
-//		[Test]
-//		[ExpectedException(typeof(WebAssertionException))]
-//		public void TestCurrentWebForm_WhenMultipleForms()
-//		{
-//			FormVariables unused = CurrentWebForm.Variables;
-//		}
+		[Test]
+		[ExpectedException(typeof(WebAssertionException))]
+		public void TestCurrentWebForm_WhenMultipleForms()
+		{
+			FormVariables unused = CurrentWebForm.Variables;
+		}
 
+		[Test]
+		public void TestSubmit_WhenMultipleForms()
+		{
+			Console.WriteLine(Browser.CurrentPageText);
 
-//		public void TestMultipleForms()
-//		{
-//			WebFormTester form1 = new WebFormTester("MultipleFormTestPage_1", Browser);
-//			LinkButtonTester one = new LinkButtonTester("one", form1);
-//			LabelTester submitted = new LabelTester("submitted", form1);
-//
-//			Browser.GetPage(TestUrl);
-//
-//			Assert.AreEqual("one", one.Text);
-//			one.Click();
-//			Assert.AreEqual("form 1", submitted.Text);
-//		}
+			LabelTester submitted = new LabelTester("submitted", form1);
+			Assert.AreEqual("none", submitted.Text);
+			
+			LinkButtonTester one = new LinkButtonTester("one", form1);
+			one.Click();
+			Assert.AreEqual("form 1", submitted.Text);
 
+			form2.Submit();
+			Assert.AreEqual("form 2", submitted.Text);
+		}
+
+		[Test]
 		[ExpectedException(typeof(WebAssertionException))]
 		public void TestMultipleForms_WhenBadAspId()
 		{

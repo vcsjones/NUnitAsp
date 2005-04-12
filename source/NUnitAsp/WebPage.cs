@@ -126,20 +126,19 @@ namespace NUnit.Extensions.Asp
 			if (id == null) return;
 
 			formVariables[id] = new FormVariables();
-			ParseFormElementValues(formElement, "//input[@type='file']", "@name", "");
-			ParseFormElementValues(formElement, "//input[@type='password']", "@name", "");
-			ParseFormElementValues(formElement, "//input[@type='text']", "@name", "");
-			ParseFormElementValues(formElement, "//input[@type='hidden']", "@name", "");
-			ParseFormElementValues(formElement, "//input[@type='radio'][@checked]", "@name", "on");
-			ParseFormElementValues(formElement, "//input[@type='checkbox'][@checked]", "@name", "on");
-			ParseFormElementValues(formElement, "//textarea", "@name", null);
-			ParseFormElementValues(formElement, "//select/option[@selected]", "../@name", null);
+			ParseFormElementValues(id, "//input[@type='file']", "@name", "");
+			ParseFormElementValues(id, "//input[@type='password']", "@name", "");
+			ParseFormElementValues(id, "//input[@type='text']", "@name", "");
+			ParseFormElementValues(id, "//input[@type='hidden']", "@name", "");
+			ParseFormElementValues(id, "//input[@type='radio'][@checked]", "@name", "on");
+			ParseFormElementValues(id, "//input[@type='checkbox'][@checked]", "@name", "on");
+			ParseFormElementValues(id, "//textarea", "@name", null);
+			ParseFormElementValues(id, "//select/option[@selected]", "../@name", null);
 		}
 
-		private void ParseFormElementValues(XmlElement formElement, string elementExpr, string nameExpr, string defaultValue)
+		private void ParseFormElementValues(string formId, string elementExpr, string nameExpr, string defaultValue)
 		{
-			string id = formElement.GetAttribute("id");
-			foreach (XmlElement element in formElement.SelectNodes("//form[@id='" + id + "']" + elementExpr)) 
+			foreach (XmlElement element in Document.SelectNodes("//form[@id='" + formId + "']" + elementExpr)) 
 			{
 				XmlAttribute name = (XmlAttribute)element.SelectSingleNode(nameExpr);
 				string value = element.GetAttribute("value");
@@ -157,7 +156,7 @@ namespace NUnit.Extensions.Asp
 						value = element.InnerText.Trim();
 					}
 				}
-				VariablesFor(id).Add(name.Value, value);
+				VariablesFor(formId).Add(name.Value, value);
 			}
 		}
 
