@@ -46,7 +46,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		public void Click()
 		{
 			EnterInputValue(Tag.Attribute("name"), Tag.Attribute("value"));
-			Submit();
+			Form.Submit();
 		}
 
 		/// <summary>

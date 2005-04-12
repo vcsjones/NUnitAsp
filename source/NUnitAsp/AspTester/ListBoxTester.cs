@@ -91,7 +91,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			{
 				Form.Variables.Remove(Tag.Attribute("name"), item.Value);
 			}
-			OptionalPostBack(Tag.OptionalAttribute("onchange"));
+			Form.OptionalPostBack(Tag.OptionalAttribute("onchange"));
 		}
 	}
 }

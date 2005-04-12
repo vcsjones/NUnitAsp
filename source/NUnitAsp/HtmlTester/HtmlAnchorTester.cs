@@ -55,9 +55,9 @@ namespace NUnit.Extensions.Asp.HtmlTester
 				return;
 			}
 			string hRef = HRef;
-			if (IsPostBack(hRef))
+			if (Form.IsPostBack(hRef))
 			{
-				PostBack(hRef);
+				Form.PostBack(hRef);
 				return;
 			}
 			Browser.FollowLink(hRef);

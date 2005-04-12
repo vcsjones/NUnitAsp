@@ -118,7 +118,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			WebAssert.True(links.Length != 0, "Attempted to sort non-sortable grid (" + HtmlIdAndDescription + ")");
 			WebAssert.True(links.Length == 1, "Expected sort link to have exactly one anchor tag");
 
-			PostBack(links[0].Attribute("href"));
+			Form.PostBack(links[0].Attribute("href"));
 		}
 
 		private HtmlTag GetRowTag(int rowNumber)

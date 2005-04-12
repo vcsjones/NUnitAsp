@@ -30,14 +30,16 @@ namespace NUnit.Extensions.Asp
 	/// A collection of HTML form variables.  These form variables are sent to the server
 	/// when you submit or postback a form.  They consist of a name/value pair and are not
 	/// required to be unique.  You may include duplicate names or even duplicate name/value
-	/// pairs in this collection.
+	/// pairs in this collection.  When writing custom testers, <see cref="ReplaceAll"/>
+	/// and <see cref="RemoveAll"/> are typically the most appropriate methods to use.
 	/// </summary>
 	public class FormVariables
 	{
 		private ArrayList variables = new ArrayList();
 		
 		/// <summary>
-		/// Add a name/value pair.
+		/// Add a name/value pair.  Add doesn't overwrite any existing pairs with the
+		/// same name, so in most cases, <see cref="ReplaceAll"/> is more appropriate.
 		/// </summary>
 		public void Add(string name, string value)
 		{

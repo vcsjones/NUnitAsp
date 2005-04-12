@@ -44,9 +44,6 @@ namespace NUnit.Extensions.Asp.Test
 		[Test]
 		public void TestHiddenVariableParsing()
 		{
-			Console.WriteLine("form 1: " + form1.Variables);
-			Console.WriteLine("form 2: " + form2.Variables);
-
 			Assert.AreEqual("tag_one_value", form1.Variables.ValueOf("tag_one"), "tag one in form 1");
 			Assert.IsFalse(form1.Variables.ContainsAny("tag_two"), "tag two shouldn't be in form 1");
 

@@ -1,7 +1,7 @@
-#region Copyright (c) 2002-2004, Brian Knowles, Jim Shore
+#region Copyright (c) 2002-2005, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002-2004, Brian Knowles, Jim Shore
+' Copyright (c) 2002-2005, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -133,7 +133,7 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// The tester for the form containing the thing being tested.
+		/// The form containing this control
 		/// </summary>
 		protected internal override WebFormTester Form
 		{
@@ -144,7 +144,7 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// A human-readable description of the location of the form being tested.
+		/// A human-readable description of the location of the control being tested.
 		/// This property describes the location of the form in the ASP.NET source
 		/// code as well as in the HTML page rendered by the server.
 		/// </summary>
@@ -212,8 +212,9 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Post this page to the server.  (That is, the page that contains the control being tested.)
+		/// Post the form containing this control to the server.
 		/// </summary>
+		[Obsolete("Use Form.Submit() instead; this method will be removed in v1.7")]
 		protected internal virtual void Submit()
 		{
 			Form.Submit();
@@ -223,21 +224,20 @@ namespace NUnit.Extensions.Asp
 		/// Like <see cref="PostBack"/>, but doesn't fail if candidatePostBackScript
 		/// doesn't contain a post-back script.
 		/// </summary>
+		[Obsolete("Use Form.OptionalPostBack() instead; this method will be removed in v1.7")]
 		protected void OptionalPostBack(string candidatePostBackScript)
 		{
-			if (IsPostBack(candidatePostBackScript))
-			{
-				PostBack(candidatePostBackScript);
-			}
+			Form.OptionalPostBack(candidatePostBackScript);
 		}
 
 		/// <summary>
 		/// Checks a string to see if it contains a post-back script.
 		/// Typically you should just use <see cref="OptionalPostBack"/> instead.
 		/// </summary>
+		[Obsolete("Use Form.IsPostBack() instead; this method will be removed in v1.7")]
 		protected bool IsPostBack(string candidatePostBackScript)
 		{
-			return (candidatePostBackScript != null) && (candidatePostBackScript.IndexOf("__doPostBack") != -1);
+			return Form.IsPostBack(candidatePostBackScript);
 		}
 
 		/// <summary>
@@ -247,30 +247,20 @@ namespace NUnit.Extensions.Asp
 		/// back script and pass it to this method.  Use <see cref="OptionalPostBack"/>
 		/// if the script isn't always present.
 		/// </summary>
+		[Obsolete("Use Form.PostBack() instead; this method will be removed in v1.7")]
 		protected void PostBack(string postBackScript)
 		{
-			string postBackPattern = @"__doPostBack\('(?<target>.*?)','(?<argument>.*?)'\)";
-
-			Match match = Regex.Match(postBackScript, postBackPattern, RegexOptions.IgnoreCase);
-			if (!match.Success)
-			{
-				throw new ParseException("'" + postBackScript + "' doesn't match expected pattern for postback in " + HtmlIdAndDescription);
-			}
-
-			string target = match.Groups["target"].Captures[0].Value;
-			string argument = match.Groups["argument"].Captures[0].Value;
-			PostBack(target.Replace('$', ':'), argument);
+			Form.PostBack(postBackScript);
 		}
 
 		/// <summary>
 		/// Trigger a post-back.  If you don't have a post-back script but need to trigger a
 		/// post-back, call this method with the appropriate event target and argument.
 		/// </summary>
+		[Obsolete("Use Form.PostBack() instead; this method will be removed in v1.7")]
 		protected void PostBack(string eventTarget, string eventArgument)
 		{
-			EnterInputValue("__EVENTTARGET", eventTarget);
-			EnterInputValue("__EVENTARGUMENT", eventArgument);
-			Submit();
+			Form.PostBack(eventTarget, eventArgument);
 		}
 	}
 

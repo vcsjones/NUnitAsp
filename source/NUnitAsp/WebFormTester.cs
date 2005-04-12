@@ -22,6 +22,7 @@
 
 using System;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace NUnit.Extensions.Asp
 {
@@ -90,6 +91,79 @@ namespace NUnit.Extensions.Asp
 		{
 			WebAssert.Visible(this);
 			browser.SubmitForm(this);
+		}
+
+		/// <summary>
+		/// Emulates ASP.NET's post-back script.  To simply submit the form,
+		/// use <see cref="Submit"/> instead.  If you have access to the JavaScript call
+		/// string, use <see cref="OptionalPostBack"/> or the other form of
+		/// <see cref="PostBack(string)"/>.
+		/// </summary>
+		/// <param name="eventTarget">The "event target" parameter for the post-back script.</param>
+		/// <param name="eventArgument">The "event argument" parameter for the post-back script.</param>
+		public void PostBack(string eventTarget, string eventArgument)
+		{
+			Variables.ReplaceAll("__EVENTTARGET", eventTarget);
+			Variables.ReplaceAll("__EVENTARGUMENT", eventArgument);
+			Submit();
+		}
+
+		/// <summary>
+		/// Like <see cref="PostBack"/>, except that it does nothing if 
+		/// candidatePostBackScript doesn't contain a post-back script.
+		/// </summary>
+		public void OptionalPostBack(string candidatePostBackScript)
+		{
+			if (IsPostBack(candidatePostBackScript))
+			{
+				PostBack(candidatePostBackScript);
+			}
+		}
+
+		/// <summary>
+		/// Checks a string to see if it contains a post-back script.
+		/// Typically you should just use <see cref="OptionalPostBack"/> instead.
+		/// </summary>
+		public bool IsPostBack(string candidatePostBackScript)
+		{
+			return (candidatePostBackScript != null) && (candidatePostBackScript.IndexOf("__doPostBack") != -1);
+		}
+
+		/// <summary>
+		/// Emulates ASP.NET's post-back script (often seen as a Javascript
+		/// "__doPostBack" call).  To simply submit the form, use 
+		/// <see cref="Submit"/> instead.  If you don't have access to the
+		/// JavaScript call, use <see cref="PostBack(string, string)"/> instead.
+		/// This method throws an exception if the postBackScript string isn't
+		/// actually a post-back script (for example, if it's an empty string).
+		/// Use <see cref="OptionalPostBack"/> if the string isn't expected to
+		/// contain a post-back script all of the time.
+		/// </summary>
+		/// <example>
+		/// ASP.NET link buttons are rendered as &lt;a&gt; hyperlinks with a
+		/// post-back script call in the "href" attribute.  The following code takes
+		/// the call from the attribute and calls PostBack(), causing NUnitAsp to
+		/// analyze the post-back script call, set the appropriate environment
+		/// variables, and submit the form.
+		/// 
+		/// <code>
+		/// string href = Tag.Attribute("href");
+		/// Form.PostBack(href);
+		/// </code>
+		/// </example>
+		public void PostBack(string postBackScript)
+		{
+			string postBackPattern = @"__doPostBack\('(?<target>.*?)','(?<argument>.*?)'\)";
+
+			Match match = Regex.Match(postBackScript, postBackPattern, RegexOptions.IgnoreCase);
+			if (!match.Success)
+			{
+				throw new ParseException("'" + postBackScript + "' doesn't match expected pattern for postback");
+			}
+
+			string target = match.Groups["target"].Captures[0].Value;
+			string argument = match.Groups["argument"].Captures[0].Value;
+			Form.PostBack(target.Replace('$', ':'), argument);
 		}
 
 		/// <summary>

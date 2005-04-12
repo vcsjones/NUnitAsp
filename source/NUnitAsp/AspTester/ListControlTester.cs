@@ -117,7 +117,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			Form.Variables.RemoveAll(name);
 			if (selected) EnterInputValue(name, item.Value);
 
-			OptionalPostBack(Tag.OptionalAttribute("onchange"));
+			Form.OptionalPostBack(Tag.OptionalAttribute("onchange"));
 		}
 
 		protected internal virtual void ChangeItemSelectState(ListItemTester item, bool selected)

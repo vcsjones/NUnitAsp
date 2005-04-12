@@ -49,11 +49,11 @@ namespace NUnit.Extensions.Asp.AspTester
 			string name = Tag.Attribute("name");
 			EnterInputValue(name + ".x", x.ToString());
 			EnterInputValue(name + ".y", y.ToString());
-			Submit();
+			Form.Submit();
 		}
 
 		/// <summary>
-		/// Click the button at no particular location. Same as Click(0, 0).
+		/// Click the button. Same as Click(0, 0).
 		/// </summary>
 		public void Click()
 		{
