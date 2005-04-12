@@ -26,22 +26,47 @@ using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test
 {
+	[TestFixture]
 	public class WebFormTest : NUnitAspTestCase
 	{
 		private static readonly string TestUrl = BaseUrl + "WebFormTestPage.aspx";
 
 		private WebFormTester form1;
+		private WebFormTester form2;
 		
 		protected override void SetUp()
 		{
-			form1 = new WebFormTester("MultipleFormTestPage_1", Browser);
+			form1 = new WebFormTester("Form1", Browser);
+			form2 = new WebFormTester("Form2", Browser);
+			Browser.GetPage(TestUrl);
 		}
 		
+		[Test]
 		public void TestHiddenVariableParsing()
 		{
-			Browser.GetPage(TestUrl);
-			Assert.AreEqual("one_tag_value", form1.Variables.ValueOf("one_tag_name"));
+			Console.WriteLine("form 1: " + form1.Variables);
+			Console.WriteLine("form 2: " + form2.Variables);
+
+			Assert.AreEqual("tag_one_value", form1.Variables.ValueOf("tag_one"), "tag one in form 1");
+			Assert.IsFalse(form1.Variables.ContainsAny("tag_two"), "tag two shouldn't be in form 1");
+
+			Assert.AreEqual("tag_two_value", form2.Variables.ValueOf("tag_two"), "tag two in form 2");
+			Assert.IsFalse(form2.Variables.ContainsAny("tag_one"), "tag one shouldn't be in form 2");
 		}
+
+		[Test]
+		public void TestNestedVariableParsing()
+		{
+			Assert.AreEqual("nested_tag_value", form1.Variables.ValueOf("nested_tag"));
+		}
+
+//		[Test]
+//		[ExpectedException(typeof(WebAssertionException))]
+//		public void TestCurrentWebForm_WhenMultipleForms()
+//		{
+//			FormVariables unused = CurrentWebForm.Variables;
+//		}
+
 
 //		public void TestMultipleForms()
 //		{

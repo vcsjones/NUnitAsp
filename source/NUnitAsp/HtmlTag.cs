@@ -259,7 +259,7 @@ namespace NUnit.Extensions.Asp
 				if (element != null) return element;
 
 				XmlDocument document = pageForTestingOnly;
-				if (browser != null) document = browser.CurrentPage;
+				if (browser != null) document = browser.CurrentPage.Document;
 
 				string selector = "//*[@id='" + id + "']";
 				if (xpath != null) selector = xpath;

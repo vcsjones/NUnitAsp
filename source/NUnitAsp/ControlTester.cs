@@ -115,7 +115,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get 
 			{
-				XmlElement element = Browser.CurrentPage.GetElementById(HtmlId);
+				XmlElement element = Browser.CurrentPage.Document.GetElementById(HtmlId);
 				if (element == null) throw new HtmlTag.ElementNotVisibleException("Couldn't find " + HtmlId + " on " + Description);
 				return element;
 			}

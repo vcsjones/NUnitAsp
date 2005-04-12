@@ -106,7 +106,7 @@ namespace NUnit.Extensions.Asp
 
 		private HtmlTag FindTagByForm()
 		{
-			XmlNodeList formNodes = browser.CurrentPage.GetElementsByTagName("form");
+			XmlNodeList formNodes = browser.CurrentPage.Document.GetElementsByTagName("form");
 			WebAssert.True(formNodes.Count == 1, "The current page has more than one form.  To test it, construct a WebFormTester and use it as the 'container' parameter for your other testers.");
 			XmlElement formElement = (XmlElement)formNodes[0];
 
@@ -177,15 +177,18 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				return aspId;
+				return AspId;
 			}
 		}
 
+		/// <summary>
+		/// The HTML form variables in this form.
+		/// </summary>
 		public FormVariables Variables
 		{
 			get
 			{
-				return Browser.currentPage.Variables;
+				return Browser.CurrentPage.VariablesFor(this.HtmlId);
 			}
 		}
 	}

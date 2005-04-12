@@ -37,7 +37,7 @@ namespace NUnit.Extensions.Asp
 	{
 		private string pageText;
 		private XmlDocument document = null;
-		public FormVariables formVariables = null;
+		public Hashtable formVariables = null;
 
 		internal WebPage(string htmlPage)
 		{
@@ -53,13 +53,12 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		internal FormVariables Variables
+		internal FormVariables VariablesFor(string formHtmlId)
 		{
-			get
-			{
-				if (formVariables == null) ParsePageText();
-				return formVariables;
-			}
+			if (formVariables == null) ParsePageText();
+			FormVariables result = (FormVariables)formVariables[formHtmlId];
+			WebAssert.NotNull(result, "form ID '" + formHtmlId + "' not found on current page");
+			return result;
 		}
 
 		private SgmlDtd ParseDtd(XmlNameTable nt)
@@ -92,7 +91,7 @@ namespace NUnit.Extensions.Asp
 					throw new DoctypeDtdException(e);
 				}
 
-				ParseInitialFormValues();
+				ParseForms();
 			}
 			catch (XmlException e)
 			{
@@ -112,22 +111,35 @@ namespace NUnit.Extensions.Asp
 			return Regex.Replace(html, "<style>\\s+<!--", "<style><!--");
 		}
 
-		private void ParseInitialFormValues() 
+		private void ParseForms()
 		{
-			formVariables = new FormVariables();
-			ParseFormElementValues("//form//input[@type='file']", "@name", "");
-			ParseFormElementValues("//form//input[@type='password']", "@name", "");
-			ParseFormElementValues("//form//input[@type='text']", "@name", "");
-			ParseFormElementValues("//form//input[@type='hidden']", "@name", "");
-			ParseFormElementValues("//form//input[@type='radio'][@checked]", "@name", "on");
-			ParseFormElementValues("//form//input[@type='checkbox'][@checked]", "@name", "on");
-			ParseFormElementValues("//form//textarea", "@name", null);
-			ParseFormElementValues("//form//select/option[@selected]", "../@name", null);
+			formVariables = new Hashtable();
+			foreach (XmlElement formElement in Document.SelectNodes("//form"))
+			{
+				ParseInitialFormValues(formElement);
+			}
 		}
 
-		private void ParseFormElementValues(string elementExpr, string nameExpr, string defaultValue)
+		private void ParseInitialFormValues(XmlElement formElement) 
 		{
-			foreach (XmlElement element in Document.SelectNodes(elementExpr)) 
+			string id = formElement.GetAttribute("id");
+			if (id == null) return;
+
+			formVariables[id] = new FormVariables();
+			ParseFormElementValues(formElement, "//input[@type='file']", "@name", "");
+			ParseFormElementValues(formElement, "//input[@type='password']", "@name", "");
+			ParseFormElementValues(formElement, "//input[@type='text']", "@name", "");
+			ParseFormElementValues(formElement, "//input[@type='hidden']", "@name", "");
+			ParseFormElementValues(formElement, "//input[@type='radio'][@checked]", "@name", "on");
+			ParseFormElementValues(formElement, "//input[@type='checkbox'][@checked]", "@name", "on");
+			ParseFormElementValues(formElement, "//textarea", "@name", null);
+			ParseFormElementValues(formElement, "//select/option[@selected]", "../@name", null);
+		}
+
+		private void ParseFormElementValues(XmlElement formElement, string elementExpr, string nameExpr, string defaultValue)
+		{
+			string id = formElement.GetAttribute("id");
+			foreach (XmlElement element in formElement.SelectNodes("//form[@id='" + id + "']" + elementExpr)) 
 			{
 				XmlAttribute name = (XmlAttribute)element.SelectSingleNode(nameExpr);
 				string value = element.GetAttribute("value");
@@ -145,7 +157,7 @@ namespace NUnit.Extensions.Asp
 						value = element.InnerText.Trim();
 					}
 				}
-				formVariables.Add(name.Value, value);
+				VariablesFor(id).Add(name.Value, value);
 			}
 		}
 

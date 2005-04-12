@@ -142,7 +142,7 @@ namespace NUnit.Extensions.Asp
 		internal void SubmitForm(WebFormTester form)
 		{
 			TrackUrlReferrer();
-			DoWebRequest(form.Action, form.Method, currentPage.Variables.ToString());
+			DoWebRequest(form.Action, form.Method, form.Variables.ToString());
 		}
 
 		/// <summary>
@@ -173,16 +173,16 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				return currentPage.ToString();
+				return CurrentPage.ToString();
 			}
 		}
 
-		internal XmlDocument CurrentPage
+		internal WebPage CurrentPage
 		{
-			get 
+			get
 			{
 				if (currentPage == null) throw new NoPageException();
-				return currentPage.Document;
+				return currentPage;
 			}
 		}
 
