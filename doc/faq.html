@@ -78,11 +78,33 @@
               <br />[exec] sn -k NUnitAsp.snk
               <br />
               <br />BUILD FAILED
-              <br />E:\devtools\nunitasp\NUnitAsp.build(50,4): External program returned errors, see  build log for details.
+              <br />C:\projects\nunitasp\NUnitAsp.build(50,4): External program returned errors, see  build log for details.
               <br />Try 'nant -help' for more information
             </p>
 
             <p>To correct this, make sure you've set DotNetToolDir correctly and that sn.exe is in that path.</p>
+
+            <p>Once you have that working, NAnt will give you a different error:</p>
+
+            <p class="code">
+              BUILD FAILED
+              <br />C:\projects\nunitasp\NUnitAsp.build(90,6):
+              <br />[csc] C:\WINDOWS\Microsoft.NET\Framework\v1.0.3705\csc.exe failed to start.
+              <br />The system cannot find the file specified
+            </p>
+
+            <p>This error occurs because NAnt uses .NET 1.0 by default.  At this point, you can use Visual Studio to build or you can edit NAnt.exe.config in the lib\NAnt directory.  If you edit the config file, set the default framework to 1.1:</p>
+
+            <p class="code">
+              &lt;frameworks&gt;
+              <br />&nbsp;&nbsp;&lt;platform name="win32" default="<span class="highlight">net-1.1</span>"&gt;
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;...
+              <br />&nbsp;&nbsp;&lt;/platform&gt;
+              <br />&lt;/frameworks&gt;
+            </p>
+
+            <p>Many thanks to Ted Husted for pointing this out and to Cory Foy for blogging <a href="http://www.cornetdesign.com/2005/04/targetting-nant-to-different-framework.html">the solution</a>.</p>
+
 
 
             <h2>Q: When will NUnitAsp stop requiring XHTML?</h2>
@@ -92,7 +114,7 @@
 
             <h2>Q: When will NUnitAsp support NUnit v2.2?</h2>
 
-            <p>A: <b>Done!</b> As of version 1.5.1, NUnitAsp supports NUnit v2.2.</p>
+            <p>A: <b>Done!</b> As of version 1.5.1, NUnitAsp supports NUnit v2.2--and with version 1.6, NUnitAsp supports any version of NUnit.</p>
 
 
             <h2>Q: When will NUnitAsp support Visual Studio .NET 2003?</h2>
@@ -104,7 +126,7 @@
 
             <p>A: "NUnitAsp" is spelled in accordance with .NET framework naming standards.  Like .NET's "HttpWebRequest" and "SqlConnection" classes, the first letter of each word is capitalized and acronyms are treated as a single word: N Unit Asp.  It's pronounced "en unit a ess pee."  It is <em>not</em> spelled "NunitAsp," "NUnitASP," or (heaven forbid) "nUnit.ASP."</p>
 
-            <p class="end">Last updated for v1.5.1.</p>
+            <p class="end">Last updated for v1.5.1 + CVS.</p>
           </div>
         </td>
       </tr>

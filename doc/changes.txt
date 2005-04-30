@@ -28,6 +28,7 @@ Produced by Jim Shore.
 * Added "Variables" property to WebFormTester and created FormVariables class to enable direct control and access to form variables.  Credit to Jim Shore.
 * Added support for multiple forms.  Credit to Jim Shore.
 * Added ability for tests to submit and post-back forms.  Credit to Jim Shore.
+* Updated FAQ: How to compile with NAnt under .NET 1.1.  Credit to Cory Foy and Ted Husted.
 
 
 Changes in NUnitAsp 1.5.1:

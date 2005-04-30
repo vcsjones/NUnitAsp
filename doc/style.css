@@ -103,6 +103,11 @@ li {
   color: grey;
 }
 
+.highlight {
+  background-color: yellow;
+  font-weight: bold;
+}
+
 .error {
   background-color: red;
   color: white;
