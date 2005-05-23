@@ -77,8 +77,8 @@ namespace NUnit.Extensions.Asp
 		/// 
 		/// <code>
 		/// HttpClient myHttpClient = new HttpClient();
-		/// WebForm currentWebForm = new WebForm(myHttpClient);
-		/// LabelTester myTester = new LabelTester("id", currentWebForm);</code>
+		/// WebFormTester webForm = new WebFormTester(myHttpClient);
+		/// LabelTester myTester = new LabelTester("id", webForm);</code>
 		/// </example>
 		public ControlTester(string aspId, Tester container)
 		{
