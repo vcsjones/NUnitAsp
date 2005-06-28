@@ -1,7 +1,7 @@
-#region Copyright (c) 2002, 2003 Brian Knowles, Jim Shore
+#region Copyright (c) 2002-2005 Brian Knowles, James Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2002-2005, Brian Knowles, James Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -39,6 +39,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// source code, look for the tag that the control is nested in.  That's probably the
 		/// control's container.  Use CurrentWebForm if the control is just nested in the form tag.)</param>
 		/// <param name="runAtServer">Tells tester whether the control under test is running on the server side.</param>
+		// NOTE::::: Mark me obsolete!
 		public HtmlControlTester(string aspId, Tester container, bool runAtServer) :
 			base(aspId, container)
 		{
@@ -73,6 +74,29 @@ namespace NUnit.Extensions.Asp.HtmlTester
 				{
 					return AspId;
 				}
+			}
+		}
+
+		/// <summary>
+		/// The HTML inside the tag being tested.
+		/// </summary>
+		public string InnerHtml
+		{
+			get
+			{
+				return Tag.Body;
+			}
+		}
+
+		/// <summary>
+		/// Same as InnerHtml, but with HTML entities (such as &amp;gt;) converted to characters
+		/// (such as &gt;).
+		/// </summary>
+		public string InnerText
+		{
+			get
+			{
+				return System.Web.HttpUtility.HtmlDecode(Tag.Body);
 			}
 		}
 	}

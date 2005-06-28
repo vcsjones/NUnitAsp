@@ -1,7 +1,7 @@
-#region Copyright (c) 2002-2004, Brian Knowles, Jim Shore
+#region Copyright (c) 2002-2005, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002-2004, Brian Knowles, Jim Shore
+' Copyright (c) 2002-2005, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -22,6 +22,7 @@
 
 using System;
 using System.Text.RegularExpressions;
+using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
@@ -75,6 +76,14 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// </example>
 		public LinkButtonTester(string aspId, Tester container) : base(aspId, container)
 		{
+		}
+
+		private HtmlAnchorTester LinkButton 
+		{
+			get
+			{
+				return new HtmlAnchorTester(HtmlId, null, false);
+			}
 		}
 
 		/// <summary>
