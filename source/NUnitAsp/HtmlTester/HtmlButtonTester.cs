@@ -15,7 +15,7 @@
 ' THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 ' AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
 ' CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-' DEALINGS IN THE SOFTWARE.
+' DEALINGS IN THE SOFTWARE.w
 '
 '*******************************************************************************************************************/
 #endregion
@@ -27,22 +27,41 @@ using System.Web;
 namespace NUnit.Extensions.Asp.HtmlTester
 {
 	/// <summary>
-	/// This class is obsolete and will be dropped in future releases
-	/// of NUnitAsp. Please use <see cref="HtmlAnchorTester"/> instead.
+	/// Tester for System.Web.UI.HtmlControls.HtmlButton
 	/// </summary>
-	[Obsolete("Please use HtmlAnchorTester instead; will be dropped in v1.7 or later")]
-	public class AnchorTester : HtmlAnchorTester
+	public class HtmlButtonTester : HtmlControlTester
 	{
 		/// <summary>
-		/// Create the tester and link it to an ASP.NET control.
+		/// Create a tester for an HTML tag.  Use this constructor
+		/// for testing most tags.
 		/// </summary>
-		/// <param name="aspId">The ID of the control to test (look in the page's ASP.NET source code for the ID).</param>
-		/// <param name="container">A tester for the control's container.  (In the page's ASP.NET
-		/// source code, look for the tag that the control is nested in.  That's probably the
-		/// control's container.  Use CurrentWebForm if the control is just nested in the form tag.)</param>
-		/// <param name="runAtServer">Tells tester whether the control under test is running on the server side.</param>
-		public AnchorTester(string aspId, Tester container, bool runAtServer) : base(aspId, container, runAtServer)
+		/// <param name="aspId">The ID of the control to test (look in the
+		/// page's ASP.NET source code for the ID).</param>
+		public HtmlButtonTester(string htmlId) : base(htmlId)
 		{
+		}
+
+		/// <summary>
+		/// Create a tester for a server-side HTML control.  Use this constructor
+		/// when the HTML tag you are testing has the "runat='server'" attribute.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to test (look in the
+		/// page's ASP.NET source code for the ID).</param>
+		/// <param name="container">A tester for the control's container.  
+		/// (In the page's ASP.NET source code, look for the tag that the
+		/// control is nested in.  That's probably the control's
+		/// container.  Use "CurrentWebForm" if you're not sure; it will
+		/// probably work.)</param>
+		public HtmlButtonTester(string aspId, Tester container) : base(aspId, container)
+		{
+		}
+
+		/// <summary>
+		/// Click the button.
+		/// </summary>
+		public void Click()
+		{
+			Form.Submit();
 		}
 	}
 }

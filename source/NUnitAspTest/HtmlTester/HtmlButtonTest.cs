@@ -1,7 +1,7 @@
-#region Copyright (c) 2002-2005, Brian Knowles, Jim Shore
+#region Copyright (c) 2005, James Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002-2005, Brian Knowles, Jim Shore
+' Copyright (c) 2005, James Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -21,28 +21,28 @@
 #endregion
 
 using System;
-using System.Text.RegularExpressions;
-using System.Web;
+using NUnit.Framework;
+using NUnit.Extensions.Asp.HtmlTester;
 
-namespace NUnit.Extensions.Asp.HtmlTester
+namespace NUnit.Extensions.Asp.Test.HtmlTester
 {
-	/// <summary>
-	/// This class is obsolete and will be dropped in future releases
-	/// of NUnitAsp. Please use <see cref="HtmlAnchorTester"/> instead.
-	/// </summary>
-	[Obsolete("Please use HtmlAnchorTester instead; will be dropped in v1.7 or later")]
-	public class AnchorTester : HtmlAnchorTester
+	[TestFixture]
+	public class HtmlButtonTest : NUnitAspTestCase
 	{
-		/// <summary>
-		/// Create the tester and link it to an ASP.NET control.
-		/// </summary>
-		/// <param name="aspId">The ID of the control to test (look in the page's ASP.NET source code for the ID).</param>
-		/// <param name="container">A tester for the control's container.  (In the page's ASP.NET
-		/// source code, look for the tag that the control is nested in.  That's probably the
-		/// control's container.  Use CurrentWebForm if the control is just nested in the form tag.)</param>
-		/// <param name="runAtServer">Tells tester whether the control under test is running on the server side.</param>
-		public AnchorTester(string aspId, Tester container, bool runAtServer) : base(aspId, container, runAtServer)
+		private HtmlButtonTester button;
+
+		protected override void SetUp()
 		{
+			base.SetUp();
+			button = new HtmlButtonTester("button");
+			Browser.GetPage(BaseUrl + "HtmlTester/HtmlButtonTestPage.aspx");
+		}
+
+		[Test]
+		public void TestClick()
+		{
+			button.Click();
+			Assert.AreEqual("RedirectionTarget", CurrentWebForm.AspId);
 		}
 	}
 }
