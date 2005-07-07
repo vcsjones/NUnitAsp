@@ -51,12 +51,6 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("result", "Clicked", clickResult.Text);
 		}
 
-        [ExpectedException(typeof(ControlDisabledException))]
-        public void TestClick_WhenDisabled()
-		{
-			disabledButton.Click();
-		}
-
 		public void TestEnabled_True()
 		{
 			AssertEquals("enabled", true, button.Enabled);

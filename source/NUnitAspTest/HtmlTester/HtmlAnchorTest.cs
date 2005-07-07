@@ -67,7 +67,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		public void TestClick_WhenDisabled()
 		{
 			disabledLink.Click();
-			// Yes, you can click disabled link (at least in IE)
+			// Yes, you can click a disabled link (at least in IE)
 			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
 		}
 

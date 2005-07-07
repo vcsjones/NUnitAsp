@@ -7,6 +7,7 @@ To do:
 * FAQ: No change to "get" without postback (eg, tracker #1106130)
 * Look into HtmlAgilityPack HTML parser: http://blogs.msdn.com/smourier/archive/2003/06/04/8265.aspx
 * FAQ: <csc> error: lib/nant/nant.exe.config <platform name="win32" default="net-1.1">  (Cory Foy, "Build problems," 4/11-4/13/05)
+* HTML controls: HtmlAnchor, HtmlButton, HtmlImage, HtmlInputButton, HtmlInputCheckBox, HtmlInputFile, HtmlInputHidden, HtmlInputImage, HtmlInputRadioButton, HtmlInputText, HtmlSelect, HtmlTable, HtmlTextArea
 
 
 Before release:
@@ -29,6 +30,7 @@ Produced by Jim Shore.
 * Added support for multiple forms.  Credit to Jim Shore.
 * Added ability for tests to submit and post-back forms.  Credit to Jim Shore.
 * Updated FAQ: How to compile with NAnt under .NET 1.1.  Credit to Cory Foy and Ted Husted.
+* Changed LinkButtonTester to NOT check if the link is disabled.  Credit to Jim Shore.
 
 
 Changes in NUnitAsp 1.5.1:

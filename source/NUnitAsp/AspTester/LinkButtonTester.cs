@@ -78,11 +78,11 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 		}
 
-		private HtmlAnchorTester LinkButton 
+		private HtmlAnchorTester AnchorTag 
 		{
 			get
 			{
-				return new HtmlAnchorTester(HtmlId, null, false);
+				return new HtmlAnchorTester(HtmlId, Form, false);
 			}
 		}
 
@@ -91,11 +91,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// </summary>
 		public void Click()
 		{
-			if (!Enabled)
-			{
-				throw new ControlDisabledException(this);
-			}
-			Form.PostBack(Tag.Attribute("href"));
+			AnchorTag.Click();
 		}
 
 		/// <summary>
@@ -105,7 +101,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return Tag.Body;
+				return AnchorTag.InnerHtml;
 			}
 		}
 	}

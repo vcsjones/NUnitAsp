@@ -89,8 +89,10 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		}
 
 		/// <summary>
-		/// Same as InnerHtml, but with HTML entities (such as &amp;gt;) converted to characters
-		/// (such as &gt;).
+		/// Use with caution--<see cref="InnerHtml"/> is probably a better choice.  
+		/// Provided for consistency with ASP.NET framework API.  This method is the same as
+		/// InnerHtml, but with HTML entities (such as &amp;gt;) converted to
+		/// characters (such as &gt;).
 		/// </summary>
 		public string InnerText
 		{
