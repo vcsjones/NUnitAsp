@@ -180,10 +180,12 @@ namespace NUnit.Extensions.Asp
 		{
 			if (a == null) return "null";
 
+			string joiner = "";
 			string result = "{";
 			foreach (string element in a)
 			{
-				result += "<" + element + ">";
+				result += joiner + "\"" + element + "\"";
+				joiner = ", ";
 			}
 			return result + "}";
 		}
@@ -275,6 +277,25 @@ namespace NUnit.Extensions.Asp
 				default:
 					throw new ApplicationException("Unknown data type comparison: " + type);
 			}
+		}
+
+		/// <summary>
+		/// Asserts that a "table" of strings contains a particular "row."
+		/// </summary>
+		/// <param name="table">The table to check.</param>
+		/// <param name="expectedRow">The row that the table should contain.</param>
+		[CLSCompliant(false)]
+		public static void TableContainsRow(string[][] table, params string[] expectedRow)
+		{
+			foreach (string[] row in table)
+			{
+				if (ArraysEqual(expectedRow, row)) return;
+			}
+			Fail(String.Format(
+				"\nExpected table to contain row:\n{0}\nactual table was:\n{1}",
+				Flatten(expectedRow),
+				Flatten(table)
+			));
 		}
 	}
 

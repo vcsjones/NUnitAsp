@@ -35,7 +35,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// Create a tester for an HTML tag.  Use this constructor
 		/// for testing most tags.
 		/// </summary>
-		/// <param name="aspId">The ID of the control to test (look in the
+		/// <param name="htmlId">The ID of the control to test (look in the
 		/// page's ASP.NET source code for the ID).</param>
 		public HtmlButtonTester(string htmlId) : base(htmlId)
 		{
@@ -61,6 +61,8 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// </summary>
 		public void Click()
 		{
+			string name = Tag.OptionalAttribute("name");
+			if (name != null) Form.Variables.Add(name, Tag.Attribute("value"));
 			Form.Submit();
 		}
 	}

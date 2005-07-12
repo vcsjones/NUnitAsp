@@ -62,12 +62,12 @@ namespace NUnit.Extensions.Asp.Test
 
 			string expected = "\r\nexpected: \r\n   {\r\n      {\"1\"}\r\n   }\r\n but was: \r\n   {\r\n      {\"1\"}\r\n      {\"2\"}\r\n   }";
 			string[][] one = new string[][] {
-				new string[] {"1"}
-			};
+												new string[] {"1"}
+											};
 			string[][] two = new string[][] {
-				new string[] {"1"},
-				new string[] {"2"}
-			};
+												new string[] {"1"},
+												new string[] {"2"}
+											};
 			AssertArrayRenders(expected, one, two);							
 			AssertArrayRenders("\r\nexpected: {}\r\n but was: <null>", new string[][] {},  null);
 		}
@@ -242,6 +242,22 @@ namespace NUnit.Extensions.Asp.Test
 			AssertSortOrderFails(testData, DataType.DateTime);
 		}
 
+		public void TestTableContainsRow()
+		{
+			string[][] testData = new string[][]
+			{
+				new string[] {"a", "b"},
+			};
+			WebAssert.TableContainsRow(testData, "a", "b");
+		}
+
+		[ExpectedException(typeof(WebAssertionException))]
+		public void TestTableContainsRow_WhenItDoesnt()
+		{
+			string[][] testData = new string[][] {};
+			WebAssert.TableContainsRow(testData, "a", "b");
+		}
+        
 		private void AssertSortOrderFails(string[][] testData, DataType dataType)
 		{
 			try

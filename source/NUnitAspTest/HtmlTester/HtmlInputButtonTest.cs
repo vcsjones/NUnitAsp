@@ -28,17 +28,17 @@ using NUnit.Extensions.Asp.HtmlTester;
 namespace NUnit.Extensions.Asp.Test.HtmlTester
 {
 	[TestFixture]
-	public class HtmlButtonTest : NUnitAspTestCase
+	public class HtmlInputButtonTest : NUnitAspTestCase
 	{
-		private HtmlButtonTester button;
+		private HtmlInputButtonTester button;
 		private DataGridTester formVars;
-			
+
 		protected override void SetUp()
 		{
 			base.SetUp();
-			button = new HtmlButtonTester("button");
+			button = new HtmlInputButtonTester("button");
 			formVars = new DataGridTester("formVars", CurrentWebForm);
-			Browser.GetPage(BaseUrl + "HtmlTester/HtmlButtonTestPage.aspx");
+			Browser.GetPage(BaseUrl + "HtmlTester/HtmlInputButtonTestPage.aspx");
 		}
 
 		[Test]
@@ -46,15 +46,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		{
 			button.Click();
 			Assert.AreEqual("RedirectionTarget", CurrentWebForm.AspId);
-			WebAssert.TableContainsRow(formVars.TrimmedCells, "buttonName", "duplicate name,buttonValue");
-		}
-
-		[Test]
-		public void TestClick_WhenNoNameAttribute()
-		{
-			new HtmlButtonTester("noNameButton").Click();
-			Assert.AreEqual("RedirectionTarget", CurrentWebForm.AspId);
-			WebAssert.TableContainsRow(formVars.TrimmedCells, "buttonName", "duplicate name");
+			WebAssert.TableContainsRow(formVars.TrimmedCells, "button", "This is a button.");
 		}
 	}
 }

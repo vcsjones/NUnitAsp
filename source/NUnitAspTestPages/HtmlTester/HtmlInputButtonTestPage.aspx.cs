@@ -1,28 +1,24 @@
 using System;
+using System.Collections;
+using System.ComponentModel;
 using System.Data;
+using System.Drawing;
+using System.Web;
+using System.Web.SessionState;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 
-namespace NUnitAspTestPages
+namespace NUnitAspTestPages.HtmlTester
 {
-	public class RedirectionTarget : System.Web.UI.Page
+	/// <summary>
+	/// Summary description for HtmlButtonTestPage.
+	/// </summary>
+	public class HtmlInputButtonTestPage : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.DataGrid formVars;
-	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			DataTable table = new DataTable();
-			table.Columns.Add(new DataColumn("Name", typeof(string)));
-			table.Columns.Add(new DataColumn("Value", typeof(string)));
-
-			foreach (string name in Request.Form)
-			{
-				DataRow row = table.NewRow();
-				row["Name"] = name;
-				row["Value"] = Request.Form[name];
-				table.Rows.Add(row);
-			}
-
-			formVars.DataSource = table;
-			formVars.DataBind();
+			// Put user code to initialize the page here
 		}
 
 		#region Web Form Designer generated code
@@ -42,7 +38,6 @@ namespace NUnitAspTestPages
 		private void InitializeComponent()
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
-
 		}
 		#endregion
 	}

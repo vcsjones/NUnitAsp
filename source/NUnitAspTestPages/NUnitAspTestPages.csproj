@@ -585,6 +585,21 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "HtmlTester\HtmlInputButtonTestPage.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlInputButtonTestPage.aspx.cs"
+                    DependentUpon = "HtmlInputButtonTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlInputButtonTestPage.aspx.resx"
+                    DependentUpon = "HtmlInputButtonTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "HtmlTester\HtmlInputCheckBoxTestPage.aspx"
                     BuildAction = "Content"
                 />

@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="HtmlButtonTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnitAspTestPages.HtmlTester.HtmlButtonTestPage" %>
+<%@ Page language="c#" Codebehind="HtmlInputButtonTestPage.aspx.cs" AutoEventWireup="false" Inherits="NUnitAspTestPages.HtmlTester.HtmlInputButtonTestPage" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
 	<head>
@@ -10,9 +10,7 @@
 	</head>
 	<body>
 		<form id="HtmlButtonTestPage" method="post" action="../RedirectionTarget.aspx">
-			<button id="button" name="buttonName" value="buttonValue">This is a <i>fancy</i> button.</button>
-			<button id="noNameButton">This button has no "name" attribute.</button>
-			<input type="hidden" name="buttonName" value="duplicate name" />
+			<input type="submit" id="button" name="button" value="This is a button." />
 		</form>
 	</body>
 </html>
