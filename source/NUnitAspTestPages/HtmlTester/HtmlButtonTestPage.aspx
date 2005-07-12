@@ -11,8 +11,8 @@
 	<body>
 		<form id="HtmlButtonTestPage" method="post" action="../RedirectionTarget.aspx">
 			<button id="button" name="buttonName" value="buttonValue">This is a <i>fancy</i> button.</button>
-			<button id="noNameButton">This button has no "name" attribute.</button>
-			<input type="hidden" name="buttonName" value="duplicate name" />
+			<button id="disabledButton" disabled="true">Disabled</button> <button id="noNameButton">
+				This button has no "name" attribute.</button> <input type="hidden" name="buttonName" value="duplicate name" />
 		</form>
 	</body>
 </html>

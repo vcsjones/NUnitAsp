@@ -56,5 +56,18 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 			Assert.AreEqual("RedirectionTarget", CurrentWebForm.AspId);
 			WebAssert.TableContainsRow(formVars.TrimmedCells, "buttonName", "duplicate name");
 		}
+
+		[Test]
+		[ExpectedException(typeof(ControlDisabledException))]
+		public void TestClick_WhenDisabled()
+		{
+			new HtmlButtonTester("disabledButton").Click();
+		}
+
+		[Test]
+		public void TestText()
+		{
+			Assert.AreEqual("This is a <i>fancy</i> button.", button.Text);
+		}
 	}
 }

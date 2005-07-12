@@ -11,6 +11,7 @@
 	<body>
 		<form id="HtmlButtonTestPage" method="post" action="../RedirectionTarget.aspx">
 			<input type="submit" id="button" name="button" value="This is a button." />
+			<input type="submit" id="disabledButton" disabled="true" name="button" value="Disabled." />
 		</form>
 	</body>
 </html>

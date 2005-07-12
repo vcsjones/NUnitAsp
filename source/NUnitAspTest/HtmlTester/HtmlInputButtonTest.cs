@@ -48,5 +48,11 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 			Assert.AreEqual("RedirectionTarget", CurrentWebForm.AspId);
 			WebAssert.TableContainsRow(formVars.TrimmedCells, "button", "This is a button.");
 		}
+
+		[Test]
+		public void TestText()
+		{
+			Assert.AreEqual("This is a button.", button.Text);
+		}
 	}
 }

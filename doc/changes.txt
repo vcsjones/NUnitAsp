@@ -13,10 +13,11 @@ To do:
 
 Before release:
 * Update build: remove NUnit, put NUnitAdapter.cs in bin/ dir
-* Copy new constructors to every tester (don't forget WebFormTester and HTML testers)
+* Copy new constructors to every tester (don't forget WebFormTester and HtmlAnchorTester/HtmlInputCheckBoxTester)
 * Finish migration guide.
 * Remove ControlTester.EnterInputValue/RemoveInputValue?  Make AssertEnabled explicit in tester?
 * Mark 'runAtServer' HTML constructor as obsolete?
+* Combine HtmlTag and HtmlControlTester?  Supply HtmlControlTester.Attribute?
 
 
 Changes in CVS:

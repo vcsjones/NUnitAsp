@@ -31,5 +31,16 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		public HtmlInputButtonTester(string aspId, Tester container) : base(aspId, container)
 		{
 		}
+
+		/// <summary>
+		/// Get the text on the button
+		/// </summary>
+		public override string Text
+		{
+			get
+			{
+				return Tag.Attribute("value");
+			}
+		}
 	}
 }

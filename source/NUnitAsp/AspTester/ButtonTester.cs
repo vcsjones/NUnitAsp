@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
@@ -40,13 +41,20 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 		}
 
+		private HtmlInputButtonTester ButtonTag 
+		{
+			get
+			{
+				return new HtmlInputButtonTester(HtmlId);
+			}
+		}
+
 		/// <summary>
 		/// Click the button.
 		/// </summary>
 		public void Click()
 		{
-			EnterInputValue(Tag.Attribute("name"), Tag.Attribute("value"));
-			Form.Submit();
+			ButtonTag.Click();
 		}
 
 		/// <summary>
@@ -56,7 +64,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return Tag.Attribute("value");
+				return ButtonTag.Text;
 			}
 		}
 	}

@@ -61,9 +61,22 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// </summary>
 		public void Click()
 		{
+			if (Disabled) throw new ControlDisabledException(this);
+
 			string name = Tag.OptionalAttribute("name");
 			if (name != null) Form.Variables.Add(name, Tag.Attribute("value"));
 			Form.Submit();
+		}
+
+		/// <summary>
+		/// Get the text on the button
+		/// </summary>
+		public virtual string Text
+		{
+			get
+			{
+				return InnerHtml;
+			}
 		}
 	}
 }
