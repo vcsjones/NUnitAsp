@@ -22,6 +22,7 @@
 
 using System;
 using System.Xml;
+using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
@@ -41,6 +42,14 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 		}
 
+		private HtmlInputCheckBoxTester CheckBoxTag
+		{
+			get
+			{
+				return new HtmlInputCheckBoxTester(HtmlId);
+			}
+		}
+
 		/// <summary>
 		/// True if the checkbox is checked, false if not.
 		/// </summary>
@@ -48,21 +57,11 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return Tag.HasAttribute("checked");
+				return CheckBoxTag.Checked;
 			}
 			set
 			{
-				string inputName = Tag.Attribute("name");
-				if (value == true) 
-				{
-					string checkBoxValue = Tag.OptionalAttribute("value");
-					if (checkBoxValue == null) checkBoxValue = "on";
-					EnterInputValue(inputName, checkBoxValue);
-				}
-				else
-				{
-					RemoveInputValue(inputName);
-				}
+				CheckBoxTag.Checked = value;
 			}
 		}	
 
@@ -73,12 +72,12 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				if (!Label.Visible) return "";
-				return Label.Body;
+				if (!LabelTag.Visible) return "";
+				else return LabelTag.Body;
 			}
 		}
 
-		private HtmlTag Label
+		private HtmlTag LabelTag
 		{
 			get
 			{
@@ -93,7 +92,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return Tag.Parent.HasAttribute("disabled");
+				return CheckBoxTag.Disabled;
 			}
 		}
 	}

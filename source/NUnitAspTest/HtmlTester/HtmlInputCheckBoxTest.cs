@@ -1,7 +1,7 @@
-#region Copyright (c) 2003, Brian Knowles, Jim Shore
+#region Copyright (c) 2003, 2005, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2003, Brian Knowles, Jim Shore
+' Copyright (c) 2003, 2005, Brian Knowles, Jim Shore
 ' Originally by Andrew Enfield; copyright transferred on nunitasp-devl mailing list, May 2003
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -45,13 +45,13 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		{
 			base.SetUp();
 
-			checkNotCheckedServer = new HtmlInputCheckBoxTester("checkNotCheckedServer", CurrentWebForm, true);
-			checkCheckedServer = new HtmlInputCheckBoxTester("checkCheckedServer", CurrentWebForm, true);
-			checkNotCheckedNotServer = new HtmlInputCheckBoxTester("checkNotCheckedServer", CurrentWebForm, false);
-			checkCheckedNotServer = new HtmlInputCheckBoxTester("checkCheckedNotServer", CurrentWebForm, false);
-			checkVaryServer = new HtmlInputCheckBoxTester("checkVaryServer", CurrentWebForm, true);
-			checkVaryNotServer = new HtmlInputCheckBoxTester("checkVaryNotServer", CurrentWebForm, false);
-			checkDisabled = new HtmlInputCheckBoxTester("checkDisabled", CurrentWebForm, false);
+			checkNotCheckedServer = new HtmlInputCheckBoxTester("checkNotCheckedServer", CurrentWebForm);
+			checkCheckedServer = new HtmlInputCheckBoxTester("checkCheckedServer", CurrentWebForm);
+			checkNotCheckedNotServer = new HtmlInputCheckBoxTester("checkNotCheckedServer");
+			checkCheckedNotServer = new HtmlInputCheckBoxTester("checkCheckedNotServer");
+			checkVaryServer = new HtmlInputCheckBoxTester("checkVaryServer", CurrentWebForm);
+			checkVaryNotServer = new HtmlInputCheckBoxTester("checkVaryNotServer");
+			checkDisabled = new HtmlInputCheckBoxTester("checkDisabled");
 
 			submit = new LinkButtonTester("submit", CurrentWebForm);
 
