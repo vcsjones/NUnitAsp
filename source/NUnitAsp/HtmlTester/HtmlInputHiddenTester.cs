@@ -1,8 +1,7 @@
-#region Copyright (c) 2003-2005, Brian Knowles, Jim Shore
+#region Copyright (c) 2005, James Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2003-2005, Brian Knowles, Jim Shore
-' Originally by Andrew Enfield; copyright transferred on nunitasp-devl mailing list, May 2003
+' Copyright (c) 2005, James Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -26,9 +25,9 @@ using System;
 namespace NUnit.Extensions.Asp.HtmlTester
 {
 	/// <summary>
-	/// Tester for the System.Web.UI.HtmlControls.HtmlInputCheckBox control.
+	/// Tester for System.Web.UI.HtmlControls.HtmlInputHidden
 	/// </summary>
-	public class HtmlInputCheckBoxTester : HtmlControlTester
+	public class HtmlInputHidden : HtmlControlTester
 	{
 		/// <summary>
 		/// Create a tester for an HTML tag.  Use this constructor
@@ -36,7 +35,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// </summary>
 		/// <param name="htmlId">The ID of the control to test (look in the
 		/// page's ASP.NET source code for the ID).</param>
-		public HtmlInputCheckBoxTester(string htmlId) : base(htmlId)
+		public HtmlInputHidden(string htmlId) : base(htmlId)
 		{
 		}
 
@@ -51,29 +50,11 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// control is nested in.  That's probably the control's
 		/// container.  Use "CurrentWebForm" if you're not sure; it will
 		/// probably work.)</param>
-		public HtmlInputCheckBoxTester(string aspId, Tester container) : base(aspId, container)
+		public HtmlInputHidden(string aspId, Tester container) : base(aspId, container)
 		{
 		}
 
-		public bool Checked 
-		{
-			get 
-			{
-				return Tag.HasAttribute("checked");
-			}
-			set 
-			{
-				if (value == true) 
-				{
-					string checkBoxValue = Tag.OptionalAttribute("value");
-					if (checkBoxValue == null) checkBoxValue = "on";
-					EnterInputValue(Tag.Attribute("name"), checkBoxValue);
-				}
-				else
-				{
-					RemoveInputValue(Tag.Attribute("name"));
-				}
-			}
-		}
+		// Note: This class is included for completeness only; there is no functionality
+		// unique to HtmlInputHidden that is not already in the parent class.
 	}
 }
