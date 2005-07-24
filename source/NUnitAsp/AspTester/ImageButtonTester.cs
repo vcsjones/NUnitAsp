@@ -1,7 +1,7 @@
-#region Copyright (c) 2003-2004, Brian Knowles, Jim Shore
+#region Copyright (c) 2003-2005, Brian Knowles, James Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2003-2004, Brian Knowles, Jim Shore
+' Copyright (c) 2003-2005, Brian Knowles, James Shore
 ' Originally by Clifton F. Vaughn; copyright transferred on nunitasp-devl mailing list, May 2003
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -21,6 +21,8 @@
 '*******************************************************************************************************************/
 #endregion
 
+using NUnit.Extensions.Asp.HtmlTester;
+
 namespace NUnit.Extensions.Asp.AspTester
 {
 	/// <summary>
@@ -39,6 +41,14 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 		}
 
+		private HtmlInputImageTester ImageTag 
+		{
+			get
+			{
+				return new HtmlInputImageTester(HtmlId);
+			}
+		}
+
 		/// <summary>
 		/// Click the button in a particular location.
 		/// <param name="x">The 'x' coordinate of the simulated mouse click.</param>
@@ -46,18 +56,15 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// </summary>
 		public void Click(int x, int y)
 		{
-			string name = Tag.Attribute("name");
-			EnterInputValue(name + ".x", x.ToString());
-			EnterInputValue(name + ".y", y.ToString());
-			Form.Submit();
+			ImageTag.Click(x, y);
 		}
 
 		/// <summary>
-		/// Click the button. Same as Click(0, 0).
+		/// Click the button at coordinates (0, 0).
 		/// </summary>
 		public void Click()
 		{
-			Click(0,0);
+			ImageTag.Click();
 		}
 	}
 }
