@@ -122,6 +122,17 @@ namespace NUnit.Extensions.Asp
 		/// rows may differ.
 		/// </summary>
 		[CLSCompliant(false)]
+		public static void AreEqualIgnoringOrder(string[][] expected, string[][] actual)
+		{
+			AreEqualIgnoringOrder(expected, actual, "");
+		}
+
+		/// <summary>
+		/// Asserts that two "tables" of strings are identical, but permits ordering
+		/// differences.  Individual rows in the tables must match, but the order of the
+		/// rows may differ.
+		/// </summary>
+		[CLSCompliant(false)]
 		public static void AreEqualIgnoringOrder(string[][] expected, string[][] actual, string message)
 		{
 			if (expected.Length != actual.Length) Fail(message, expected, actual);

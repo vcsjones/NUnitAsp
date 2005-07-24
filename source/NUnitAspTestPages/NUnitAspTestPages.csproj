@@ -614,6 +614,22 @@
                     DependentUpon = "HtmlInputCheckBoxTestPage.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
+                <File
+                    RelPath = "HtmlTester\HtmlInputImageTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlInputImageTestPage.aspx.cs"
+                    DependentUpon = "HtmlInputImageTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlInputImageTestPage.aspx.resx"
+                    DependentUpon = "HtmlInputImageTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
             </Include>
         </Files>
     </CSHARP>
