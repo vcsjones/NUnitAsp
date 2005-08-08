@@ -95,13 +95,16 @@ li {
   float: left;
 }
 
-.code, .html {
+.code, .html, .callout {
   text-align: left;
-  font-family: monospace;
   margin: 1.5em 5em 1.5em 5em;
   border: 1px dashed black;
   padding: 0.5em;
   background-color: #FFFFCC;
+}
+
+.code, .html {
+  font-family: monospace;
 }
 
 .emph {
