@@ -31,8 +31,10 @@ namespace NUnit.Extensions.Asp.AspTester
 	public abstract class AspControlTester : ControlTester
 	{
 		/// <summary>
-		/// Create a tester for a top-level control.  Use this constructor
-		/// for testing most controls.
+		/// <p>Create a tester for a top-level control.  Use this constructor
+		/// for testing most controls.  Testers created with this constructor
+		/// will test pages loaded by the <see cref="HttpClient.Default"/>
+		/// HttpClient.</p>
 		/// </summary>
 		/// <param name="aspId">The ID of the control to test (look in the
 		/// page's ASP.NET source code for the ID).</param>
@@ -43,7 +45,9 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// <summary>
 		/// Create a tester for a nested control.  Use this constructor when 
 		/// the control you are testing is nested within another control,
-		/// such as a DataGrid or UserControl.
+		/// such as a DataGrid or UserControl.  You should also use this
+		/// constructor when you're not using the 
+		/// <see cref="HttpClient.Default"/> HttpClient.
 		/// </summary>
 		/// <param name="aspId">The ID of the control to test (look in the
 		/// page's ASP.NET source code for the ID).</param>
@@ -51,6 +55,24 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// (In the page's ASP.NET source code, look for the tag that the
 		/// control is nested in.  That's probably the control's
 		/// container.)</param>
+		/// 
+		/// <example>
+		/// This example demonstrates how to test a label that's inside
+		/// of a user control:
+		/// 
+		/// <code>
+		/// UserControlTester user1 = new UserControlTester("user1");
+		/// LabelTester label = new LabelTester("label", user1);</code>
+		/// </example>
+		/// 
+		/// <example>This example demonstrates how to use an HttpClient
+		/// other than <see cref="HttpClient.Default"/>:
+		/// 
+		/// <code>
+		/// HttpClient myHttpClient = new HttpClient();
+		/// WebForm currentWebForm = new WebForm(myHttpClient);
+		/// LabelTester myTester = new LabelTester("id", currentWebForm);</code>
+		/// </example>
 		public AspControlTester(string aspId, Tester container) : base(aspId, container)
 		{
 		}

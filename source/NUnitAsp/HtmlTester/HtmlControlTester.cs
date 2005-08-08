@@ -72,6 +72,17 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		}
 
 		/// <summary>
+		/// Returns the value of an attribute on this tag or throws an exception if the attribute
+		/// isn't present.
+		/// </summary>
+		/// <param name="name">The name of the attribute.</param>
+		/// <returns>The value of the attribute</returns>
+		public string Attribute(string name) 
+		{
+			return Tag.Attribute(name);
+		}
+
+		/// <summary>
 		/// Gets or sets a value indicating wheither the control is disabled.
 		/// </summary>
 		public bool Disabled

@@ -1,7 +1,7 @@
-#region Copyright (c) 2003, Brian Knowles, Jim Shore
+#region Copyright (c) 2003, 2005 Brian Knowles, James Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2003, Brian Knowles, Jim Shore
+' Copyright (c) 2003, 2005 Brian Knowles, James Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -23,11 +23,12 @@
 using System;
 using NUnit.Framework;
 using NUnit.Extensions.Asp.AspTester;
+using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
 	[TestFixture]
-	public class RadioButtonTest : CheckBoxTest
+	public class RadioButtonTest : NUnitAspTestCase
 	{
 		private RadioButtonTester groupedOne;
 		private RadioButtonTester groupedTwo;
@@ -35,8 +36,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		protected override void SetUp()
 		{
 			base.SetUp();
-
-			// Used in base class
+			Submit = new LinkButtonTester("submit", CurrentWebForm);
 			CheckBox = new RadioButtonTester("radionButton", CurrentWebForm);
 			DisabledCheckBox = new RadioButtonTester("disabled", CurrentWebForm);
 
@@ -48,8 +48,8 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		}
 
 		[Test]
-		[ExpectedException(typeof(RadioButtonTester.CannotUncheckException))]
-		public override void TestUncheck()
+		[ExpectedException(typeof(HtmlInputRadioButtonTester.CannotUncheckException))]
+		public void TestUncheck()
 		{
 			CheckBox.Checked = false;
 		}
@@ -65,6 +65,54 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 
 			AssertEquals(false, groupedOne.Checked);
 			AssertEquals(true, groupedTwo.Checked);
+		}
+
+
+
+		// copied from CheckBoxTester
+
+		protected RadioButtonTester CheckBox;
+		protected RadioButtonTester DisabledCheckBox;
+		protected LinkButtonTester Submit;
+
+		public void TestCheck()
+		{
+			AssertTrue("should not be checked", !CheckBox.Checked);
+			CheckBox.Checked = true;
+			AssertTrue("still shouldn't be checked - not submitted", !CheckBox.Checked);
+			Submit.Click();
+			AssertTrue("should be checked", CheckBox.Checked);
+		}
+
+		[ExpectedException(typeof(ControlDisabledException))]
+		public void TestCheck_WhenDisabled()
+		{
+			DisabledCheckBox.Checked = true;
+		}
+
+		public void TestText()
+		{
+			AssertEquals("text", "Test me", CheckBox.Text);
+		}
+
+		public void TestText_WhenNone()
+		{
+			AssertEquals("no text", "", new CheckBoxTester("noText", CurrentWebForm).Text);
+		}
+
+		public void TestFormattedText()
+		{
+			AssertEquals("formatted text", "<b>bold!</b>", new CheckBoxTester("formattedText", CurrentWebForm).Text);
+		}
+
+		public void TestEnabled_True()
+		{
+			AssertEquals("enabled", true, CheckBox.Enabled);
+		}
+
+		public void TestEnabled_False()
+		{
+			AssertEquals("enabled", false, DisabledCheckBox.Enabled);
 		}
 	}
 }

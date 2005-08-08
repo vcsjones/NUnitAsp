@@ -303,9 +303,9 @@ namespace NUnit.Extensions.Asp
 				if (ArraysEqual(expectedRow, row)) return;
 			}
 			Fail(String.Format(
-				"\nExpected table to contain row:\n{0}\nactual table was:\n{1}",
-				Flatten(expectedRow),
-				Flatten(table)
+				"\nExpected table to contain row:\n   {0}\nactual table was:{1}",
+				RenderArray(expectedRow),
+				RenderDoubleArray(table)
 			));
 		}
 	}

@@ -7,26 +7,28 @@ To do:
 * FAQ: No change to "get" without postback (eg, tracker #1106130)
 * Look into HtmlAgilityPack HTML parser: http://blogs.msdn.com/smourier/archive/2003/06/04/8265.aspx
 * FAQ: <csc> error: lib/nant/nant.exe.config <platform name="win32" default="net-1.1">  (Cory Foy, "Build problems," 4/11-4/13/05)
-* HTML controls: HtmlInputRadioButton, HtmlInputText, HtmlSelect, HtmlTable, HtmlTextArea, HtmlInputFile
+* HTML controls: HtmlInputText, HtmlSelect, HtmlTable, HtmlTextArea, HtmlInputFile
 * Instantiate HTML controls by XPath in addition to ID
 
 
 Before release:
 * Update build: remove NUnit, put NUnitAdapter.cs in bin/ dir
-* Copy new constructors to every tester (don't forget WebFormTester and HtmlAnchorTester/HtmlInputCheckBoxTester)
+* Copy new constructors to WebFormTester and HtmlAnchorTester/HtmlInputCheckBoxTester
 * Finish migration guide.
 * Remove ControlTester.EnterInputValue/RemoveInputValue?  Make AssertEnabled explicit in tester?
-* Mark 'runAtServer' HTML constructor as obsolete?
-* Combine HtmlTag and HtmlControlTester?  Supply HtmlControlTester.Attribute?
-* Make "Tag" properties on AspTesters public?
+* Mark 'runAtServer' HTML constructor as obsolete
+* Combine HtmlTag and HtmlControlTester
+* Make "xxxTag" properties on AspTesters public--map them to HtmlTag
+* Add support for auto-postback to RadioButtonTester
+* Remove 'Tag' property from AspControlTester; add HtmlTag
 
 
 Changes in CVS:
 Produced by Jim Shore.
 * Added FAQ: How to test sites that require authentication.  Credit to Jim Shore.
 * Removed NUnit requirement.  NUnitAsp now works with any test framework.  Credit to Jim Shore.
-* Replaced Browser property with HttpClient.Default static property.  Credit to Jim Shore.
-* Replaced CurrentWebForm property with single-parameter constructor for testers.  Credit to Jim Shore.
+* Augmented Browser property with HttpClient.Default static property.  Credit to Jim Shore.
+* Augmented CurrentWebForm property with single-parameter constructor for testers.  Credit to Jim Shore.
 * Created NUnitAdapter.cs file that provides backwards compatibility and quick-start for NUnit users.  Credit Jim Shore.
 * Created new migration guide for v1.6.  Removed old NUnit 2.0 migration guide.  Credit to Jim Shore.
 * Renamed WebForm to WebFormTester.  Credit to Jim Shore.
@@ -38,6 +40,8 @@ Produced by Jim Shore.
 * Added WebAssert.TableContainsRow.  Credit to Jim Shore.
 * Added HtmlButtonTester.  Credit to Jim Shore.
 * Added HtmlInputButtonTester.  Credit to Jim Shore.
+* Added HtmlInputImageTester.  Credit to Jim Shore.
+* Added HtmlInputRadioButtonTester.  Credit to Jim Shore.
 
 
 Changes in NUnitAsp 1.5.1:

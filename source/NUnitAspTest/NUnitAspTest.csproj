@@ -222,6 +222,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "AspTester\RadioButtonListTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AspTester\RadioButtonTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -268,6 +273,11 @@
                 />
                 <File
                     RelPath = "HtmlTester\HtmlInputImageTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlInputRadioButtonTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

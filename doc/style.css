@@ -36,12 +36,6 @@ table {
   font-size: 12px;
 }
 
-.content table {
-  border-collapse: collapse;
-  margin-left: 3em;
-  margin-right: 3em;
-}
-
 th {
   text-align: left;
   text-decoration: underline;
@@ -53,10 +47,25 @@ td {
   vertical-align: top;
 }
 
+.content table {
+  border-collapse: collapse;
+  margin-left: 3em;
+  margin-right: 3em;
+}
+
 .content td {
   text-align: left;
   border: 0.1em solid grey;
   padding: 0.25em 1em 0.25em 0.25em;
+}
+
+.list th {
+  text-decoration: none;
+  text-align: right;
+}
+
+.list td {
+  border: none;
 }
 
 code {

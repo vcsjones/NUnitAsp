@@ -460,6 +460,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "AspTester\RadioButtonListTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AspTester\RadioButtonListTestPage.aspx.cs"
+                    DependentUpon = "RadioButtonListTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\RadioButtonListTestPage.aspx.resx"
+                    DependentUpon = "RadioButtonListTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "AspTester\RadioButtonTestPage.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -628,6 +644,22 @@
                 <File
                     RelPath = "HtmlTester\HtmlInputImageTestPage.aspx.resx"
                     DependentUpon = "HtmlInputImageTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlInputRadioButtonTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlInputRadioButtonTestPage.aspx.cs"
+                    DependentUpon = "HtmlInputRadioButtonTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlInputRadioButtonTestPage.aspx.resx"
+                    DependentUpon = "HtmlInputRadioButtonTestPage.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
             </Include>
