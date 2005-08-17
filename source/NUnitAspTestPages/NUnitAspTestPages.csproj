@@ -678,6 +678,22 @@
                     DependentUpon = "HtmlInputTextTestPage.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
+                <File
+                    RelPath = "HtmlTester\HtmlTextAreaTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlTextAreaTestPage.aspx.cs"
+                    DependentUpon = "HtmlTextAreaTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlTextAreaTestPage.aspx.resx"
+                    DependentUpon = "HtmlTextAreaTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
             </Include>
         </Files>
     </CSHARP>

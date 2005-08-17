@@ -27,25 +27,28 @@ using NUnit.Extensions.Asp.HtmlTester;
 namespace NUnit.Extensions.Asp.Test.HtmlTester
 {
 	[TestFixture]
-	public class HtmlInputTextTest : NUnitAspTestCase
+	public class HtmlTextAreaTest : NUnitAspTestCase
 	{
 		protected override void SetUp()
 		{
-			Browser.GetPage(BaseUrl + "/HtmlTester/HtmlInputTextTestPage.aspx");
+			Browser.GetPage(BaseUrl + "/HtmlTester/HtmlTextAreaTestPage.aspx");
 		}
 
 		[Test]
-		public void TestSize()
+		public void TestProperties()
 		{
-			HtmlInputTextTester text = new HtmlInputTextTester("text");
-			Assert.AreEqual(42, text.Size);
+			HtmlTextAreaTester textArea = new HtmlTextAreaTester("textArea");
+			
+			Assert.AreEqual(42, textArea.Cols);
+			Assert.AreEqual(24, textArea.Rows);
 		}
 
-		[Test]
-		public void TestDefaultSize()
+		public void TestUnsetProperties()
 		{
-			HtmlInputTextTester textDefault = new HtmlInputTextTester("textDefault");
-			Assert.AreEqual(-1, textDefault.Size);
+			HtmlTextAreaTester textArea = new HtmlTextAreaTester("textAreaDefaults");
+
+			Assert.AreEqual(-1, textArea.Cols);
+			Assert.AreEqual(-1, textArea.Rows);
 		}
 	}
 }

@@ -27,7 +27,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 	/// <summary>
 	/// Tester for System.Web.UI.HtmlControls.HtmlInputButton
 	/// </summary>
-	public class HtmlInputTextTester : HtmlControlTester
+	public class HtmlTextAreaTester : HtmlControlTester
 	{
 		/// <summary>
 		/// Create a tester for an HTML tag.  Use this constructor
@@ -35,7 +35,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// </summary>
 		/// <param name="htmlId">The ID of the control to test (look in the
 		/// page's ASP.NET source code for the ID).</param>
-		public HtmlInputTextTester(string htmlId) : base(htmlId)
+		public HtmlTextAreaTester(string htmlId) : base(htmlId)
 		{
 		}
 
@@ -50,18 +50,29 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// control is nested in.  That's probably the control's
 		/// container.  Use "CurrentWebForm" if you're not sure; it will
 		/// probably work.)</param>
-		public HtmlInputTextTester(string aspId, Tester container) : base(aspId, container)
+		public HtmlTextAreaTester(string aspId, Tester container) : base(aspId, container)
 		{
 		}
 
 		/// <summary>
-		/// Return the width in columns of the text field, or -1 if undefined (default).
+		/// Return the width of the text area in columns, or -1 if undefined (default)
 		/// </summary>
-		public int Size
+		public int Cols
 		{
 			get
 			{
-				return IntegerAttributeWithNegOneDefault("size");
+				return IntegerAttributeWithNegOneDefault("cols");
+			}
+		}
+
+		/// <summary>
+		/// Return the height of the text area in rows, or -1 if undefined (default).
+		/// </summary>
+		public int Rows
+		{
+			get
+			{
+				return IntegerAttributeWithNegOneDefault("rows");
 			}
 		}
 	}

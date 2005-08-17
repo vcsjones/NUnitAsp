@@ -83,6 +83,17 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		}
 
 		/// <summary>
+		/// Returns an attribute as an integer, or -1 if the attribute isn't present.  Throws
+		/// an exception if the attribute isn't an integer.
+		/// </summary>
+		public int IntegerAttributeWithNegOneDefault(string name)
+		{
+			string attribute = Tag.OptionalAttribute(name);
+			if (attribute == null) return -1;
+			else return int.Parse(attribute);
+		}
+
+		/// <summary>
 		/// Gets or sets a value indicating wheither the control is disabled.
 		/// </summary>
 		public bool Disabled

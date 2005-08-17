@@ -12,15 +12,16 @@ using System.Web.UI.HtmlControls;
 namespace NUnitAspTestPages.HtmlTester
 {
 	/// <summary>
-	/// Summary description for HtmlInputTextTestPage.
+	/// Summary description for HtmlTextAreaTestPage.
 	/// </summary>
-	public class HtmlInputTextTestPage : System.Web.UI.Page
+	public class HtmlTextAreaTestPage : System.Web.UI.Page
 	{
-		protected System.Web.UI.HtmlControls.HtmlInputText text;
+		protected System.Web.UI.HtmlControls.HtmlTextArea textArea;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			text.Size = 42;
+			textArea.Cols = 42;
+			textArea.Rows = 24;
 		}
 
 		#region Web Form Designer generated code
