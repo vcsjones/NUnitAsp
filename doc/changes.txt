@@ -23,7 +23,6 @@ Before release:
 * Remove 'Tag' property from AspControlTester; add HtmlTag
 * Refer to David Gardiner's code-generation tool in documentation: https://sourceforge.net/projects/nunitaspcodegen/
 * Incorporate "Advanced NUnitAsp" video into documentation page
-* Fix bug (credit to Aaron Jenson): return new HtmlInputButtonTester(HtmlId, this.Form);
 
 
 Changes in CVS:
@@ -36,7 +35,7 @@ Produced by Jim Shore.
 * Created new migration guide for v1.6.  Removed old NUnit 2.0 migration guide.  Credit to Jim Shore.
 * Renamed WebForm to WebFormTester.  Credit to Jim Shore.
 * Added "Variables" property to WebFormTester and created FormVariables class to enable direct control and access to form variables.  Credit to Jim Shore.
-* Added support for multiple forms.  Credit to Jim Shore.
+* Added support for multiple forms.  Credit to Jim Shore with thanks to Aaron Jenson.
 * Added ability for tests to submit and post-back forms.  Credit to Jim Shore.
 * Updated FAQ: How to compile with NAnt under .NET 1.1.  Credit to Cory Foy and Ted Husted.
 * Changed LinkButtonTester to NOT check if the link is disabled.  Credit to Jim Shore.

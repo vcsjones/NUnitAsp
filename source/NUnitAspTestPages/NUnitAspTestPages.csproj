@@ -662,6 +662,22 @@
                     DependentUpon = "HtmlInputRadioButtonTestPage.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
+                <File
+                    RelPath = "HtmlTester\HtmlInputTextTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlInputTextTestPage.aspx.cs"
+                    DependentUpon = "HtmlInputTextTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlInputTextTestPage.aspx.resx"
+                    DependentUpon = "HtmlInputTextTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
             </Include>
         </Files>
     </CSHARP>

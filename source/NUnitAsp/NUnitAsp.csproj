@@ -295,6 +295,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "HtmlTester\HtmlInputTextTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Sgml\eula.htm"
                     BuildAction = "None"
                 />
