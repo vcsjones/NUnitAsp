@@ -82,7 +82,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return new HtmlAnchorTester(HtmlId, Form, false);
+				return new HtmlAnchorTester(HtmlId, Form);
 			}
 		}
 

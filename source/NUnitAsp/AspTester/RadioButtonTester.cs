@@ -82,7 +82,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return new HtmlInputRadioButtonTester(HtmlId);
+				return new HtmlInputRadioButtonTester(HtmlId, Form);
 			}
 		}
 

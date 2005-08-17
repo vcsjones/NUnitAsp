@@ -54,7 +54,7 @@ namespace NUnit.Extensions.Asp.Test
 			dropCookieAndRedirect = new LinkButtonTester("dropCookieAndRedirect", CurrentWebForm);
 			dropCookieWithExpiry = new LinkButtonTester("dropCookieWithExpiry", CurrentWebForm);
 			postBack = new LinkButtonTester("postBack", CurrentWebForm);
-			followLink = new HtmlAnchorTester("followLink", CurrentWebForm, true);
+			followLink = new HtmlAnchorTester("followLink", CurrentWebForm);
 			cookie = new LabelTester("cookie", CurrentWebForm);
 			testParm = new LabelTester("testParm", CurrentWebForm);
 			urlReferrer = new LabelTester("urlReferrer", CurrentWebForm);

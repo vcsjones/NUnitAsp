@@ -37,7 +37,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		{
 			base.SetUp();
 			
-			htmlHref = new HtmlAnchorTester("htmlHref", CurrentWebForm, true);
+			htmlHref = new HtmlAnchorTester("htmlHref", CurrentWebForm);
 
 			Browser.GetPage(BaseUrl + "HtmlTester/HtmlControlTestPage.aspx");
 		}

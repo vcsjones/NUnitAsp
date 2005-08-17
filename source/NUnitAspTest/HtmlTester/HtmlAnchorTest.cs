@@ -36,10 +36,10 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		protected override void SetUp()
 		{
 			base.SetUp();
-			testLink = new HtmlAnchorTester("testLink", CurrentWebForm, true);
-			popupLink = new HtmlAnchorTester("popupLink", CurrentWebForm, false);
-			serverLink = new HtmlAnchorTester("serverLink", CurrentWebForm, false);
-			disabledLink = new HtmlAnchorTester("disabledLink", CurrentWebForm, false);
+			testLink = new HtmlAnchorTester("testLink", CurrentWebForm);
+			popupLink = new HtmlAnchorTester("popupLink");
+			serverLink = new HtmlAnchorTester("serverLink");
+			disabledLink = new HtmlAnchorTester("disabledLink");
 			Browser.GetPage(BaseUrl + "HtmlTester/HtmlAnchorTestPage.aspx");
 		}
 

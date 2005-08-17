@@ -75,6 +75,5 @@ namespace NUnit.Extensions.Asp.AspTester
 		public PanelTester(string aspId, Tester container) : base(aspId, container)
 		{
 		}
-
 	}
 }

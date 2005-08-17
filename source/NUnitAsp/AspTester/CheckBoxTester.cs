@@ -82,7 +82,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return new HtmlInputCheckBoxTester(HtmlId);
+				return new HtmlInputCheckBoxTester(HtmlId, Form);
 			}
 		}
 
