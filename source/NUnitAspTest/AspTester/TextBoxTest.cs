@@ -61,6 +61,11 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("text", "some text", textBox.Text);
 		}
 
+		public void TestDefaultMaxLength()
+		{
+			Assert.AreEqual(0, textBox.MaxLength);
+		}
+
 		public void TestText_WhenEmpty()
 		{
 			AssertEquals("empty text box", "", textBox.Text);

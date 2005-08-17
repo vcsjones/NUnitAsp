@@ -23,6 +23,7 @@
 using System;
 using System.Xml;
 using System.Web.UI.WebControls;
+using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
@@ -92,7 +93,7 @@ namespace NUnit.Extensions.Asp.AspTester
 				string text;
 				if (TextMode == TextBoxMode.MultiLine)
 				{
-					text = Tag.BodyNoTags;       
+					text = Tag.BodyNoTags;
 				}
 				else 
 				{                                  
@@ -137,7 +138,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				if (TextMode != TextBoxMode.MultiLine) 
+				if (TextMode == TextBoxMode.MultiLine) 
 				{
 					throw new ApplicationException("max length is ignored on a TextBox when TextMode is MultiLine");
 				}

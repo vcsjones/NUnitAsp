@@ -7,7 +7,7 @@ To do:
 * FAQ: No change to "get" without postback (eg, tracker #1106130)
 * Look into HtmlAgilityPack HTML parser: http://blogs.msdn.com/smourier/archive/2003/06/04/8265.aspx
 * FAQ: <csc> error: lib/nant/nant.exe.config <platform name="win32" default="net-1.1">  (Cory Foy, "Build problems," 4/11-4/13/05)
-* HTML controls: HtmlTextArea, HtmlSelect, HtmlTable, HtmlInputFile
+* HTML controls: HtmlSelect, HtmlTable, HtmlInputFile
 * Instantiate HTML controls by XPath in addition to ID
 
 
@@ -45,6 +45,8 @@ Produced by Jim Shore.
 * Added HtmlInputImageTester.  Credit to Jim Shore.
 * Added HtmlInputRadioButtonTester.  Credit to Jim Shore.
 * Added HtmlInputTextTester.  Credit to Jim Shore.
+* Added HtmlTextAreaTester.  Credit to Jim Shore.
+* Fixed TextBoxTester.MaxLength bug that made method unusable.  Credit to Jim Shore.
 
 
 Changes in NUnitAsp 1.5.1:

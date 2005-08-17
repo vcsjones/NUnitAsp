@@ -18,11 +18,12 @@ namespace NUnitAspTestPages.AspTester
 	{
 		protected System.Web.UI.WebControls.TextBox multiline;
 		protected System.Web.UI.WebControls.Button postback;
+		protected System.Web.UI.WebControls.TextBox disabled;
 		protected System.Web.UI.WebControls.TextBox textBox;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Put user code to initialize the page here
+			postback.Text = textBox.MaxLength.ToString();
 		}
 
 		#region Web Form Designer generated code
