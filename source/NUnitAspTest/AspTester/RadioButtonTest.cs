@@ -67,6 +67,19 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals(true, groupedTwo.Checked);
 		}
 
+		[Test]
+		public void TestAutoPostBack()
+		{
+			RadioButtonTester autoGroup1 = new RadioButtonTester("autoGroup1");
+			RadioButtonTester autoGroup2 = new RadioButtonTester("autoGroup2");
+
+			autoGroup1.Checked = true;
+			Assert.IsTrue(autoGroup1.Checked, "autoGroup1 should be checked");
+//			Assert.AreEqual("one", autoGroupDisplay.Text);
+//			autoGroup2.Checked = true;
+//			Assert.AreEqual("two", autoGroupDisplay.Text);
+		}
+
 
 
 		// copied from CheckBoxTester

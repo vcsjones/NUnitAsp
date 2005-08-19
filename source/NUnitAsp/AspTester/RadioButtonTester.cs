@@ -110,6 +110,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			set
 			{
 				RadioTag.Checked = value;
+				Form.OptionalPostBack(RadioTag.OptionalAttribute("onclick"));
 			}
 		}
 	}

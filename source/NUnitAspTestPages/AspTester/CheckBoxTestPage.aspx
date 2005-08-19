@@ -19,6 +19,8 @@
 			<br />
 			<asp:CheckBox ID="formattedText" Runat="server" Text="<b>bold!</b>"></asp:CheckBox>
 			<br />
+			<asp:CheckBox ID="autoPostBack" Runat="server" Text="Auto post-back" AutoPostBack="True"></asp:CheckBox>
+			<br />
 			<asp:LinkButton ID="submit" Runat="server">Submit</asp:LinkButton>
 		</form>
 	</body>

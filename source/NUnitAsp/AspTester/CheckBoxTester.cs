@@ -98,6 +98,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			set
 			{
 				CheckBoxTag.Checked = value;
+				Form.OptionalPostBack(CheckBoxTag.OptionalAttribute("onclick"));
 			}
 		}	
 		/// <summary>

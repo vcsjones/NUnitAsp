@@ -30,6 +30,8 @@ namespace NUnitAspTestPages.AspTester
 		protected System.Web.UI.WebControls.LinkButton submit;
 		protected System.Web.UI.WebControls.RadioButton noText;
 		protected System.Web.UI.WebControls.RadioButton formattedText;
+		protected System.Web.UI.WebControls.RadioButton groupedOne;
+		protected System.Web.UI.WebControls.RadioButton groupedTwo;
 		protected System.Web.UI.WebControls.RadioButton radionButton;
 	
 		private void Page_Load(object sender, System.EventArgs e)

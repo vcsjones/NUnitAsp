@@ -28,6 +28,13 @@
 				</span>
 			</p>
 			<p>
+				Auto-postback group:
+				<span style="border: solid black 1px">
+					<asp:RadioButton ID="autoGroup1" GroupName="AutoGroup" Runat="server" Text="One (w/ AutoPostBack)" AutoPostBack="True" />
+					<asp:RadioButton id="autoGroup2" GroupName="AutoGroup" Runat="server" Text="Two (w/o AutoPostBack)" />
+				</span>
+			</p>
+			<p>
 				<asp:LinkButton ID="submit" Runat="server">Submit</asp:LinkButton>
 			</p>
 		</form>

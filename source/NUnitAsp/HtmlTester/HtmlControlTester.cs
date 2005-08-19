@@ -83,6 +83,16 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		}
 
 		/// <summary>
+		/// Returns the value of the attribute on this tag or null if the attribute isn't present.
+		/// </summary>
+		/// <param name="name">The name of the attribute.</param>
+		/// <returns>The value of the attribute or null if no such attribute</returns>
+		public string OptionalAttribute(string name)
+		{
+			return Tag.OptionalAttribute(name);
+		}
+
+		/// <summary>
 		/// Returns an attribute as an integer, or -1 if the attribute isn't present.  Throws
 		/// an exception if the attribute isn't an integer.
 		/// </summary>

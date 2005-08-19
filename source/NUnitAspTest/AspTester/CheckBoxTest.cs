@@ -99,5 +99,13 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		{
 			AssertEquals("enabled", false, DisabledCheckBox.Enabled);
 		}
+
+		[Test]
+		public void TestAutoPostBack()
+		{
+			CheckBoxTester autoPostBack = new CheckBoxTester("autoPostBack");
+			autoPostBack.Checked = true;
+			Assert.IsTrue(autoPostBack.Checked, "autoPostBack should be checked");
+		}
 	}
 }
