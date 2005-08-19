@@ -23,6 +23,7 @@ Before release:
 * Remove 'Tag' property from AspControlTester; add HtmlTag
 * Refer to David Gardiner's code-generation tool in documentation: https://sourceforge.net/projects/nunitaspcodegen/
 * Incorporate "Advanced NUnitAsp" video into documentation page
+* Remove "Enabled" check on all controls.  Document this.  Tracker #1262940.
 
 
 Changes in CVS:

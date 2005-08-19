@@ -1,7 +1,7 @@
-#region Copyright (c) 2002, 2003 Brian Knowles, Jim Shore
+#region Copyright (c) 2002, 2003, 2005 Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, 2003 Brian Knowles, Jim Shore
+' Copyright (c) 2002, 2003, 2005 Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -24,23 +24,28 @@ using System;
 
 namespace NUnit.Extensions.Asp.Test
 {
-	public abstract class NUnitAspTestCase : WebFormTestCase
-	{
-		protected const string BasePath = "/NUnitAsp/source/NUnitAspTestPages";
-		protected const string BaseUrl = "http://localhost" + BasePath + "/";
-		private DateTime startTime;
+  public abstract class NUnitAspTestCase : WebFormTestCase
+  {
+    protected const string BasePath = "/NUnitAsp/source/NUnitAspTestPages";
+    protected const string BaseUrl = "http://localhost" + BasePath + "/";
+    private DateTime startTime;
 
-		protected override void SetUp()
-		{
-			base.SetUp();
-			startTime = DateTime.Now;
-		}
+    protected override void SetUp()
+    {
+      base.SetUp();
+      startTime = DateTime.Now;
+    }
 
-		protected override void TearDown()
-		{
-			TimeSpan elapsedTime = DateTime.Now - startTime;
-			TimeSpan overheadTime = elapsedTime - Browser.ElapsedServerTime;
-			base.TearDown();
-		}
-	}
+    protected override void TearDown()
+    {
+      TimeSpan elapsedTime = DateTime.Now - startTime;
+      TimeSpan overheadTime = elapsedTime - Browser.ElapsedServerTime;
+      base.TearDown();
+    }
+
+        protected void AssertRedirected()
+        {
+            AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
+        }
+  }
 }

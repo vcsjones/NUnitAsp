@@ -1,7 +1,7 @@
-#region Copyright (c) 2003, 2005 Brian Knowles, Jim Shore
+#region Copyright (c) 2003, 2005 Brian Knowles, James Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2003, 2005 Brian Knowles, Jim Shore
+' Copyright (c) 2003, 2005 Brian Knowles, James Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -33,6 +33,7 @@ using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test
 {
+    [TestFixture]
 	public class HttpClientCredentialsTest : NUnitAspTestCase
 	{
 		private const string TEST_URL = BaseUrl + "Credentials/CredentialsTest.aspx";
@@ -43,11 +44,13 @@ namespace NUnit.Extensions.Asp.Test
 			SetFolderToNTLMAuthentication("Credentials");
 		}
 
+        [Test]
 		public void TestNoCredentials()
 		{
 			AssertUnauthorized(TEST_URL);
 		}
 
+        [Test]
 		public void TestCredentials()
 		{
 			LabelTester userId = new LabelTester("userId", CurrentWebForm);
@@ -58,6 +61,7 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEquals("userId", WindowsIdentity.GetCurrent().Name, userId.Text);
 		}
 
+        [Test]
 		public void TestUrlCredentials()
 		{
 			// The sole purpose of this test is to ensure that the URL username and password
@@ -78,7 +82,6 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEquals("username", username, credential.UserName);
 			AssertEquals("password", password, credential.Password);
 		}
-
 
 		private void AssertUnauthorized(string url)
 		{

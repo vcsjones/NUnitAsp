@@ -1,7 +1,7 @@
-#region Copyright (c) 2002-2004, Brian Knowles, Jim Shore
+#region Copyright (c) 2002-2005, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002-2004, Brian Knowles, Jim Shore
+' Copyright (c) 2002-2005, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -21,11 +21,12 @@
 #endregion
 
 using System;
+using NUnit.Framework;
 using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.Test.HtmlTester
 {
-
+    [TestFixture]
 	public class HtmlAnchorTest : NUnitAspTestCase
 	{
 		private HtmlAnchorTester testLink;
@@ -43,49 +44,57 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 			Browser.GetPage(BaseUrl + "HtmlTester/HtmlAnchorTestPage.aspx");
 		}
 
+        [Test]
 		public void TestHRef()
 		{
 			AssertEquals("url", "../RedirectionTarget.aspx?a=a&b=b", testLink.HRef);
 		}
 
+        [Test]
 		public void TestDisabled_True()
 		{
 			AssertEquals("disabled", true, disabledLink.Disabled);
 		}
 
+        [Test]
 		public void TestDisabled_False()
 		{
 			AssertEquals("disabled", false, testLink.Disabled);
 		}
 
+        [Test]
 		public void TestClick()
 		{
 			testLink.Click();
-			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
+            AssertRedirected();
 		}
 
+        [Test]
 		public void TestClick_WhenDisabled()
 		{
 			disabledLink.Click();
 			// Yes, you can click a disabled link (at least in IE)
-			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
+            AssertRedirected();
 		}
 
+        [Test]
 		public void TestServerClick()
 		{
 			serverLink.Click();
-			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
+            AssertRedirected();
 		}
 
+        [Test]
 		public void TestPopupLink()
 		{
 			AssertEquals("popup", "../RedirectionTarget.aspx", popupLink.PopupLink);
 		}
 
+        [Test]
 		public void TestPopupWindowClick()
 		{
 			popupLink.Click();
-			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
+            AssertRedirected();
 		}
 	}
 }

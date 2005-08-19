@@ -1,7 +1,7 @@
-#region Copyright (c) 2003, Brian Knowles, Jim Shore
+#region Copyright (c) 2003, 2005, Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2003, Brian Knowles, Jim Shore
+' Copyright (c) 2003, 2005, Brian Knowles, Jim Shore
 ' Originally by Clifton F. Vaughn; copyright transferred on nunitasp-devl mailing list, May 2003
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -28,6 +28,7 @@ using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
+    [TestFixture]
 	public class LinkButtonTest : NUnitAspTestCase
 	{
 		private LinkButtonTester button;
@@ -44,23 +45,26 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			Browser.GetPage(BaseUrl + "AspTester/LinkButtonTestPage.aspx");
 		}
 
-
+        [Test]
 		public void TestClick()
 		{
 			button.Click();
 			AssertEquals("result", "Clicked", clickResult.Text);
 		}
 
+        [Test]
 		public void TestEnabled_True()
 		{
 			AssertEquals("enabled", true, button.Enabled);
 		}
 
+        [Test]
 		public void TestEnabled_False()
 		{
 			AssertEquals("enabled", false, disabledButton.Enabled);
 		}
 
+        [Test]
 		public void TestText()
 		{
 			AssertEquals("text", "Link", button.Text);

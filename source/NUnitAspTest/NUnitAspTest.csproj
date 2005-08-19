@@ -73,11 +73,6 @@
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.XML.dll"
                 />
                 <Reference
-                    Name = "NUnitAsp"
-                    Project = "{5D5FCC6A-44FE-4A25-8F20-B95E904866B0}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
                     Name = "System.Drawing"
                     AssemblyName = "System.Drawing"
                     HintPath = "..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Drawing.dll"
@@ -101,6 +96,11 @@
                     Name = "nunit.framework"
                     AssemblyName = "nunit.framework"
                     HintPath = "..\..\lib\NUnit\nunit.framework.dll"
+                />
+                <Reference
+                    Name = "NUnitAsp"
+                    Project = "{5D5FCC6A-44FE-4A25-8F20-B95E904866B0}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
             </References>
         </Build>

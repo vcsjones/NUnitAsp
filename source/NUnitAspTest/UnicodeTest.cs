@@ -1,7 +1,7 @@
-#region Copyright (c) 2004, Brian Knowles, Jim Shore
+#region Copyright (c) 2004-2005 Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2004, Brian Knowles, Jim Shore
+' Copyright (c) 2004-2005, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -26,6 +26,7 @@ using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp.Test
 {
+    [TestFixture]
 	public class UnicodeTest : NUnitAspTestCase
 	{
 		protected override void SetUp()
@@ -34,12 +35,14 @@ namespace NUnit.Extensions.Asp.Test
 			Browser.GetPage(BaseUrl + "UnicodeTestPage.aspx");
 		}
 
+        [Test]
 		public void TestLabelText() 
 		{
 			LabelTester textLabel = new LabelTester("textLabel", CurrentWebForm);
 			AssertEquals("text", "foo", textLabel.Text);
 		}
 
+        [Test]
 		public void TestCurrentPageText()
 		{
 			AssertTrue("CurrentTextPage doesn't contain <html> tag",

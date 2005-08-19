@@ -26,7 +26,7 @@ using NUnit.Framework;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
-
+    [TestFixture]
 	public class LabelTest : NUnitAspTestCase
 	{
 		protected override void SetUp()
@@ -35,30 +35,35 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			Browser.GetPage(BaseUrl + "/AspTester/LabelTestPage.aspx");
 		}
 
+        [Test]
 		public void TestOneParameterConstructor()
 		{
 			LabelTester textLabel = new LabelTester("textLabel");
 			AssertEquals("text", "foo", textLabel.Text);
 		}
 
+        [Test]
 		public void TestText() 
 		{
 			LabelTester textLabel = new LabelTester("textLabel");
 			AssertEquals("text", "foo", textLabel.Text);
 		}
 
+        [Test]
 		public void TestSpace()
 		{
 			LabelTester spaceLabel = new LabelTester("spaceLabel");
 			AssertEquals("space", "foo ", spaceLabel.Text);
 		}
 
+        [Test]
 		public void TestFormatted()
 		{
 			LabelTester formattedLabel = new LabelTester("formattedLabel");
 			AssertEquals("formatted", "a <i>HTML</i> tag", formattedLabel.Text);
 		}
 
+        [Test]
 		public void TestNested()
 		{
 			LabelTester outerLabel = new LabelTester("outerLabel");

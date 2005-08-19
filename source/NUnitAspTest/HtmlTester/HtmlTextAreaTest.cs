@@ -43,6 +43,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 			Assert.AreEqual(24, textArea.Rows);
 		}
 
+        [Test]
 		public void TestUnsetProperties()
 		{
 			HtmlTextAreaTester textArea = new HtmlTextAreaTester("textAreaDefaults");

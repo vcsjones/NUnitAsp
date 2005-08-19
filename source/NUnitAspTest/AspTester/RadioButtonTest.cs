@@ -75,6 +75,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		protected RadioButtonTester DisabledCheckBox;
 		protected LinkButtonTester Submit;
 
+        [Test]
 		public void TestCheck()
 		{
 			AssertTrue("should not be checked", !CheckBox.Checked);
@@ -84,32 +85,38 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertTrue("should be checked", CheckBox.Checked);
 		}
 
+        [Test]
 		[ExpectedException(typeof(ControlDisabledException))]
 		public void TestCheck_WhenDisabled()
 		{
 			DisabledCheckBox.Checked = true;
 		}
 
+        [Test]
 		public void TestText()
 		{
 			AssertEquals("text", "Test me", CheckBox.Text);
 		}
 
+        [Test]
 		public void TestText_WhenNone()
 		{
 			AssertEquals("no text", "", new CheckBoxTester("noText", CurrentWebForm).Text);
 		}
 
+        [Test]
 		public void TestFormattedText()
 		{
 			AssertEquals("formatted text", "<b>bold!</b>", new CheckBoxTester("formattedText", CurrentWebForm).Text);
 		}
 
+        [Test]
 		public void TestEnabled_True()
 		{
 			AssertEquals("enabled", true, CheckBox.Enabled);
 		}
 
+        [Test]
 		public void TestEnabled_False()
 		{
 			AssertEquals("enabled", false, DisabledCheckBox.Enabled);

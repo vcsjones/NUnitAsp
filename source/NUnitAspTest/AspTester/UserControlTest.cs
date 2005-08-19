@@ -1,7 +1,7 @@
-#region Copyright (c) 2003 Brian Knowles, Jim Shore
+#region Copyright (c) 2003, 2005 Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2003, Brian Knowles, Jim Shore
+' Copyright (c) 2003, 2005 Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -21,11 +21,13 @@
 #endregion
 
 using System;
+using NUnit.Framework;
 using NUnit.Extensions.Asp;
 using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
+    [TestFixture]
 	public class UserControlTest : NUnitAspTestCase
 	{
 		private LabelTester label;
@@ -49,18 +51,20 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			Browser.GetPage(BaseUrl + "AspTester/UserControlTestPage.aspx");
 		}
 
-
+        [Test]
 		public void TestNestedLabelText()
 		{
 			AssertEquals("Label", label.Text);
 		}
 
+        [Test]
 		public void TestNestedButtonClick()
 		{
 			button.Click();
 			AssertEquals("result", "Clicked", clickResult.Text);
 		}
 
+        [Test]
 		public void TestNestedLinkButtonClick()
 		{
 			linkButton.Click();

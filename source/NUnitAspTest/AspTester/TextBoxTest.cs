@@ -1,7 +1,7 @@
-#region Copyright (c) 2003, Brian Knowles, Jim Shore
+#region Copyright (c) 2002, 2005 Brian Knowles, Jim Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002, Brian Knowles, Jim Shore
+' Copyright (c) 2002, 2005, Brian Knowles, Jim Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -26,6 +26,7 @@ using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
+    [TestFixture]
 	public class TextBoxTest : NUnitAspTestCase
 	{
 		private TextBoxTester textBox;
@@ -43,16 +44,19 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			Browser.GetPage(BaseUrl + "AspTester/TextBoxTestPage.aspx");
 		}
 
+        [Test]
 		public void TestEnabled_True()
 		{
 			AssertEquals("enabled", true, textBox.Enabled);
 		}
 
+        [Test]
 		public void TestEnabled_False()
 		{
 			AssertEquals("enabled", false, disabled.Enabled);
 		}
 
+        [Test]
 		public void TestText()
 		{
 			AssertEquals("empty text box", "", textBox.Text);
@@ -61,11 +65,13 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("text", "some text", textBox.Text);
 		}
 
+        [Test]
 		public void TestDefaultMaxLength()
 		{
 			Assert.AreEqual(0, textBox.MaxLength);
 		}
 
+        [Test]
 		public void TestText_WhenEmpty()
 		{
 			AssertEquals("empty text box", "", textBox.Text);
@@ -74,6 +80,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("empty multiline text box", "", multiline.Text);
 		}
 
+        [Test]
 		public void TestText_WhenMultiline()
 		{
 			AssertEquals("default multiline", "default", multiline.Text);
@@ -82,6 +89,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("multiline text box setting", "new text", multiline.Text);
 		}
 
+        [Test]
         [ExpectedException(typeof(ControlDisabledException))]
         public void TestText_WhenDisabled()
 		{

@@ -23,10 +23,12 @@
 #endregion
 
 using System;
+using NUnit.Framework;
 using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
+    [TestFixture]
 	public class ValidationSummaryTest : NUnitAspTestCase
 	{
 		private TextBoxTester textBox1;
@@ -50,6 +52,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			button = new ButtonTester("submit", CurrentWebForm);
 		}
 
+        [Test]
 		public void TestPageLayout()
 		{
 			AssertEquals("", textBox1.Text);
@@ -61,6 +64,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertVisibility(button, true);
 		}
 
+        [Test]
 		public void TestThreeMessages()
 		{
 			button.Click();
@@ -70,6 +74,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("list", expected, listSummary.Messages);
 		}
 
+        [Test]
 		public void TestOneMessage()
 		{
 			textBox1.Text = "hi";
@@ -81,6 +86,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("list", expected, listSummary.Messages);
 		}
 
+        [Test]
 		public void TestNoMessages()
 		{
 			textBox1.Text = "hi";

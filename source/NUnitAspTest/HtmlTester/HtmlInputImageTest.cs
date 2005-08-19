@@ -45,7 +45,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		public void TestClick()
 		{
 			image.Click();
-			Assert.AreEqual("RedirectionTarget", CurrentWebForm.AspId);
+            AssertRedirected();
 			WebAssert.AreEqualIgnoringOrder(formVars.TrimmedCells,
 				new String[][] {
 					new String[] {"image.x", "0"},
@@ -59,7 +59,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		public void TestClickWithParameters()
 		{
 			image.Click(42, 24);
-			Assert.AreEqual("RedirectionTarget", CurrentWebForm.AspId);
+            AssertRedirected();
 			WebAssert.AreEqualIgnoringOrder(formVars.TrimmedCells,
 				new String[][] {
 					new String[] {"image.x", "42"},

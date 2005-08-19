@@ -45,7 +45,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		public void TestClick()
 		{
 			button.Click();
-			Assert.AreEqual("RedirectionTarget", CurrentWebForm.AspId);
+            AssertRedirected();
 			WebAssert.TableContainsRow(formVars.TrimmedCells, "button", "This is a button.");
 		}
 

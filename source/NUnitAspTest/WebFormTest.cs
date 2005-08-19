@@ -78,7 +78,7 @@ namespace NUnit.Extensions.Asp.Test
 			Assert.AreEqual("form 2", submitted.Text);
 
 			new WebFormTester("RedirectForm", Browser).Submit();
-			Assert.AreEqual("RedirectionTarget", CurrentWebForm.AspId);
+            AssertRedirected();
 		}
 
 		[Test]
