@@ -679,6 +679,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "HtmlTester\HtmlSelectTestPage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlSelectTestPage.aspx.cs"
+                    DependentUpon = "HtmlSelectTestPage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlSelectTestPage.aspx.resx"
+                    DependentUpon = "HtmlSelectTestPage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "HtmlTester\HtmlTextAreaTestPage.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

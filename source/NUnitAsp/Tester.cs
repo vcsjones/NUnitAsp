@@ -53,7 +53,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				return new HtmlTag(Browser, HtmlId, this);
+				return new HtmlTag(HtmlId);
 			}
 		}
 

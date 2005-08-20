@@ -29,8 +29,6 @@ namespace NUnit.Extensions.Asp.HtmlTester
 	/// </summary>
 	public abstract class HtmlControlTester : ControlTester
 	{
-		private bool runAtServer = false;   // note: delete me
-
 		/// <summary>
 		/// Create a tester for an HTML tag.  Use this constructor
 		/// for testing most tags.
@@ -52,7 +50,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// control is nested in.  That's probably the control's
 		/// container.  Use "CurrentWebForm" if you're not sure; it will
 		/// probably work.)</param>
-		public HtmlControlTester(string aspId, Tester container) : this(aspId, container, true)
+		public HtmlControlTester(string aspId, Tester container) : base(aspId, container)
 		{
 		}
 
@@ -64,11 +62,10 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// source code, look for the tag that the control is nested in.  That's probably the
 		/// control's container.  Use CurrentWebForm if the control is just nested in the form tag.)</param>
 		/// <param name="runAtServer">Tells tester whether the control under test is running on the server side.</param>
-		// NOTE::::: Mark me obsolete!
+		[Obsolete("'runAtServer' parameter is no longer required.  Use one of the other constructors instead.")]
 		public HtmlControlTester(string aspId, Tester container, bool runAtServer) :
-			base(aspId, container)
+			this(aspId, container)
 		{
-			this.runAtServer = runAtServer;
 		}
 
 		/// <summary>
@@ -115,26 +112,6 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		}
 	
 		/// <summary>
-		/// The HTML ID of the control being tested.  It corresponds to the
-		/// ID of the HTML tag rendered by the server.  It's useful for looking at 
-		/// raw HTML while debugging.
-		/// </summary>
-		public override string HtmlId
-		{
-			get
-			{
-				if (runAtServer)
-				{
-					return base.HtmlId;
-				}
-				else
-				{
-					return AspId;
-				}
-			}
-		}
-
-		/// <summary>
 		/// The HTML inside the tag being tested.
 		/// </summary>
 		public string InnerHtml
@@ -142,20 +119,6 @@ namespace NUnit.Extensions.Asp.HtmlTester
 			get
 			{
 				return Tag.Body;
-			}
-		}
-
-		/// <summary>
-		/// Use with caution--<see cref="InnerHtml"/> is probably a better choice.  
-		/// Provided for consistency with ASP.NET framework API.  This method is the same as
-		/// InnerHtml, but with HTML entities (such as &amp;gt;) converted to
-		/// characters (such as &gt;).
-		/// </summary>
-		public string InnerText
-		{
-			get
-			{
-				return System.Web.HttpUtility.HtmlDecode(Tag.Body);
 			}
 		}
 	}

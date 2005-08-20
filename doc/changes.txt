@@ -9,6 +9,7 @@ To do:
 * FAQ: <csc> error: lib/nant/nant.exe.config <platform name="win32" default="net-1.1">  (Cory Foy, "Build problems," 4/11-4/13/05)
 * HTML controls: HtmlSelect, HtmlTable, HtmlInputFile
 * Instantiate HTML controls by XPath in addition to ID
+* Add information on SF trackers to docs
 
 
 Before release:
@@ -24,6 +25,7 @@ Before release:
 * Refer to David Gardiner's code-generation tool in documentation: https://sourceforge.net/projects/nunitaspcodegen/
 * Incorporate "Advanced NUnitAsp" video into documentation page
 * Remove "Enabled" check on all controls.  Document this.  Tracker #1262940.
+* Fix version number in [Obsolete(...will be removed in 1.7)]
 
 
 Changes in CVS:
@@ -48,6 +50,7 @@ Produced by Jim Shore.
 * Added HtmlInputTextTester.  Credit to Jim Shore.
 * Added HtmlTextAreaTester.  Credit to Jim Shore.
 * Fixed TextBoxTester.MaxLength bug that made method unusable.  Credit to Jim Shore.
+* Added support for AutoPostBack to RadioButtonTester and CheckBoxTester.  Credit to Jim Shore.
 
 
 Changes in NUnitAsp 1.5.1:

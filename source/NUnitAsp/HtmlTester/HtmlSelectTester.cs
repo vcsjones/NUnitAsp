@@ -21,13 +21,14 @@
 #endregion
 
 using System;
+using System.Xml;
 
 namespace NUnit.Extensions.Asp.HtmlTester
 {
 	/// <summary>
-	/// Tester for System.Web.UI.HtmlControls.HtmlInputRadioButton
+	/// Tester for System.Web.UI.HtmlControls.HtmlSelect
 	/// </summary>
-	public class HtmlInputRadioButtonTester : HtmlControlTester
+	public class HtmlSelectTester : HtmlControlTester
 	{
 		/// <summary>
 		/// Create a tester for an HTML tag.  Use this constructor
@@ -35,7 +36,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// </summary>
 		/// <param name="htmlId">The ID of the control to test (look in the
 		/// page's ASP.NET source code for the ID).</param>
-		public HtmlInputRadioButtonTester(string htmlId) : base(htmlId)
+		public HtmlSelectTester(string htmlId) : base(htmlId)
 		{
 		}
 
@@ -50,43 +51,60 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// control is nested in.  That's probably the control's
 		/// container.  Use "CurrentWebForm" if you're not sure; it will
 		/// probably work.)</param>
-		public HtmlInputRadioButtonTester(string aspId, Tester container) : base(aspId, container)
+		public HtmlSelectTester(string aspId, Tester container) : base(aspId, container)
 		{
 		}
 
-		/// <summary>
-		/// 'True' if the radio button is checked; 'false' if not.  Set this parameter to change
-		/// the radio button value on post-back.  Only one radio button in the same group (that is,
-		/// with the same 'name' attribute) may be checked at any given time.  If you set this
-		/// radio button to true, any other radio buttons that are checked will be unchecked.
-		/// </summary>
-		public bool Checked
+		public int SelectedIndex
 		{
 			get
 			{
-				return Tag.HasAttribute("checked");
-			}
-			set
-			{
-				if (!value) throw new CannotUncheckException();
-				if (Disabled) throw new ControlDisabledException(this);
-
-				string valueAttribute = Tag.OptionalAttribute("value");
-				if (valueAttribute == null) valueAttribute = "on";
-				Form.Variables.ReplaceAll(Tag.Attribute("name"), valueAttribute);
+				XmlNodeList items = ItemTags;
+				for (int i = 0; i < items.Count; i++)
+				{
+					XmlElement item = (XmlElement)items[i];
+					if (item.Attributes["selected"] != null) return i;
+				}
+				return -1;
 			}
 		}
 
-		/// <summary>
-		/// Test attempted to set radio button's Checked property to false,
-		/// but radio buttons cannot be unchecked directly.  Check another 
-		/// radio button in the same group instead.
-		/// </summary>
-		public class CannotUncheckException : InvalidOperationException
+		private XmlNodeList ItemTags
 		{
-			public CannotUncheckException() : 
-				base("Cannot uncheck radio button, check another one in the same group instead.")
+			get
 			{
+				XmlNodeList optionNodes = Element.SelectNodes("option");
+//				HtmlOptionTester[] tags = new HtmlOptionTester[optionNodes.Count];
+//
+//				for (int i = 0; i < optionNodes.Count; i++)
+//				{
+//					tags[i] = new HtmlOptionTester((XmlElement)optionNodes[i]);
+//				}
+				return optionNodes;
+			}
+		}
+
+		public int Size
+		{
+			get
+			{
+				return 1;
+			}
+		}
+
+		public bool Multiple
+		{
+			get
+			{
+				return false;
+			}
+		}
+
+		public string[] Items
+		{
+			get
+			{
+				return new string[] {};
 			}
 		}
 	}

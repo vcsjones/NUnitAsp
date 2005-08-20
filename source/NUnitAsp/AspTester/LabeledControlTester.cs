@@ -93,7 +93,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return new HtmlTag(Browser, "//label[@for='" + HtmlId + "']", "label for " + HtmlIdAndDescription);
+				return new HtmlTag("//label[@for='" + HtmlId + "']", "label for " + HtmlIdAndDescription, Form);
 			}
 		}
 	}

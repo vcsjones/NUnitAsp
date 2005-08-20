@@ -25,7 +25,7 @@ using System;
 namespace NUnit.Extensions.Asp.HtmlTester
 {
 	/// <summary>
-	/// Tester for System.Web.UI.HtmlControls.HtmlInputButton
+	/// Tester for System.Web.UI.HtmlControls.HtmlInputText
 	/// </summary>
 	public class HtmlInputTextTester : HtmlControlTester
 	{

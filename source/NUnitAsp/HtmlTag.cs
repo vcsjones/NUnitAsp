@@ -32,64 +32,94 @@ namespace NUnit.Extensions.Asp
 	/// before caching the results.  The API of this class may 
 	/// change in future releases.
 	/// </summary>
-	public class HtmlTag
+	public class HtmlTag : ControlTester
 	{
-		private readonly HttpClient browser;
-		private readonly string id;
-		private readonly string xpath;
-		private readonly Tester owner;
-		private readonly string description;
-		private readonly XmlDocument pageForTestingOnly;
-		private readonly XmlElement element;
+		private string xpath = null;
+		private string description = null;
+		private XmlDocument pageForTestingOnly = null;
+		private string idForTestingOnly = null;
+		private XmlElement element = null;
 
 		/// <summary>
 		/// Construct a dynamic HTML tag using an ID.  The state of the tag will reflect the page 
 		/// currently loaded by the browser, even as it changes.
 		/// </summary>
-		/// <param name="browser">The browser to look at for the current page.</param>
 		/// <param name="id">The HTML ID of the tag.</param>
-		/// <param name="owner">The tester that corresponds to this tag (for error reporting).</param>
-		public HtmlTag(HttpClient browser, string id, Tester owner)
+		public HtmlTag(string id) : base(id)
 		{
-			this.browser = browser;
-			this.id = id;
-			this.owner = owner;
+		}
+
+		/// <summary>
+		/// Create a tester for a server-side HTML control.  Use this constructor
+		/// when the HTML tag you are testing has the "runat='server'" attribute.
+		/// Also use this tester when using the non-default webform or HttpClient.
+		/// </summary>
+		/// <param name="aspId">The ID of the control to test (look in the
+		/// page's ASP.NET source code for the ID).</param>
+		/// <param name="container">A tester for the control's container.  
+		/// (In the page's ASP.NET source code, look for the tag that the
+		/// control is nested in.  That's probably the control's
+		/// container.  Use "CurrentWebForm" if you're not sure; it will
+		/// probably work.)</param>
+		public HtmlTag(string aspId, Tester container) : base(aspId, container)
+		{
 		}
 
 		/// <summary>
 		/// Construct a dynamic HTML tag using an XPath description.  The state of the tag will reflect
-		/// the page currently loaded by the browser, even as it changes.
+		/// the page currently loaded by the <see cref="HttpClient.Default"/> browser, even as it changes.
 		/// </summary>
-		/// <param name="browser">The browser to look at for the current page.</param>
 		/// <param name="xpath">The XPath description of the tag.</param>
 		/// <param name="description">A description of this tag (for error reporting).</param>
-		public HtmlTag(HttpClient browser, string xpath, string description)
+		public HtmlTag(string xpath, string description) : base()
 		{
-			this.browser = browser;
 			this.xpath = xpath;
 			this.description = description;
 		}
 
 		/// <summary>
-		/// For NUnitAsp's test suite only.
+		/// Construct a dynamic HTML tag using an XPath description.  The state of the tag will reflect
+		/// the page currently loaded by the container's browser, even as it changes.
 		/// </summary>
-		public HtmlTag(string htmlPage, string id, string description)
+		/// <param name="xpath">The XPath description of the tag.</param>
+		/// <param name="description">A description of this tag (for error reporting).</param>
+		/// <param name="container">A tester for the control's container.  The web form
+		/// is sufficient in this case.</param>
+		public HtmlTag(string xpath, string description, Tester container) : base(container)
 		{
-			pageForTestingOnly = new XmlDocument();
-			pageForTestingOnly.LoadXml(htmlPage);
-			this.id = id;
+			this.xpath = xpath;
 			this.description = description;
+		}
+
+		// testing only
+		private HtmlTag()
+		{
 		}
 
 		/// <summary>
 		/// For NUnitAsp's test suite only.
 		/// </summary>
-		public HtmlTag(string htmlPage, string xpath)
+		public static HtmlTag TestInstance(string htmlPage, string id, string description)
 		{
-			pageForTestingOnly = new XmlDocument();
-			pageForTestingOnly.LoadXml(htmlPage);
-			this.xpath = xpath;
-			this.description = htmlPage;
+			HtmlTag instance = new HtmlTag();
+			instance.pageForTestingOnly = new XmlDocument();
+			instance.pageForTestingOnly.LoadXml(htmlPage);
+			instance.idForTestingOnly = id;
+			instance.description = description;
+			return instance;
+		}
+
+		/// <summary>
+		/// For NUnitAsp's test suite only.
+		/// </summary>
+		public static HtmlTag TestInstance(string htmlPage, string xpath)
+		{
+			HtmlTag instance = new HtmlTag();
+			instance.pageForTestingOnly = new XmlDocument();
+			instance.pageForTestingOnly.LoadXml(htmlPage);
+			instance.xpath = xpath;
+			instance.description = htmlPage;
+			return instance;
 		}
 
 		/// <summary>
@@ -107,7 +137,7 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// Returns true if the tag is visible on the current page.
 		/// </summary>
-		public bool Visible
+		public override bool Visible
 		{
 			get
 			{
@@ -197,10 +227,11 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Returns the immediate children of this tag that match a particular type (such as &lt;tr&gt;).
+		/// <p>Returns the immediate children of this tag that match a particular type (such as &lt;tr&gt;).
 		/// Does not return "grand-children" -- i.e., calling <c>table.Children("tr")</c> will work, but
-		/// calling <c>table.Children("td")</c> will typically return nothing.
-		/// Don't cache the results of this call.
+		/// calling <c>table.Children("td")</c> will typically return nothing because the 'td' tags
+		/// are nested inside 'tr' tags.</p>
+		/// <p>Don't cache the results of this call.</p>
 		/// </summary>
 		/// <param name="tag">The type of tag to return.  Don't include angle brackets.</param>
 		/// <example>To get all rows in a table: <code>HtmlTag[] rows = table.Children("tr");</code></example>
@@ -241,7 +272,7 @@ namespace NUnit.Extensions.Asp
 			return tags[0];
 		}
 
-		private XmlElement Element
+		protected internal override XmlElement Element
 		{
 			get
 			{
@@ -259,10 +290,10 @@ namespace NUnit.Extensions.Asp
 				if (element != null) return element;
 
 				XmlDocument document = pageForTestingOnly;
-				if (browser != null) document = browser.CurrentPage.Document;
+				if (document == null) document = Browser.CurrentPage.Document;
 
-				string selector = "//*[@id='" + id + "']";
-				if (xpath != null) selector = xpath;
+				string selector = xpath;
+				if (selector == null) selector = "//*[@id='" + HtmlId + "']";
 
 				XmlNodeList nodes = document.SelectNodes(selector);
 				if (nodes.Count > 1) throw new ApplicationException("Expected only one node to match xpath '" + selector + "' but " + nodes.Count + " nodes matched");
@@ -274,25 +305,40 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		private string Description
+		/// <summary>
+		/// The HTML ID of the control being tested.  It corresponds to the
+		/// ID of the HTML tag rendered by the server.  It's useful for looking at 
+		/// raw HTML while debugging.
+		/// </summary>
+		public override string HtmlId
 		{
 			get
 			{
-				if (owner != null) 
-				{
-					try
-					{
-						return owner.Description;
-					}
-					catch (StackOverflowException)
-					{
-						return "? (" + owner.GetType() + ".Description malfunction: stack overflow)";
-					}
-				}
-				else
-				{
-					return description;
-				}
+				if (idForTestingOnly != null) return idForTestingOnly;
+				else return base.HtmlId;
+			}
+		}
+
+		/// <summary>
+		/// A human-readable description of the location of the control.
+		/// </summary>
+		public override string Description
+		{
+			get
+			{
+				if (description != null) return description;
+				return base.Description;
+			}
+		}
+
+		/// <summary>
+		/// The HTML tag we're testing.
+		/// </summary>
+		protected override HtmlTag Tag
+		{
+			get
+			{
+				return this;
 			}
 		}
 

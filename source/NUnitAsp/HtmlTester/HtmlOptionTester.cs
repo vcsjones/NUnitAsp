@@ -25,9 +25,10 @@ using System;
 namespace NUnit.Extensions.Asp.HtmlTester
 {
 	/// <summary>
-	/// Tester for System.Web.UI.HtmlControls.HtmlInputRadioButton
+	/// Tester for &lt;option&gt; tag.  (There's no corresponding ASP.NET class; it's usually
+	/// nested inside the &lt;select&gt; tag, tested by <see cref="HtmlSelectTester"/>.)
 	/// </summary>
-	public class HtmlInputRadioButtonTester : HtmlControlTester
+	public class HtmlOptionTester : HtmlControlTester
 	{
 		/// <summary>
 		/// Create a tester for an HTML tag.  Use this constructor
@@ -35,7 +36,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// </summary>
 		/// <param name="htmlId">The ID of the control to test (look in the
 		/// page's ASP.NET source code for the ID).</param>
-		public HtmlInputRadioButtonTester(string htmlId) : base(htmlId)
+		public HtmlOptionTester(string htmlId) : base(htmlId)
 		{
 		}
 
@@ -50,43 +51,23 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// control is nested in.  That's probably the control's
 		/// container.  Use "CurrentWebForm" if you're not sure; it will
 		/// probably work.)</param>
-		public HtmlInputRadioButtonTester(string aspId, Tester container) : base(aspId, container)
+		public HtmlOptionTester(string aspId, Tester container) : base(aspId, container)
 		{
 		}
 
+//		public HtmlOptionTester(XmlElement element) : base(element)
+//		{
+//		}
+
 		/// <summary>
-		/// 'True' if the radio button is checked; 'false' if not.  Set this parameter to change
-		/// the radio button value on post-back.  Only one radio button in the same group (that is,
-		/// with the same 'name' attribute) may be checked at any given time.  If you set this
-		/// radio button to true, any other radio buttons that are checked will be unchecked.
+		/// 'True' if this tag has the selected attribute; false if it doesn't or if it's set
+		/// to "false".
 		/// </summary>
-		public bool Checked
+		public bool Selected
 		{
 			get
 			{
-				return Tag.HasAttribute("checked");
-			}
-			set
-			{
-				if (!value) throw new CannotUncheckException();
-				if (Disabled) throw new ControlDisabledException(this);
-
-				string valueAttribute = Tag.OptionalAttribute("value");
-				if (valueAttribute == null) valueAttribute = "on";
-				Form.Variables.ReplaceAll(Tag.Attribute("name"), valueAttribute);
-			}
-		}
-
-		/// <summary>
-		/// Test attempted to set radio button's Checked property to false,
-		/// but radio buttons cannot be unchecked directly.  Check another 
-		/// radio button in the same group instead.
-		/// </summary>
-		public class CannotUncheckException : InvalidOperationException
-		{
-			public CannotUncheckException() : 
-				base("Cannot uncheck radio button, check another one in the same group instead.")
-			{
+				return false;
 			}
 		}
 	}

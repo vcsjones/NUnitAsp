@@ -22,30 +22,49 @@
 
 using System;
 using NUnit.Framework;
-using NUnit.Extensions.Asp;
 using NUnit.Extensions.Asp.HtmlTester;
-using NUnit.Extensions.Asp.AspTester;
 
 namespace NUnit.Extensions.Asp.Test.HtmlTester
 {
 	[TestFixture]
-	public class HtmlControlTest : NUnitAspTestCase
+	public class HtmlSelectTest : NUnitAspTestCase
 	{
-		private HtmlAnchorTester htmlHref;
-
 		protected override void SetUp()
 		{
-			base.SetUp();
-			
-			htmlHref = new HtmlAnchorTester("htmlHref", CurrentWebForm);
-
-			Browser.GetPage(BaseUrl + "HtmlTester/HtmlControlTestPage.aspx");
+			Browser.GetPage(BaseUrl + "/HtmlTester/HtmlSelectTestPage.aspx");
 		}
 
 		[Test]
-		public void TestInnerHtml()
+		public void TestDefaultProperties()
 		{
-			Assert.AreEqual("normal <b>bold</b> [   spaces] &amp; punctuation", htmlHref.InnerHtml);
+			HtmlSelectTester def = new HtmlSelectTester("default");
+
+			Assert.AreEqual(-1, def.SelectedIndex);
+			Assert.AreEqual(1, def.Size);
+			Assert.IsFalse(def.Multiple);
+			WebAssert.AreEqual(new string[] {}, def.Items);
 		}
+
+		[Test]
+		public void TestNonDefaults()
+		{
+			HtmlSelectTester nonDefault = new HtmlSelectTester("nonDefault");
+
+			Assert.AreEqual(2, nonDefault.SelectedIndex);
+//			Assert.AreEqual(5, nonDefault.Size);
+//			Assert.IsTrue(nonDefault.Multiple);
+//			WebAssert.AreEqual(new string[] {"one", "two", "three", "four", "five"}, nonDefault.Items);
+		}
+			
+
+		//SelectedIndex
+		//Size
+		//Items
+		//Multiple
+
+		//set selected
+		//auto post-back?
+		//publicly-accessible ItemTags
+
 	}
 }

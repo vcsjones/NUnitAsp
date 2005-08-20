@@ -140,7 +140,7 @@ namespace NUnit.Extensions.Asp
 		/// contain a post-back script all of the time.
 		/// </summary>
 		/// <example>
-		/// ASP.NET link buttons are rendered as &lt;a&gt; hyperlinks with a
+		/// ASP.NET LinkButtons are rendered as &lt;a&gt; hyperlinks with a
 		/// post-back script call in the "href" attribute.  The following code takes
 		/// the call from the attribute and calls PostBack(), causing NUnitAsp to
 		/// analyze the post-back script call, set the appropriate environment
@@ -187,12 +187,12 @@ namespace NUnit.Extensions.Asp
 			XmlAttribute id = formElement.Attributes["id"];
 			WebAssert.NotNull(id, "couldn't find web form's 'id' attribute");
 
-			return new HtmlTag(browser, id.Value, this);
+			return new HtmlTag(id.Value);
 		}
 
 		private HtmlTag FindTagById()
 		{
-			return new HtmlTag(browser, aspId, this);
+			return new HtmlTag(aspId);
 		}
 
 		/// <summary>

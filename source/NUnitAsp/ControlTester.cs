@@ -35,7 +35,23 @@ namespace NUnit.Extensions.Asp
 	public abstract class ControlTester : Tester
 	{
 		private Tester container;
-		private string aspId;
+		private string aspId = null;
+
+		/// <summary>
+		/// Create a tester that has no ID.  This constructor is for NUnitAsp internal use
+		/// and should be avoided.  It will likely change in a future release.
+		/// </summary>
+		protected ControlTester() : this((string)null)
+		{
+		}
+
+		/// <summary>
+		/// Create a tester that has no ID.  This constructor is for NUnitAsp internal use
+		/// and should be avoided.  It will likely change in a future release.
+		/// </summary>
+		protected ControlTester(Tester container) : this(null, container)
+		{
+		}
 
 		/// <summary>
 		/// <p>Create a tester for a top-level control.  Use this constructor
@@ -94,6 +110,7 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
+				WebAssert.NotNull(aspId, "Attempted to access AspId when it was null");
 				return aspId;
 			}
 		}
