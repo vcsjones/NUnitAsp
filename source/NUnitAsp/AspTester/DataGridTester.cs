@@ -149,15 +149,15 @@ namespace NUnit.Extensions.Asp.AspTester
 		public void Sort(int columnNumberZeroBased)
 		{
 			Row header = GetHeaderRow();
-			HtmlTag cell = header.GetCellElement(columnNumberZeroBased);
-			HtmlTag[] links = cell.Children("a");
+			HtmlTagTester cell = header.GetCellElement(columnNumberZeroBased);
+			HtmlTagTester[] links = cell.Children("a");
 			WebAssert.True(links.Length != 0, "Attempted to sort non-sortable grid (" + HtmlIdAndDescription + ")");
 			WebAssert.True(links.Length == 1, "Expected sort link to have exactly one anchor tag");
 
 			Form.PostBack(links[0].Attribute("href"));
 		}
 
-		private HtmlTag GetRowTag(int rowNumber)
+		private HtmlTagTester GetRowTag(int rowNumber)
 		{
 			return Tag.Children("tr")[rowNumber];
 		}
@@ -199,7 +199,7 @@ namespace NUnit.Extensions.Asp.AspTester
 				return HtmlId + "_" + inAspId;
 			}
 
-			protected override HtmlTag Tag
+			protected override HtmlTagTester Tag
 			{
 				get
 				{
@@ -215,7 +215,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			{
 				get
 				{
-					HtmlTag[] cells = Tag.Children("td");
+					HtmlTagTester[] cells = Tag.Children("td");
 					string[] cellText = new string[cells.Length];
 					for (int i = 0; i < cells.Length; i++) 
 					{
@@ -225,9 +225,9 @@ namespace NUnit.Extensions.Asp.AspTester
 				}
 			}
 
-			internal HtmlTag GetCellElement(int columnNumberZeroBased)
+			internal HtmlTagTester GetCellElement(int columnNumberZeroBased)
 			{
-				HtmlTag[] cells = Tag.Children("td");
+				HtmlTagTester[] cells = Tag.Children("td");
 				WebAssert.True(columnNumberZeroBased >= 0 && columnNumberZeroBased < cells.Length, "There is no column #" + columnNumberZeroBased + " in " + HtmlIdAndDescription);
 				return cells[columnNumberZeroBased];
 			}

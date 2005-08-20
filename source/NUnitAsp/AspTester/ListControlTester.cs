@@ -161,11 +161,11 @@ namespace NUnit.Extensions.Asp.AspTester
 			SetListSelection(item, selected);
 		}
 
-		private XmlNodeList OptionList
+		private HtmlTagTester[] OptionList
 		{
 			get
 			{
-				return Element.SelectNodes("option");
+				return Tag.Children("option");
 			}
 		}
 

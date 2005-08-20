@@ -126,19 +126,6 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Deprecated--do not use.
-		/// </summary>
-		protected internal virtual XmlElement Element
-		{
-			get 
-			{
-				XmlElement element = Browser.CurrentPage.Document.GetElementById(HtmlId);
-				if (element == null) throw new HtmlTag.ElementNotVisibleException("Couldn't find " + HtmlId + " on " + Description);
-				return element;
-			}
-		}
-
-		/// <summary>
 		/// The browser instance used to load the page containing the form being tested.
 		/// </summary>
 		protected internal override HttpClient Browser

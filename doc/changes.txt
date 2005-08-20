@@ -25,11 +25,13 @@ Before release:
 * Refer to David Gardiner's code-generation tool in documentation: https://sourceforge.net/projects/nunitaspcodegen/
 * Incorporate "Advanced NUnitAsp" video into documentation page
 * Remove "Enabled" check on all controls.  Document this.  Tracker #1262940.
-* Fix version number in [Obsolete(...will be removed in 1.7)]
+* Fix version number in [Obsolete(...will be removed in v1.7)]
+* Add XPath constructors to all HTML testers.
 
 
 Changes in CVS:
 Produced by Jim Shore.
+* Changed default HttpClient.UserAgent to be the same as Internet Explorer 6.
 * Added FAQ: How to test sites that require authentication.  Credit to Jim Shore.
 * Removed NUnit requirement.  NUnitAsp now works with any test framework.  Credit to Jim Shore.
 * Augmented Browser property with HttpClient.Default static property.  Credit to Jim Shore.
@@ -49,8 +51,9 @@ Produced by Jim Shore.
 * Added HtmlInputRadioButtonTester.  Credit to Jim Shore.
 * Added HtmlInputTextTester.  Credit to Jim Shore.
 * Added HtmlTextAreaTester.  Credit to Jim Shore.
-* Fixed TextBoxTester.MaxLength bug that made method unusable.  Credit to Jim Shore.
+* Fixed TextBoxTester.MaxLength bug that made that method unusable.  Credit to Jim Shore.
 * Added support for AutoPostBack to RadioButtonTester and CheckBoxTester.  Credit to Jim Shore.
+* Added ability to instantiate HTML testers by XPath as well as ID.  Credit to Jim Shore.
 
 
 Changes in NUnitAsp 1.5.1:

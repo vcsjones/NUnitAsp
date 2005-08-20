@@ -125,7 +125,7 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "HtmlTag.cs"
+                    RelPath = "HtmlTagTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

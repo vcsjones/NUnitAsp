@@ -27,7 +27,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 	/// <summary>
 	/// Base class for all testers in HtmlTester namespace
 	/// </summary>
-	public abstract class HtmlControlTester : ControlTester
+	public abstract class HtmlControlTester : HtmlTagTester
 	{
 		/// <summary>
 		/// Create a tester for an HTML tag.  Use this constructor
@@ -40,17 +40,40 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		}
 
 		/// <summary>
-		/// Create a tester for a server-side HTML control.  Use this constructor
-		/// when the HTML tag you are testing has the "runat='server'" attribute.
+		/// Create a tester for a server-side HTML control or a tag that's on a 
+		/// page with multiple forms.  Use this constructor when the HTML tag you
+		/// are testing has the "runat='server'" attribute.
+		/// Also use this tester when using the non-default webform or HttpClient.
 		/// </summary>
 		/// <param name="aspId">The ID of the control to test (look in the
 		/// page's ASP.NET source code for the ID).</param>
 		/// <param name="container">A tester for the control's container.  
 		/// (In the page's ASP.NET source code, look for the tag that the
 		/// control is nested in.  That's probably the control's
-		/// container.  Use "CurrentWebForm" if you're not sure; it will
-		/// probably work.)</param>
+		/// container.)  If testing a page with multiple forms or a non-default
+		/// HttpClient, pass in the WebFormTester for the form this tag is within.</param>
 		public HtmlControlTester(string aspId, Tester container) : base(aspId, container)
+		{
+		}
+
+		/// <summary>
+		/// Create a tester for an HTML tag using an XPath description.
+		/// </summary>
+		/// <param name="xpath">The XPath description of the tag.</param>
+		/// <param name="description">A human-readable description of this tag (for error reporting).</param>
+		public HtmlControlTester(string xpath, string description) : base(xpath, description)
+		{
+		}
+
+		/// <summary>
+		/// Create a tester for an HTML tag that's on a page with multiple forms using
+		/// an XPath description.
+		/// </summary>
+		/// <param name="xpath">The XPath description of the tag.</param>
+		/// <param name="description">A human-readable description of this tag (for error reporting).</param>
+		/// <param name="container">A tester for the control's container.  A WebFormTester
+		/// will usually be most appropriate.</param>
+		public HtmlControlTester(string xpath, string description, Tester container) : base(xpath, description, container)
 		{
 		}
 
@@ -69,38 +92,6 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		}
 
 		/// <summary>
-		/// Returns the value of an attribute on this tag or throws an exception if the attribute
-		/// isn't present.
-		/// </summary>
-		/// <param name="name">The name of the attribute.</param>
-		/// <returns>The value of the attribute</returns>
-		public string Attribute(string name) 
-		{
-			return Tag.Attribute(name);
-		}
-
-		/// <summary>
-		/// Returns the value of the attribute on this tag or null if the attribute isn't present.
-		/// </summary>
-		/// <param name="name">The name of the attribute.</param>
-		/// <returns>The value of the attribute or null if no such attribute</returns>
-		public string OptionalAttribute(string name)
-		{
-			return Tag.OptionalAttribute(name);
-		}
-
-		/// <summary>
-		/// Returns an attribute as an integer, or -1 if the attribute isn't present.  Throws
-		/// an exception if the attribute isn't an integer.
-		/// </summary>
-		public int IntegerAttributeWithNegOneDefault(string name)
-		{
-			string attribute = Tag.OptionalAttribute(name);
-			if (attribute == null) return -1;
-			else return int.Parse(attribute);
-		}
-
-		/// <summary>
 		/// Gets or sets a value indicating wheither the control is disabled.
 		/// </summary>
 		public bool Disabled
@@ -108,17 +99,6 @@ namespace NUnit.Extensions.Asp.HtmlTester
 			get
 			{
 				return IsDisabled;
-			}
-		}
-	
-		/// <summary>
-		/// The HTML inside the tag being tested.
-		/// </summary>
-		public string InnerHtml
-		{
-			get
-			{
-				return Tag.Body;
 			}
 		}
 	}

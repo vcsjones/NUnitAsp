@@ -28,21 +28,21 @@ namespace NUnit.Extensions.Asp.Test
 	[TestFixture]
 	public class HtmlTagTest
 	{
-		private HtmlTag tag;
+		private HtmlTagTester tag;
 
 		[SetUp]
 		public void SetUp()
 		{
 			string test = "<html><myTag id='tag' attr='one'>The body</myTag></html>";
-			tag = HtmlTag.TestInstance(test, "tag", test);
+			tag = HtmlTagTester.TestInstance(test, "tag", test);
 		}
 
 		[Test]
 		public void TestVisibility()
 		{
 			string test = "<html><myTag id='tagOne' /></html>";
-			HtmlTag tagOne = HtmlTag.TestInstance(test, "tagOne", test);
-			HtmlTag tagNone = HtmlTag.TestInstance(test, "tagNone", test);
+			HtmlTagTester tagOne = HtmlTagTester.TestInstance(test, "tagOne", test);
+			HtmlTagTester tagNone = HtmlTagTester.TestInstance(test, "tagNone", test);
 			Assert.IsTrue(tagOne.Visible);
 			Assert.IsFalse(tagNone.Visible);
 		}
@@ -51,7 +51,7 @@ namespace NUnit.Extensions.Asp.Test
 		public void TestXPath()
 		{
 			string test = "<html><myTag foo='bar' /></html>";
-			HtmlTag tag = HtmlTag.TestInstance(test, "//*[@foo='bar']");
+			HtmlTagTester tag = HtmlTagTester.TestInstance(test, "//*[@foo='bar']");
 			Assert.IsTrue(tag.Visible);
 		}
 
@@ -80,7 +80,7 @@ namespace NUnit.Extensions.Asp.Test
 		[Test]
 		public void TestBody()
 		{
-			Assert.AreEqual("The body", tag.Body);
+			Assert.AreEqual("The body", tag.InnerHtml);
 		}
 
 		[Test]
@@ -93,25 +93,25 @@ namespace NUnit.Extensions.Asp.Test
 		public void TestChildrenAndHasChildren()
 		{
 			string test = "<html><c>Left</c><p id='parent'><c>0</c><c>1</c><r>red herring</r><c>2</c><c>3<c>nested</c></c><c>4</c></p><c>Right</c></html>";
-			HtmlTag tag = HtmlTag.TestInstance(test, "parent", test);
+			HtmlTagTester tag = HtmlTagTester.TestInstance(test, "parent", test);
 
 			Assert.IsTrue(tag.HasChildren("c"));
 			Assert.IsFalse(tag.HasChildren("x"));
 
-			Assert.AreEqual("0", tag.Children("c")[0].Body);
-			Assert.AreEqual("1", tag.Children("c")[1].Body);
-			Assert.AreEqual("2", tag.Children("c")[2].Body);
-			Assert.AreEqual("3<c>nested</c>", tag.Children("c")[3].Body);
-			Assert.AreEqual("4", tag.Children("c")[4].Body);
+			Assert.AreEqual("0", tag.Children("c")[0].InnerHtml);
+			Assert.AreEqual("1", tag.Children("c")[1].InnerHtml);
+			Assert.AreEqual("2", tag.Children("c")[2].InnerHtml);
+			Assert.AreEqual("3<c>nested</c>", tag.Children("c")[3].InnerHtml);
+			Assert.AreEqual("4", tag.Children("c")[4].InnerHtml);
 		}
 
 		[Test]
 		public void TestChild()
 		{
 			string test = "<p id='parent'><one>1</one><two>A</two><two>B</two></p>";
-			HtmlTag tag = HtmlTag.TestInstance(test, "parent", test);
+			HtmlTagTester tag = HtmlTagTester.TestInstance(test, "parent", test);
 
-			Assert.AreEqual("1", tag.Child("one").Body);
+			Assert.AreEqual("1", tag.Child("one").InnerHtml);
 		}
 
 		[Test]
@@ -119,7 +119,7 @@ namespace NUnit.Extensions.Asp.Test
 		public void TestChild_WhenNoChildren()
 		{
 			string test = "<p id='parent'><one>1</one><two>A</two><two>B</two></p>";
-			HtmlTag tag = HtmlTag.TestInstance(test, "parent", test);
+			HtmlTagTester tag = HtmlTagTester.TestInstance(test, "parent", test);
 
 			tag.Child("none");
 		}
@@ -129,7 +129,7 @@ namespace NUnit.Extensions.Asp.Test
 		public void TestChild_WhenTwoManyChildren()
 		{
 			string test = "<p id='parent'><one>1</one><two>A</two><two>B</two></p>";
-			HtmlTag tag = HtmlTag.TestInstance(test, "parent", test);
+			HtmlTagTester tag = HtmlTagTester.TestInstance(test, "parent", test);
 
 			tag.Child("two");
 		}

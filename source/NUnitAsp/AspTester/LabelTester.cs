@@ -84,7 +84,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get 
 			{
-				return Tag.Body;
+				return Tag.InnerHtml;
 			}
 		}
 	}

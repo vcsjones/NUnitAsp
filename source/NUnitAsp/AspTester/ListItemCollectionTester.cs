@@ -33,9 +33,9 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// </summary>
 	public class ListItemCollectionTester : ReadOnlyCollectionBase
 	{
-		internal ListItemCollectionTester(ListControlTester control, XmlNodeList optionList)
+		internal ListItemCollectionTester(ListControlTester control, HtmlTagTester[] optionList)
 		{
-			foreach (XmlElement option in optionList)
+			foreach (HtmlTagTester option in optionList)
 			{
 				InnerList.Add(new ListItemTester(control, option));
 			}

@@ -85,15 +85,15 @@ namespace NUnit.Extensions.Asp.AspTester
 			get
 			{
 				if (!LabelTag.Visible) return "";
-				else return LabelTag.Body;
+				else return LabelTag.InnerHtml;
 			}
 		}
 
-		private HtmlTag LabelTag
+		private HtmlTagTester LabelTag
 		{
 			get
 			{
-				return new HtmlTag("//label[@for='" + HtmlId + "']", "label for " + HtmlIdAndDescription, Form);
+				return new HtmlTagTester("//label[@for='" + HtmlId + "']", "label for " + HtmlIdAndDescription, Form);
 			}
 		}
 	}

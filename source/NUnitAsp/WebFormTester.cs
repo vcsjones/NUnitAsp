@@ -169,7 +169,7 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// The HTML tag this tester corresponds to.
 		/// </summary>
-		protected override HtmlTag Tag
+		protected override HtmlTagTester Tag
 		{
 			get
 			{
@@ -178,7 +178,7 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		private HtmlTag FindTagByForm()
+		private HtmlTagTester FindTagByForm()
 		{
 			XmlNodeList formNodes = browser.CurrentPage.Document.GetElementsByTagName("form");
 			WebAssert.True(formNodes.Count == 1, "The current page has more than one form.  To test it, construct a WebFormTester and use it as the 'container' parameter for your other testers.");
@@ -187,12 +187,12 @@ namespace NUnit.Extensions.Asp
 			XmlAttribute id = formElement.Attributes["id"];
 			WebAssert.NotNull(id, "couldn't find web form's 'id' attribute");
 
-			return new HtmlTag(id.Value);
+			return new HtmlTagTester(id.Value);
 		}
 
-		private HtmlTag FindTagById()
+		private HtmlTagTester FindTagById()
 		{
-			return new HtmlTag(aspId);
+			return new HtmlTagTester(aspId);
 		}
 
 		/// <summary>

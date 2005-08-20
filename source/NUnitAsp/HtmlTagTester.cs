@@ -26,13 +26,14 @@ using System.Xml;
 namespace NUnit.Extensions.Asp
 {
 	/// <summary>
-	/// An HTML tag.  This class performs some of the magic that 
-	/// allows NUnitAsp to construct testers before pages are loaded.
-	/// When using the methods on this class, check the API documentation
+	/// <p>An HTML tag.  This class performs some of the magic that 
+	/// allows NUnitAsp to construct testers before pages are loaded and
+	/// to have testers change as the current page changes.</p>
+	/// <p>When using the methods on this class, check the API documentation
 	/// before caching the results.  The API of this class may 
-	/// change in future releases.
+	/// change in future releases.</p>
 	/// </summary>
-	public class HtmlTag : ControlTester
+	public class HtmlTagTester : ControlTester
 	{
 		private string xpath = null;
 		private string description = null;
@@ -41,17 +42,19 @@ namespace NUnit.Extensions.Asp
 		private XmlElement element = null;
 
 		/// <summary>
-		/// Construct a dynamic HTML tag using an ID.  The state of the tag will reflect the page 
-		/// currently loaded by the browser, even as it changes.
+		/// Create a tester for an HTML tag.  Use this constructor
+		/// for testing most tags.
 		/// </summary>
-		/// <param name="id">The HTML ID of the tag.</param>
-		public HtmlTag(string id) : base(id)
+		/// <param name="htmlId">The ID of the control to test (look in the
+		/// page's ASP.NET source code for the ID).</param>
+		public HtmlTagTester(string htmlId) : base(htmlId)
 		{
 		}
 
 		/// <summary>
-		/// Create a tester for a server-side HTML control.  Use this constructor
-		/// when the HTML tag you are testing has the "runat='server'" attribute.
+		/// Create a tester for a server-side HTML control or a tag that's on a 
+		/// page with multiple forms.  Use this constructor when the HTML tag you
+		/// are testing has the "runat='server'" attribute.
 		/// Also use this tester when using the non-default webform or HttpClient.
 		/// </summary>
 		/// <param name="aspId">The ID of the control to test (look in the
@@ -59,49 +62,48 @@ namespace NUnit.Extensions.Asp
 		/// <param name="container">A tester for the control's container.  
 		/// (In the page's ASP.NET source code, look for the tag that the
 		/// control is nested in.  That's probably the control's
-		/// container.  Use "CurrentWebForm" if you're not sure; it will
-		/// probably work.)</param>
-		public HtmlTag(string aspId, Tester container) : base(aspId, container)
+		/// container.)  If testing a page with multiple forms or a non-default
+		/// HttpClient, pass in the WebFormTester for the form this tag is within.</param>
+		public HtmlTagTester(string aspId, Tester container) : base(aspId, container)
 		{
 		}
 
 		/// <summary>
-		/// Construct a dynamic HTML tag using an XPath description.  The state of the tag will reflect
-		/// the page currently loaded by the <see cref="HttpClient.Default"/> browser, even as it changes.
+		/// Create a tester for an HTML tag using an XPath description.
 		/// </summary>
 		/// <param name="xpath">The XPath description of the tag.</param>
-		/// <param name="description">A description of this tag (for error reporting).</param>
-		public HtmlTag(string xpath, string description) : base()
+		/// <param name="description">A human-readable description of this tag (for error reporting).</param>
+		public HtmlTagTester(string xpath, string description) : base()
 		{
 			this.xpath = xpath;
 			this.description = description;
 		}
 
 		/// <summary>
-		/// Construct a dynamic HTML tag using an XPath description.  The state of the tag will reflect
-		/// the page currently loaded by the container's browser, even as it changes.
+		/// Create a tester for an HTML tag that's on a page with multiple forms using
+		/// an XPath description.
 		/// </summary>
 		/// <param name="xpath">The XPath description of the tag.</param>
-		/// <param name="description">A description of this tag (for error reporting).</param>
-		/// <param name="container">A tester for the control's container.  The web form
-		/// is sufficient in this case.</param>
-		public HtmlTag(string xpath, string description, Tester container) : base(container)
+		/// <param name="description">A human-readable description of this tag (for error reporting).</param>
+		/// <param name="container">A tester for the control's container.  A WebFormTester
+		/// will usually be most appropriate.</param>
+		public HtmlTagTester(string xpath, string description, Tester container) : base(container)
 		{
 			this.xpath = xpath;
 			this.description = description;
 		}
 
 		// testing only
-		private HtmlTag()
+		private HtmlTagTester()
 		{
 		}
 
 		/// <summary>
 		/// For NUnitAsp's test suite only.
 		/// </summary>
-		public static HtmlTag TestInstance(string htmlPage, string id, string description)
+		public static HtmlTagTester TestInstance(string htmlPage, string id, string description)
 		{
-			HtmlTag instance = new HtmlTag();
+			HtmlTagTester instance = new HtmlTagTester();
 			instance.pageForTestingOnly = new XmlDocument();
 			instance.pageForTestingOnly.LoadXml(htmlPage);
 			instance.idForTestingOnly = id;
@@ -112,9 +114,9 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// For NUnitAsp's test suite only.
 		/// </summary>
-		public static HtmlTag TestInstance(string htmlPage, string xpath)
+		public static HtmlTagTester TestInstance(string htmlPage, string xpath)
 		{
-			HtmlTag instance = new HtmlTag();
+			HtmlTagTester instance = new HtmlTagTester();
 			instance.pageForTestingOnly = new XmlDocument();
 			instance.pageForTestingOnly.LoadXml(htmlPage);
 			instance.xpath = xpath;
@@ -128,7 +130,7 @@ namespace NUnit.Extensions.Asp
 		/// </summary>
 		/// <param name="element"></param>
 		/// <param name="description">A description of this tag (for error reporting).</param>
-		private HtmlTag(XmlElement element, string description)
+		private HtmlTagTester(XmlElement element, string description)
 		{
 			this.element = element;
 			this.description = description;
@@ -192,10 +194,22 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
-		/// Returns the contents of the tag, but not the tag itself.  For example,
-		/// &lt;a href='foo'&gt;My Link&lt;/a&gt; will return "My Link".
+		/// Returns an attribute as an integer, or -1 if the attribute isn't present.  Throws
+		/// an exception if the attribute isn't an integer.
 		/// </summary>
-		public string Body
+		public int AttributeAsIntWithNegOneDefault(string name)
+		{
+			string attribute = Tag.OptionalAttribute(name);
+			if (attribute == null) return -1;
+			else return int.Parse(attribute);
+		}
+
+		/// <summary>
+		/// The raw HTML inside the tag being tested.  For example, 
+		/// &lt;a href='foo'&gt;&lt;i&gt;My&lt;/i&gt; Link&lt;/a&gt; will return
+		/// "&lt;i&gt;My&lt;/i&gt; Link".
+		/// </summary>
+		public string InnerHtml
 		{
 			get
 			{
@@ -218,11 +232,11 @@ namespace NUnit.Extensions.Asp
 		/// Returns the tag that contains this one.  Don't cache it.  Don't use 
 		/// this on the root element.
 		/// </summary>
-		public HtmlTag Parent
+		public HtmlTagTester Parent
 		{
 			get
 			{
-				return new HtmlTag((XmlElement)Element.ParentNode, "the parent of " + Description);
+				return new HtmlTagTester((XmlElement)Element.ParentNode, "the parent of " + Description);
 			}
 		}
 
@@ -234,15 +248,15 @@ namespace NUnit.Extensions.Asp
 		/// <p>Don't cache the results of this call.</p>
 		/// </summary>
 		/// <param name="tag">The type of tag to return.  Don't include angle brackets.</param>
-		/// <example>To get all rows in a table: <code>HtmlTag[] rows = table.Children("tr");</code></example>
+		/// <example>To get all rows in a table: <code>HtmlTagTester[] rows = table.Children("tr");</code></example>
 		/// <returns>The tags, or an empty array if none.</returns>
-		public HtmlTag[] Children(string tag)
+		public HtmlTagTester[] Children(string tag)
 		{
 			XmlNodeList children = Element.SelectNodes(tag);
-			HtmlTag[] result = new HtmlTag[children.Count];
+			HtmlTagTester[] result = new HtmlTagTester[children.Count];
 			for (int i = 0; i < children.Count; i++) 
 			{
-				result[i] = new HtmlTag((XmlElement)children[i], "<" + tag + "> child #" + i + " of " + Description);
+				result[i] = new HtmlTagTester((XmlElement)children[i], "<" + tag + "> child #" + i + " of " + Description);
 			}
 			return result;													  
 		}
@@ -265,14 +279,14 @@ namespace NUnit.Extensions.Asp
 		/// this method will throw an exception.  Don't cache the results of this call.
 		/// </summary>
 		/// <param name="tag">The type of tag to look for.  Don't include angle brackets.</param>
-		public HtmlTag Child(string tag)
+		public HtmlTagTester Child(string tag)
 		{
-			HtmlTag[] tags = Children(tag);
+			HtmlTagTester[] tags = Children(tag);
 			WebAssert.True(tags.Length == 1, "Expected " + Description + " to have exactly one <" + tag + "> child tag.");
 			return tags[0];
 		}
 
-		protected internal override XmlElement Element
+		private XmlElement Element
 		{
 			get
 			{
@@ -334,7 +348,7 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// The HTML tag we're testing.
 		/// </summary>
-		protected override HtmlTag Tag
+		protected override HtmlTagTester Tag
 		{
 			get
 			{

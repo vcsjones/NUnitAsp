@@ -34,9 +34,9 @@ namespace NUnit.Extensions.Asp.AspTester
 	public class ListItemTester
 	{
 		private readonly ListControlTester owner;
-		internal readonly XmlElement Element;
+		internal readonly HtmlTagTester Element;
 
-		internal ListItemTester(ListControlTester owner, XmlElement element)
+		internal ListItemTester(ListControlTester owner, HtmlTagTester element)
 		{
 			this.owner = owner;
 			Element = element;
@@ -49,7 +49,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return Element.InnerText;
+				return Element.BodyNoTags;
 			}
 		}
 
@@ -60,14 +60,9 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				XmlAttribute valueAttribute = Element.Attributes["value"];
-
-				if (valueAttribute == null)
-				{
-					return Text;
-				}
-
-				return valueAttribute.Value;
+				string valueAttr = Element.OptionalAttribute("value");
+				if (valueAttr == null) return Text;
+				else return valueAttr;
 			}
 		}
 
@@ -78,7 +73,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return Element.Attributes["selected"] != null;
+				return Element.OptionalAttribute("selected") != null;
 			}
 			set
 			{

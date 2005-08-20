@@ -49,11 +49,11 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// The HTML tag we're testing.
 		/// </summary>
-		protected virtual HtmlTag Tag
+		protected virtual HtmlTagTester Tag
 		{
 			get
 			{
-				return new HtmlTag(HtmlId);
+				return new HtmlTagTester(HtmlId);
 			}
 		}
 

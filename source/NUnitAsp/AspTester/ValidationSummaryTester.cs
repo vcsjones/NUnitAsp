@@ -100,11 +100,11 @@ namespace NUnit.Extensions.Asp.AspTester
 
 		private string[] ReadBulletedMessages()
 		{
-			HtmlTag[] liTags = Tag.Child("ul").Children("li");
+			HtmlTagTester[] liTags = Tag.Child("ul").Children("li");
 			string[] messages = new string[liTags.Length];
 			for (int i = 0; i < liTags.Length; i++)
 			{
-				messages[i] = liTags[i].Body;
+				messages[i] = liTags[i].InnerHtml;
 			}
 			return messages;
 		}
@@ -112,7 +112,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		private string[] ReadListMessages() 
 		{
 			string delim = "<br />";
-			string inner = Tag.Body.Trim();
+			string inner = Tag.InnerHtml.Trim();
 			if (inner.Length >= delim.Length)
 			{
 				inner = inner.Substring(0, inner.Length - delim.Length);
