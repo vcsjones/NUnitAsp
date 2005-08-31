@@ -232,6 +232,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "AspTester\RepeaterTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AspTester\TextBoxTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

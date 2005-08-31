@@ -356,7 +356,7 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
-		internal class ElementNotVisibleException : ApplicationException
+		public class ElementNotVisibleException : ApplicationException
 		{
 			internal ElementNotVisibleException(string message) : base(message)
 			{

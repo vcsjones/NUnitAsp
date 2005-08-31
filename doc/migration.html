@@ -36,16 +36,29 @@
             <p>This change also gives you more choice in testing tools.  NUnitAsp v1.6 works with NUnit, as always, but it should also work with other tools, like MbUnit.  As a side benefit, this change also allowed us to make some simplifications to NUnitAsp's API that we've been wanting to make for a while.</p>
 
 
-            <h2>Changes in v1.6</h2>
+            <h2>Breaking Changes in v1.6</h2>
 
-            <p>These are the breaking changes in NUnitAsp v1.6.</p>
+            <p>There are two changes in NUnitAsp v1.6 that could break your existing tests.</p>
 
             <ul>
-              <li><b>WebFormTestCase:</b>  We no longer require test classes to extend WebFormTestCase.  You'll probably want to, though, as it provides some convenient methods.</li>
+              <li><b>Assert:</b>  The Assert method has been renamed to AssertTrue.  This allows you to use NUnit's Assert class more conveniently.</li>
 
-              <br /><li><b>CurrentWebForm:</b>  The CurrentWebForm property is optional.  Instead, we have a <a href="api/NUnit.Extensions.Asp.ControlTesterConstructor1.html">new constructor</a> that just takes an ASP ID.  We think this will make tests a lot easier to read and write.</li>
+              <br /><li><b>UserAgent:</b> The default UserAgent has been changed to be the same as Internet Explorer's.  This causes ASP.NET to render pages in the same way as it does with IE.</li>
+            </ul>
 
-              <br /><li><b>Assert:</b>  The Assert method has been renamed to AssertTrue.  This allows you to use NUnit's Assert class more conveniently.</li>
+            <p>See the quick migration section, below, for information on how to work around these changes.</p>
+
+
+            <h2>Other Major Changes in v1.6</h2>
+
+            <p>There are a few other major changes that you may wish to take advantage of as you write new tests.</p>
+
+            <ul>
+              <li><b>CurrentWebForm:</b> The CurrentWebForm property is now optional.  Instead, we have a <a href="api/NUnit.Extensions.Asp.ControlTesterConstructor3.html">new constructor</a> that just takes an ASP ID.  We think this will make tests a lot easier to read and write.</li>
+
+              <br /><li><b>Multiple Forms:</b> You may now test pages that have multiple forms.  Simply construct a WebFormTester that describes the correct web form and pass it in as the "container" argument in the constructor.</li>
+
+              <br /><li><b>HtmlTagTester and XPath:</b> In addition to many more HTML testers, we have added a "generic" HTML tester called <a href="api/NUnit.Extensions.Asp.HtmlTagTester.html">HtmlTagTester</a>.  You may use this tester to test HTML tags that don't have other tester support.  In addition, we've added a constructor to all of our HTML testers, including HtmlTagTester, that takes an XPath as a parameter rather than ID.  Use this new constructor to create testers for tags that don't have IDs.</li>
             </ul>
 
 
@@ -61,6 +74,21 @@
               <br /><li>Find all calls to "Assert" in your tests and rename them to "AssertTrue."  (This can usually be done easily with Replace In Files: Ctrl-Shift-H in Visual Studio .NET.)</li>
 
               <br /><li>Verify that your tests still pass.</li>
+
+              <br /><li>If the tests break and you suspect it's because ASP.NET is rendering the page differently (for example, if tags such as &lt;b&gt; and &lt;i&gt; are no longer being rendered), you may set the default UserAgent to "NUnitAsp" by adding the following line to the MasterSetUp() method in NUnitAdapter.cs:
+
+              <p class="code">
+                <span class="demph">[SetUp]
+                <br />public void MasterSetUp()
+                <br />{
+                <br />&nbsp;&nbsp;setupCalled = true;
+                <br />&nbsp;&nbsp;HttpClient.Default = new HttpClient();</span>
+                <br />&nbsp;&nbsp;<span class="emph">HttpClient.Default.UserAgent = "NUnitAsp";</span>
+                <br /><span class="demph">&nbsp;&nbsp;SetUp();
+                <br />}</span>
+              </p>
+
+              <p>Be cautious of this step, as it could cause some testers to stop working.  We recommend changing your tests to work with the new ASP.NET rendering instead.</li>
             </ol>
 
 
