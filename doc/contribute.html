@@ -31,19 +31,21 @@
 
             <p>If you have modified NUnitAsp or developed your own testers, let us know!  We will integrate your changes into NUnitAsp so others can use them and you don't have to maintain them.  Be sure to follow these guidelines when sending in changes:</p>
 
-            <ul>
-              <li>Start with the latest code <a href="http://nunitasp.sourceforge.net/cgi-bin/wiki.pl?ReadOnlyCvsAccess">from CVS</a>.</li>
+            <ol>
+              <li>Base your changes off of the latest release of NUnitAsp.  <i>Don't</i> use the latest code in CVS; it makes diff'ing too difficult.  If your changes require the code in CVS, coordinate with James Shore on the nunitasp-devl list before posting your patch.  (Note: This is a change from previous instructions.  We've found that basing changes off of the latest release rather than CVS allows more people to use it and makes changes easier to spot.)</li>
+              <br />
               <li>Always write tests for your changes.</li>
+              <br />
               <li>Match your coding style to the existing NUnitAsp style.</li>
-              <li>Submit your changes to the SourceForge <a href="http://sourceforge.net/tracker/?group_id=49940">Patches tracker</a> or the <a href="http://sourceforge.net/mail/?group_id=49940">nunitasp-devl mailing list</a>.</li>
-              <li>Post a message to the <a href="http://sourceforge.net/mail/?group_id=49940">nunitasp-devl mailing list</a> assigning the copyright to Brian Knowles and Jim Shore.  (Just say "I assign the copyright to this patch to Brian Knowles and Jim Shore."  If you posted the patch separately, replace "this patch" with whatever is appropriate.)</li>
-            </ul>
+              <br />
+              <li>Create a "readme.txt" file that explains the purpose of the patch, includes the version number of NUnitAsp that your changes are based on, and assigns your copyright to James Shore.  (Just say "I (<i>your name</i>) assign the copyright to this patch to James Shore.")</li>
+              <br />
+              <li>Place new and changed files (except VS.NET files such as .csproj) in a zip file.  Match the existing directory structure and include your readme.txt file.  Do not create a .patch file; instead, include the complete files that changed.</li>
+              <br />
+              <li>Submit your changes to the SourceForge <a href="http://sourceforge.net/tracker/?group_id=49940">Patches tracker</a>.  Please note in the description that you've included a copyright assignment.  (Please do <i>not</i> submit patches to the nunitasp-devl mailing list as suggested in previous versions of this document.)</li>
+            </ol>
 
             <p>Patches that don't follow these guidelines will take longer to be integrated and may even be rejected entirely.  In particular, <b>we cannot accept patches without a copyright assignment</b>.</p>
-
-            <p>We maintain a <a href="http://nunitasp.sourceforge.net/cgi-bin/wiki.pl">web site for contributors</a>.  See that web site for details on getting the latest code out of CVS, setting up your development environment, and ideas for future changes.</p>
-
-            <p>If you're not a coder, but you'd like to contribute, we can still use your help!  Graphic design, writing, and web development skills are also needed.  See the <a href="http://nunitasp.sourceforge.net/cgi-bin/wiki.pl">contributors' web site</a> for details.</p>
 
             <p>Most of all... thanks for your help!</p>
           </div>

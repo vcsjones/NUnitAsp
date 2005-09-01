@@ -227,7 +227,20 @@ namespace NUnit.Extensions.Asp
 		{
 			get
 			{
-				return "web form '" + AspId + "'";
+				return "web form '" + AspId + "' in " + Browser.CurrentUrl;
+			}
+		}
+
+		/// <summary>
+		/// A human-readable description of the location of the control being tested.
+		/// This property describes the location of the control as well as providing
+		/// the HTML ID of the control, if present.
+		/// </summary>
+		public override string HtmlIdAndDescription
+		{
+			get
+			{
+				return Description;
 			}
 		}
 

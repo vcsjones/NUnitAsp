@@ -86,6 +86,16 @@ namespace NUnit.Extensions.Asp
 		protected internal abstract string GetChildElementHtmlId(string aspId);
 
 		/// <summary>
+		/// A human-readable description of the location of the control being tested.
+		/// This property describes the location of the control as well as providing
+		/// the HTML ID of the control, if present.
+		/// </summary>
+		public abstract string HtmlIdAndDescription
+		{
+			get;
+		}
+
+		/// <summary>
 		/// A human-readable description of the location of the control.
 		/// </summary>
 		public abstract string Description

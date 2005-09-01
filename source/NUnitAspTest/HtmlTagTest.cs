@@ -52,7 +52,16 @@ namespace NUnit.Extensions.Asp.Test
 		{
 			string test = "<html><myTag foo='bar' /></html>";
 			HtmlTagTester tag = HtmlTagTester.TestInstance(test, "//*[@foo='bar']");
-			Assert.IsTrue(tag.Visible);
+			WebAssert.Visible(tag);
+		}
+
+		[Test]
+		[ExpectedException(typeof(HtmlTagTester.NoHtmlIdException))]
+		public void TestHtmlId_WhenNoHtmlId()
+		{
+			string test = "<html><myTag foo='bar' /></html>";
+			HtmlTagTester tag = HtmlTagTester.TestInstance(test, "//*[@foo='bar']");
+			string unused = tag.HtmlId;
 		}
 
 		[Test]

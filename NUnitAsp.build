@@ -31,7 +31,7 @@
   <!--*****
   * release
   *****-->
-  <target name="release" depends="build, api" description="Creates release directory and files">
+  <target name="release" depends="compile, test, api">
     <mkdir dir="${release.dir}" failonerror="false" />
     <delete dir="${release.dir}" />
 
@@ -65,15 +65,9 @@
   </target>
   
   <!--*****
-  * build
-  *****-->  
-  <target name="build" depends="compile" description="Build entire project">
-  </target>
-
-  <!--*****
   * compile
   *****-->  
-  <target name="compile" depends="compile_nunitasp, compile_nunitasptest, compile_nunitasptestpages">
+  <target name="compile" depends="compile_nunitasp, compile_nunitasptest, compile_nunitasptestpages" description="Compile entire project">
   </target>
 
   <!--*****
@@ -137,7 +131,7 @@
   <!--*****
   * test
   *****-->  
-  <target name="test" depends="build" description="Test project">
+  <target name="test" depends="compile" description="Test project">
     <exec program="${nunit-exe.path}" commandline="${testdll.path}"/>
     <!-- Commented out because NAnt 0.84 doesn't support NUnit 2
         <nunit2>
@@ -148,9 +142,9 @@
   </target>
       
   <!--*****
-  * package
+  * zip
   *****-->  
-  <target name="package" depends="release, test" description="Creates a tested, releasable .zip file">
+  <target name="zip" depends="release, test" description="Creates a tested, releasable .zip file">
     <zip zipfile="${build.dir}\NUnitAsp.zip">
       <fileset basedir="${release.dir}">
         <includes name="**" />
@@ -161,7 +155,7 @@
   <!--*****
   * api
   *****-->
-  <target name="api" depends="build" description="Creates API documentation">
+  <target name="api" depends="compile" description="Creates API documentation">
     <ndoc>
       <assemblies basedir=".">
         <includes name="${dll.path}" />

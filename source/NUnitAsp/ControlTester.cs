@@ -149,14 +149,21 @@ namespace NUnit.Extensions.Asp
 
 		/// <summary>
 		/// A human-readable description of the location of the control being tested.
-		/// This property describes the location of the form in the ASP.NET source
-		/// code as well as in the HTML page rendered by the server.
+		/// This property describes the location of the control as well as providing
+		/// the HTML ID of the control, if present.
 		/// </summary>
-		public string HtmlIdAndDescription
+		public override string HtmlIdAndDescription
 		{
 			get
 			{
-				return string.Format("{0} ({1})", HtmlId, Description);
+				try
+				{
+					return string.Format("{0} ({1})", HtmlId, Description);
+				}
+				catch (HtmlTagTester.NoHtmlIdException)
+				{
+					return Description;
+				}
 			}
 		}
 

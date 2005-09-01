@@ -329,7 +329,11 @@ namespace NUnit.Extensions.Asp
 			get
 			{
 				if (idForTestingOnly != null) return idForTestingOnly;
-				else return base.HtmlId;
+				if (xpath == null) return base.HtmlId;
+
+				string id = OptionalAttribute("id");
+				if (id == null) throw new NoHtmlIdException(Description);
+				else return id;
 			}
 		}
 
@@ -359,6 +363,14 @@ namespace NUnit.Extensions.Asp
 		public class ElementNotVisibleException : ApplicationException
 		{
 			internal ElementNotVisibleException(string message) : base(message)
+			{
+			}
+		}
+
+		public class NoHtmlIdException : ApplicationException
+		{
+			public NoHtmlIdException(string controlDescription)
+				: base(string.Format("{0} has no HTML ID", controlDescription))
 			{
 			}
 		}

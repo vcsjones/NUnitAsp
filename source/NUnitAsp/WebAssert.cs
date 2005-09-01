@@ -59,7 +59,7 @@ namespace NUnit.Extensions.Asp
 		private static void Visibility(Tester tester, bool expectedVisibility)
 		{
 			string not = expectedVisibility ? " not" : "";
-			string message = String.Format("Unexpectedly{0} visible: {1} (HTML ID: '{2}'; URL: '{3}')", not, tester.Description, tester.HtmlId, tester.Browser.CurrentUrl);
+			string message = String.Format("Unexpectedly{0} visible: {1}", not, tester.HtmlIdAndDescription);
 			True(tester.Visible == expectedVisibility, message);
 		}
 
