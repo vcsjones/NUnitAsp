@@ -84,6 +84,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get 
 			{
+				AssertVisible();
 				return Tag.InnerHtml;
 			}
 		}

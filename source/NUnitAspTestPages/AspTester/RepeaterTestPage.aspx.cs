@@ -41,6 +41,10 @@ namespace NUnitAspTestPages.AspTester
 		protected System.Web.UI.WebControls.Repeater Repeater3;
 		protected System.Web.UI.WebControls.Button Button1;
 		protected System.Web.UI.WebControls.Label Label1;
+		protected System.Web.UI.WebControls.Repeater separatorRepeater;
+		protected System.Web.UI.WebControls.Repeater headerRepeater;
+		protected System.Web.UI.WebControls.Repeater footerRepeater;
+		protected System.Web.UI.WebControls.Repeater allRepeater;
 		protected System.Web.UI.WebControls.Repeater Repeater2;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -70,6 +74,22 @@ namespace NUnitAspTestPages.AspTester
 			Repeater1.DataBind();
 			Repeater2.DataBind();
 
+
+			ArrayList fiveThings = new ArrayList();
+			fiveThings.Add(new SomeThing("one"));
+			fiveThings.Add(new SomeThing("two"));
+			fiveThings.Add(new SomeThing("three"));
+			fiveThings.Add(new SomeThing("four"));
+			fiveThings.Add(new SomeThing("five"));
+			
+			headerRepeater.DataSource = fiveThings;
+			headerRepeater.DataBind();
+			separatorRepeater.DataSource = fiveThings;
+			separatorRepeater.DataBind();
+			footerRepeater.DataSource = fiveThings;
+			footerRepeater.DataBind();
+			allRepeater.DataSource = fiveThings;
+			allRepeater.DataBind();
 		}
 
 

@@ -54,10 +54,17 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		}
 
 		[Test]
-		[ExpectedException(typeof(HtmlTagTester.ElementNotVisibleException))]
 		public void TestEmptyRepeater()
 		{
 			Assert.AreEqual(0, repeater3.ItemCount);
+		}
+
+		[Test]
+		public void TestVisibility()
+		{
+			WebAssert.Visible(repeater1);
+			WebAssert.Visible(repeater2);
+			WebAssert.NotVisible(repeater3);
 		}
 
 		[Test]
@@ -78,7 +85,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		}
 
 		[Test]
-		public void TestButtonClick()
+		public void TestButtonClickInRepeater()
 		{
 			ButtonTester button1 = new ButtonTester("Button1", CurrentWebForm);
 			LabelTester label1 = new LabelTester("Label1", CurrentWebForm);
@@ -93,6 +100,44 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 
 			innerButton2.Click();
 			Assert.AreEqual("Thing 2", label1.Text);
+		}
+
+		[Test]
+		public void TestRepeaterWithHeader()
+		{
+			RepeaterTester header = new RepeaterTester("headerRepeater", true, false, false);
+			AssertFiveThings(header, "headerLabel");
+		}
+
+		[Test]
+		public void TestRepeaterWithSeparator()
+		{
+			RepeaterTester separator = new RepeaterTester("separatorRepeater", false, true, false);
+			AssertFiveThings(separator, "separatorLabel");
+		}
+
+		[Test]
+		public void TestRepeaterWithFooter()
+		{
+			RepeaterTester footer = new RepeaterTester("footerRepeater", false, false, true);
+			AssertFiveThings(footer, "footerLabel");
+		}
+
+		[Test]
+		public void TestRepeaterWithAllTemplates()
+		{
+			RepeaterTester all = new RepeaterTester("allRepeater", true, true, true);
+			AssertFiveThings(all, "allLabel");
+		}
+
+		private void AssertFiveThings(RepeaterTester tester, string labelId)
+		{
+			Assert.AreEqual(5, tester.ItemCount);
+			Assert.AreEqual("one", new LabelTester(labelId, tester.GetItem(0)).Text);
+			Assert.AreEqual("two", new LabelTester(labelId, tester.GetItem(1)).Text);
+			Assert.AreEqual("three", new LabelTester(labelId, tester.GetItem(2)).Text);
+			Assert.AreEqual("four", new LabelTester(labelId, tester.GetItem(3)).Text);
+			Assert.AreEqual("five", new LabelTester(labelId, tester.GetItem(4)).Text);
 		}
 	}
 }

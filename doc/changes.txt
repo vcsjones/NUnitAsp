@@ -51,11 +51,11 @@ Produced by Jim Shore.
 * Added HtmlInputRadioButtonTester.  Credit to Jim Shore.
 * Added HtmlInputTextTester.  Credit to Jim Shore.
 * Added HtmlTextAreaTester.  Credit to Jim Shore.
-* Added HtmlTagTester, which can test any HTML tag.  Credit to Jim Shore.
-* Fixed TextBoxTester.MaxLength bug that made that method unusable.  Credit to Jim Shore.
+* Added HtmlTagTester, which can test any HTML tag.  (Refactored HtmlTag to HtmlTagTester.)  Credit to Jim Shore.
+* Fixed TextBoxTester.MaxLength bug which that made that method unusable.  Credit to Jim Shore.
 * Added support for AutoPostBack to RadioButtonTester and CheckBoxTester.  Credit to Jim Shore.
 * Added ability to instantiate HTML testers by XPath as well as ID.  Credit to Jim Shore.
-* Added RepeaterTester.  Credit to Ben Monro.
+* Added RepeaterTester.  Credit to Ben Monro and Peter Jaffe.
 
 
 Changes in NUnitAsp 1.5.1:

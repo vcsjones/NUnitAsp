@@ -69,6 +69,16 @@ namespace NUnit.Extensions.Asp
 		}
 
 		/// <summary>
+		/// Experimental.  May change or go away in future revisions.  Allows testers to
+		/// assert that their control should be visible before some operations.  Using
+		/// this method provides clearer error messages to users of the tester.
+		/// </summary>
+		protected void AssertVisible()
+		{
+			WebAssert.Visible(this);
+		}
+
+		/// <summary>
 		/// The HTML ID of the tag being tested.  It corresponds to the
 		/// ID of the HTML tag rendered by the server.  It's useful for looking at 
 		/// raw HTML while debugging.
