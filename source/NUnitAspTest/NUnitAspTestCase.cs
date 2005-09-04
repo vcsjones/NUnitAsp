@@ -24,28 +24,37 @@ using System;
 
 namespace NUnit.Extensions.Asp.Test
 {
-  public abstract class NUnitAspTestCase : WebFormTestCase
-  {
-    protected const string BasePath = "/NUnitAsp/source/NUnitAspTestPages";
-    protected const string BaseUrl = "http://localhost" + BasePath + "/";
-    private DateTime startTime;
+	public abstract class NUnitAspTestCase : WebFormTestCase
+	{
+		protected const string BasePath = "/NUnitAsp/source/NUnitAspTestPages";
+		protected const string BaseUrl = "http://localhost" + BasePath + "/";
+		private DateTime startTime;
 
-    protected override void SetUp()
-    {
-      base.SetUp();
-      startTime = DateTime.Now;
-    }
+		protected override void SetUp()
+		{
+			base.SetUp();
+			startTime = DateTime.Now;
+		}
 
-    protected override void TearDown()
-    {
-      TimeSpan elapsedTime = DateTime.Now - startTime;
-      TimeSpan overheadTime = elapsedTime - Browser.ElapsedServerTime;
-      base.TearDown();
-    }
+		protected override void TearDown()
+		{
+			TimeSpan elapsedTime = DateTime.Now - startTime;
+			TimeSpan overheadTime = elapsedTime - Browser.ElapsedServerTime;
+			base.TearDown();
+		}
 
-        protected void AssertRedirected()
-        {
-            AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
-        }
-  }
+		protected void AssertRedirected()
+		{
+			AssertEquals("RedirectionTarget", CurrentWebForm.AspId);
+		}
+
+	  
+		protected void AssertDescription(string expected, Tester tester)
+		{
+			string description = tester.Description;
+			if (description.StartsWith(expected)) return;
+
+			Fail("Expected description to start with \nexpected: <" + expected + ">...\n but was: <" + description + ">");
+		}
+	}
 }

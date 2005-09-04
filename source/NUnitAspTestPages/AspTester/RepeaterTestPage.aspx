@@ -40,7 +40,7 @@
 			<p>Repeater with nested button and data binding:</p>
 			<asp:Repeater ID="Repeater3" Runat="server">
 				<ItemTemplate>
-					<asp:Button ID="btnInner" Runat="server" ThingName='<%# DataBinder.Eval(Container.DataItem, "Thing") %>' OnClick="btnInner_Click" Text="Click me" >
+					<asp:Button ID="btnInner" Runat="server" ThingName='<%# DataBinder.Eval(Container.DataItem, "Item") %>' OnClick="btnInner_Click" Text="Click me" >
 					</asp:Button><br>
 				</ItemTemplate>
 			</asp:Repeater>
@@ -48,44 +48,59 @@
 			<p>Repeater with separator template:</p>
 			<asp:Repeater ID="separatorRepeater" Runat="server">
 				<ItemTemplate>
-					<asp:Label id="separatorLabel" Runat="server"><%# DataBinder.Eval(Container.DataItem, "Thing") %></asp:Label>
+					<asp:Label id="separatorLabel" Runat="server"><%# DataBinder.Eval(Container.DataItem, "Item") %></asp:Label>
 				</ItemTemplate>
-				<SeparatorTemplate> | </SeparatorTemplate>
+				<SeparatorTemplate>
+					<asp:Label ID="nestedSeparatorLabel" Runat="server"> | </asp:Label>
+				</SeparatorTemplate>
 			</asp:Repeater>
 			
 			<p>Repeater with header template:</p>
 			<asp:Repeater ID="headerRepeater" Runat="server">
 				<HeaderTemplate>
-					Header.
+					<asp:Label ID="nestedHeaderLabel" runat="server">header</asp:Label>
 				</HeaderTemplate>
 				<ItemTemplate>
-					<asp:Label id="headerLabel" Runat="server"><%# DataBinder.Eval(Container.DataItem, "Thing") %></asp:Label>
+					<asp:Label id="headerLabel" Runat="server"><%# DataBinder.Eval(Container.DataItem, "Item") %></asp:Label>
 				</ItemTemplate>
 			</asp:Repeater>
 
 			<p>Repeater with footer template:</p>
 			<asp:Repeater ID="footerRepeater" Runat="server">
 				<ItemTemplate>
-					<asp:Label id="footerLabel" Runat="server"><%# DataBinder.Eval(Container.DataItem, "Thing") %></asp:Label>
+					<asp:Label id="footerLabel" Runat="server"><%# DataBinder.Eval(Container.DataItem, "Item") %></asp:Label>
 				</ItemTemplate>
 				<FooterTemplate>
-					Footer.
+					<asp:Label ID="nestedFooterLabel" Runat="server">footer</asp:Label>
 				</FooterTemplate>				
+			</asp:Repeater>
+	
+			<p>Repeater with alternating item template:</p>
+			<asp:Repeater id="alternatingRepeater" Runat="server">
+				<ItemTemplate>
+					<asp:Label ID="alternatingLabel" Runat="server"><%# DataBinder.Eval(Container.DataItem, "Item") %></asp:Label>
+				</ItemTemplate>
+				<AlternatingItemTemplate>
+					<span style="font-variant: small-caps"><asp:Label ID="alternatingLabel" runat="server"><%# DataBinder.Eval(Container.DataItem, "Item") %></asp:Label></span>
+				</AlternatingItemTemplate>
 			</asp:Repeater>
 	
 			<p>Repeater with all templates:</p>
 			<asp:Repeater ID="allRepeater" Runat="server">
 				<HeaderTemplate>
-					Header.
+					<asp:Label id="allHeaderTemplateLabel" runat="server">header</asp:Label>
 				</HeaderTemplate>
 				<ItemTemplate>
-					<asp:Label id="allLabel" Runat="server"><%# DataBinder.Eval(Container.DataItem, "Thing") %></asp:Label>
+					<asp:Label id="allLabel" Runat="server"><%# DataBinder.Eval(Container.DataItem, "Item") %></asp:Label>
 				</ItemTemplate>
+				<AlternatingItemTemplate>
+					<span style="font-variant: small-caps"><asp:Label ID="allLabel" runat="server"><%# DataBinder.Eval(Container.DataItem, "Item") %></asp:Label></span>
+				</AlternatingItemTemplate>
 				<SeparatorTemplate>
-					| 
+					<asp:Label ID="allSeparatorTemplateLabel" Runat="server"> | </asp:Label>
 				</SeparatorTemplate>
 				<FooterTemplate>
-					Footer.
+					<asp:Label ID="allFooterTemplateLabel" Runat="server">footer</asp:Label>
 				</FooterTemplate>				
 			</asp:Repeater>
 					

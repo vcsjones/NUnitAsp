@@ -55,8 +55,10 @@ Produced by Jim Shore.
 * Fixed TextBoxTester.MaxLength bug which that made that method unusable.  Credit to Jim Shore.
 * Added support for AutoPostBack to RadioButtonTester and CheckBoxTester.  Credit to Jim Shore.
 * Added ability to instantiate HTML testers by XPath as well as ID.  Credit to Jim Shore.
-* Added RepeaterTester.  Credit to Ben Monro and Peter Jaffe.
+* Added RepeaterTester.  Credit to Ben Monro, Peter Jaffe, and Jim Shore.
 * Added ListControlTester.SelectedValue.  Credit to Shane Lenagh.
+* Created "Advanced NUnitAsp" tutorial video.  Credit to Jim Shore with contributions by Rob Myers.
+* Added message to Tester to clarify common error of putting testers directly in assertions
 
 
 Changes in NUnitAsp 1.5.1:

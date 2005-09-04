@@ -45,6 +45,7 @@ namespace NUnitAspTestPages.AspTester
 		protected System.Web.UI.WebControls.Repeater headerRepeater;
 		protected System.Web.UI.WebControls.Repeater footerRepeater;
 		protected System.Web.UI.WebControls.Repeater allRepeater;
+		protected System.Web.UI.WebControls.Repeater alternatingRepeater;
 		protected System.Web.UI.WebControls.Repeater Repeater2;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -88,6 +89,8 @@ namespace NUnitAspTestPages.AspTester
 			separatorRepeater.DataBind();
 			footerRepeater.DataSource = fiveThings;
 			footerRepeater.DataBind();
+			alternatingRepeater.DataSource = fiveThings;
+			alternatingRepeater.DataBind();
 			allRepeater.DataSource = fiveThings;
 			allRepeater.DataBind();
 		}
@@ -102,14 +105,14 @@ namespace NUnitAspTestPages.AspTester
 
 		public class SomeThing
 		{
-			private readonly string _thing;
+			private readonly string item;
 			private ArrayList innerList = new ArrayList();
 
-			public string Thing
+			public string Item
 			{
 				get
 				{
-					return _thing;
+					return item;
 				}
 			}
 
@@ -125,11 +128,12 @@ namespace NUnitAspTestPages.AspTester
 				}
 			}
 
-			public SomeThing(string thing)
+			public SomeThing(string item)
 			{
-				_thing = thing;
+				this.item = item;
 			}
 		}
+
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{

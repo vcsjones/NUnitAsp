@@ -129,6 +129,14 @@ namespace NUnit.Extensions.Asp
 			get;
 		}
 
+		/// <summary>
+		/// Provides a friendly message reminding users not to put testers in assertions.
+		/// </summary>
+		public override string ToString()
+		{
+			return "Don't put testers directly in assertions.  For example, use Assert.AreEqual(\"expected\", label.Text) rather than Assert.AreEqual(\"expected\", label)";
+		}
+
 		public class AttributeMissingException : ApplicationException
 		{
 			internal AttributeMissingException(string name, string containerDescription) : base("Expected attribute '" + name + "' on " + containerDescription)
