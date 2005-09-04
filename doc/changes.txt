@@ -56,6 +56,7 @@ Produced by Jim Shore.
 * Added support for AutoPostBack to RadioButtonTester and CheckBoxTester.  Credit to Jim Shore.
 * Added ability to instantiate HTML testers by XPath as well as ID.  Credit to Jim Shore.
 * Added RepeaterTester.  Credit to Ben Monro and Peter Jaffe.
+* Added ListControlTester.SelectedValue.  Credit to Shane Lenagh.
 
 
 Changes in NUnitAsp 1.5.1:

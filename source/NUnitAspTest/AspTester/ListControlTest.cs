@@ -111,6 +111,12 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		}
 
 		[Test]
+		public void TestSelectedValue() 
+		{
+			AssertEquals("selected value", "2", List.SelectedValue);
+		}
+
+		[Test]
 		public void TestSelectedItem()
 		{
 			ListItemTester item = List.SelectedItem;
@@ -153,6 +159,18 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		}
 
 		[Test]
+		public void TestSetSelectedValue()
+		{
+			AssertEquals("value", "2", List.SelectedValue);
+			List.SelectedValue = "1";
+			AssertEquals("No", indexChanged.Text);
+			AssertEquals("value", "2", List.SelectedValue);
+			Submit.Click();
+			AssertEquals("Yes", indexChanged.Text);
+			AssertEquals("value", "1", List.SelectedValue);
+		}
+
+		[Test]
 		[ExpectedException(typeof(ControlDisabledException))]
 		public void TestSetSelectedIndex_WhenDisabled()
 		{
@@ -171,60 +189,39 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		}
 
 		[Test]
+		[ExpectedException(typeof(ListControlTester.IllegalInputException))]
 		public void TestSetSelectedIndexOutOfRange()
 		{
-			try
-			{
-				List.SelectedIndex = 5;
-				Fail("Expected IllegalInputException");
-			}
-			catch (DropDownListTester.IllegalInputException)
-			{
-				// expected
-			}
+			List.SelectedIndex = 5;
 		}
 
 		[Test]
+		[ExpectedException(typeof(ListControlTester.IllegalInputException))]
+		public void TestSetSelectedValueDoesNotExist()
+		{
+			List.SelectedValue = "doesnotexist";
+		}
+
+		[Test]
+		[ExpectedException(typeof(DropDownListTester.NoSelectionException))]
 		public void TestServerSideClearSelection()
 		{
-			try
-			{
-				clearSelection.Click();
-				int unused = List.SelectedIndex;
-				Fail("Expected NoSelectionException");
-			}
-			catch (DropDownListTester.NoSelectionException)
-			{
-				// expected
-			}
+			clearSelection.Click();
+			int unused = List.SelectedIndex;
 		}
 
 		[Test]
+		[ExpectedException(typeof(DropDownListTester.NoSelectionException))]
 		public void TestSelectedIndex_WhenEmptyList()
 		{
-			try
-			{
-				int unused = emptyList.SelectedIndex;
-				Fail("Expected NoSelectionException");
-			}
-			catch (DropDownListTester.NoSelectionException)
-			{
-				// expected
-			}
+			int unused = emptyList.SelectedIndex;
 		}
 
 		[Test]
+		[ExpectedException(typeof(DropDownListTester.NoSelectionException))]
 		public void TestSelectedItem_WhenEmptyList()
 		{
-			try
-			{
-				ListItemTester unused = emptyList.SelectedItem;
-				Fail("Expected NoSelectionException");
-			}
-			catch (DropDownListTester.NoSelectionException)
-			{
-				// expected
-			}
+			ListItemTester unused = emptyList.SelectedItem;
 		}
 
 		[Test]
@@ -234,17 +231,10 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		}
 
 		[Test]
+		[ExpectedException(typeof(DropDownListTester.IllegalInputException))]
 		public void TestSetSelectedIndex_WhenEmptyList()
 		{
-			try
-			{
-				emptyList.SelectedIndex = 0;
-				Fail("Expected IllegalInputException");
-			}
-			catch (DropDownListTester.IllegalInputException)
-			{
-				// expected
-			}
+			emptyList.SelectedIndex = 0;
 		}
 
 		[Test]

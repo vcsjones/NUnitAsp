@@ -138,12 +138,36 @@ namespace NUnit.Extensions.Asp.AspTester
 				if ((value > items.Count - 1) || (value < 0))
 				{
 					string message = string.Format(
-						"Tried to set index of '{0}', exceeding maximum index of {1} (or minimum index of 0), in {2}", 
+						"Tried to select item with index of '{0}', exceeding maximum index of {1} (or minimum index of 0), in {2}", 
 						value, items.Count - 1, HtmlIdAndDescription);
 					throw new IllegalInputException(message);
 				} 
 
 				SetListSelection(items[value], true);
+			}
+		}
+
+		/// <summary>
+		/// The value of the currently-selected item in the list.  If this is changed and 
+		/// auto post-back is turned on, the form will be submitted.
+		/// </summary>
+		public String SelectedValue
+		{
+			get
+			{
+				return SelectedItem.Value;
+			}
+			set
+			{
+				ListItemTester itemToSelect = Items.FindByValue(value);
+				if (itemToSelect == null)
+				{
+					string message = string.Format(
+						"Tried to select item with value of '{0}', which does not exist in the items of {1}", 
+						value, HtmlIdAndDescription);
+					throw new IllegalInputException(message);
+				}
+				itemToSelect.Selected = true;
 			}
 		}
 
