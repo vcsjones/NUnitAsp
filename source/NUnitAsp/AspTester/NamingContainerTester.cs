@@ -1,7 +1,7 @@
-#region Copyright (c) 2002-2005, Brian Knowles, James Shore
+#region Copyright (c) 2005 James Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002-2005, Brian Knowles, James Shore
+' Copyright (c) 2005 James Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -21,14 +21,15 @@
 #endregion
 
 using System;
-using System.Xml;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
 	/// <summary>
-	/// Tester for System.Web.UI.UserControl
+	/// Base class for testing all ASP.NET server controls that have the "naming container"
+	/// property set to "true."  Use this class when you're creating a custom tester for a
+	/// server control that is a naming container.
 	/// </summary>
-	public class UserControlTester : NamingContainerTester
+	public abstract class NamingContainerTester : AspControlTester
 	{
 		/// <summary>
 		/// <p>Create a tester for a top-level control.  Use this constructor
@@ -38,7 +39,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// </summary>
 		/// <param name="aspId">The ID of the control to test (look in the
 		/// page's ASP.NET source code for the ID).</param>
-		public UserControlTester(string aspId) : base(aspId)
+		public NamingContainerTester(string aspId) : base(aspId)
 		{
 		}
 
@@ -73,41 +74,18 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// WebForm currentWebForm = new WebForm(myHttpClient);
 		/// LabelTester myTester = new LabelTester("id", currentWebForm);</code>
 		/// </example>
-		public UserControlTester(string aspId, Tester container) : base(aspId, container)
+		public NamingContainerTester(string aspId, Tester container) : base(aspId, container)
 		{
-		}
-
-		protected override bool IsDisabled
-		{
-			get
-			{
-				return false;
-			}
 		}
 
 		/// <summary>
-		/// Visibility of user controls cannot be determined.  This method always throws an
-		/// exception.
+		/// Returns the HTML ID of a child control.  Useful when implementing
+		/// testers for container controls that do HTML ID mangling.  This method
+		/// is very likely to change in a future release.
 		/// </summary>
-		public override bool Visible
+		protected internal override string GetChildElementHtmlId(string aspId)
 		{
-			get
-			{
-				throw new VisibilityException(this.GetType().Name);
-			}
-		}
-
-		/// <summary>
-		/// Exception: The test tried to check the visibility of a user control.  There's no way to 
-		/// directly check user control visibility because they don't generate any HTML of
-		/// their own.  Change the test to check the visibility of a control inside the user
-		/// control instead.
-		/// </summary>
-		private class VisibilityException : ApplicationException
-		{
-			internal VisibilityException(string className) : base(className + "s cannot be tested for visibility because they don't directly generate HTML tags")
-			{
-			}
+			return HtmlId + "_" + aspId;
 		}
 	}
 }

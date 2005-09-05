@@ -47,7 +47,7 @@ namespace NUnit.Extensions.Asp.AspTester
   /// </example>
   /// 
   /// </summary>
-  public class RepeaterTester : AspControlTester
+  public class RepeaterTester : NamingContainerTester
   {
     private bool hasHeaderTemplate;
     private bool hasSeparatorTemplate;
@@ -167,7 +167,7 @@ namespace NUnit.Extensions.Asp.AspTester
     protected internal override string GetChildElementHtmlId(string aspId)
     {
       if (!aspId.StartsWith("_ctl")) throw new ContainerMustBeItemException(aspId, this);
-      return HtmlId + "_" + aspId;
+      return base.GetChildElementHtmlId(aspId);
     }
 
     /// <summary>
@@ -291,7 +291,7 @@ namespace NUnit.Extensions.Asp.AspTester
     /// Base class for all repeater template testers.  This is an implementation detail and can
     /// be ignored.
     /// </summary>
-    public abstract class RepeaterTemplateTester : AspControlTester
+    public abstract class RepeaterTemplateTester : NamingContainerTester
     {
       /// <summary>
       /// Create a tester for a specific template in a repeater.
@@ -313,11 +313,6 @@ namespace NUnit.Extensions.Asp.AspTester
           WebAssert.Fail("RepeaterItems aren't rendered and have no tag.");
           return null;  // unreachable; exception was thrown
         }
-      }
-
-      protected internal override string GetChildElementHtmlId(string aspId)
-      {
-        return HtmlId + "_" + aspId;
       }
     }
   

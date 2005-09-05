@@ -40,7 +40,7 @@ Produced by Jim Shore.
 * Created new migration guide for v1.6.  Removed old NUnit 2.0 migration guide.  Credit to Jim Shore.
 * Renamed WebForm to WebFormTester.  Credit to Jim Shore.
 * Added "Variables" property to WebFormTester and created FormVariables class to enable direct control and access to form variables.  Credit to Jim Shore.
-* Added support for multiple forms.  Credit to Jim Shore with thanks to Aaron Jenson.
+* Added support for multiple forms.  Credit to Jim Shore with thanks to Aaron Jenson for finding a crucial bug.
 * Added ability for tests to submit and post-back forms.  Credit to Jim Shore.
 * Updated FAQ: How to compile with NAnt under .NET 1.1.  Credit to Cory Foy and Ted Husted.
 * Changed LinkButtonTester to NOT check if the link is disabled.  Credit to Jim Shore.
@@ -51,7 +51,7 @@ Produced by Jim Shore.
 * Added HtmlInputRadioButtonTester.  Credit to Jim Shore.
 * Added HtmlInputTextTester.  Credit to Jim Shore.
 * Added HtmlTextAreaTester.  Credit to Jim Shore.
-* Added HtmlTagTester, which can test any HTML tag.  (Refactored HtmlTag to HtmlTagTester.)  Credit to Jim Shore.
+* Added HtmlTagTester, which can test any HTML tag.  (Removed HtmlTag.)  Credit to Jim Shore.
 * Fixed TextBoxTester.MaxLength bug which that made that method unusable.  Credit to Jim Shore.
 * Added support for AutoPostBack to RadioButtonTester and CheckBoxTester.  Credit to Jim Shore.
 * Added ability to instantiate HTML testers by XPath as well as ID.  Credit to Jim Shore.
@@ -59,6 +59,7 @@ Produced by Jim Shore.
 * Added ListControlTester.SelectedValue.  Credit to Shane Lenagh.
 * Created "Advanced NUnitAsp" tutorial video.  Credit to Jim Shore with contributions by Rob Myers.
 * Added message to Tester to clarify common error of putting testers directly in assertions
+* Added NamingContainerTester.  Credit to Jim Shore.
 
 
 Changes in NUnitAsp 1.5.1:

@@ -178,7 +178,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// <summary>
 		/// Tests a row within a data grid.
 		/// </summary>
-		public class Row : AspControlTester
+		public class Row : NamingContainerTester
 		{
 			private int rowNumber;
 			private DataGridTester container;
@@ -192,11 +192,6 @@ namespace NUnit.Extensions.Asp.AspTester
 			{
 				this.rowNumber = rowNumberWhereZeroIsHeader;
 				this.container = container;
-			}
-
-			protected internal override string GetChildElementHtmlId(string inAspId)
-			{
-				return HtmlId + "_" + inAspId;
 			}
 
 			protected override HtmlTagTester Tag

@@ -225,6 +225,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "AspTester\NamingContainerTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AspTester\PanelTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
