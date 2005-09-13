@@ -81,6 +81,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
+				AssertVisible();
 				return new HtmlInputImageTester(HtmlId, Form);
 			}
 		}

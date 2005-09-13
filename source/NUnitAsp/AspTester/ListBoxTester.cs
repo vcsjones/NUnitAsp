@@ -86,6 +86,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
+				AssertVisible();
 				return int.Parse(Tag.Attribute("size"));
 			}
 		}
@@ -97,6 +98,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
+				AssertVisible();
 				if (Tag.HasAttribute("multiple"))
 				{
 					return ListSelectionMode.Multiple;

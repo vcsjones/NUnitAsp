@@ -85,6 +85,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
+				AssertVisible();
 				return Tag.Children("tr").Length - 1;
 			}
 		}
@@ -100,6 +101,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
+				AssertVisible();
 				string[][] result = new string[RowCount][];
 				for (int i = 0; i < RowCount; i++)
 				{
@@ -148,6 +150,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// <param name="columnNumberZeroBased">The column to sort (zero-based)</param>
 		public void Sort(int columnNumberZeroBased)
 		{
+			AssertVisible();
 			Row header = GetHeaderRow();
 			HtmlTagTester cell = header.GetCellElement(columnNumberZeroBased);
 			HtmlTagTester[] links = cell.Children("a");
@@ -210,6 +213,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			{
 				get
 				{
+					AssertVisible();
 					HtmlTagTester[] cells = Tag.Children("td");
 					string[] cellText = new string[cells.Length];
 					for (int i = 0; i < cells.Length; i++) 

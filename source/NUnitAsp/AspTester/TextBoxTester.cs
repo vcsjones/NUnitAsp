@@ -86,10 +86,12 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			set 
 			{
+				AssertVisible();
 				EnterInputValue(Tag.Attribute("name"), value);
 			}
 			get
 			{
+				AssertVisible();
 				string text;
 				if (TextMode == TextBoxMode.MultiLine)
 				{
@@ -112,6 +114,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get 
 			{
+				AssertVisible();
 				if (Tag.Name == "textarea") 
 				{
 					return TextBoxMode.MultiLine;
@@ -138,6 +141,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
+				AssertVisible();
 				if (TextMode == TextBoxMode.MultiLine) 
 				{
 					throw new ApplicationException("max length is ignored on a TextBox when TextMode is MultiLine");

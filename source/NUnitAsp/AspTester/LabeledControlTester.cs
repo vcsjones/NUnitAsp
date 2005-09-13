@@ -93,6 +93,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
+				AssertVisible();
 				return new HtmlTagTester("//label[@for='" + HtmlId + "']", "label for " + HtmlIdAndDescription, Form);
 			}
 		}

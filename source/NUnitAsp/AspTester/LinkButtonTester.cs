@@ -82,6 +82,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
+				AssertVisible();
 				return new HtmlAnchorTester(HtmlId, Form);
 			}
 		}

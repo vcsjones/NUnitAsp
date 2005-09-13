@@ -86,7 +86,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				WebAssert.Visible(this);
+				AssertVisible();
 				if (Tag.HasChildren("ul"))
 				{
 					return ReadBulletedMessages();

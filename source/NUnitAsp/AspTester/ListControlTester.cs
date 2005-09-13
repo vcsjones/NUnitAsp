@@ -87,12 +87,13 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get 
 			{
+				AssertVisible();
 				return new ListItemCollectionTester(this, OptionList);
 			}
 		}
 
 		/// <summary>
-		/// The currently-selected item in the list.
+		/// The currently-selected item in the list; null if none.
 		/// </summary>
 		public ListItemTester SelectedItem 
 		{

@@ -82,6 +82,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
+				AssertVisible();
 				return new HtmlInputRadioButtonTester(HtmlId, Form);
 			}
 		}
