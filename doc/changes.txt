@@ -10,6 +10,8 @@ To do:
 * HTML controls: HtmlSelect, HtmlTable, HtmlInputFile
 * Instantiate HTML controls by XPath in addition to ID
 * Add information on SF trackers to docs
+* Add to doc page? NUnitAsp innards discussion at http://blogs.pingpoet.com/overflow/archive/2004/03/18/474.aspx
+* Add FAQ? Watir vs. NUnitAsp
 
 
 Before release:
