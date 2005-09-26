@@ -153,17 +153,26 @@ namespace NUnit.Extensions.Asp
 		/// </example>
 		public void PostBack(string postBackScript)
 		{
-			string postBackPattern = @"__doPostBack\('(?<target>.*?)','(?<argument>.*?)'\)";
+			string postBackPattern1 = @"__doPostBack\('(?<target>.*?)','(?<argument>.*?)'\)";
+			string postBackPattern2 = @"__doPostBack\(\\'(?<target>.*?)\\',\\'(?<argument>.*?)\\'\)";
 
-			Match match = Regex.Match(postBackScript, postBackPattern, RegexOptions.IgnoreCase);
-			if (!match.Success)
+			bool succeeded = TryPostBack(postBackScript, postBackPattern1);
+			if (!succeeded) succeeded = TryPostBack(postBackScript, postBackPattern2);
+			if (!succeeded)
 			{
-				throw new ParseException("'" + postBackScript + "' doesn't match expected pattern for postback");
+				throw new ParseException("'" + postBackScript + "' doesn't match expected patterns for postback in " + Description);
 			}
+		}
+
+		private bool TryPostBack(string postBackScript, string postBackPattern)
+		{
+			Match match = Regex.Match(postBackScript, postBackPattern, RegexOptions.IgnoreCase);
+			if (!match.Success) return false;
 
 			string target = match.Groups["target"].Captures[0].Value;
 			string argument = match.Groups["argument"].Captures[0].Value;
 			Form.PostBack(target.Replace('$', ':'), argument);
+			return true;
 		}
 
 		/// <summary>
