@@ -358,7 +358,7 @@ namespace NUnit.Extensions.Asp.AspTester
           int id = itemNum;
           if (container.hasSeparatorTemplate) id *= 2;
           if (container.hasHeaderTemplate) id++;
-          return "_ctl" + id;
+					return GenerateAnonymousId(id);
         }
       }
 
@@ -406,7 +406,7 @@ namespace NUnit.Extensions.Asp.AspTester
       {
         get
         {
-          return "_ctl0";
+          return GenerateAnonymousId(0);
         }
       }
 
@@ -462,7 +462,7 @@ namespace NUnit.Extensions.Asp.AspTester
         {
           int id = (separatorNum * 2) + 1;
           if (container.hasHeaderTemplate) id++;
-          return "_ctl" + id;
+          return GenerateAnonymousId(id);
         }
       }
       
@@ -518,7 +518,7 @@ namespace NUnit.Extensions.Asp.AspTester
           if (container.hasSeparatorTemplate) id *= 2;
           if (container.hasHeaderTemplate) id++;
           if (container.hasFooterTemplate) id++;
-          return "_ctl" + id;
+          return GenerateAnonymousId(id);
         }
       }
       

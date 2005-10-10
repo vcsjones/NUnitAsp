@@ -32,7 +32,7 @@ namespace NUnit.Extensions.Asp.Test
         [Test]
 		public void TestVisibleAndNotVisible()
 		{
-			Browser.GetPage(BaseUrl + "WebAssertTestPage.aspx");
+			GetTestPage();
 			WebAssert.Visible(new LabelTester("visible"));
 			WebAssert.NotVisible(new LabelTester("invisible"));
 		}
@@ -278,6 +278,21 @@ namespace NUnit.Extensions.Asp.Test
 			WebAssert.TableContainsRow(testData, "a", "b");
 		}
         
+		[Test]
+		public void TestCurrentUrlEndsWith_WhenPasses()
+		{
+			GetTestPage();
+			WebAssert.CurrentUrlEndsWith("/WebAssertTestPage.aspx");
+		}
+
+		[Test]
+		[ExpectedException(typeof(WebAssertionException))]
+		public void TestCurrentUrlEndsWith_WhenFails()
+		{
+			GetTestPage();
+			WebAssert.CurrentUrlEndsWith("/foo");
+		}
+        
 		private void AssertSortOrderFails(string[][] testData, DataType dataType)
 		{
 			try
@@ -341,6 +356,11 @@ namespace NUnit.Extensions.Asp.Test
 			{
 				NUnit.Framework.Assert.AreEqual(expected, e.Message);
 			}
+		}
+
+		private void GetTestPage()
+		{
+			Browser.GetPage(BaseUrl + "WebAssertTestPage.aspx");
 		}
 	}
 }

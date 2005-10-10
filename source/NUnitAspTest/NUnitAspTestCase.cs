@@ -29,6 +29,9 @@ namespace NUnit.Extensions.Asp.Test
 		protected const string BasePath = "/NUnitAsp/source/NUnitAspTestPages";
 		protected const string BaseUrl = "http://localhost" + BasePath + "/";
 		private DateTime startTime;
+		private static TimeSpan totalElapsedTime = TimeSpan.Zero;
+		private static TimeSpan totalServerTime = TimeSpan.Zero;
+		private static readonly TimeSpan TEN_HOURS = new TimeSpan(10, 0, 0);
 
 		protected override void SetUp()
 		{
@@ -38,9 +41,25 @@ namespace NUnit.Extensions.Asp.Test
 
 		protected override void TearDown()
 		{
-			TimeSpan elapsedTime = DateTime.Now - startTime;
-			TimeSpan overheadTime = elapsedTime - Browser.ElapsedServerTime;
+//			GatherAndTestCumulativePerformanceMetrics();
 			base.TearDown();
+		}
+
+		private void GatherAndTestCumulativePerformanceMetrics()
+		{
+			TimeSpan testTime = DateTime.Now - startTime;
+			if (testTime < TEN_HOURS) totalElapsedTime += testTime;   // avoid glitch with very fast tests
+			totalServerTime += Browser.ElapsedServerTime;
+			TimeSpan totalNUnitAspTime = totalElapsedTime - totalServerTime;
+			double overheadPercentage = (double)totalNUnitAspTime.Ticks / (double)totalElapsedTime.Ticks;
+			overheadPercentage = ((int)(overheadPercentage * 10000)) / 100.00;  // round to two decimal places
+
+			Console.WriteLine();
+			Console.WriteLine("    Elapsed: " + totalElapsedTime);
+			Console.WriteLine(" -   Server: " + totalServerTime);
+			Console.WriteLine(" = NUnitAsp: " + totalNUnitAspTime + " (" + overheadPercentage + "%)");
+
+			NUnit.Framework.Assert.IsTrue(overheadPercentage < 25, "Expected NUnitAsp overhead to be less than 10%; was " + overheadPercentage + "%");
 		}
 
 		protected void AssertRedirected()

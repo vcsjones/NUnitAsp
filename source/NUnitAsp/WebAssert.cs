@@ -265,6 +265,31 @@ namespace NUnit.Extensions.Asp
 			}
 		}
 
+		/// <summary>
+		/// Asserts that the default browser's current URL ends with a specific string.  
+		/// Start your expectedEndOfUrl with a '/' for maximum accuracy.
+		/// </summary>
+		/// <param name="expectedEndOfUrl">What you expect the URL to end with.</param>
+		public static void CurrentUrlEndsWith(string expectedEndOfUrl)
+		{
+			CurrentUrlEndsWith(HttpClient.Default, expectedEndOfUrl);
+		}
+		
+		/// <summary>
+		/// Asserts that the specified browser's current URL ends with a specific string.  
+		/// Start your expectedEndOfUrl with a '/' for maximum accuracy.
+		/// </summary>
+		/// <param name="browser">The browser to check.</param>
+		/// <param name="expectedEndOfUrl">What you expect the URL to end with.</param>
+		public static void CurrentUrlEndsWith(HttpClient browser, string expectedEndOfUrl)
+		{
+			Uri url = browser.CurrentUrl;
+			string urlString = url.AbsoluteUri;
+
+			string errorMessage = string.Format("End of current URL:\nExpected: '{0}'\nWas: '{1}'", expectedEndOfUrl, urlString);
+			True(urlString.EndsWith(expectedEndOfUrl), errorMessage);
+		}
+
 		private static int Compare(string a, string b, DataType type)
 		{
 			if (a == "" && b == "") return 0;

@@ -60,8 +60,9 @@ Produced by Jim Shore.
 * Added RepeaterTester.  Credit to Ben Monro, Peter Jaffe, and Jim Shore.
 * Added ListControlTester.SelectedValue.  Credit to Shane Lenagh.
 * Created "Advanced NUnitAsp" tutorial video.  Credit to Jim Shore with contributions by Rob Myers.
-* Added message to Tester to clarify common error of putting testers directly in assertions
+* Added message to Tester to clarify common error of putting testers directly in assertions.  Credit to Jim Shore.
 * Added NamingContainerTester.  Credit to Jim Shore.
+* Added WebAssert.CurrentUrlEndsWith().  Credit to Jim Shore.
 
 
 Changes in NUnitAsp 1.5.1:

@@ -87,5 +87,20 @@ namespace NUnit.Extensions.Asp.AspTester
 				return !IsDisabled;
 			}
 		}
+
+		/// <summary>
+		/// Creates an ID for a control that doesn't have one provided in the .aspx page.  The tester
+		/// using this method must algorithmically determine what number ASP.NET provided to the control.
+		/// In other words, control number "3" turns into an ID of "ctl03" in ASP.NET 2.0 and "_ctl3" in
+		/// ASP.NET 1.x.
+		/// </summary>
+		/// <param name="controlNumber">The number ASP.NET created for the control.</param>
+		/// <returns>A string that includes the control number and reflects the scheme ASP.NET uses
+		/// for anonymous control.</returns>
+		protected string GenerateAnonymousId(int controlNumber)
+		{
+			string id = controlNumber.ToString();
+			return "_ctl" + id;
+		}
 	}
 }
