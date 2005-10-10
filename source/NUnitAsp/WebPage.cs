@@ -35,6 +35,8 @@ namespace NUnit.Extensions.Asp
 {
 	internal class WebPage
 	{
+		private static TimeSpan totalParseTime = TimeSpan.Zero;
+
 		private string pageText;
 		private XmlDocument document = null;
 		public Hashtable formVariables = null;
@@ -73,11 +75,16 @@ namespace NUnit.Extensions.Asp
 
 		private void ParsePageText()
 		{
+//			DateTime startTime;
+//			DateTime endTime;
+
 			SgmlReader reader = new SgmlReader();
 			try 
 			{
 				reader.InputStream = new StringReader(FixHtmlToAvoidParseErrors(pageText));
-				reader.Dtd = ParseDtd(reader.NameTable);
+//				startTime = DateTime.Now;
+				reader.Dtd = ParseDtd(reader.NameTable);	// note: this is last-found performance bottleneck; not yet fixed.  Retest before fixing.
+//				endTime = DateTime.Now;
 				reader.ErrorLog = Console.Error;
 				reader.DocType = "HTML";
 
@@ -92,6 +99,9 @@ namespace NUnit.Extensions.Asp
 				}
 
 				ParseForms();
+
+//				totalParseTime += endTime - startTime;
+//				Console.WriteLine("parser: " + totalParseTime);
 			}
 			catch (XmlException e)
 			{
