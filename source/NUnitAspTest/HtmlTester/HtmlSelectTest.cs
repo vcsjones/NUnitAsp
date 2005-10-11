@@ -22,6 +22,8 @@
 
 using System;
 using NUnit.Framework;
+using NUnit.Extensions.Asp;
+using NUnit.Extensions.Asp.AspTester;
 using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.Test.HtmlTester
@@ -29,42 +31,129 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 	[TestFixture]
 	public class HtmlSelectTest : NUnitAspTestCase
 	{
+		private HtmlSelectTester def;
+		private HtmlSelectTester nonDefault;
+		private HtmlSelectTester singleSelect;
+		private LinkButtonTester submit;
+
 		protected override void SetUp()
 		{
+			def = new HtmlSelectTester("default");
+			nonDefault = new HtmlSelectTester("nonDefault");
+			singleSelect = new HtmlSelectTester("singleSelect");
+			submit = new LinkButtonTester("submit");
+
 			Browser.GetPage(BaseUrl + "/HtmlTester/HtmlSelectTestPage.aspx");
 		}
 
 		[Test]
 		public void TestDefaultProperties()
 		{
-			HtmlSelectTester def = new HtmlSelectTester("default");
-
-			Assert.AreEqual(-1, def.SelectedIndex);
-			Assert.AreEqual(1, def.Size);
-			Assert.IsFalse(def.Multiple);
-			WebAssert.AreEqual(new string[] {}, def.Items);
+			Assert.AreEqual(-1, def.SelectedIndex, "selected index");
+			Assert.AreEqual(1, def.Size, "size");
+			Assert.IsFalse(def.Multiple, "multiple should be false");
+			WebAssert.AreEqual(new string[] {}, def.RenderedItems, "items");
 		}
 
 		[Test]
-		public void TestNonDefaults()
+		public void TestNonDefaultProperties()
 		{
-			HtmlSelectTester nonDefault = new HtmlSelectTester("nonDefault");
-
-			Assert.AreEqual(2, nonDefault.SelectedIndex);
-//			Assert.AreEqual(5, nonDefault.Size);
-//			Assert.IsTrue(nonDefault.Multiple);
-//			WebAssert.AreEqual(new string[] {"one", "two", "three", "four", "five"}, nonDefault.Items);
+			Assert.AreEqual(2, nonDefault.SelectedIndex, "selected index");
+			Assert.AreEqual(3, nonDefault.Size, "size");
+			Assert.IsTrue(nonDefault.Multiple, "multiple should be true");
+			WebAssert.AreEqual(new string[] {"one ", "two ", "three ", "four ", "five "}, nonDefault.RenderedItems, "items");
 		}
 			
+		[Test]
+		public void TestItems()
+		{
+			Assert.AreEqual(0, def.Items.Count, "default");
+			Assert.AreEqual(5, nonDefault.Items.Count, "non-default");
 
-		//SelectedIndex
-		//Size
-		//Items
-		//Multiple
+			Assert.AreEqual("two ", nonDefault.Items[1].RenderedText);
+		}
 
-		//set selected
+		[Test]
+		public void TestSelectedIndex()
+		{
+			nonDefault.SelectedIndex = 4;
+			submit.Click();
+			AssertItemsSelected(nonDefault, false, false, false, false, true);
+		}
+
+		[Test]
+		public void TestSelectedIndex_WhenNoSelection()
+		{
+			Assert.AreEqual(-1, def.SelectedIndex);
+		}
+
+		[Test]
+		[ExpectedException(typeof(WebAssertionException), "Can't get SelectedIndex when multiple items are selected; use Items[##].Selected instead")]
+		public void TestSelectedIndex_WhenMultipleSelections()
+		{
+			nonDefault.Items[4].Selected = true;
+			submit.Click();
+			int unused = nonDefault.SelectedIndex;
+		}
+
+		[Test]
+		[ExpectedException(typeof(WebAssertionException), "Can't call SelectedIndex with index less than zero (was -1)")]
+		public void TestSelectedIndex_WhenSettingBelowZero()
+		{
+			nonDefault.SelectedIndex = -1;
+		}
+
+		[Test]
+		[ExpectedException(typeof(WebAssertionException), "Tried to select item #10, but largest index is 4")]
+		public void TestSelectedIndex_WhenSettingAboveMaximum()
+		{
+			nonDefault.SelectedIndex = 10;
+		}
+
+		[Test]
+		public void TestSelection_WithMultipleSelect()
+		{
+			nonDefault.Items[4].Selected = true;
+			submit.Click();
+			AssertItemsSelected(nonDefault, false, false, true, false, true);
+		}
+
+		[Test]
+		public void TestSelection_WithSingleSelect()
+		{
+			singleSelect.Items[4].Selected = true;
+			submit.Click();
+			AssertItemsSelected(singleSelect, false, false, false, false, true);
+		}
+
+		[Test]
+		public void TestSelection_WhenDeselectingMultiSelect()
+		{
+			nonDefault.Items[2].Selected = false;
+			submit.Click();
+			AssertItemsSelected(nonDefault, false, false, false, false, false);
+		}
+
+		[Test]
+		[ExpectedException(typeof(WebAssertionException), "Can't deselect items unless list box is multi-select")]
+		public void TestSelection_WhenDeselectingSingleSelect()
+		{
+			singleSelect.Items[2].Selected = false;
+		}
+
+		private void AssertItemsSelected(HtmlSelectTester tester, bool one, bool two, bool three, bool four, bool five)
+		{
+			Assert.AreEqual(one, tester.Items[0].Selected, "one in " + tester.Description);
+			Assert.AreEqual(two, tester.Items[1].Selected, "two in " + tester.Description);
+			Assert.AreEqual(three, tester.Items[2].Selected, "three in " + tester.Description);
+			Assert.AreEqual(four, tester.Items[3].Selected, "four in " + tester.Description);
+			Assert.AreEqual(five, tester.Items[4].Selected, "five in " + tester.Description);
+		}
+
+		//set selected with .SelectedIndex
+		//set selected with Items
+		//multi-select
 		//auto post-back?
 		//publicly-accessible ItemTags
-
 	}
 }

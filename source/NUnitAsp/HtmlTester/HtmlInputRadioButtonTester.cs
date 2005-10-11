@@ -87,16 +87,16 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		{
 			get
 			{
-				return Tag.HasAttribute("checked");
+				return HasAttribute("checked");
 			}
 			set
 			{
 				if (!value) throw new CannotUncheckException();
 				if (Disabled) throw new ControlDisabledException(this);
 
-				string valueAttribute = Tag.OptionalAttribute("value");
+				string valueAttribute = OptionalAttribute("value");
 				if (valueAttribute == null) valueAttribute = "on";
-				Form.Variables.ReplaceAll(Tag.Attribute("name"), valueAttribute);
+				Form.Variables.ReplaceAll(Attribute("name"), valueAttribute);
 			}
 		}
 

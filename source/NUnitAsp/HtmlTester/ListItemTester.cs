@@ -1,7 +1,7 @@
-#region Copyright (c) 2003, Brian Knowles, Jim Shore
+#region Copyright (c) 2003, 2005 James Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2003, Brian Knowles, Jim Shore
+' Copyright (c) 2003, 2005 James Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -26,30 +26,53 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Web.UI.WebControls;
 
-namespace NUnit.Extensions.Asp.AspTester
+namespace NUnit.Extensions.Asp.HtmlTester
 {
 	/// <summary>
 	/// Tester for System.Web.UI.WebControls.ListItem
 	/// </summary>
 	public class ListItemTester
 	{
-		private readonly ListControlTester owner;
-		internal readonly HtmlTagTester Element;
-
-		internal ListItemTester(ListControlTester owner, HtmlTagTester element)
-		{
-			this.owner = owner;
-			Element = element;
-		}
+		private readonly HtmlSelectTester container;
+		private readonly HtmlTagTester Element;
 
 		/// <summary>
-		/// Gets the text displayed in a list control for the item represented by the ListItemTester.
+		/// For internal use.  May change in future revisions.
 		/// </summary>
+		public ListItemTester(HtmlTagTester option, HtmlSelectTester container)
+		{
+			this.container = container;
+			Element = option;
+		}
+		
+		[Obsolete("Use RawText or RenderedText instead.  This method will be removed after Dec 2006.")]
 		public string Text
 		{
 			get
 			{
 				return Element.BodyNoTags;
+			}
+		}
+
+		/// <summary>
+		/// The HTML used to display the text of this item.
+		/// </summary>
+		public string RawText
+		{
+			get
+			{
+				return Element.InnerHtml;
+			}
+		}
+
+		/// <summary>
+		/// Same as <see cref="RawText"/>, but with HTML tags and adjacent whitespace stripped out.
+		/// </summary>
+		public string RenderedText
+		{
+			get
+			{
+				return Element.RenderedInnerHtml;
 			}
 		}
 
@@ -61,7 +84,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			get
 			{
 				string valueAttr = Element.OptionalAttribute("value");
-				if (valueAttr == null) return Text;
+				if (valueAttr == null) return RawText;
 				else return valueAttr;
 			}
 		}
@@ -77,7 +100,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 			set
 			{
-				owner.ChangeItemSelectState(this, value);
+				container.ChangeItemSelectState(this, value);
 			}
 		}
 
@@ -87,7 +110,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// <returns>ListItemTester's Text property.</returns>
 		public override string ToString()
 		{
-			return Text;
+			return RenderedText;
 		}
 	}
 }

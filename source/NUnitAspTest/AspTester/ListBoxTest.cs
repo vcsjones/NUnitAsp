@@ -167,7 +167,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		}
 
 		[Test]
-		[ExpectedException(typeof(ListControlTester.MultipleSelectionException))]
+		[ExpectedException(typeof(WebAssertionException))]
 		public void TestSelectedIndexChanged_WhenMultiple()
 		{
 			TestSetItemsSelected_WhenMultipleSelect();

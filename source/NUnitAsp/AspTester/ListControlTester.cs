@@ -25,6 +25,7 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Web.UI.WebControls;
+using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
@@ -81,6 +82,17 @@ namespace NUnit.Extensions.Asp.AspTester
 		}
 
 		/// <summary>
+		/// A tester for the underlying HTML tag used to implement this ASP.NET control.
+		/// </summary>
+		public HtmlSelectTester ListTag
+		{
+			get
+			{
+				return new HtmlSelectTester(HtmlId);
+			}
+		}
+
+		/// <summary>
 		/// The items in the list.
 		/// </summary>
 		public ListItemCollectionTester Items 
@@ -88,26 +100,18 @@ namespace NUnit.Extensions.Asp.AspTester
 			get 
 			{
 				AssertVisible();
-				return new ListItemCollectionTester(this, OptionList);
+				return ListTag.Items;
 			}
 		}
 
 		/// <summary>
-		/// The currently-selected item in the list; null if none.
+		/// The currently-selected item in the list.
 		/// </summary>
 		public ListItemTester SelectedItem 
 		{
 			get 
 			{
-				ListItemCollectionTester items = Items;
-				if (Items != null)
-				{
-					return Items[SelectedIndex];
-				} 
-				else 
-				{
-					return null;
-				}
+				return ListTag.Items[SelectedIndex];
 			}
 		}
 
@@ -119,32 +123,13 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				int i = 0;
-				int selected = -1;
-				foreach (ListItemTester item in Items)
-				{
-					if (item.Selected)
-					{
-						if (selected != -1) throw new MultipleSelectionException();
-						selected = i;
-					}
-					i++;
-				}
+				int selected = ListTag.SelectedIndex;
 				if (selected == -1) throw new NoSelectionException();
 				return selected;
 			}
 			set
 			{
-				ListItemCollectionTester items = Items;
-				if ((value > items.Count - 1) || (value < 0))
-				{
-					string message = string.Format(
-						"Tried to select item with index of '{0}', exceeding maximum index of {1} (or minimum index of 0), in {2}", 
-						value, items.Count - 1, HtmlIdAndDescription);
-					throw new IllegalInputException(message);
-				} 
-
-				SetListSelection(items[value], true);
+				ListTag.SelectedIndex = value;
 			}
 		}
 
@@ -172,28 +157,6 @@ namespace NUnit.Extensions.Asp.AspTester
 			}
 		}
 
-		protected void SetListSelection(ListItemTester item, bool selected)
-		{
-			string name = Tag.Attribute("name");
-			Form.Variables.RemoveAll(name);
-			if (selected) EnterInputValue(name, item.Value);
-
-			Form.OptionalPostBack(Tag.OptionalAttribute("onchange"));
-		}
-
-		protected internal virtual void ChangeItemSelectState(ListItemTester item, bool selected)
-		{
-			SetListSelection(item, selected);
-		}
-
-		private HtmlTagTester[] OptionList
-		{
-			get
-			{
-				return Tag.Children("option");
-			}
-		}
-
 		/// <summary>
 		/// The index of the list was set to a value that doesn't correspond to a
 		/// list item.  Fix the test so that it sets the value correctly, or fix the production
@@ -217,17 +180,6 @@ namespace NUnit.Extensions.Asp.AspTester
 			{
 			}
 		}
-
-		/// <summary>
-		/// The test asked a list what item was selected when multiple items were selected.
-		/// Modify the test to look at the Selected property of individual list items, or
-		/// fix the production code so that only one item is selected.
-		/// </summary>
-		public class MultipleSelectionException : ApplicationException
-		{
-			internal MultipleSelectionException() : base("Multiple list items are selected.")
-			{
-			}
-		}
 	}
 }
+

@@ -215,16 +215,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "AspTester\ListItemCollectionTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\ListItemTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "AspTester\NamingContainerTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -310,17 +300,22 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "HtmlTester\HtmlOptionTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "HtmlTester\HtmlSelectTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "HtmlTester\HtmlTextAreaTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\ListItemCollectionTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\ListItemTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

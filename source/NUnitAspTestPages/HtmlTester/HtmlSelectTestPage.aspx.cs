@@ -16,9 +16,12 @@ namespace NUnitAspTestPages.HtmlTester
 	/// </summary>
 	public class HtmlSelectTestPage : System.Web.UI.Page
 	{
+		protected System.Web.UI.WebControls.LinkButton submit;
+		protected System.Web.UI.HtmlControls.HtmlSelect singleSelect;
+		protected System.Web.UI.HtmlControls.HtmlSelect nonDefault;
+	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Put user code to initialize the page here
 		}
 
 		#region Web Form Designer generated code
@@ -38,6 +41,7 @@ namespace NUnitAspTestPages.HtmlTester
 		private void InitializeComponent()
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
+
 		}
 		#endregion
 	}

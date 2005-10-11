@@ -19,8 +19,6 @@ Before release:
 * Copy new constructors to WebFormTester and HtmlAnchorTester/HtmlInputCheckBoxTester
 * Finish migration guide.
 * Remove ControlTester.EnterInputValue/RemoveInputValue?  Make AssertEnabled explicit in tester?
-* Mark 'runAtServer' HTML constructor as obsolete
-* Combine HtmlTag and HtmlControlTester
 * Make "xxxTag" properties on AspTesters public--map them to HtmlTag
 * Add support for auto-postback to RadioButtonTester
 * Remove 'Tag' property from AspControlTester; add HtmlTag
@@ -28,7 +26,7 @@ Before release:
 * Incorporate "Advanced NUnitAsp" video into documentation page
 * Remove "Enabled" check on all controls.  Document this.  Tracker #1262940.
 * Fix version number in [Obsolete(...will be removed in v1.7)]
-* Add XPath constructors to all HTML testers.
+* Document change from BodyNoTags to RenderedInnerHtml.  Obsolete methods in: ListItemTester; Changed behavior of: ListItemCollectionTester.FindByText, ListItemTester.Value (edge case)
 
 
 Changes in CVS:

@@ -24,6 +24,7 @@ using System;
 using System.Xml;
 using NUnit.Extensions.Asp.AspTester;
 using System.Web.UI.WebControls;
+using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
@@ -87,7 +88,7 @@ namespace NUnit.Extensions.Asp.AspTester
 			get
 			{
 				AssertVisible();
-				return int.Parse(Tag.Attribute("size"));
+				return ListTag.Size;
 			}
 		}
 
@@ -99,37 +100,9 @@ namespace NUnit.Extensions.Asp.AspTester
 			get
 			{
 				AssertVisible();
-				if (Tag.HasAttribute("multiple"))
-				{
-					return ListSelectionMode.Multiple;
-				}
-				return ListSelectionMode.Single;
+				if (ListTag.Multiple) return ListSelectionMode.Multiple;
+				else return ListSelectionMode.Single;
 			}
-		}
-
-		protected internal override void ChangeItemSelectState(ListItemTester item, bool selected)
-		{
-			if (SelectionMode == ListSelectionMode.Single)
-			{
-				SetListSelection(item, selected);
-			}
-			else
-			{
-				ToggleItemSelection(item, selected);
-			}
-		}
-
-		private void ToggleItemSelection(ListItemTester item, bool selected)
-		{
-			if (selected) 
-			{
-				Form.Variables.Add(Tag.Attribute("name"), item.Value);
-			}
-			else
-			{
-				Form.Variables.Remove(Tag.Attribute("name"), item.Value);
-			}
-			Form.OptionalPostBack(Tag.OptionalAttribute("onchange"));
 		}
 	}
 }

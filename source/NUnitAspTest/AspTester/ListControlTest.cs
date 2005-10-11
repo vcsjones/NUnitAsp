@@ -24,6 +24,7 @@ using System;
 using System.Web.UI.WebControls;
 using NUnit.Framework;
 using NUnit.Extensions.Asp.AspTester;
+using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.Test.AspTester
 {
@@ -120,7 +121,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		public void TestSelectedItem()
 		{
 			ListItemTester item = List.SelectedItem;
-			AssertEquals("text", "two", item.Text);
+			AssertEquals("text", "two", item.RenderedText);
 			AssertEquals("value", "2", item.Value);
 
 			AssertTrue("selected item's selected property is false",
@@ -141,7 +142,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertEquals("# of items", 3, actualItems.Count);
 			for (int i = 0; i < actualItems.Count; i++)
 			{
-				AssertEquals("Item text #" + i, expectedItems[i].Text, actualItems[i].Text);
+				AssertEquals("Item text #" + i, expectedItems[i].Text, actualItems[i].RenderedText);
 				AssertEquals("Item value #" + i, expectedItems[i].Value, actualItems[i].Value);
 			}
 		}
@@ -189,7 +190,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		}
 
 		[Test]
-		[ExpectedException(typeof(ListControlTester.IllegalInputException))]
+		[ExpectedException(typeof(WebAssertionException))]
 		public void TestSetSelectedIndexOutOfRange()
 		{
 			List.SelectedIndex = 5;
@@ -203,7 +204,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		}
 
 		[Test]
-		[ExpectedException(typeof(DropDownListTester.NoSelectionException))]
+		[ExpectedException(typeof(ListControlTester.NoSelectionException))]
 		public void TestServerSideClearSelection()
 		{
 			clearSelection.Click();
@@ -211,14 +212,14 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		}
 
 		[Test]
-		[ExpectedException(typeof(DropDownListTester.NoSelectionException))]
+		[ExpectedException(typeof(ListControlTester.NoSelectionException))]
 		public void TestSelectedIndex_WhenEmptyList()
 		{
 			int unused = emptyList.SelectedIndex;
 		}
 
 		[Test]
-		[ExpectedException(typeof(DropDownListTester.NoSelectionException))]
+		[ExpectedException(typeof(ListControlTester.NoSelectionException))]
 		public void TestSelectedItem_WhenEmptyList()
 		{
 			ListItemTester unused = emptyList.SelectedItem;
@@ -231,7 +232,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		}
 
 		[Test]
-		[ExpectedException(typeof(DropDownListTester.IllegalInputException))]
+		[ExpectedException(typeof(WebAssertionException))]
 		public void TestSetSelectedIndex_WhenEmptyList()
 		{
 			emptyList.SelectedIndex = 0;

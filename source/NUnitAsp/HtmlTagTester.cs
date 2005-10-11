@@ -22,6 +22,7 @@
 
 using System;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace NUnit.Extensions.Asp
 {
@@ -214,6 +215,20 @@ namespace NUnit.Extensions.Asp
 			get
 			{
 				return Element.InnerXml;
+			}
+		}
+
+		/// <summary>
+		/// The HTML inside the tag being tested, rendered to a string as a web browser would
+		/// do.  All inner tags are removed and adjacent whitespace is converted
+		/// to a single space.  For example, &lt;a href='foo'&gt;&lt;i&gt;My&lt;/i&gt; Link&lt;/a&gt;
+		/// will return "My Link".
+		/// </summary>
+		public string RenderedInnerHtml
+		{
+			get
+			{
+				return Regex.Replace(Element.InnerText, "\\s+", " ");
 			}
 		}
 

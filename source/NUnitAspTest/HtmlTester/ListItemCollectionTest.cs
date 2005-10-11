@@ -23,8 +23,9 @@
 using System;
 using NUnit.Framework;
 using NUnit.Extensions.Asp.AspTester;
+using NUnit.Extensions.Asp.HtmlTester;
 
-namespace NUnit.Extensions.Asp.Test.AspTester
+namespace NUnit.Extensions.Asp.Test.HtmlTester
 {
 	[TestFixture]
 	public class ListItemCollectionTest : NUnitAspTestCase
@@ -56,7 +57,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		[Test]
 		public void TestFindByText()
 		{
-			AssertEquals("two", collectionOne.FindByText("two").Text);
+			AssertEquals("two", collectionOne.FindByText("two").RenderedText);
 		}
 
 		[Test]

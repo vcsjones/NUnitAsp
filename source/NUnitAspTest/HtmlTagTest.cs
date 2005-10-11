@@ -142,5 +142,24 @@ namespace NUnit.Extensions.Asp.Test
 
 			tag.Child("two");
 		}
+
+		[Test]
+		public void TestRenderedInnerHtml()
+		{
+			AssertRenders("simple body", "simple body");
+			AssertRenders("embeddedtag", "embedded<tag />tag");
+			AssertRenders("two spaces", "two  spaces");
+			AssertRenders("three spaces", "three   spaces");
+			AssertRenders("mixed whitespace", "mixed\t\n \r\nwhitespace");
+			AssertRenders("tags and whitespace", "tags and    <tag />   whitespace");
+			AssertRenders(" leading and trailing ", "\n      leading and trailing     \n");
+		}
+
+		private void AssertRenders(string expected, string tagBody)
+		{
+			string html = "<p id='renderTest'>" + tagBody + "</p>";
+			HtmlTagTester tag = HtmlTagTester.TestInstance(html, "renderTest", html);
+			Assert.AreEqual(expected, tag.RenderedInnerHtml);
+		}
 	}
 }

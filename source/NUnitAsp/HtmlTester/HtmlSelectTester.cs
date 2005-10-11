@@ -75,59 +75,123 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// <param name="container">A tester for the control's container.  A WebFormTester
 		/// will usually be most appropriate.</param>
 		public HtmlSelectTester(string xpath, string description, Tester container) : base(xpath, description, container)
-	{
-	}
+		{
+		}
 
+		/// <summary>
+		/// The index of the currently-selected option
+		/// </summary>
 		public int SelectedIndex
 		{
 			get
 			{
-				HtmlTagTester[] items = ItemTags;
+				int result = -1;
+				HtmlTagTester[] items = OptionTags;
 				for (int i = 0; i < items.Length; i++)
 				{
 					HtmlTagTester item = items[i];
-					if (item.HasAttribute("selected")) return i;
+					if (item.HasAttribute("selected")) 
+					{
+						WebAssert.True(result == -1, "Can't get SelectedIndex when multiple items are selected; use Items[##].Selected instead");
+						result = i;
+					}
 				}
-				return -1;
+				return result;
+			}
+			set
+			{
+				int maxIndex = Items.Count - 1;
+				WebAssert.True(value >= 0, "Can't call SelectedIndex with index less than zero (was " + value + ")");
+				WebAssert.True(value <= maxIndex, "Tried to select item #" + value + ", but largest index is " + maxIndex);
+				
+				Form.Variables.RemoveAll(Attribute("name"));
+				ChangeItemSelectState(Items[value], true);
 			}
 		}
 
-		private HtmlTagTester[] ItemTags
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		protected internal void ChangeItemSelectState(ListItemTester item, bool selected)
+		{
+			if (Disabled) throw new ControlDisabledException(this);
+
+			string name = Attribute("name");
+			if (!Multiple) Form.Variables.RemoveAll(name);
+			if (selected)
+			{
+				Form.Variables.Add(name, item.Value);
+			}
+			else
+			{
+				WebAssert.True(Multiple, "Can't deselect items unless list box is multi-select");
+				Form.Variables.Remove(name, item.Value);
+			}
+			Form.OptionalPostBack(Tag.OptionalAttribute("onchange"));
+		}
+
+		/// <summary>
+		/// The &lt;option&gt; tags contained within this &lt;select&gt; tag.
+		/// </summary>
+		public HtmlTagTester[] OptionTags
 		{
 			get
 			{
-				HtmlTagTester[] optionNodes = Children("option");
-//				HtmlOptionTester[] tags = new HtmlOptionTester[optionNodes.Count];
-//
-//				for (int i = 0; i < optionNodes.Count; i++)
-//				{
-//					tags[i] = new HtmlOptionTester((XmlElement)optionNodes[i]);
-//				}
-				return optionNodes;
+				return Children("option");
 			}
 		}
 
+		/// <summary>
+		/// The number of rows specified for the browser to display, or '1' if not specified.
+		/// </summary>
 		public int Size
 		{
 			get
 			{
-				return 1;
+				string size = OptionalAttribute("size");
+				if (size == null) return 1;
+				else return int.Parse(Attribute("size"));
 			}
 		}
 
+		/// <summary>
+		/// Whether the 'multiple-select' attribute has been set.
+		/// </summary>
 		public bool Multiple
 		{
 			get
 			{
-				return false;
+				return HasAttribute("multiple");
 			}
 		}
 
-		public string[] Items
+		/// <summary>
+		/// The text of all of the options for this list box, rendered as strings.
+		/// </summary>
+		public string[] RenderedItems
 		{
 			get
 			{
-				return new string[] {};
+				HtmlTagTester[] options = OptionTags;
+				string[] result = new string[options.Length];
+
+				for (int i = 0; i < options.Length; i++)
+				{
+					result[i] = options[i].RenderedInnerHtml;
+				}
+				return result;
+			}
+		}
+
+		/// <summary>
+		/// The options in this select tag, rendered as ListItemTesters in order to be consistent
+		/// with ASP.NET.
+		/// </summary>
+		public ListItemCollectionTester Items
+		{
+			get
+			{
+				return new ListItemCollectionTester(OptionTags, this);
 			}
 		}
 	}

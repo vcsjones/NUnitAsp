@@ -498,7 +498,6 @@ namespace NUnit.Extensions.Asp.AspTester
       /// <summary>
       /// Create a tester for a specific item in a repeater.
       /// </summary>
-      /// <param name="itemNum">The item number to test (zero-based).</param>
       /// <param name="container">The repeater tester this item is contained
       /// within.</param>
       public RepeaterFooterTester(RepeaterTester container) : base(container)

@@ -1,7 +1,7 @@
-#region Copyright (c) 2003, Brian Knowles, Jim Shore
+#region Copyright (c) 2003, 2005 James Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2003, Brian Knowles, Jim Shore
+' Copyright (c) 2003, 2005, James Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -26,18 +26,21 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Web.UI.WebControls;
 
-namespace NUnit.Extensions.Asp.AspTester
+namespace NUnit.Extensions.Asp.HtmlTester
 {
 	/// <summary>
 	/// Tester for System.Web.UI.WebControls.ListItemCollection
 	/// </summary>
 	public class ListItemCollectionTester : ReadOnlyCollectionBase
 	{
-		internal ListItemCollectionTester(ListControlTester control, HtmlTagTester[] optionList)
+		/// <summary>
+		/// For internal use.  May change in future revisions.
+		/// </summary>
+		public ListItemCollectionTester(HtmlTagTester[] optionList, HtmlSelectTester container)
 		{
 			foreach (HtmlTagTester option in optionList)
 			{
-				InnerList.Add(new ListItemTester(control, option));
+				InnerList.Add(new ListItemTester(option, container));
 			}
 		}
 
@@ -63,15 +66,16 @@ namespace NUnit.Extensions.Asp.AspTester
 		}
 
 		/// <summary>
-		/// Searches the collection for a ListItemTester with whose Text property contains the specified text.
+		/// Searches the collection for a ListItemTester whose RenderedText property contains the specified text.
 		/// </summary>
 		/// <param name="text">The text to search for.</param>
-		/// <returns>A ListItemTester that contains the text specified by the text parameter.</returns>
+		/// <returns>The first ListItemTester that contains the text specified by the text parameter,
+		/// or null if none could be found.</returns>
 		public ListItemTester FindByText(string text)
 		{
 			foreach (ListItemTester item in this)
 			{
-				if (item.Text == text) return item;
+				if (item.RenderedText == text) return item;
 			}
 			return null;
 		}
@@ -80,7 +84,8 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// Searches the collection for a ListItemTester with whose Value property contains the specified value.
 		/// </summary>
 		/// <param name="value"> The value to search for.</param>
-		/// <returns>A ListItemTester that contains the value specified by the value parameter.</returns>
+		/// <returns>The first ListItemTester that contains the value specified by the value parameter,
+		/// or null if none could be found.</returns>
 		public ListItemTester FindByValue(string value)
 		{
 			foreach (ListItemTester item in this)
