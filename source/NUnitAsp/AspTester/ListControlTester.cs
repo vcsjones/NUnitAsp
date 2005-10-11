@@ -88,7 +88,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				return new HtmlSelectTester(HtmlId);
+				return new HtmlSelectTester(HtmlId, Form);
 			}
 		}
 
