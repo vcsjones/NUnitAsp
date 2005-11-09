@@ -14,6 +14,11 @@ To do:
 * Add FAQ? Watir vs. NUnitAsp
 
 
+ASP.NET 2.0 issues:
+* VS.NET 2005 default DOCTYPE has changed--causes parser to do a slow web lookup
+* MasterPage tester needed
+
+
 Before release:
 * Update build: remove NUnit, put NUnitAdapter.cs in bin/ dir
 * Copy new constructors to WebFormTester and HtmlAnchorTester/HtmlInputCheckBoxTester
@@ -25,7 +30,7 @@ Before release:
 * Refer to David Gardiner's code-generation tool in documentation: https://sourceforge.net/projects/nunitaspcodegen/
 * Incorporate "Advanced NUnitAsp" video into documentation page
 * Remove "Enabled" check on all controls.  Document this.  Tracker #1262940.
-* Fix version number in [Obsolete(...will be removed in v1.7)]
+* Update all [Obsolete] attributes to say "will be removed after <date>".
 * Document change from BodyNoTags to RenderedInnerHtml.  Obsolete methods in: ListItemTester; Changed behavior of: ListItemCollectionTester.FindByText, ListItemTester.Value (edge case)
 
 
