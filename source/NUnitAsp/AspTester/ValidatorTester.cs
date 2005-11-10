@@ -1,7 +1,10 @@
-#region Copyright (c) 2002-2005 Brian Knowles, Jim Shore
+#region Copyright (c) 2004, 2005, James Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002-2005 Brian Knowles, Jim Shore
+' Copyright (c) 2004, 2005, James Shore
+' Originally written by Kyle Heon.  Copyright assigned to Brian Knowles and James Shore on SourceForge
+' "Patches" tracker, item #1024063, 2004-09-07.  Brian Knowles' copyright subquentially assigned to
+' James Shore on nunitasp-devl mailing list, 8/22/2005.
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -21,16 +24,17 @@
 #endregion
 
 using System;
+using System.Xml;
+using System.Text.RegularExpressions;
+using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.AspTester
 {
 	/// <summary>
-	/// Base class for testing all ASP.NET server controls.  Extend this class
-	/// if you're creating a tester for a custom control.
+	/// Base class for all validator testers.
 	/// </summary>
-	public abstract class AspControlTester : ControlTester
+	public class ValidatorTester : AspControlTester
 	{
-		#region Default Constructors
 		/// <summary>
 		/// <p>Create a tester for a top-level control.  Use this constructor
 		/// for testing most controls.  Testers created with this constructor
@@ -39,7 +43,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// </summary>
 		/// <param name="aspId">The ID of the control to test (look in the
 		/// page's ASP.NET source code for the ID).</param>
-		public AspControlTester(string aspId) : base(aspId)
+		public ValidatorTester(string aspId) : base(aspId)
 		{
 		}
 
@@ -71,38 +75,60 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// 
 		/// <code>
 		/// HttpClient myHttpClient = new HttpClient();
-		/// WebForm currentWebForm = new WebForm(myHttpClient);
-		/// LabelTester myTester = new LabelTester("id", currentWebForm);</code>
+		/// WebFormTester webForm = new WebFormTester(myHttpClient);
+		/// LabelTester myTester = new LabelTester("id", webForm);</code>
 		/// </example>
-		public AspControlTester(string aspId, Tester container) : base(aspId, container)
+		public ValidatorTester(string aspId, Tester container) : base(aspId, container)
 		{
 		}
-		#endregion
 
-		/// <summary>
-		/// True if the control is enabled.
-		/// </summary>
-		public bool Enabled
+		public HtmlSpanTester SpanTag
 		{
 			get
 			{
-				return !IsDisabled;
+				return new HtmlSpanTester(HtmlId, Form);
 			}
 		}
 
 		/// <summary>
-		/// Creates an ID for a control that doesn't have one provided in the .aspx page.  The tester
-		/// using this method must algorithmically determine what number ASP.NET provided to the control.
-		/// In other words, control number "3" turns into an ID of "ctl03" in ASP.NET 2.0 and "_ctl3" in
-		/// ASP.NET 1.x.
+		/// Returns the error message.
 		/// </summary>
-		/// <param name="controlNumber">The number ASP.NET created for the control.</param>
-		/// <returns>A string that includes the control number and reflects the scheme ASP.NET uses
-		/// for anonymous control.</returns>
-		protected string GenerateAnonymousId(int controlNumber)
+		public string ErrorMessage
 		{
-			string id = controlNumber.ToString();
-			return "_ctl" + id;
+			get 
+			{ 
+				return SpanTag.InnerHtml; 
+			}
+		}
+
+		/// <summary>
+		/// Returns the error message, rendered to a string as a web browser would do.
+		/// </summary>
+		public string RenderedErrorMessage
+		{
+			get 
+			{ 
+				return SpanTag.RenderedInnerHtml; 
+			}
+		}
+
+		/// <summary>
+		/// Unlike most controls, this control returns 'true' only if the validator is actually
+		/// visible to the user.
+		/// </summary>
+		public override bool Visible
+		{
+			get
+			{
+				string style = SpanTag.OptionalAttribute("style");
+				
+				bool visible = SpanTag.Visible;
+				bool hidden = (style != null && style.IndexOf("visibility:hidden") != -1);
+				bool displayNone = (style != null && style.IndexOf("display:none") != -1);
+
+				if (visible && !hidden && !displayNone) return true;
+				else return false;
+			}
 		}
 	}
 }

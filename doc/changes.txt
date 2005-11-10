@@ -68,6 +68,12 @@ Produced by Jim Shore.
 * Added NamingContainerTester.  Credit to Jim Shore.
 * Added WebAssert.CurrentUrlEndsWith().  Credit to Jim Shore.
 * Added WebAssert.Visible(tester, message) and WebAssert.NotVisible(tester, message).  Credit to Jim Shore.
+* Added generic ValidatorTester.  Credit to Kyle Heon and James Shore.
+* Added CompareValidatorTester.  Credit to Kyle Heon and James Shore.
+* Added CustomValidatorTester.  Credit to Kyle Heon and James Shore.
+* Added RangeValidatorTester.  Credit to Kyle Heon and James Shore.
+* Added RegularExpressionValidatorTester.  Credit to Kyle Heon and James Shore.
+* Added RequiredFieldValidatorTester.  Credit to Kyle Heon and James Shore.
 
 
 Changes in NUnitAsp 1.5.1:

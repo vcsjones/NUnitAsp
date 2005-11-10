@@ -175,6 +175,16 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "AspTester\CompareValidatorTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\CustomValidatorTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AspTester\DataGridTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -230,7 +240,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "AspTester\RangeValidatorTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\RegularExpressionValidatorTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AspTester\RepeaterTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AspTester\RequiredFieldValidatorTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -306,6 +331,11 @@
                 />
                 <File
                     RelPath = "HtmlTester\HtmlSelectTester.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HtmlTester\HtmlSpanTester.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

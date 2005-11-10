@@ -1,7 +1,7 @@
-#region Copyright (c) 2002-2005 Brian Knowles, Jim Shore
+#region Copyright (c) 2005, James Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002-2005 Brian Knowles, Jim Shore
+' Copyright (c) 2005 James Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -25,10 +25,9 @@ using System;
 namespace NUnit.Extensions.Asp.AspTester
 {
 	/// <summary>
-	/// Base class for testing all ASP.NET server controls.  Extend this class
-	/// if you're creating a tester for a custom control.
+	/// Tester for System.Web.UI.WebControls.RangeValidator
 	/// </summary>
-	public abstract class AspControlTester : ControlTester
+	public class RangeValidatorTester : ValidatorTester
 	{
 		#region Default Constructors
 		/// <summary>
@@ -39,7 +38,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// </summary>
 		/// <param name="aspId">The ID of the control to test (look in the
 		/// page's ASP.NET source code for the ID).</param>
-		public AspControlTester(string aspId) : base(aspId)
+		public RangeValidatorTester(string aspId) : base(aspId)
 		{
 		}
 
@@ -74,35 +73,9 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// WebForm currentWebForm = new WebForm(myHttpClient);
 		/// LabelTester myTester = new LabelTester("id", currentWebForm);</code>
 		/// </example>
-		public AspControlTester(string aspId, Tester container) : base(aspId, container)
+		public RangeValidatorTester(string aspId, Tester container) : base(aspId, container)
 		{
 		}
 		#endregion
-
-		/// <summary>
-		/// True if the control is enabled.
-		/// </summary>
-		public bool Enabled
-		{
-			get
-			{
-				return !IsDisabled;
-			}
-		}
-
-		/// <summary>
-		/// Creates an ID for a control that doesn't have one provided in the .aspx page.  The tester
-		/// using this method must algorithmically determine what number ASP.NET provided to the control.
-		/// In other words, control number "3" turns into an ID of "ctl03" in ASP.NET 2.0 and "_ctl3" in
-		/// ASP.NET 1.x.
-		/// </summary>
-		/// <param name="controlNumber">The number ASP.NET created for the control.</param>
-		/// <returns>A string that includes the control number and reflects the scheme ASP.NET uses
-		/// for anonymous control.</returns>
-		protected string GenerateAnonymousId(int controlNumber)
-		{
-			string id = controlNumber.ToString();
-			return "_ctl" + id;
-		}
 	}
 }
