@@ -1,7 +1,7 @@
-#region Copyright (c) 2002-2005 by Brian Knowles and Jim Shore
+#region Copyright (c) 2002-2005, James Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2002-2005 by Brian Knowles and Jim Shore
+' Copyright (c) 2002-2005, James Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -29,7 +29,9 @@ namespace NUnit.Extensions.Asp.Test
 	[TestFixture]
 	public class WebAssertTest : NUnitAspTestCase
 	{
-        [Test]
+		private const string TestPageUrl = BaseUrl + "WebAssertTestPage.aspx";
+
+		[Test]
 		public void TestVisibleAndNotVisible()
 		{
 			GetTestPage();
@@ -37,7 +39,15 @@ namespace NUnit.Extensions.Asp.Test
 			WebAssert.NotVisible(new LabelTester("invisible"));
 		}
 
-        [Test]
+		[Test]
+		[ExpectedException(typeof(WebAssertionException), "error message: invisible (LabelTester 'invisible' in web form 'WebAssertTestPage' in " + TestPageUrl + ")")]
+		public void TestVisibilityMessage()
+		{
+			GetTestPage();
+			WebAssert.Visible(new LabelTester("invisible"), "error message");
+		}
+
+		[Test]
 		public void TestAreEqual_WhenArrays()
 		{
 			AssertEqualsFails(new string[] {"1"}, new string[] {});
@@ -52,7 +62,7 @@ namespace NUnit.Extensions.Asp.Test
 			AssertArrayRenders("\r\nexpected: {}\r\n but was: <null>", new string[] {}, null);
 		}
 
-        [Test]
+		[Test]
 		public void TestAreEqual_WhenDoubleArrays()
 		{
 			AssertEqualsFails(new string[][] {new string[] {"1"}}, new string[][] {});
@@ -65,17 +75,17 @@ namespace NUnit.Extensions.Asp.Test
 
 			string expected = "\r\nexpected: \r\n   {\r\n      {\"1\"}\r\n   }\r\n but was: \r\n   {\r\n      {\"1\"}\r\n      {\"2\"}\r\n   }";
 			string[][] one = new string[][] {
-												new string[] {"1"}
-											};
+																				new string[] {"1"}
+																			};
 			string[][] two = new string[][] {
-												new string[] {"1"},
-												new string[] {"2"}
-											};
+																				new string[] {"1"},
+																				new string[] {"2"}
+																			};
 			AssertArrayRenders(expected, one, two);							
 			AssertArrayRenders("\r\nexpected: {}\r\n but was: <null>", new string[][] {},  null);
 		}
 
-        [Test]
+		[Test]
 		public void TestSorted_WhenSorted()
 		{
 			string[][] testData = new string[][]
@@ -88,7 +98,7 @@ namespace NUnit.Extensions.Asp.Test
 			WebAssert.Sorted(testData, 0, true, DataType.String);
 		}
 
-        [Test]
+		[Test]
 		public void TestSorted_WhenSortedAndStartingWithEmptyString()
 		{
 			string[][] testData = new string[][]
@@ -101,7 +111,7 @@ namespace NUnit.Extensions.Asp.Test
 			WebAssert.Sorted(testData, 0, true, DataType.String);
 		}
 		
-        [Test]
+		[Test]
 		public void TestSorted_WhenSortedAndManyRepeatingValues()
 		{
 			string[][] testData = new string[][]
@@ -116,7 +126,7 @@ namespace NUnit.Extensions.Asp.Test
 			WebAssert.Sorted(testData, 0, true, DataType.String);
 		}
 
-        [Test]
+		[Test]
 		public void TestSorted_WhenSortedDescending()
 		{
 			string[][] testData = new string[][]
@@ -129,7 +139,7 @@ namespace NUnit.Extensions.Asp.Test
 			WebAssert.Sorted(testData, 0, false, DataType.String);
 		}
 
-        [Test]
+		[Test]
 		public void TestSorted_WhenSortedDescendingAndEndingWithEmptyString()
 		{
 			string[][] testData = new string[][]
@@ -142,7 +152,7 @@ namespace NUnit.Extensions.Asp.Test
 			WebAssert.Sorted(testData, 0, false, DataType.String);
 		}
 
-        [Test]
+		[Test]
 		public void TestSorted_WhenSortedDescendingAndManyRepeatValues()
 		{
 			string[][] testData = new string[][]
@@ -157,7 +167,7 @@ namespace NUnit.Extensions.Asp.Test
 			WebAssert.Sorted(testData, 0, false, DataType.String);
 		}
 
-        [Test]
+		[Test]
 		public void TestSorted_WhenSortingOnLastColumn()
 		{
 			string[][] testData = new string[][]
@@ -170,7 +180,7 @@ namespace NUnit.Extensions.Asp.Test
 			WebAssert.Sorted(testData, 1, false, DataType.String);
 		}
 
-        [Test]
+		[Test]
 		public void TestSorted_WhenNotSorted()
 		{
 			string[][] testData = new string[][]
@@ -183,14 +193,14 @@ namespace NUnit.Extensions.Asp.Test
 			AssertSortOrderFails(testData, DataType.String);
 		}
 
-        [Test]
+		[Test]
 		public void TestSorted_WhenNoData()
 		{
 			WebAssert.Sorted(new string[][] {}, 0, true, DataType.String, "ascending");
 			WebAssert.Sorted(new string[][] {}, 0, false, DataType.String, "descending");
 		}
 
-        [Test]
+		[Test]
 		public void TestSorted_WhenNumber()
 		{
 			string[][] testData = new string[][]
@@ -201,7 +211,7 @@ namespace NUnit.Extensions.Asp.Test
 			WebAssert.Sorted(testData, 0, true, DataType.Int);
 		}
 
-        [Test]
+		[Test]
 		public void TestSorted_WhenBlankNumber()
 		{
 			string[][] testData = new string[][]
@@ -213,7 +223,7 @@ namespace NUnit.Extensions.Asp.Test
 			WebAssert.Sorted(testData, 0, true, DataType.Int);
 		}
 
-        [Test]
+		[Test]
 		public void TestSorted_WhenBlankNumberAtEnd()
 		{
 			string[][] testData = new string[][]
@@ -225,7 +235,7 @@ namespace NUnit.Extensions.Asp.Test
 			AssertSortOrderFails(testData, DataType.Int);
 		}
 
-        [Test]
+		[Test]
 		public void TestSorted_WhenDate()
 		{
 			string[][] testData = new string[][]
@@ -236,7 +246,7 @@ namespace NUnit.Extensions.Asp.Test
 			WebAssert.Sorted(testData, 0, true, DataType.DateTime);
 		}
 
-        [Test]
+		[Test]
 		public void TestSorted_WhenBlankDate()
 		{
 			string[][] testData = new string[][]
@@ -248,7 +258,7 @@ namespace NUnit.Extensions.Asp.Test
 			WebAssert.Sorted(testData, 0, true, DataType.DateTime);
 		}
 
-        [Test]
+		[Test]
 		public void TestSorted_WhenBlankDateAtEnd()
 		{
 			string[][] testData = new string[][]
@@ -260,7 +270,7 @@ namespace NUnit.Extensions.Asp.Test
 			AssertSortOrderFails(testData, DataType.DateTime);
 		}
 
-        [Test]
+		[Test]
 		public void TestTableContainsRow()
 		{
 			string[][] testData = new string[][]
@@ -270,7 +280,7 @@ namespace NUnit.Extensions.Asp.Test
 			WebAssert.TableContainsRow(testData, "a", "b");
 		}
 
-        [Test]
+		[Test]
 		[ExpectedException(typeof(WebAssertionException))]
 		public void TestTableContainsRow_WhenItDoesnt()
 		{
@@ -360,7 +370,7 @@ namespace NUnit.Extensions.Asp.Test
 
 		private void GetTestPage()
 		{
-			Browser.GetPage(BaseUrl + "WebAssertTestPage.aspx");
+			Browser.GetPage(TestPageUrl);
 		}
 	}
 }

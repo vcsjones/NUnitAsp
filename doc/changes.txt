@@ -12,6 +12,7 @@ To do:
 * Add information on SF trackers to docs
 * Add to doc page? NUnitAsp innards discussion at http://blogs.pingpoet.com/overflow/archive/2004/03/18/474.aspx
 * Add FAQ? Watir vs. NUnitAsp
+* RequiredFieldValidator (and all validators?): 'valid' behavior changes according to whether client-side scripting is on
 
 
 ASP.NET 2.0 issues:
@@ -66,6 +67,7 @@ Produced by Jim Shore.
 * Added message to Tester to clarify common error of putting testers directly in assertions.  Credit to Jim Shore.
 * Added NamingContainerTester.  Credit to Jim Shore.
 * Added WebAssert.CurrentUrlEndsWith().  Credit to Jim Shore.
+* Added WebAssert.Visible(tester, message) and WebAssert.NotVisible(tester, message).  Credit to Jim Shore.
 
 
 Changes in NUnitAsp 1.5.1:
