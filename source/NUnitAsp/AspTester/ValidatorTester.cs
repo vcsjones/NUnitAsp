@@ -120,9 +120,10 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			get
 			{
-				string style = SpanTag.OptionalAttribute("style");
-				
 				bool visible = SpanTag.Visible;
+				if (!visible) return false;
+
+				string style = SpanTag.OptionalAttribute("style");
 				bool hidden = (style != null && style.IndexOf("visibility:hidden") != -1);
 				bool displayNone = (style != null && style.IndexOf("display:none") != -1);
 

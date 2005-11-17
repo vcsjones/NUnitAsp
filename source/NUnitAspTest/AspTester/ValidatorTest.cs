@@ -44,6 +44,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		{
 			RequiredFieldValidatorTester rfvName = new RequiredFieldValidatorTester("rfvName", CurrentWebForm);
 			TextBoxTester txtName = new TextBoxTester("txtName", CurrentWebForm);
+			WebAssert.NotVisible(rfvName, "should not be visible at start");
 
 			txtName.Text = "";
 			btnSubmit.Click();
@@ -57,6 +58,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			CompareValidatorTester cvPassword = new CompareValidatorTester("cvPassword", CurrentWebForm);
 			TextBoxTester txtPassword = new TextBoxTester("txtPassword", CurrentWebForm);
 			TextBoxTester txtPassword2 = new TextBoxTester("txtPassword2", CurrentWebForm);
+			WebAssert.NotVisible(cvPassword, "should not be visible at start");
 
 			txtPassword.Text = "ab";
 			txtPassword2.Text = "abc";
@@ -70,6 +72,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		{
 			RangeValidatorTester rvAge = new RangeValidatorTester("rvAge", CurrentWebForm);
 			TextBoxTester txtAge = new TextBoxTester("txtAge", CurrentWebForm);
+			WebAssert.NotVisible(rvAge, "should not be visible at start");
 
 			txtAge.Text = "1";
 			btnSubmit.Click();
@@ -82,6 +85,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		{
 			RegularExpressionValidatorTester revPhone = new RegularExpressionValidatorTester("revPhone", CurrentWebForm);
 			TextBoxTester txtPhone = new TextBoxTester("txtPhone", CurrentWebForm);
+			WebAssert.NotVisible(revPhone, "should not be visible at start");
 
 			txtPhone.Text = "556 334-4456";
 			btnSubmit.Click();
@@ -94,6 +98,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		{
 			CustomValidatorTester cuvValidateNum = new CustomValidatorTester("cuvValidateNum", CurrentWebForm);
 			TextBoxTester txtNum = new TextBoxTester("txtNum", CurrentWebForm);
+			WebAssert.NotVisible(cuvValidateNum, "should not be visible at start");
 
 			txtNum.Text = "16";
 			btnSubmit.Click();

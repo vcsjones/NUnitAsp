@@ -33,6 +33,7 @@ Before release:
 * Remove "Enabled" check on all controls.  Document this.  Tracker #1262940.
 * Update all [Obsolete] attributes to say "will be removed after <date>".
 * Document change from BodyNoTags to RenderedInnerHtml.  Obsolete methods in: ListItemTester; Changed behavior of: ListItemCollectionTester.FindByText, ListItemTester.Value (edge case)
+* Update list of supported controls on front page of site
 
 
 Changes in CVS:
