@@ -22,6 +22,7 @@
 
 using System;
 using NUnit.Framework;
+using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.Test
 {
@@ -102,7 +103,7 @@ namespace NUnit.Extensions.Asp.Test
 		public void TestChildrenAndHasChildren()
 		{
 			string test = "<html><c>Left</c><p id='parent'><c>0</c><c>1</c><r>red herring</r><c>2</c><c>3<c>nested</c></c><c>4</c></p><c>Right</c></html>";
-			HtmlTagTester tag = HtmlTagTester.TestInstance(test, "parent", test);
+			HtmlTagTester tag = HtmlTagTester.TestInstance(test, "parent", "test doc");
 
 			Assert.IsTrue(tag.HasChildren("c"));
 			Assert.IsFalse(tag.HasChildren("x"));
@@ -112,6 +113,20 @@ namespace NUnit.Extensions.Asp.Test
 			Assert.AreEqual("2", tag.Children("c")[2].InnerHtml);
 			Assert.AreEqual("3<c>nested</c>", tag.Children("c")[3].InnerHtml);
 			Assert.AreEqual("4", tag.Children("c")[4].InnerHtml);
+
+			Assert.AreEqual("<c> child #1 of test doc", tag.Children("c")[1].Description);
+		}
+
+		[Test]
+		public void TestChildrenByXPath()
+		{
+			string test = "<p id='parent'><c attrib='pickMe' /><c attrib='ignoreMe' /></p>";
+			HtmlTagTester p = HtmlTagTester.TestInstance(test, "parent", "test doc");
+			HtmlTagTester[] result = p.ChildrenByXPath("c[@attrib='pickMe']");
+
+			Assert.AreEqual(2, p.Children("c").Length);
+			Assert.AreEqual(1, result.Length);
+			Assert.AreEqual("xpath <c[@attrib='pickMe']> child #0 of test doc", result[0].Description);
 		}
 
 		[Test]

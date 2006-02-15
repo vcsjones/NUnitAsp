@@ -68,6 +68,7 @@ namespace NUnit.Extensions.Asp.Test
 			AssertEqualsFails(new string[][] {new string[] {"1"}}, new string[][] {});
 			WebAssert.AreEqual(new string[][] {}, new string[][] {});
 			AssertEqualsFails(new string[][] {new string[] {"1"}}, new string[][] {new string[] {"2"}});
+			AssertEqualsFails(new string[][] {new String[] {"1", "2"}}, new string[][] {new string[] {"1"}});
 			
 			AssertEqualsFails(new string[][] {}, null);
 			AssertEqualsFails(null, new string[][] {});

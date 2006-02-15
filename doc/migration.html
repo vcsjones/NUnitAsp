@@ -38,12 +38,14 @@
 
             <h2>Breaking Changes in v1.6</h2>
 
-            <p>There are two changes in NUnitAsp v1.6 that could break your existing tests.</p>
+            <p>These changes in NUnitAsp v1.6 that could break your existing tests.</p>
 
             <ul>
               <li><b>Assert:</b>  The Assert method has been renamed to AssertTrue.  This allows you to use NUnit's Assert class more conveniently.</li>
 
               <br /><li><b>UserAgent:</b> The default UserAgent has been changed to be the same as Internet Explorer's.  This causes ASP.NET to render pages in the same way as it does with IE.</li>
+
+              <br /><li><b><a href="api/NUnit.Extensions.Asp.AspTester.DataGridTester.GetRowByCellValue.html">DataGridTester.GetRowByCellValue</a>:</b>  We have improved the algorithm we use to strip unnecessary tags from string results.  This has changed the results slightly and may require you to change some calls to GetRowByCellValue.
             </ul>
 
             <p>See the quick migration section, below, for information on how to work around these changes.</p>
@@ -75,26 +77,50 @@
 
               <br /><li>Verify that your tests still pass.</li>
 
-              <br /><li>If the tests break and you suspect it's because ASP.NET is rendering the page differently (for example, if tags such as &lt;b&gt; and &lt;i&gt; are no longer being rendered), you may set the default UserAgent to "NUnitAsp" by adding the following line to the MasterSetUp() method in NUnitAdapter.cs:
+              <br /><li>If the tests don't pass:
+                <ul>
+                  <li>Look at the error message and check if your "actual" values have changed slightly.  You may see style tags like &lt;b&gt; and &lt;i&gt; disappear.  In most cases, this will be because ASP.NET is rendering the page differently due to our changed UserAgent.  If so, you can simply update the "expected" value in your test.</li>
 
-              <p class="code">
-                <span class="demph">[SetUp]
-                <br />public void MasterSetUp()
-                <br />{
-                <br />&nbsp;&nbsp;setupCalled = true;
-                <br />&nbsp;&nbsp;HttpClient.Default = new HttpClient();</span>
-                <br />&nbsp;&nbsp;<span class="emph">HttpClient.Default.UserAgent = "NUnitAsp";</span>
-                <br /><span class="demph">&nbsp;&nbsp;SetUp();
-                <br />}</span>
-              </p>
-
-              <p>Be cautious of this step, as it could cause some testers to stop working.  We recommend changing your tests to work with the new ASP.NET rendering instead.</li>
+                  <br /><li>Look for a call to DataGridTester.GetRowByCellValue and try changing the value you pass in to that methods.  If the cell value you're looking for has a space at the beginning or end, add it to the end.  If it contains multiple spaces in the middle, try combining them into a single space.</li>
+                </ul>
+              </li>
             </ol>
 
 
             <h2>Complete Migration</h2>
 
             <p>After completing the Quick Migration above, you may gradually convert your tests over to the new NUnitAsp v1.6 test style.  These steps are <em>entirely optional.</em></p>
+
+
+            <h3>Change <a href="api/NUnit.Extensions.Asp.AspTester.DataGridTester.TrimmedCells.html">DataGridTester.TrimmedCells</a> to <a href="api/NUnit.Extensions.Asp.AspTester.DataGridTester.RenderedCells.html">DataGridTester.RenderedCells</a></h3>
+
+            <p>"Rendering" is a new algorithm in NUnitAsp v2.0 that allows us to convert HTML into a plain-text string that more closely represents what you see in a browser.  This approach replaces previous "Trimmed" and "NoTags" methods.</p>
+
+            <p>DataGridTester was particularly affected by this change.  We have marked the <a href="api/NUnit.Extensions.Asp.AspTester.DataGridTester.TrimmedCells.html">TrimmedCells</a> property obsolete and replaced it with <a href="api/NUnit.Extensions.Asp.AspTester.DataGridTester.Cells.html">Cells</a> and <a href="api/NUnit.Extensions.Asp.AspTester.DataGridTester.RenderedCells.html">RenderedCells</a>.</p>
+
+            <p>In many cases, you can simply replace a call to TrimmedCells with a call to RenderedCells.</p>
+
+            <p class="code">
+              DataGridTester dataGrid = <span class="keyword">new</span> DataGridTester("dataGrid", CurrentWebForm);
+              <br />
+              <br />string[][] expected = <span class="keyword">new</span> string[][]
+              <br />{
+              <br />&nbsp;&nbsp;<span class="keyword">new</span> string[] {"expected data grid"}
+              <br />};
+              <br />AssertEquals(expected, dataGrid.TrimmedCells);
+            </p>
+
+            <p>Becomes:</p>
+
+            <p class="code">
+              DataGridTester dataGrid = <span class="keyword">new</span> DataGridTester("dataGrid", CurrentWebForm);
+              <br />
+              <br />string[][] expected = <span class="keyword">new</span> string[][]
+              <br />{
+              <br />&nbsp;&nbsp;<span class="keyword">new</span> string[] {"expected data grid"}
+              <br />};
+              <br />AssertEquals(expected, dataGrid.RenderedCells);
+            </p>
 
 
             <h3>Remove CurrentWebForm</h3>

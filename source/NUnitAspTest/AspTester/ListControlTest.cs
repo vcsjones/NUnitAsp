@@ -179,7 +179,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		}
 
 		[Test]
-		public void TestImmediatePostBack()
+		public void TestAutoPostBack()
 		{
 			autoPostBack.Checked = true;
 			Submit.Click();

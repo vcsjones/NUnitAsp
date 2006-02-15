@@ -31,6 +31,7 @@ namespace NUnit.Extensions.Asp.AspTester
 	/// </summary>
 	public class DataGridTester : AspControlTester
 	{
+		#region Standard constructors
 		/// <summary>
 		/// <p>Create a tester for a top-level control.  Use this constructor
 		/// for testing most controls.  Testers created with this constructor
@@ -77,6 +78,15 @@ namespace NUnit.Extensions.Asp.AspTester
 		public DataGridTester(string aspId, Tester container) : base(aspId, container)
 		{
 		}
+		#endregion
+
+		private HtmlTableTester TableTag
+		{
+			get
+			{
+				return new HtmlTableTester(HtmlId, Form);
+			}
+		}
 
 		/// <summary>
 		/// The number of rows in the data grid, not counting the header.
@@ -86,17 +96,19 @@ namespace NUnit.Extensions.Asp.AspTester
 			get
 			{
 				AssertVisible();
-				return Tag.Children("tr").Length - 1;
+				return TableTag.Rows.Length - 1;
 			}
 		}
 
 		/// <summary>
+		/// Obsolete--do not call.
 		/// An array of string arrays containing the contents of the data grid, 
 		/// not counting the header.  The outer array represents rows and the inner arrays
 		/// represents cells within the rows.  Whitespace has been trimmed from the front and
 		/// back of the cells.
 		/// </summary>
 		[CLSCompliant(false)]
+		[Obsolete("Use 'Cells' or 'RenderedCells' instead.  This method may be removed after Dec 2006.")]
 		public string[][] TrimmedCells
 		{
 			get
@@ -109,6 +121,50 @@ namespace NUnit.Extensions.Asp.AspTester
 				}
 				return result;
 			}
+		}
+		
+		/// <summary>
+		/// An array of string arrays containing the contents of the data grid, 
+		/// not counting the header.  The outer array represents rows and the inner arrays
+		/// represents cells within the rows.  The cells are returned exactly as they are
+		/// found in the HTML.
+		/// </summary>
+		[CLSCompliant(false)]
+		public string[][] Cells
+		{
+			get
+			{
+				AssertVisible();
+				string[][] cells = TableTag.Cells;
+				return ChopOffHeader(cells);
+			}
+		}
+
+		/// <summary>
+		/// An array of string arrays containing the contents of the data grid, 
+		/// not counting the header.  The outer array represents rows and the inner arrays
+		/// represents cells within the rows.  The cells are "rendered" to approximate the
+		/// way a browser would render the HTML.
+		/// </summary>
+		[CLSCompliant(false)]
+		public string[][] RenderedCells
+		{
+			get
+			{
+				AssertVisible();
+				string[][] cells = TableTag.RenderedCells;
+				return ChopOffHeader(cells);
+			}
+		}
+
+		private string[][] ChopOffHeader(string[][] cells)
+		{
+			string[][] result = new string[cells.Length - 1][];
+			for (int i = 0; i < result.Length; i++)
+			{
+				result[i] = cells[i + 1];
+			}
+			return result;
 		}
 
 		/// <summary>
@@ -129,18 +185,19 @@ namespace NUnit.Extensions.Asp.AspTester
 		}
 
 		/// <summary>
-		/// Returns a row containing a specific cell.
+		/// Returns a row containing a specific cell.  Looks for the cell as it is returned by 
+		/// <see cref="RenderedCells"/>.
 		/// </summary>
 		/// <param name="columnNumber">The column containing the cell to look for (zero-based).</param>
 		/// <param name="trimmedValue">The cell to look for.</param>
-		public Row GetRowByCellValue(int columnNumber, string trimmedValue)
+		public Row GetRowByCellValue(int columnNumber, string renderedValue)
 		{
-			string[][] cells = TrimmedCells;
+			string[][] cells = RenderedCells;
 			for (int i = 0; i < cells.GetLength(0); i++)
 			{
-				if (cells[i][columnNumber] == trimmedValue) return GetRow(i);
+				if (cells[i][columnNumber] == renderedValue) return GetRow(i);
 			}
-			WebAssert.Fail(string.Format("Expected to find a row with '{0}' in column {1} of {2}", trimmedValue, columnNumber, HtmlIdAndDescription));
+			WebAssert.Fail(string.Format("Expected to find a row with '{0}' in column {1} of {2}", renderedValue, columnNumber, HtmlIdAndDescription));
 			throw new ApplicationException("This line cannot execute.  Fail() throws an exception.");
 		}
 

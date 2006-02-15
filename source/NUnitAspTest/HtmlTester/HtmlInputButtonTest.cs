@@ -46,7 +46,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		{
 			button.Click();
             AssertRedirected();
-			WebAssert.TableContainsRow(formVars.TrimmedCells, "button", "This is a button.");
+			WebAssert.TableContainsRow(formVars.RenderedCells, "button", "This is a button.");
 		}
 
 		[Test]

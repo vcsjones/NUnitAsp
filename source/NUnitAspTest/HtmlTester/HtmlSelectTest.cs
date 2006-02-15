@@ -149,11 +149,5 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 			Assert.AreEqual(four, tester.Items[3].Selected, "four in " + tester.Description);
 			Assert.AreEqual(five, tester.Items[4].Selected, "five in " + tester.Description);
 		}
-
-		//set selected with .SelectedIndex
-		//set selected with Items
-		//multi-select
-		//auto post-back?
-		//publicly-accessible ItemTags
 	}
 }

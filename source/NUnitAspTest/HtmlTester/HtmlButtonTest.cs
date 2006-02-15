@@ -45,8 +45,8 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		public void TestClick()
 		{
 			button.Click();
-            AssertRedirected();
-			WebAssert.TableContainsRow(formVars.TrimmedCells, "buttonName", "duplicate name,buttonValue");
+			AssertRedirected();
+			WebAssert.TableContainsRow(formVars.RenderedCells, "buttonName", "duplicate name,buttonValue");
 		}
 
 		[Test]
@@ -54,7 +54,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		{
 			new HtmlButtonTester("noNameButton").Click();
             AssertRedirected();
-			WebAssert.TableContainsRow(formVars.TrimmedCells, "buttonName", "duplicate name");
+			WebAssert.TableContainsRow(formVars.RenderedCells, "buttonName", "duplicate name");
 		}
 
 		[Test]

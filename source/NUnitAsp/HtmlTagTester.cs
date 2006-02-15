@@ -267,13 +267,30 @@ namespace NUnit.Extensions.Asp
 		/// <returns>The tags, or an empty array if none.</returns>
 		public HtmlTagTester[] Children(string tag)
 		{
-			XmlNodeList children = Element.SelectNodes(tag);
+			return ChildrenByXPath(tag, "<" + tag + "> child");
+		}
+
+		/// <summary>
+		/// <p>Returns the tags that match an XPath expression, starting from this tag (node).  Make
+		/// sure that the result of your expression is a set of tags.</p>
+		/// <p>Don't cache the results of this call.</p>
+		/// </summary>
+		/// <param name="xpath">The XPath expression to match.</param>
+		/// <returns>The tags, or an empty array if none.</returns>
+		public HtmlTagTester[] ChildrenByXPath(string xpath)
+		{
+			return ChildrenByXPath(xpath, "xpath <" + xpath + "> child");
+		}
+
+		private HtmlTagTester[] ChildrenByXPath(string xpath, string description)
+		{
+			XmlNodeList children = Element.SelectNodes(xpath);
 			HtmlTagTester[] result = new HtmlTagTester[children.Count];
 			for (int i = 0; i < children.Count; i++) 
 			{
-				result[i] = new HtmlTagTester((XmlElement)children[i], "<" + tag + "> child #" + i + " of " + Description);
+				result[i] = new HtmlTagTester((XmlElement)children[i], description + " #" + i + " of " + Description);
 			}
-			return result;													  
+			return result;
 		}
 
 		/// <summary>

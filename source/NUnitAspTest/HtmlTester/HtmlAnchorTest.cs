@@ -26,7 +26,7 @@ using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.Test.HtmlTester
 {
-    [TestFixture]
+  [TestFixture]
 	public class HtmlAnchorTest : NUnitAspTestCase
 	{
 		private HtmlAnchorTester testLink;

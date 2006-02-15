@@ -45,9 +45,12 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		public void TestClick()
 		{
 			image.Click();
-            AssertRedirected();
-			WebAssert.AreEqualIgnoringOrder(formVars.TrimmedCells,
-				new String[][] {
+			AssertRedirected();
+			WebAssert.AreEqualIgnoringOrder
+			(
+				formVars.RenderedCells,
+				new String[][]
+				{
 					new String[] {"image.x", "0"},
 					new String[] {"image.y", "0"},
 					new string[] {"image", "foo"}
@@ -59,9 +62,12 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		public void TestClickWithParameters()
 		{
 			image.Click(42, 24);
-            AssertRedirected();
-			WebAssert.AreEqualIgnoringOrder(formVars.TrimmedCells,
-				new String[][] {
+			AssertRedirected();
+			WebAssert.AreEqualIgnoringOrder
+			(
+				formVars.RenderedCells,
+				new String[][] 
+				{
 					new String[] {"image.x", "42"},
 					new String[] {"image.y", "24"},
 					new string[] {"image", "foo"}
@@ -74,8 +80,11 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 		{
 			HtmlInputImageTester noName = new HtmlInputImageTester("noName");
 			noName.Click();
-			WebAssert.AreEqualIgnoringOrder(formVars.TrimmedCells,
-				new String[][] {
+			WebAssert.AreEqualIgnoringOrder
+			(
+				formVars.RenderedCells,
+				new String[][]
+				{
 					new String[] {"x", "0"},
 					new String[] {"y", "0"},
 				}

@@ -77,7 +77,7 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 			button2A.Checked = true;
 			postback.Click();
 
-			WebAssert.TableContainsRow(formVars.TrimmedCells, new string[] {"group2", "on"});
+			WebAssert.TableContainsRow(formVars.RenderedCells, new string[] {"group2", "on"});
 		}
 
 		[Test]
