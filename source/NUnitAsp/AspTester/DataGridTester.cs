@@ -189,7 +189,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// <see cref="RenderedCells"/>.
 		/// </summary>
 		/// <param name="columnNumber">The column containing the cell to look for (zero-based).</param>
-		/// <param name="trimmedValue">The cell to look for.</param>
+		/// <param name="renderedValue">The cell to look for.</param>
 		public Row GetRowByCellValue(int columnNumber, string renderedValue)
 		{
 			string[][] cells = RenderedCells;

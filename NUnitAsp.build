@@ -16,8 +16,8 @@
   <property name="dll.path" value="${bin.dir}\NUnitAsp.dll" />
   <property name="testdll.path" value="${bin.dir}\NUnitAspTest.dll" />
   <property name="webdll.path" value="${bin.dir}\NUnitAspTestPages.dll" />
-  <property name="nunit-msi.path" value="${nunit.dir}\NUnit-2.2.0.msi" />
   <property name="nunit-exe.path" value="${nunit.dir}\nunit-console.exe" />
+  <property name="nunit-adapter.path" value="${source.dir}\NUnitAspTest\NUnitAdapter.cs" />
   
   <!--*****
   * build_dir
@@ -48,13 +48,12 @@
         <excludes name="source\**\bin\**" />
         <excludes name="sample\**\obj\**" />
         <excludes name="sample\**\bin\**" />
-        <excludes name="${nunit-msi.path}" />
       </fileset>
     </copy>
 
     <mkdir dir="${release.dir}\bin" />
     <copy todir="${release.dir}\bin" file="${bin.dir}\NUnitAsp.dll" />
-    <copy todir="${release.dir}\bin" file="${nunit-msi.path}" />
+    <copy todir="${release.dir}\bin" file="${nunit-adapter.path}" />
     
     <mkdir dir="${release.dir}\doc\api" />
     <copy todir="${release.dir}\doc\api">

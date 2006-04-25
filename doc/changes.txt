@@ -20,7 +20,6 @@ ASP.NET 2.0 issues:
 
 
 Before release:
-* Update build: remove NUnit, put NUnitAdapter.cs in bin/ dir
 * Copy new constructors to WebFormTester and HtmlAnchorTester/HtmlInputCheckBoxTester
 * Check that all HTML testers support constructors; HtmlTableTester is definitive
 * Finish migration guide.
