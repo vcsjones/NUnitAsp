@@ -20,8 +20,6 @@ ASP.NET 2.0 issues:
 
 
 Before release:
-* Copy new constructors to WebFormTester and HtmlAnchorTester/HtmlInputCheckBoxTester
-* Check that all HTML testers support constructors; HtmlTableTester is definitive
 * Finish migration guide.
 * Remove ControlTester.EnterInputValue/RemoveInputValue?  Make AssertEnabled explicit in tester?
 * Make "xxxTag" properties on AspTesters public--map them to HtmlTag

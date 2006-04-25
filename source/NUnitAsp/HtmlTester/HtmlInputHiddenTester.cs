@@ -29,6 +29,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 	/// </summary>
 	public class HtmlInputHidden : HtmlControlTester
 	{
+		#region Standard Constructors
 		/// <summary>
 		/// Create a tester for an HTML tag.  Use this constructor
 		/// for testing most tags.
@@ -36,8 +37,8 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// <param name="htmlId">The ID of the control to test (look in the
 		/// page's ASP.NET source code for the ID).</param>
 		public HtmlInputHidden(string htmlId) : base(htmlId)
-	{
-	}
+		{
+		}
 
 		/// <summary>
 		/// Create a tester for a server-side HTML control or a tag that's on a 
@@ -53,8 +54,8 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// container.)  If testing a page with multiple forms or a non-default
 		/// HttpClient, pass in the WebFormTester for the form this tag is within.</param>
 		public HtmlInputHidden(string aspId, Tester container) : base(aspId, container)
-	{
-	}
+		{
+		}
 
 		/// <summary>
 		/// Create a tester for an HTML tag using an XPath description.
@@ -62,8 +63,8 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// <param name="xpath">The XPath description of the tag.</param>
 		/// <param name="description">A human-readable description of this tag (for error reporting).</param>
 		public HtmlInputHidden(string xpath, string description) : base(xpath, description)
-	{
-	}
+		{
+		}
 
 		/// <summary>
 		/// Create a tester for an HTML tag that's on a page with multiple forms using
@@ -74,8 +75,9 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		/// <param name="container">A tester for the control's container.  A WebFormTester
 		/// will usually be most appropriate.</param>
 		public HtmlInputHidden(string xpath, string description, Tester container) : base(xpath, description, container)
-	{
-	}
+		{
+		}
+		#endregion
 
 		// Note: This class is included for completeness only; there is no functionality
 		// unique to HtmlInputHidden that is not already in the parent class.

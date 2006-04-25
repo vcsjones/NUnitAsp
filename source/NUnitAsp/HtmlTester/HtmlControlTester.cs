@@ -29,6 +29,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 	/// </summary>
 	public abstract class HtmlControlTester : HtmlTagTester
 	{
+		#region Standard Constructors
 		/// <summary>
 		/// Create a tester for an HTML tag.  Use this constructor
 		/// for testing most tags.
@@ -76,6 +77,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		public HtmlControlTester(string xpath, string description, Tester container) : base(xpath, description, container)
 		{
 		}
+		#endregion
 
 		/// <summary>
 		/// Create the tester and link it to an ASP.NET control.

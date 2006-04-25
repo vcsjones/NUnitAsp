@@ -29,6 +29,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 	/// </summary>
 	public class HtmlInputTextTester : HtmlControlTester
 	{
+		#region Standard Constructors
 		/// <summary>
 		/// Create a tester for an HTML tag.  Use this constructor
 		/// for testing most tags.
@@ -76,6 +77,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		public HtmlInputTextTester(string xpath, string description, Tester container) : base(xpath, description, container)
 		{
 		}
+		#endregion
 
 		/// <summary>
 		/// Return the width in columns of the text field, or -1 if undefined (default).

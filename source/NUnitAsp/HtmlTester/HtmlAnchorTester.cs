@@ -31,6 +31,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 	/// </summary>
 	public class HtmlAnchorTester : HtmlControlTester
 	{
+		#region Standard Constructors
 		/// <summary>
 		/// Create a tester for an HTML tag.  Use this constructor
 		/// for testing most tags.
@@ -78,6 +79,8 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		public HtmlAnchorTester(string xpath, string description, Tester container) : base(xpath, description, container)
 		{
 		}
+		#endregion
+
 
 		[Obsolete("Use HtmlAnchorTester(aspId, container) or HtmlAnchorTester(htmlId) instead")]
 		public HtmlAnchorTester(string aspId, Tester container, bool runAtServer) : this(aspId, container)

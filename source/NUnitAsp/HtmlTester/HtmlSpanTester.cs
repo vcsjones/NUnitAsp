@@ -29,6 +29,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 	/// </summary>
 	public class HtmlSpanTester : HtmlControlTester
 	{
+		#region Standard Constructors
 		/// <summary>
 		/// Create a tester for an HTML tag.  Use this constructor
 		/// for testing most tags.
@@ -76,5 +77,6 @@ namespace NUnit.Extensions.Asp.HtmlTester
 		public HtmlSpanTester(string xpath, string description, Tester container) : base(xpath, description, container)
 		{
 		}
+		#endregion
 	}
 }
