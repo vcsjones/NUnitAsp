@@ -39,18 +39,21 @@
                 <li>Unzip the NUnitAsp package into a directory of your choice, such as "C:\Program Files\NUnitAsp"</li>
               </ol></li>
 
-              <li style="margin-top: 1em"><b>Install NUnit 2.1.4.</b>
+              <li style="margin-top: 1em"><b>Install NUnit.</b>
               <ol>
-                <li>We include an install file for NUnit 2.1.4 in the NUnitAsp distribution.  It's in the bin directory.  (For example, if you unzipped NUnitAsp into C:\Program Files\NUnitAsp, it's in C:\Program Files\NUnitAsp\bin.)</li>
+                <li>You can use any testing tool, but NUnit is the most common.</li>
+                <li>NUnit may be downloaded from <a href="http://www.nunit.org">nunit.org</a>.</li>
               </ol></li>
 
-              <li style="margin-top: 1em"><b>Reference <code>NUnitAsp.dll</code> in your test projects.</b>
+              <li style="margin-top: 1em"><b>Reference NUnitAsp in your test projects.</b>
               <ol>
-                <li>The DLL is in the bin directory.  See the <a href="tutorial/index.html">tutorial</a> for specific directions.</li>
+                <li>Copy <code>bin\NUnitAdapter.cs</code> into your test project.  (This file isn't required, but it makes working with NUnit easier.)
+                <li>Add <code>bin\nunitasp.dll</code> as a reference.</li>
+                <li>See the <a href="quickstart.html">Quick-Start Guide</a> and <a href="tutorial/index.html">Tutorial</a> for more information.</li>
               </ol></li>
             </ol>
 
-            <p class="end">Last updated for v1.5.</p>
+            <p class="end">Last updated for v2.0.</p>
           </div>
         </td>
       </tr>
