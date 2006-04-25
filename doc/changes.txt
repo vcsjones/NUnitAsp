@@ -25,7 +25,6 @@ Before release:
 * Finish migration guide.
 * Remove ControlTester.EnterInputValue/RemoveInputValue?  Make AssertEnabled explicit in tester?
 * Make "xxxTag" properties on AspTesters public--map them to HtmlTag
-* Add support for auto-postback to RadioButtonTester
 * Remove 'Tag' property from AspControlTester; add HtmlTag
 * Refer to David Gardiner's code-generation tool in documentation: https://sourceforge.net/projects/nunitaspcodegen/
 * Incorporate "Advanced NUnitAsp" video into documentation page

@@ -1,7 +1,7 @@
-#region Copyright (c) 2003, 2005 Brian Knowles, James Shore
+#region Copyright (c) 2003, 2005, 2006 James Shore
 /********************************************************************************************************************
 '
-' Copyright (c) 2003, 2005 Brian Knowles, James Shore
+' Copyright (c) 2003, 2005, 2006 James Shore
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 ' documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -75,9 +75,6 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 
 			autoGroup1.Checked = true;
 			Assert.IsTrue(autoGroup1.Checked, "autoGroup1 should be checked");
-//			Assert.AreEqual("one", autoGroupDisplay.Text);
-//			autoGroup2.Checked = true;
-//			Assert.AreEqual("two", autoGroupDisplay.Text);
 		}
 
 
@@ -88,7 +85,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		protected RadioButtonTester DisabledCheckBox;
 		protected LinkButtonTester Submit;
 
-        [Test]
+		[Test]
 		public void TestCheck()
 		{
 			AssertTrue("should not be checked", !CheckBox.Checked);
@@ -98,38 +95,38 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			AssertTrue("should be checked", CheckBox.Checked);
 		}
 
-        [Test]
+		[Test]
 		[ExpectedException(typeof(ControlDisabledException))]
 		public void TestCheck_WhenDisabled()
 		{
 			DisabledCheckBox.Checked = true;
 		}
 
-        [Test]
+		[Test]
 		public void TestText()
 		{
 			AssertEquals("text", "Test me", CheckBox.Text);
 		}
 
-        [Test]
+		[Test]
 		public void TestText_WhenNone()
 		{
 			AssertEquals("no text", "", new CheckBoxTester("noText", CurrentWebForm).Text);
 		}
 
-        [Test]
+		[Test]
 		public void TestFormattedText()
 		{
 			AssertEquals("formatted text", "<b>bold!</b>", new CheckBoxTester("formattedText", CurrentWebForm).Text);
 		}
 
-        [Test]
+		[Test]
 		public void TestEnabled_True()
 		{
 			AssertEquals("enabled", true, CheckBox.Enabled);
 		}
 
-        [Test]
+		[Test]
 		public void TestEnabled_False()
 		{
 			AssertEquals("enabled", false, DisabledCheckBox.Enabled);
