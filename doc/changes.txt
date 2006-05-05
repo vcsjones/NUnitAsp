@@ -21,166 +21,161 @@ ASP.NET 2.0 issues:
 
 Before release:
 * Remove "Advanced NUnitAsp" video from release (due to size).  Include absolute link in docs.
-* Remove samples?
 * Remove ControlTester.EnterInputValue/RemoveInputValue?  Make AssertEnabled explicit in tester?
-* Refer to David Gardiner's code-generation tool in documentation: https://sourceforge.net/projects/nunitaspcodegen/
-* Incorporate "Advanced NUnitAsp" video into documentation page
 * Remove "Enabled" check on all controls.  Document this.  Tracker #1262940.
 * Update all [Obsolete] attributes to say "will be removed after <date>".
 * Document change from BodyNoTags to RenderedInnerHtml.  Obsolete methods in: ListItemTester; Changed behavior of: ListItemCollectionTester.FindByText, ListItemTester.Value (edge case)
-* Update list of supported controls on front page of site
-* Change all "RenderedXxx" methods/properties to "XxxRendered"?
 * Make sure people can still call 1.5.1-style static methods on "WebAssertion" class.
 
 
 Changes in NUnitAsp 2.0:
 Produced by James Shore.
 * Changed default HttpClient.UserAgent to be the same as Internet Explorer 6.
-* Added FAQ: How to test sites that require authentication.  Credit to James Shore.
-* Removed NUnit requirement.  NUnitAsp now works with any test framework.  Credit to James Shore.
-* Augmented Browser property with HttpClient.Default static property.  Credit to James Shore.
-* Augmented CurrentWebForm property with single-parameter constructor for testers.  Credit to James Shore.
+* Added FAQ: How to test sites that require authentication.  Contributed by James Shore.
+* Removed NUnit requirement.  NUnitAsp now works with any test framework.  Contributed by James Shore.
+* Augmented Browser property with HttpClient.Default static property.  Contributed by James Shore.
+* Augmented CurrentWebForm property with single-parameter constructor for testers.  Contributed by James Shore.
 * Created NUnitAdapter.cs file that provides backwards compatibility and quick-start for NUnit users.  Credit James Shore.
-* Created new migration guide for v1.6.  Removed old NUnit 2.0 migration guide.  Credit to James Shore.
-* Renamed WebForm to WebFormTester.  Credit to James Shore.
-* Added "Variables" property to WebFormTester and created FormVariables class to enable direct control and access to form variables.  Credit to James Shore.
-* Added support for multiple forms.  Credit to James Shore with thanks to Aaron Jenson for finding a crucial bug.
-* Added ability for tests to submit and post-back forms.  Credit to James Shore.
-* Updated FAQ: How to compile with NAnt under .NET 1.1.  Credit to Cory Foy and Ted Husted.
-* Changed LinkButtonTester to NOT check if the link is disabled.  Credit to James Shore.
-* Added WebAssert.TableContainsRow.  Credit to James Shore.
-* Added HtmlButtonTester.  Credit to James Shore.
-* Added HtmlInputButtonTester.  Credit to James Shore.
-* Added HtmlInputImageTester.  Credit to James Shore.
-* Added HtmlInputRadioButtonTester.  Credit to James Shore.
-* Added HtmlInputTextTester.  Credit to James Shore.
-* Added HtmlTextAreaTester.  Credit to James Shore.
-* Added HtmlSelectTester.  Credit to James Shore.
-* Added HtmlTableTester.  Credit to James Shore.
-* Added HtmlTagTester, which can test any HTML tag.  (Removed HtmlTag.)  Credit to James Shore.
-* Fixed TextBoxTester.MaxLength bug which that made that method unusable.  Credit to James Shore.
-* Added support for AutoPostBack to RadioButtonTester and CheckBoxTester.  Credit to James Shore.
-* Added ability to instantiate HTML testers by XPath as well as ID.  Credit to James Shore.
-* Added RepeaterTester.  Credit to Ben Monro, Peter Jaffe, and James Shore.
-* Added ListControlTester.SelectedValue.  Credit to Shane Lenagh.
-* Created "Advanced NUnitAsp" tutorial video.  Credit to James Shore with contributions by Rob Myers.
-* Added message to Tester to clarify common error of putting testers directly in assertions.  Credit to James Shore.
-* Added NamingContainerTester.  Credit to James Shore.
-* Added WebAssert.CurrentUrlEndsWith().  Credit to James Shore.
-* Added WebAssert.Visible(tester, message) and WebAssert.NotVisible(tester, message).  Credit to James Shore.
-* Added validator testers.  Credit to Kyle Heon and James Shore.  Thanks to Mickey Epperson for discovering an important bug.
-* Fixed WebAssert.AreEqual(string[][]) bug that caused an index out of bounds exception.  Credit to James Shore.
-* Added HtmlTagTester.ChildrenByXPath().  Credit to James Shore.
+* Created new migration guide for v1.6.  Removed old NUnit 2.0 migration guide.  Contributed by James Shore.
+* Renamed WebForm to WebFormTester.  Contributed by James Shore.
+* Added "Variables" property to WebFormTester and created FormVariables class to enable direct control and access to form variables.  Contributed by James Shore.
+* Added support for multiple forms.  Contributed by James Shore with thanks to Aaron Jenson for finding a crucial bug.
+* Added ability for tests to submit and post-back forms.  Contributed by James Shore.
+* Updated FAQ: How to compile with NAnt under .NET 1.1.  Contributed by Cory Foy and Ted Husted.
+* Changed LinkButtonTester to NOT check if the link is disabled.  Contributed by James Shore.
+* Added WebAssert.TableContainsRow.  Contributed by James Shore.
+* Added HtmlButtonTester.  Contributed by James Shore.
+* Added HtmlInputButtonTester.  Contributed by James Shore.
+* Added HtmlInputImageTester.  Contributed by James Shore.
+* Added HtmlInputRadioButtonTester.  Contributed by James Shore.
+* Added HtmlInputTextTester.  Contributed by James Shore.
+* Added HtmlTextAreaTester.  Contributed by James Shore.
+* Added HtmlSelectTester.  Contributed by James Shore.
+* Added HtmlTableTester.  Contributed by James Shore.
+* Added HtmlTagTester, which can test any HTML tag.  (Removed HtmlTag.)  Contributed by James Shore.
+* Fixed TextBoxTester.MaxLength bug which that made that method unusable.  Contributed by James Shore.
+* Added support for AutoPostBack to RadioButtonTester and CheckBoxTester.  Contributed by James Shore.
+* Added ability to instantiate HTML testers by XPath as well as ID.  Contributed by James Shore.
+* Added RepeaterTester.  Contributed by Ben Monro, Peter Jaffe, and James Shore.
+* Added ListControlTester.SelectedValue.  Contributed by Shane Lenagh.
+* Created "Advanced NUnitAsp" tutorial video.  Contributed by James Shore with contributions by Rob Myers.
+* Added message to Tester to clarify common error of putting testers directly in assertions.  Contributed by James Shore.
+* Added NamingContainerTester.  Contributed by James Shore.
+* Added WebAssert.CurrentUrlEndsWith().  Contributed by James Shore.
+* Added WebAssert.Visible(tester, message) and WebAssert.NotVisible(tester, message).  Contributed by James Shore.
+* Added validator testers.  Contributed by Kyle Heon and James Shore.  Thanks to Mickey Epperson for discovering an important bug.
+* Fixed WebAssert.AreEqual(string[][]) bug that caused an index out of bounds exception.  Contributed by James Shore.
+* Added HtmlTagTester.ChildrenByXPath().  Contributed by James Shore.
 
 
 Changes in NUnitAsp 1.5.1:
 Produced by James Shore and Levi Khatskevitch.
-* Added PostBack() overload that takes actual event target and argument.  Credit to James Shore.
-* Fixed parsing error that occurred when combining <style> tag with HTML comments.  Credit to James Shore.
-* Added UrlReferrer support to the Browser (HttpClient) object.  Credit to Levi Khatskevitch.
-* Upgraded to NUnit 2.2.0.  Credit to James Shore.
+* Added PostBack() overload that takes actual event target and argument.  Contributed by James Shore.
+* Fixed parsing error that occurred when combining <style> tag with HTML comments.  Contributed by James Shore.
+* Added UrlReferrer support to the Browser (HttpClient) object.  Contributed by Levi Khatskevitch.
+* Upgraded to NUnit 2.2.0.  Contributed by James Shore.
 
 
 Changes in NUnitAsp 1.5:
 Produced by James Shore and Levi Khatskevitch.
-* Added an ImageButtonTester.Click overload that takes no arguments.  Credit to Kyle Heon.
-* Added CLS compliance (except for certain members).  Credit to Levi Khatskevitch and Michael Ridgway.
-* Added HTTP proxy support to the Browser (HttpClient) object.  Credit to Torin Ford.
-* Clarified API documentation for all classes.  Credit to James Shore.
-* Renamed AnchorTester HTML control tester to HtmlAnchorTester.  Credit to Levi Khatskevitch.
-* Added postback (server-side click) support to HtmlAnchorTester.  Credit to Rick Spiewak.
-* Added simple ASP.NET error page parsing to display meaningful exceptions in tests.  Credit to Levi Khatskevitch.
-* Added FAQ: How to test redirection.  Credit to James Shore.
-* Added FAQ: Support for frames/pop-up windows/Javascript/HTML controls.  Credit to James Shore.
-* Made more methods public or protected to aid creation of custom testers.  Credit to James Shore.
-* Created HtmlTag class to simplify creation of control testers.  Credit to James Shore.
-* Fixed AssertEquals to display better failure messages with string arrays.  Credit to James Shore.
+* Added an ImageButtonTester.Click overload that takes no arguments.  Contributed by Kyle Heon.
+* Added CLS compliance (except for certain members).  Contributed by Levi Khatskevitch and Michael Ridgway.
+* Added HTTP proxy support to the Browser (HttpClient) object.  Contributed by Torin Ford.
+* Clarified API documentation for all classes.  Contributed by James Shore.
+* Renamed AnchorTester HTML control tester to HtmlAnchorTester.  Contributed by Levi Khatskevitch.
+* Added postback (server-side click) support to HtmlAnchorTester.  Contributed by Rick Spiewak.
+* Added simple ASP.NET error page parsing to display meaningful exceptions in tests.  Contributed by Levi Khatskevitch.
+* Added FAQ: How to test redirection.  Contributed by James Shore.
+* Added FAQ: Support for frames/pop-up windows/Javascript/HTML controls.  Contributed by James Shore.
+* Made more methods public or protected to aid creation of custom testers.  Contributed by James Shore.
+* Created HtmlTag class to simplify creation of control testers.  Contributed by James Shore.
+* Fixed AssertEquals to display better failure messages with string arrays.  Contributed by James Shore.
 
 
 Changes in NUnitAsp 1.4.1:
 Produced by James Shore and Levi Khatskevitch.
-* Upgraded to NUnit v2.1.4.  Credit to James Shore.
+* Upgraded to NUnit v2.1.4.  Contributed by James Shore.
 
 
 Changes in NUnitAsp 1.4:
 Produced by James Shore and Levi Khatskevitch.
-* Updated installation guide in response to user comments.  Credit to James Shore.
-* Added support for https: protocol.  Credit to Daniel Granath.
-* Added support for basic authentication.  Credit to Daniel Granath.
-* Added support for cookies with expiration date.  Credit to Rich Tebb.
-* Added support for defining user languages.  Credit to Rich Tebb.
-* Added HtmlInputCheckBoxTester.  Credit to Andrew Enfield.
-* Added ImageButtonTester.  Credit to Clifton F. Vaughn.
-* Added support for sorting data grids.  Credit to Clifton F. Vaughn and James Shore.
-* Fixed HTML in tutorial.  Credit to Dominique Plante.
-* Fixed nested controls to work with .NET v1.1.  Credit to Levi Khatskevitch.
-* Clarified action to take when parse error occurs.  Credit to James Shore.
-* Added Enabled and Disabled properties to appropriate controls.  Credit to Levi Khatskevitch.
-* Added Text property to ButtonTester.  Credit to Levi Khatskevitch.
-* Added support for Windows Integrated authentication (NTLM). Credit to Mark Smithson.
-* Added CurrentUrl property to Browser.  Credit to James Shore.
-* Added Cookies property to Browser.  Credit to Levi Khatskevitch.
-* Detection of infinite redirection loops.  Credit to Levi Khatskevitch.
-* Fixed exception when clicking buttons inside UserControl.  Credit to Levi Khatskevitch.
-* CheckBoxTester.Checked can now be set to false.  Credit to Simon Jackson.
-* Added Text property to CheckBoxTester.  Credit to Levi Khatskevitch.
-* Removed all XHTML and DTD requirements.  Credit to Chris Lovett, Simon Jackson and Levi Khatskevitch.
-* Added run-time exception to correct mis-use of DataGridTester as a container.  Credit to James Shore.
-* Finished tutorial.  Credit to James Shore.
-* Added support for List display mode in ValidationSummaryTester.  Credit to Leonardo Susatyo.
-* Fixed common error: list.Items.FindByText("My Text").Selected = True.  Credit to Levi Khatskevitch.
-* Added multi-select capable ListBoxTester class.  Credit to Levi Khatskevitch.
-* Updated API documentation and made it part of build.  Credit to John Sobolewski and James Shore.
+* Updated installation guide in response to user comments.  Contributed by James Shore.
+* Added support for https: protocol.  Contributed by Daniel Granath.
+* Added support for basic authentication.  Contributed by Daniel Granath.
+* Added support for cookies with expiration date.  Contributed by Rich Tebb.
+* Added support for defining user languages.  Contributed by Rich Tebb.
+* Added HtmlInputCheckBoxTester.  Contributed by Andrew Enfield.
+* Added ImageButtonTester.  Contributed by Clifton F. Vaughn.
+* Added support for sorting data grids.  Contributed by Clifton F. Vaughn and James Shore.
+* Fixed HTML in tutorial.  Contributed by Dominique Plante.
+* Fixed nested controls to work with .NET v1.1.  Contributed by Levi Khatskevitch.
+* Clarified action to take when parse error occurs.  Contributed by James Shore.
+* Added Enabled and Disabled properties to appropriate controls.  Contributed by Levi Khatskevitch.
+* Added Text property to ButtonTester.  Contributed by Levi Khatskevitch.
+* Added support for Windows Integrated authentication (NTLM). Contributed by Mark Smithson.
+* Added CurrentUrl property to Browser.  Contributed by James Shore.
+* Added Cookies property to Browser.  Contributed by Levi Khatskevitch.
+* Detection of infinite redirection loops.  Contributed by Levi Khatskevitch.
+* Fixed exception when clicking buttons inside UserControl.  Contributed by Levi Khatskevitch.
+* CheckBoxTester.Checked can now be set to false.  Contributed by Simon Jackson.
+* Added Text property to CheckBoxTester.  Contributed by Levi Khatskevitch.
+* Removed all XHTML and DTD requirements.  Contributed by Chris Lovett, Simon Jackson and Levi Khatskevitch.
+* Added run-time exception to correct mis-use of DataGridTester as a container.  Contributed by James Shore.
+* Finished tutorial.  Contributed by James Shore.
+* Added support for List display mode in ValidationSummaryTester.  Contributed by Leonardo Susatyo.
+* Fixed common error: list.Items.FindByText("My Text").Selected = True.  Contributed by Levi Khatskevitch.
+* Added multi-select capable ListBoxTester class.  Contributed by Levi Khatskevitch.
+* Updated API documentation and made it part of build.  Contributed by John Sobolewski and James Shore.
 
 (Note: James Shore was known as Jim Little before the release of version 1.4.)
 
 
 Changes in NUnitAsp 1.3:
 Produced by Jim Little.
-* Browser.ElapsedServerTime now works.  Credit to Jim Little.
-* Added support for multiline text boxes.  Credit to "(luKa)."
-* Updated installation guide for error caused by XMLSpy.  Credit to Peter Wijntjes.
-* Many improvements to tutorial, including update for NUnit 2.0.  Credit to Andrew Enfield.
-* Trimmed number of third-party files included in distribution.  Credit to Jim Little.
-* Fixed defect which caused NUnitAsp to forget that checkboxes were checked.  Credit to Jim Little.
-* Significantly reduced XHTML requirement.  Credit to Rick Currence.
-* Rewrote Quick-Start Guide.  Credit to Jim Little.
-* Added run-time exception to explain common problem with [SetUp] attribute.  Credit to Jim Little. 
+* Browser.ElapsedServerTime now works.  Contributed by Jim Little.
+* Added support for multiline text boxes.  Contributed by "(luKa)."
+* Updated installation guide for error caused by XMLSpy.  Contributed by Peter Wijntjes.
+* Many improvements to tutorial, including update for NUnit 2.0.  Contributed by Andrew Enfield.
+* Trimmed number of third-party files included in distribution.  Contributed by Jim Little.
+* Fixed defect which caused NUnitAsp to forget that checkboxes were checked.  Contributed by Jim Little.
+* Significantly reduced XHTML requirement.  Contributed by Rick Currence.
+* Rewrote Quick-Start Guide.  Contributed by Jim Little.
+* Added run-time exception to explain common problem with [SetUp] attribute.  Contributed by Jim Little. 
 
 
 Changes in NUnitAsp 1.2.1:
 Produced by Jim Little.
-* NUnit 2.0 support.  Credit to R. Owen Rogers, Drew Noakes, and Jim Little.
-* NUnit 2.0 migration guide.  Credit to Jim Little.
-* Compilation FAQ question.  Credit to Jim Little.
-* Minor documentation fixes.  Credit to Jim Little.
+* NUnit 2.0 support.  Contributed by R. Owen Rogers, Drew Noakes, and Jim Little.
+* NUnit 2.0 migration guide.  Contributed by Jim Little.
+* Compilation FAQ question.  Contributed by Jim Little.
+* Minor documentation fixes.  Contributed by Jim Little.
 
 
 Changes in NUnitAsp 1.2:
 Produced by Jim Little.
-* Documentation.  Lots of it. Credit to Jim Little.
-* Added support for pop-up windows in AnchorTester.  Credit to Jacob Lawlor.
-* 404 errors no longer occur when retrieving links to document fragments (http://foo.com/index.html#name).  The fragment link is ignored and the main page is retrieved.  Credit to Jim Little.
-* Fixed attribute parsing so it ignores case.  Credit to Jim Little.
-* Added support for changing browser user-agent.  Credit to Jim Little.
-* Pages are no longer parsed unless strictly necessary.  Credit to Jim Little.
-* Cleaned up build and distribution.  All necessary files are now included.  Credit to Jim Little.
-* API documentation.  Credit to Mitchel Burns.
+* Documentation.  Lots of it. Contributed by Jim Little.
+* Added support for pop-up windows in AnchorTester.  Contributed by Jacob Lawlor.
+* 404 errors no longer occur when retrieving links to document fragments (http://foo.com/index.html#name).  The fragment link is ignored and the main page is retrieved.  Contributed by Jim Little.
+* Fixed attribute parsing so it ignores case.  Contributed by Jim Little.
+* Added support for changing browser user-agent.  Contributed by Jim Little.
+* Pages are no longer parsed unless strictly necessary.  Contributed by Jim Little.
+* Cleaned up build and distribution.  All necessary files are now included.  Contributed by Jim Little.
+* API documentation.  Contributed by Mitchel Burns.
 
 
 Changes in NUnitAsp 1.1:
 Produced by Jim Little.
 * Changes not recorded in detail.  Sorry.
-* Added Anchor, DropDownList, and ValidationSummary.  Credit to Jim Little.
-* Minor changes to usability.  Credit to Jim Little.
-* Fixed a few defects.  Credit to Jim Little.
+* Added Anchor, DropDownList, and ValidationSummary.  Contributed by Jim Little.
+* Minor changes to usability.  Contributed by Jim Little.
+* Fixed a few defects.  Contributed by Jim Little.
 
 
 Changes in NUnitAsp 1.0:
 Produced by Jim Little.
-* Added concept of testers and ASP.NET parsing.  Credit to Jim Little.
-* Set up SourceForge site and CVS repository.  Credit to Brian Knowles.
-* Created automated build.  Credit to Brian Knowles and Jim Little.
+* Added concept of testers and ASP.NET parsing.  Contributed by Jim Little.
+* Set up SourceForge site and CVS repository.  Contributed by Brian Knowles.
+* Created automated build.  Contributed by Brian Knowles and Jim Little.
 
 
 Initial version (not released):
