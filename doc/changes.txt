@@ -20,7 +20,6 @@ ASP.NET 2.0 issues:
 
 
 Before release:
-* Remove "Advanced NUnitAsp" video from release (due to size).  Include absolute link in docs.
 * Remove ControlTester.EnterInputValue/RemoveInputValue?  Make AssertEnabled explicit in tester?
 * Remove "Enabled" check on all controls.  Document this.  Tracker #1262940.
 * Update all [Obsolete] attributes to say "will be removed after <date>".

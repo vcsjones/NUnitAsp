@@ -48,6 +48,7 @@
         <excludes name="source\**\bin\**" />
         <excludes name="sample\**\obj\**" />
         <excludes name="sample\**\bin\**" />
+        <excludes name="doc\AdvancedNUnitAsp*\**" />
       </fileset>
     </copy>
 
