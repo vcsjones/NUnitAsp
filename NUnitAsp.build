@@ -87,7 +87,7 @@
       <references>
         <includes name="${nunit.dir}\*.dll" />
       </references>
-      <arg value="/nowarn:1591"/>
+      <arg value="/nowarn:1591"/>   <!-- suppress doc warnings in SgmlReader.cs -->
       <arg value="/res:${sgml.dir}\Html.dtd,${sgml.namespace}.Html.dtd" />
     </csc>
   </target>
@@ -104,6 +104,7 @@
         <includes name="${nunit.dir}\*.dll" />
         <includes name="${dll.path}" />
       </references>
+      <arg value="/nowarn:618"/>   <!-- supress 'obsolete' warning in ConstructorTests.cs -->
     </csc>
   </target>
   

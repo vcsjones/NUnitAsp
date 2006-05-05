@@ -26,7 +26,7 @@ using NUnit.Extensions.Asp.HtmlTester;
 
 namespace NUnit.Extensions.Asp.Test.HtmlTester
 {
-  [TestFixture]
+	[TestFixture]
 	public class HtmlAnchorTest : NUnitAspTestCase
 	{
 		private HtmlAnchorTester testLink;
@@ -44,57 +44,57 @@ namespace NUnit.Extensions.Asp.Test.HtmlTester
 			Browser.GetPage(BaseUrl + "HtmlTester/HtmlAnchorTestPage.aspx");
 		}
 
-        [Test]
+		[Test]
 		public void TestHRef()
 		{
 			AssertEquals("url", "../RedirectionTarget.aspx?a=a&b=b", testLink.HRef);
 		}
 
-        [Test]
+		[Test]
 		public void TestDisabled_True()
 		{
 			AssertEquals("disabled", true, disabledLink.Disabled);
 		}
 
-        [Test]
+		[Test]
 		public void TestDisabled_False()
 		{
 			AssertEquals("disabled", false, testLink.Disabled);
 		}
 
-        [Test]
+		[Test]
 		public void TestClick()
 		{
 			testLink.Click();
-            AssertRedirected();
+			AssertRedirected();
 		}
 
-        [Test]
+		[Test]
 		public void TestClick_WhenDisabled()
 		{
 			disabledLink.Click();
 			// Yes, you can click a disabled link (at least in IE)
-            AssertRedirected();
+			AssertRedirected();
 		}
 
-        [Test]
+		[Test]
 		public void TestServerClick()
 		{
 			serverLink.Click();
-            AssertRedirected();
+			AssertRedirected();
 		}
 
-        [Test]
+		[Test]
 		public void TestPopupLink()
 		{
 			AssertEquals("popup", "../RedirectionTarget.aspx", popupLink.PopupLink);
 		}
 
-        [Test]
+		[Test]
 		public void TestPopupWindowClick()
 		{
 			popupLink.Click();
-            AssertRedirected();
+			AssertRedirected();
 		}
 	}
 }
