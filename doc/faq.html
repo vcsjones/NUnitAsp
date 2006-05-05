@@ -18,7 +18,6 @@
               <a href="index.html">Overview</a>
               <br /><a href="documentation.html">Documentation</a>
               <br /><a href="support.html">Support</a>
-              <br /><a href="consulting.html">Coaching</a>
             </p>
             <p><a href="contribute.html">Contribute</a></p>
             <p><a href="http://sourceforge.net/projects/nunitasp/"><img src=
@@ -58,7 +57,12 @@
 
             <p>A: NUnitAsp's purpose is to enable test-driven development of ASP.NET code-behind methods.  If you use NUnitAsp to do so, you'll find that the lack of Javascript, etc. is much less of an issue.  When you write an NUnitAsp test, focus on testing the behavior of a specific page or even a specific user control.  We expect you to ignore frames, Javascript, and other client-side issues and focus on testing code-behind logic.</p>
 
-            <p>We would like to provide more robust client-side support, but given our limited manpower, we have decided to focus on the code-behind unit-testing aspect of NUnitAsp instead.  If these features are important to you, well-written and tested <a href="contribute.html">code contributions</a> are always welcome.  You may also <a href="consulting.html">fund development</a>.</p>
+            <p>We would like to provide more robust client-side support, but given our limited manpower, we have decided to focus on the code-behind unit-testing aspect of NUnitAsp instead.</p>
+
+
+            <h2>Q: But what about AJAX?</h2>
+
+            <p>If you have server controls that generate client-side AJAX, you can test the server-side component with a custom tester that imitates the client-side behavior.  You can't test the client-side behavior with NUnitAsp; NUnitAsp is meant for testing server-side ASPX code-behind.</p>
 
 
             <h2>Q: When I try to compile NUnitAsp in VS.NET, I get a &quot;cryptographic failure&quot; error.  What's wrong?</h2>
@@ -106,27 +110,21 @@
             <p>Many thanks to Ted Husted for pointing this out and to Cory Foy for blogging <a href="http://www.cornetdesign.com/2005/04/targetting-nant-to-different-framework.html">the solution</a>.</p>
 
 
+            <h2>Q: When will NUnitAsp support my favorite testing framework?</h2>
 
-            <h2>Q: When will NUnitAsp stop requiring XHTML?</h2>
-
-            <p>A: <b>Done!</b> As of version 1.4, NUnitAsp no longer requires XHTML.</p>
-
-
-            <h2>Q: When will NUnitAsp support NUnit v2.2?</h2>
-
-            <p>A: <b>Done!</b> As of version 1.5.1, NUnitAsp supports NUnit v2.2--and with version 1.6, NUnitAsp supports any version of NUnit.</p>
+            <p>A: <b>Done!</b> As of version 2.0, NUnitAsp supports any testing framework.</p>
 
 
-            <h2>Q: When will NUnitAsp support Visual Studio .NET 2003?</h2>
+            <h2>Q: When will NUnitAsp support .NET 2.0?</h2>
 
-            <p>A: <b>Done!</b> As of version 1.4, NUnitAsp works with Visual Studio .NET 2003.  The NUnitAsp .sln file will remain on the original version of Visual Studio .NET unless someone sends <a href="mailto:jlittle82@sourceforge.net">me</a> a complementary copy of VS.NET 2003.  (Microsoft: hint, hint.)</p>
+            <p>We've already tested NUnitAsp with .NET 2.0 and it was easy to do--just a few lines of code.  Given the limited time we have to work on NUnitAsp, supporting both .NET 2.0 and 1.x simultaneously is more of a challenge.  We're considering just migrating to .NET 2.0 and dropping support for 1.x.</p>
 
 
             <h2>Q: How do you spell "NUnitAsp?"</h2>
 
             <p>A: "NUnitAsp" is spelled in accordance with .NET framework naming standards.  Like .NET's "HttpWebRequest" and "SqlConnection" classes, the first letter of each word is capitalized and acronyms are treated as a single word: N Unit Asp.  It's pronounced "en unit a ess pee."  It is <em>not</em> spelled "NunitAsp," "NUnitASP," or (heaven forbid) "nUnit.ASP."</p>
 
-            <p class="end">Last updated for v1.5.1 + CVS.</p>
+            <p class="end">Last updated for v2.0.</p>
           </div>
         </td>
       </tr>

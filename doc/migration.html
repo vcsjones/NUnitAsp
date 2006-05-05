@@ -18,7 +18,6 @@
               <a href="index.html">Overview</a>
               <br /><a href="documentation.html">Documentation</a>
               <br /><a href="support.html">Support</a>
-              <br /><a href="consulting.html">Coaching</a>
             </p>
             <p><a href="contribute.html">Contribute</a></p>
             <p><a href="http://sourceforge.net/projects/nunitasp/"><img src=
@@ -27,18 +26,18 @@
         </td>
         <td>
           <div class="content">
-            <h1>NUnitAsp v1.6 Migration Guide</h1>
+            <h1>NUnitAsp v2.0 Migration Guide</h1>
 
-            <p>In version 1.6, NUnitAsp stopped requiring specific versions of NUnit.  This change has many benefits, but it isn't backwards compatible.  Fortunately, there's an easy change that will enable you to keep using your current tests.</p>
+            <p>In version 2.0, NUnitAsp stopped requiring specific versions of NUnit.  This change has many benefits, but it isn't backwards compatible.  Fortunately, there's an easy change that will enable you to keep using your current tests.</p>
 
             <p>Why did we do this?  The main reason is that, prior to this change, each version of NUnitAsp only worked with one specific version of NUnit.  Whenever a new version of NUnit came out, there was a time lag&mdash;often several months&mdash;before a new version of NUnitAsp came out to support it.  And whenever you upgraded your copy of NUnitAsp, you also had to upgrade your copy of NUnit at the same time, which you might not have wanted to do.</p>
 
-            <p>This change also gives you more choice in testing tools.  NUnitAsp v1.6 works with NUnit, as always, but it should also work with other tools, like MbUnit.  As a side benefit, this change also allowed us to make some simplifications to NUnitAsp's API that we've been wanting to make for a while.</p>
+            <p>This change also gives you more choice in testing tools.  NUnitAsp v2.0 works with NUnit, as always, but it should also work with other tools, like MbUnit.  As a side benefit, this change also allowed us to make some simplifications to NUnitAsp's API that we've been wanting to make for a while.</p>
 
 
-            <h2>Breaking Changes in v1.6</h2>
+            <h2>Breaking Changes in v2.0</h2>
 
-            <p>These changes in NUnitAsp v1.6 that could break your existing tests.</p>
+            <p>These changes in NUnitAsp v2.0 that could break your existing tests.</p>
 
             <ul>
               <li><b>Assert:</b>  The Assert method has been renamed to AssertTrue.  This allows you to use NUnit's Assert class more conveniently.</li>
@@ -51,7 +50,7 @@
             <p>See the quick migration section, below, for information on how to work around these changes.</p>
 
 
-            <h2>Other Major Changes in v1.6</h2>
+            <h2>Other Major Changes in v2.0</h2>
 
             <p>There are a few other major changes that you may wish to take advantage of as you write new tests.</p>
 
@@ -66,10 +65,10 @@
 
             <h2>Quick Migration</h2>
 
-            <p>Migrating to NUnitAsp v1.6 is a simple process.</p>
+            <p>Migrating to NUnitAsp v2.0 is a simple process.</p>
 
             <ol>
-              <li>Make sure all of your tests pass before upgrading to NUnitAsp v1.6.</li>
+              <li>Make sure all of your tests pass before upgrading to NUnitAsp v2.0.</li>
 
               <br /><li>Compile the included NUnitAdapter.cs file into the assembly that contains your tests.  (In Visual Studio .NET, this means copying the file into the project that contains your tests and telling Visual Studio to "include" it.)  NUnitAdapter.cs is located in the "bin" directory of the NUnitAsp download package.</li>
 
@@ -81,7 +80,7 @@
                 <ul>
                   <li>Look at the error message and check if your "actual" values have changed slightly.  You may see style tags like &lt;b&gt; and &lt;i&gt; disappear.  In most cases, this will be because ASP.NET is rendering the page differently due to our changed UserAgent.  If so, you can simply update the "expected" value in your test.</li>
 
-                  <br /><li>Look for a call to DataGridTester.GetRowByCellValue and try changing the value you pass in to that methods.  If the cell value you're looking for has a space at the beginning or end, add it to the end.  If it contains multiple spaces in the middle, try combining them into a single space.</li>
+                  <br /><li>Look for a call to DataGridTester.GetRowByCellValue and try changing the value you pass in to that methods.  If the cell value you're looking for has a space at the beginning or end, add the space to your method call.  If it contains multiple spaces in the middle, try combining them into a single space.</li>
                 </ul>
               </li>
             </ol>
@@ -89,7 +88,7 @@
 
             <h2>Complete Migration</h2>
 
-            <p>After completing the Quick Migration above, you may gradually convert your tests over to the new NUnitAsp v1.6 test style.  These steps are <em>entirely optional.</em></p>
+            <p>After completing the Quick Migration above, you may gradually convert your tests over to the new NUnitAsp v2.0 test style.  These steps are <em>entirely optional.</em></p>
 
 
             <h3>Change <a href="api/NUnit.Extensions.Asp.AspTester.DataGridTester.TrimmedCells.html">DataGridTester.TrimmedCells</a> to <a href="api/NUnit.Extensions.Asp.AspTester.DataGridTester.RenderedCells.html">DataGridTester.RenderedCells</a></h3>
@@ -156,90 +155,7 @@
               <br />WebAssert.AreEqual(<span class="keyword">new string</span>[][] {<span class="keyword">new string</span>[] {"hello"}}, datagrid.Cells, "datagrid");
             </p>
 
-
-            <h3><em>(Not Recommended)</em> Replace Browser</h3>
-
-            <p>You may replace uses of the "Browser" parameter with "HttpClient.Default".  We don't recommend this because we have a special check on the Browser method to help prevent obscure bugs.</p>
-
-            <p class="code">
-              Browser.GetPage("http://localhost/example/example.aspx");
-            </p>
-
-            <p>Becomes:</p>
-
-            <p class="code">
-              HttpClient.Default.GetPage("http://localhost/example/example.aspx");
-            </p>
-
-
-            <h3><em>(Not Recommended)</em> Use attributes instead of SetUp() and TearDown()</h3>
-
-            <p>You can use the [SetUp] and [TearDown] attributes instead of our SetUp() and TearDown() methods if you want.  We don't recommend doing this because using our methods automatically resets HttpClient for you before every test, which prevents obscure bugs.  If you use [SetUp] instead, you'll need to remember to do this yourself in every test fixture.</p>
-
-            <p>Start by removing WebFormTestCase inheritance.  (You'll need to finish the conversion steps above first.)  If you have SetUp() or TearDown() methods, remove the "override" keyword from those methods and add the [SetUp] or [TearDown] attribute instead.  Inside your [SetUp] method, reset HttpClient by instantiating a new default as shown in the example below.</p>
-
-            <p>If you don't have a [SetUp] method, you need to add one to reset HttpClient.Default.  (See the second example below.)</p>
-
-            <p class="code">
-              [TestFixture]
-              <br /><span class="keyword">public class</span> MyTest : WebFormTestCase
-              <br />{
-              <br />&nbsp;&nbsp;<span class="keyword">protected override void</span> SetUp()
-              <br />&nbsp;&nbsp;{
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// (etc)</span>
-              <br />&nbsp;&nbsp;}
-              <br />}
-            </p>
-
-            <p>Becomes:</p>
-
-            <p class="code">
-              [TestFixture]
-              <br /><span class="keyword">public class</span> MyTest
-              <br />{
-              <br />&nbsp;&nbsp;[SetUp]
-              <br />&nbsp;&nbsp;<span class="keyword">public void</span> SetUp()
-              <br />&nbsp;&nbsp;{
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;HttpClient.Default = new HttpClient();
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// (etc)</span>
-              <br />&nbsp;&nbsp;}
-              <br />}
-            </p>
-
-            <p>If you don't have a [SetUp] method, you need to add one:</p>
-
-            <p class="code">
-              [TestFixture]
-              <br /><span class="keyword">public class</span> MyTest : WebFormTestCase
-              <br />{
-              <br />&nbsp;&nbsp;<span class="keyword">protected override void</span> TearDown()
-              <br />&nbsp;&nbsp;{
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// (etc)</span>
-              <br />&nbsp;&nbsp;}
-              <br />}
-            </p>
-
-            <p>Becomes:</p>
-
-            <p class="code">
-              [TestFixture]
-              <br /><span class="keyword">public class</span> MyTest
-              <br />{
-              <br />&nbsp;&nbsp;[SetUp]
-              <br />&nbsp;&nbsp;<span class="keyword">public void</span> SetUp()
-              <br />&nbsp;&nbsp;{
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;HttpClient.Default = new HttpClient();
-              <br />&nbsp;&nbsp;}
-              <br />
-              <br />&nbsp;&nbsp;[TearDown]
-              <br />&nbsp;&nbsp;<span class="keyword">public void</span> TearDown()
-              <br />&nbsp;&nbsp;{
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// (etc)</span>
-              <br />&nbsp;&nbsp;}
-              <br />}
-            </p>
-
-            <p class="end">by Jim Shore.  Last updated for v1.6.</p>
+            <p class="end">by James Shore.  Last updated for v2.0.</p>
           </div>
         </td>
       </tr>

@@ -20,24 +20,9 @@ ASP.NET 2.0 issues:
 
 
 Before release:
-* Update documentation:
-** quick-start
-** tutorial (?)
-** FAQ
-** migration guide
-** consulting.html
-** contribute.html
-** documentation.html
-** index.html (make sure code example is up to date)
-** legacy.html
-** support.html
-** tdd-course.html
-** api.html (remove WebFormTestCase)
 * Remove "Advanced NUnitAsp" video from release (due to size).  Include absolute link in docs.
 * Remove samples?
 * Remove ControlTester.EnterInputValue/RemoveInputValue?  Make AssertEnabled explicit in tester?
-* Make "xxxTag" properties on AspTesters public--map them to HtmlTag
-* Remove 'Tag' property from AspControlTester; add HtmlTag
 * Refer to David Gardiner's code-generation tool in documentation: https://sourceforge.net/projects/nunitaspcodegen/
 * Incorporate "Advanced NUnitAsp" video into documentation page
 * Remove "Enabled" check on all controls.  Document this.  Tracker #1262940.
@@ -48,7 +33,7 @@ Before release:
 * Make sure people can still call 1.5.1-style static methods on "WebAssertion" class.
 
 
-Changes in CVS:
+Changes in NUnitAsp 2.0:
 Produced by James Shore.
 * Changed default HttpClient.UserAgent to be the same as Internet Explorer 6.
 * Added FAQ: How to test sites that require authentication.  Credit to James Shore.
