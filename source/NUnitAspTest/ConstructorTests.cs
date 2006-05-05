@@ -20,7 +20,6 @@ namespace NUnit.Extensions.Asp.Test
 			foreach (Type tester in derivedTesters)
 			{
 				ConstructorInfo[] constructors = tester.GetConstructors();
-				Assert.IsTrue(4 <= constructors.Length, String.Format("Class '{0}' does not have correct amount of constructors.", tester.Name));
 				Assert.IsTrue(HasConstructor(constructors, typeof(string)), String.Format("Class '{0}': HtmlControlTester(string htmlId) missing.", tester.Name));
 				Assert.IsTrue(HasConstructor(constructors, typeof(string), typeof(Tester)), String.Format("Class '{0}': HtmlControlTester(string aspId, Tester container) missing.", tester.Name));
 				Assert.IsTrue(HasConstructor(constructors, typeof(string), typeof(string)), String.Format("Class '{0}': HtmlControlTester(string xpath, string description) missing.", tester.Name));
@@ -33,21 +32,25 @@ namespace NUnit.Extensions.Asp.Test
 			bool found = false;
 			foreach (ConstructorInfo constructor in constructors)
 			{
-				if (found == true) continue;
+				if (found == true) break;
 
 				ParameterInfo[] parameters = constructor.GetParameters();
 				if (parameters.Length == parameterList.Length)
 				{
-					for (int i = 0; i < parameters.Length; i++)
-					{
-						if (parameters[0].ParameterType != parameterList[0])
-							goto next_foreach;
-					}
-					found = true;
+					found = DoParametersMatch(parameters, parameterList);
 				}
-				next_foreach: ;
 			}
 			return found;
+		}
+
+		private static bool DoParametersMatch(ParameterInfo[] parameters, Type[] parameterList)
+		{
+			for (int i = 0; i < parameters.Length; i++)
+			{
+				if (parameters[0].ParameterType != parameterList[0])
+					return false;
+			}
+			return true;
 		}
 
 		private static Type[] GetAllDerivedClasses(Type baseClass, params Type[] excludedTypes)
@@ -57,7 +60,7 @@ namespace NUnit.Extensions.Asp.Test
 			ArrayList exclusionList = new ArrayList(excludedTypes);
 			foreach (Type type in types)
 			{
-				if (baseClass.IsAssignableFrom(type) && !baseClass.Equals(type) && !exclusionList.Contains(type))
+				if (baseClass.IsAssignableFrom(type) && ! baseClass.Equals(type) && !exclusionList.Contains(type))
 				{
 					derivedTesters.Add(type);
 				}
