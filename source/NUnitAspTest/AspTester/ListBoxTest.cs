@@ -173,5 +173,14 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 			TestSetItemsSelected_WhenMultipleSelect();
 			int ignored = List.SelectedIndex;
 		}
+				
+		[Test]
+		[ExpectedException(typeof(ListControlTester.NoSelectionException))]
+		public void TestServerSideClearSelection()
+		{
+			clearSelection.Click();
+			int unused = List.SelectedIndex;
+		}
+
 	}
 }

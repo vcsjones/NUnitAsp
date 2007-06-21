@@ -166,7 +166,7 @@ namespace NUnit.Extensions.Asp.AspTester
     /// </summary>
     protected internal override string GetChildElementHtmlId(string aspId)
     {
-      if (!aspId.StartsWith("_ctl")) throw new ContainerMustBeItemException(aspId, this);
+      if (!aspId.StartsWith("ctl")) throw new ContainerMustBeItemException(aspId, this);
       return base.GetChildElementHtmlId(aspId);
     }
 
@@ -210,13 +210,13 @@ namespace NUnit.Extensions.Asp.AspTester
       get
       {
         HtmlTagTester lastChild = new HtmlTagTester(
-          "//*[starts-with(@id, '" + HtmlId + "__ctl')][position() = last()]", 
+          "//*[starts-with(@id, '" + HtmlId + "_ctl')][position() = last()]", 
           "last child of " + Description
         );
         if (!lastChild.Visible) return 0;
 
         string childId = lastChild.Attribute("id");
-        Match m = Regex.Match(childId, this.HtmlId + @"__ctl(\d+)");
+        Match m = Regex.Match(childId, this.HtmlId + @"_ctl(\d+)");
         int id = Convert.ToInt32(m.Groups[1].Captures[0].Value);
 
         int itemCount = id + 1;

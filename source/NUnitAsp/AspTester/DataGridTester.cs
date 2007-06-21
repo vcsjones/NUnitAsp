@@ -108,7 +108,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		/// back of the cells.
 		/// </summary>
 		[CLSCompliant(false)]
-		[Obsolete("Use 'Cells' or 'RenderedCells' instead.  This method may be removed after Dec 2006.")]
+		[Obsolete("Use 'Cells' or 'RenderedCells' instead.  This method may be removed after Dec 2008.")]
 		public string[][] TrimmedCells
 		{
 			get
@@ -226,8 +226,8 @@ namespace NUnit.Extensions.Asp.AspTester
 		{
 			try 
 			{
-				int rowNumber = int.Parse(aspId);
-				return HtmlId + "__ctl" + (rowNumber + 1);
+				int rowNumber = int.Parse(aspId) + 1;
+				return HtmlId + "_" + GenerateAnonymousId(rowNumber);
 			}
 			catch (FormatException) 
 			{

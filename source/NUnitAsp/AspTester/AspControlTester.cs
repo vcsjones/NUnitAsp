@@ -102,7 +102,7 @@ namespace NUnit.Extensions.Asp.AspTester
 		protected string GenerateAnonymousId(int controlNumber)
 		{
 			string id = controlNumber.ToString();
-			return "_ctl" + id;
+			return "ctl" + id.PadLeft(2, '0');
 		}
 	}
 }

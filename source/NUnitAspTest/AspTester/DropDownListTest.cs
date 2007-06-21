@@ -52,5 +52,13 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		{
 			DoTestSelectionPreserved_WhenSingle();
 		}
+		
+		[Test]
+		public void TestServerSideClearSelection()
+		{
+			clearSelection.Click();
+			AssertEquals(0, List.SelectedIndex);
+		}
+
 	}
 }

@@ -7,7 +7,7 @@ To do:
 * FAQ: No change to "get" without postback (eg, tracker #1106130)
 * Look into HtmlAgilityPack HTML parser: http://blogs.msdn.com/smourier/archive/2003/06/04/8265.aspx
 * FAQ: <csc> error: lib/nant/nant.exe.config <platform name="win32" default="net-1.1">  (Cory Foy, "Build problems," 4/11-4/13/05)
-* HTML controls: HtmlTable, HtmlInputFile
+* HTML controls: HtmlInputFile
 * Add information on SF trackers to docs
 * Add to doc page? NUnitAsp innards discussion at http://blogs.pingpoet.com/overflow/archive/2004/03/18/474.aspx
 * Add FAQ? Watir vs. NUnitAsp
@@ -19,17 +19,10 @@ ASP.NET 2.0 issues:
 * MasterPage tester needed
 
 
-Before release:
-* Remove ControlTester.EnterInputValue/RemoveInputValue?  Make AssertEnabled explicit in tester?
-* Remove "Enabled" check on all controls.  Document this.  Tracker #1262940.
-* Update all [Obsolete] attributes to say "will be removed after <date>".
-* Document change from BodyNoTags to RenderedInnerHtml.  Obsolete methods in: ListItemTester; Changed behavior of: ListItemCollectionTester.FindByText, ListItemTester.Value (edge case)
-* Make sure people can still call 1.5.1-style static methods on "WebAssertion" class.
-
-
 Changes in NUnitAsp 2.0:
 Produced by James Shore.
-* Changed default HttpClient.UserAgent to be the same as Internet Explorer 6.
+* Modified to work with ASP.NET 2.0 (ASP.NET 1.1 will no longer work).  Contributed by James Shore.
+* Changed default HttpClient.UserAgent to be the same as Internet Explorer 6.  Contributed by James Shore.
 * Added FAQ: How to test sites that require authentication.  Contributed by James Shore.
 * Removed NUnit requirement.  NUnitAsp now works with any test framework.  Contributed by James Shore.
 * Augmented Browser property with HttpClient.Default static property.  Contributed by James Shore.

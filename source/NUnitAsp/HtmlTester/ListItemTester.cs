@@ -45,7 +45,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 			Element = option;
 		}
 		
-		[Obsolete("Use RawText or RenderedText instead.  This method will be removed after Dec 2006.")]
+		[Obsolete("Use RawText or RenderedText instead.  This method could be removed after Dec 2008.")]
 		public string Text
 		{
 			get

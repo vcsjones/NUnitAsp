@@ -69,8 +69,8 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		{
 			string[][] expected = new string[][]
 			{
-				new string[] {"<a id=\"dataGrid1__ctl2_link1\" href=\"javascript:__doPostBack('dataGrid1$_ctl2$link1','')\">Link</a>", "Cell 1, 1", "Cell 1, 2", "Space: ", "1"},
-				new string[] {"<a id=\"dataGrid1__ctl3_link1\" href=\"javascript:__doPostBack('dataGrid1$_ctl3$link1','')\">Link</a>", "Cell 2, 1", "Cell 2, 2", "Space: ", "2"}
+				new string[] {"<a id=\"dataGrid1_ctl02_link1\" href=\"javascript:__doPostBack('dataGrid1$ctl02$link1','')\">Link</a>", "Cell 1, 1", "Cell 1, 2", "Space: ", "1"},
+				new string[] {"<a id=\"dataGrid1_ctl03_link1\" href=\"javascript:__doPostBack('dataGrid1$ctl03$link1','')\">Link</a>", "Cell 2, 1", "Cell 2, 2", "Space: ", "2"}
 			};
 			WebAssert.AreEqual(expected, grid1.Cells);
 		}

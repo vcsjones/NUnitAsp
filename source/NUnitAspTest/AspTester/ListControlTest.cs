@@ -34,7 +34,7 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		private ListControlTester emptyList;
 		private ListControlTester disabledList;
 		private LinkButtonTester submit;
-		private LinkButtonTester clearSelection;
+		protected LinkButtonTester clearSelection;
 		protected CheckBoxTester autoPostBack;
 		private LabelTester indexChanged;
 
@@ -201,14 +201,6 @@ namespace NUnit.Extensions.Asp.Test.AspTester
 		public void TestSetSelectedValueDoesNotExist()
 		{
 			List.SelectedValue = "doesnotexist";
-		}
-
-		[Test]
-		[ExpectedException(typeof(ListControlTester.NoSelectionException))]
-		public void TestServerSideClearSelection()
-		{
-			clearSelection.Click();
-			int unused = List.SelectedIndex;
 		}
 
 		[Test]

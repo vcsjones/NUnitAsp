@@ -30,7 +30,7 @@ namespace NUnit.Extensions.Asp.HtmlTester
 	/// This class is obsolete and will be dropped in future releases
 	/// of NUnitAsp. Please use <see cref="HtmlAnchorTester"/> instead.
 	/// </summary>
-	[Obsolete("Please use HtmlAnchorTester instead; will be dropped in Jan 2007 or later")]
+	[Obsolete("Please use HtmlAnchorTester instead; may be dropped after Dec 2008")]
 	public class AnchorTester : HtmlAnchorTester
 	{
 		/// <summary>
