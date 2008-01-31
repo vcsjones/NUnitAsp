@@ -28,6 +28,32 @@
 
         <div class="content">
           <h1>Overview</h1>
+          
+          <blockquote class="callout" style="background-color: pink;">
+<h2>End of NUnitAsp Development</h2>
+
+<p><span style="font-variant: small-caps; font-weight: bold;">31 January 2008</span></p>
+
+<p>Hi all,</p>
+
+<p>I'm making it official: I am no longer maintaining or supporting NUnitAsp.</p>
+
+<p>I've been neglecting NUnitAsp for several years, so I doubt this is a surprise.  I originally wrote NUnitAsp in 2002 (starting with a seed provided by Brian Knowles), before .NET was even out of beta, to solve the problem of unit testing ASP.NET code for a portal application.  As the portal grew more complex, so did NUnitAsp.  But this approach always led to holes in NUnitAsp--the features of ASP.NET I didn't use didn't get any love.  One big example: I always worked strictly in the ASP.NET component model, so my pages never had more than one form and I didn't use HTML or Javascript directly.</p>
+
+<p>That project ended years ago, but I kept NUnitAsp alive, even though I haven't written any ASP.NET code for a long time.  The NUnitAsp v2.0 release last year was my last attempt to fill in the big holes.  Now it supports multiple forms, has a simpler syntax, and it tests HTML as well as ASP.NET server-side components.</p>
+
+<p>NUnitAsp still has some dramatic flaws: no support for Javascript, tests running in a different process than ASP.NET, difficulty setting up sessions.  Most people ended up using it for acceptance testing, rather than unit testing, and Selenium, Watir, and the like are better for that.  Most folks "in the know" are using presentation layers to make ASP.NET so thin that a tool like NUnitAsp isn't helpful.</p>
+
+<p>Despite these flaws, I think NUnitAsp is an interesting tool.  I'm proud of the code and the API.  If nothing else, it's a good example of what a dedicated agilist will do when faced with a brand-new platform: he finds a way to unit test it.</p>
+
+<p>If you would like to take over development of NUnitAsp, and you have name recognition in the community, I will be happy to hand it over to you.  If I don't recognize you, feel free to fork the code.  When your fork is successful, let me know, and I will give you the keys to the "official" project.  NUnitAsp still gets between one and two thousand downloads per month, so it's not quite dead yet.</p>
+
+<p>Thanks for your interest in NUnitAsp and in sticking with me over the years.  I'm not going away, of course--I just have other projects that are occupying my time.  I write about them at <a href="http://jamesshore.com">jamesshore.com</a>.</p>
+
+<p>Best wishes,
+<br />Jim</p>
+          
+</blockquote>
 
           <p>NUnitAsp is a tool for automatically testing ASP.NET web pages.  It's an extension to <a href="http://www.nunit.org">NUnit</a>, a tool for test-driven development in .NET.</p>
 
