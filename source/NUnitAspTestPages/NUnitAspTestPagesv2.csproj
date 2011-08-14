@@ -84,7 +84,6 @@
     <Content Include="MalformedTestPage.aspx" />
     <Content Include="PerformanceTestPage.aspx" />
     <Content Include="RedirectionTarget.aspx" />
-    <Content Include="RuntimeVersionTestPage.aspx" />
     <Content Include="ServerTimeTestPage.aspx" />
     <Content Include="UnicodeTestPage.aspx" />
     <Content Include="Web.config" />
@@ -242,13 +241,6 @@
     <Compile Include="RedirectionTarget.aspx.cs">
       <DependentUpon>RedirectionTarget.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RuntimeVersionTestPage.aspx.cs">
-      <DependentUpon>RuntimeVersionTestPage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RuntimeVersionTestPage.aspx.designer.cs">
-      <DependentUpon>RuntimeVersionTestPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ServerTimeTestPage.aspx.cs">
       <DependentUpon>ServerTimeTestPage.aspx</DependentUpon>
