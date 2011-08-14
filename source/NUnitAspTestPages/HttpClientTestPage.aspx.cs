@@ -72,19 +72,19 @@ namespace NUnitAspTestPages
 
 		private void SetCookie()
 		{
-			Response.SetCookie(new HttpCookie(HttpClientTest.TEST_COOKIE_NAME, HttpClientTest.TEST_COOKIE_VALUE));
+			Response.SetCookie(new HttpCookie(Consts.TEST_COOKIE_NAME, Consts.TEST_COOKIE_VALUE));
 		}
 
 		private void SetCookieExpires()
 		{
-			HttpCookie cookie = new HttpCookie(HttpClientTest.TEST_COOKIE_NAME, HttpClientTest.TEST_COOKIE_VALUE);
+			HttpCookie cookie = new HttpCookie(Consts.TEST_COOKIE_NAME, Consts.TEST_COOKIE_VALUE);
 			cookie.Expires = new DateTime(2024, 11, 20, 14, 0, 0, 0);
 			Response.SetCookie(cookie);
 		}
 
 		private void SetCookieLabel()
 		{
-			HttpCookie requestCookie = Request.Cookies[HttpClientTest.TEST_COOKIE_NAME];
+			HttpCookie requestCookie = Request.Cookies[Consts.TEST_COOKIE_NAME];
 			if (requestCookie == null) cookie.Text = "Not Set";
 			else cookie.Text = requestCookie.Value;
 		}

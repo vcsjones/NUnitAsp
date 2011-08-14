@@ -33,8 +33,6 @@ namespace NUnit.Extensions.Asp.Test
     [TestFixture]
   public class HttpClientTest : NUnitAspTestCase
   {
-    public const string TEST_COOKIE_NAME = "TestCookieName";
-    public const string TEST_COOKIE_VALUE = "TestCookieValue";
     private static readonly string TestUrl = BaseUrl + "HttpClientTestPage.aspx";
 
     private LinkButtonTester redirect;
@@ -143,7 +141,7 @@ namespace NUnit.Extensions.Asp.Test
       dropCookie.Click();
       Browser.GetPage(TestUrl);
       AssertCookieSet();
-      AssertEquals("Browser.CookieValue", TEST_COOKIE_VALUE, Browser.CookieValue(TEST_COOKIE_NAME));
+      AssertEquals("Browser.CookieValue", Consts.TEST_COOKIE_VALUE, Browser.CookieValue(Consts.TEST_COOKIE_NAME));
     }
 
     [Test]
@@ -177,7 +175,7 @@ namespace NUnit.Extensions.Asp.Test
       dropCookieWithExpiry.Click();
       Browser.GetPage(TestUrl);
       AssertCookieSet();
-      AssertEquals("Browser.CookieValue", TEST_COOKIE_VALUE, Browser.CookieValue(TEST_COOKIE_NAME));
+      AssertEquals("Browser.CookieValue", Consts.TEST_COOKIE_VALUE, Browser.CookieValue(Consts.TEST_COOKIE_NAME));
     }
 
     [Test]
@@ -286,16 +284,16 @@ namespace NUnit.Extensions.Asp.Test
     private void AssertCookieNotSet()
     {
       AssertEquals("Not Set", cookie.Text);
-      AssertNull("Must be null", GetActiveCookies()[TEST_COOKIE_NAME]);
+      AssertNull("Must be null", GetActiveCookies()[Consts.TEST_COOKIE_NAME]);
     }
 
     private void AssertCookieSet()
     {
-      AssertEquals(TEST_COOKIE_VALUE, cookie.Text);
+      AssertEquals(Consts.TEST_COOKIE_VALUE, cookie.Text);
 
-      Cookie theCookie = GetActiveCookies()[TEST_COOKIE_NAME];
+      Cookie theCookie = GetActiveCookies()[Consts.TEST_COOKIE_NAME];
       AssertNotNull("Must not be null", theCookie);
-      AssertEquals(TEST_COOKIE_VALUE, theCookie.Value);
+      AssertEquals(Consts.TEST_COOKIE_VALUE, theCookie.Value);
     }
 
         private void AssertTestPage()

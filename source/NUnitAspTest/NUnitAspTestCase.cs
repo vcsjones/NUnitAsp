@@ -26,7 +26,7 @@ namespace NUnit.Extensions.Asp.Test
 {
 	public abstract class NUnitAspTestCase : WebFormTestCase
 	{
-		protected const string BasePath = "/NUnitAsp/source/NUnitAspTestPages";
+		protected const string BasePath = "/NUnitAsp";
 		protected const string BaseUrl = "http://localhost" + BasePath + "/";
 		private DateTime startTime;
 		private static TimeSpan totalElapsedTime = TimeSpan.Zero;

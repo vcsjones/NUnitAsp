@@ -1,385 +1,306 @@
-<VisualStudioProject>
-    <CSHARP
-        ProjectType = "Local"
-        ProductVersion = "7.0.9466"
-        SchemaVersion = "1.0"
-        ProjectGuid = "{18E46492-3A7D-4BCC-88D2-2B598D955348}"
-    >
-        <Build>
-            <Settings
-                ApplicationIcon = ""
-                AssemblyKeyContainerName = ""
-                AssemblyName = "NUnitAsp"
-                AssemblyOriginatorKeyFile = ""
-                DefaultClientScript = "JScript"
-                DefaultHTMLPageLayout = "Grid"
-                DefaultTargetSchema = "IE50"
-                DelaySign = "false"
-                OutputType = "Library"
-                RootNamespace = "NUnit.Extensions.Asp"
-                StartupObject = ""
-            >
-                <Config
-                    Name = "Debug"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "DEBUG;TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "true"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "true"
-                    Optimize = "false"
-                    OutputPath = "bin\Debug\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "true"
-                    WarningLevel = "4"
-                />
-                <Config
-                    Name = "Release"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "false"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    Optimize = "true"
-                    OutputPath = "bin\Release\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "true"
-                    WarningLevel = "4"
-                />
-                <Config
-                    Name = "Clientele Package"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "DEBUG;TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "true"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "true"
-                    Optimize = "false"
-                    OutputPath = "bin\Debug\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-            </Settings>
-            <References>
-                <Reference
-                    Name = "System"
-                    AssemblyName = "System"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.dll"
-                />
-                <Reference
-                    Name = "System.Data"
-                    AssemblyName = "System.Data"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Data.dll"
-                />
-                <Reference
-                    Name = "System.XML"
-                    AssemblyName = "System.Xml"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.XML.dll"
-                />
-                <Reference
-                    Name = "System.Web"
-                    AssemblyName = "System.Web"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.dll"
-                />
-                <Reference
-                    Name = "System.Drawing"
-                    AssemblyName = "System.Drawing"
-                    HintPath = "..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Drawing.dll"
-                />
-                <Reference
-                    Name = "System.Windows.Forms"
-                    AssemblyName = "System.Windows.Forms"
-                    HintPath = "..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Windows.Forms.dll"
-                />
-            </References>
-        </Build>
-        <Files>
-            <Include>
-                <File
-                    RelPath = "AssemblyInfo.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ControlTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "FormVariables.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTagTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HttpClient.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Tester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "WebAssert.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "WebForm.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "WebFormTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "WebPage.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\AspControlTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\ButtonTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\CheckBoxTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\CompareValidatorTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\CustomValidatorTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\DataGridTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\DropDownListTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\ImageButtonTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\LabeledControlTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\LabelTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\LinkButtonTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\ListBoxTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\ListControlTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\NamingContainerTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\PanelTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\RadioButtonTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\RangeValidatorTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\RegularExpressionValidatorTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\RepeaterTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\RequiredFieldValidatorTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\TextBoxTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\UserControlTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\ValidationSummaryTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AspTester\ValidatorTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\AnchorTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\HtmlAnchorTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\HtmlButtonTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\HtmlControlTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\HtmlInputButtonTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\HtmlInputCheckBoxTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\HtmlInputHiddenTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\HtmlInputImageTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\HtmlInputRadioButtonTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\HtmlInputTextTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\HtmlSelectTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\HtmlSpanTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\HtmlTableTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\HtmlTextAreaTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\ListItemCollectionTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "HtmlTester\ListItemTester.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Sgml\eula.htm"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Sgml\Html.dtd"
-                    SubType = "Code"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Sgml\SgmlParser.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Sgml\SgmlReader.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-            </Include>
-        </Files>
-    </CSHARP>
-</VisualStudioProject>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.30319</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{18E46492-3A7D-4BCC-88D2-2B598D955348}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon />
+    <AssemblyKeyContainerName />
+    <AssemblyName>NUnitAsp</AssemblyName>
+    <AssemblyOriginatorKeyFile />
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NUnit.Extensions.Asp</RootNamespace>
+    <StartupObject />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile />
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile />
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Clientele Package|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile />
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AspTester\AspControlTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\ButtonTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\CheckBoxTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\CompareValidatorTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\CustomValidatorTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\DataGridTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\DropDownListTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\ImageButtonTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\LabeledControlTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\LabelTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\LinkButtonTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\ListBoxTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\ListControlTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\NamingContainerTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\PanelTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\RadioButtonTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\RangeValidatorTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\RegularExpressionValidatorTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\RepeaterTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\RequiredFieldValidatorTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\TextBoxTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\UserControlTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\ValidationSummaryTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AspTester\ValidatorTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ControlTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormVariables.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTagTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\AnchorTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\HtmlAnchorTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\HtmlButtonTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\HtmlControlTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\HtmlInputButtonTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\HtmlInputCheckBoxTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\HtmlInputHiddenTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\HtmlInputImageTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\HtmlInputRadioButtonTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\HtmlInputTextTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\HtmlSelectTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\HtmlSpanTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\HtmlTableTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\HtmlTextAreaTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\ListItemCollectionTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HtmlTester\ListItemTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HttpClient.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sgml\SgmlParser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sgml\SgmlReader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebAssert.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebForm.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebFormTester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebPage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Sgml\Html.dtd">
+      <SubType>Code</SubType>
+    </EmbeddedResource>
+    <None Include="..\..\NUnitAsp.snk">
+      <Link>NUnitAsp.snk</Link>
+    </None>
+    <None Include="Sgml\eula.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>
