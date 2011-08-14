@@ -22,5 +22,19 @@ With NUnitAsp, your tests don't need to know how ASP.NET renders controls into H
 Simply speaking, NUnitAsp makes it very easy to unit test ASP.NET web pages.
 
 ```c#
-[Test]public void TestExample(){     // First, instantiate "Tester" objects:     LabelTester label = new LabelTester("textLabel");     LinkButtonTester link = new LinkButtonTester("linkButton");     // Second, visit the page being tested:     Browser.GetPage("http://localhost/example/example.aspx");     // Third, use tester objects to test the page:     Assert.AreEqual("Not clicked.", label.Text);     link.Click();     Assert.AreEqual("Clicked once.", label.Text);     link.Click();     Assert.AreEqual("Clicked twice.", label.Text);}
+[Test]
+public void TestExample()
+{
+     // First, instantiate "Tester" objects:
+     LabelTester label = new LabelTester("textLabel");
+     LinkButtonTester link = new LinkButtonTester("linkButton");
+     // Second, visit the page being tested:
+     Browser.GetPage("http://localhost/example/example.aspx");
+     // Third, use tester objects to test the page:
+     Assert.AreEqual("Not clicked.", label.Text);
+     link.Click();
+     Assert.AreEqual("Clicked once.", label.Text);
+     link.Click();
+     Assert.AreEqual("Clicked twice.", label.Text);
+}
 ```
