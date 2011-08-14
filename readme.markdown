@@ -3,6 +3,7 @@ NUnitASP: Read Me
 
 *   [Overview](#overview)
     * [How It Works](#howitworks)
+	* [Credits and History](#credits)
 
 <h2 id="overview">Overview</h2>
 NUnitAsp is a tool for automatically testing ASP.NET web pages.  It's an extension to [NUnit](http://www.nunit.org), a tool for test-driven development in .NET.
@@ -38,3 +39,12 @@ public void TestExample()
      Assert.AreEqual("Clicked twice.", label.Text);
 }
 ```
+
+NUnitAsp can test complex web sites involving multiple pages and nested controls. The common ASP.NET controls are supported (see complete list below), and support for additional controls is easy to add.
+
+<h2 id="credits">Credits and History</h2>
+[Kevin Jones](http://vcsjones.com) Is currently maintaining this NUnitAsp fork. He believes while others may have moved onto other frameworks, those that continue to use it on should be able to report bugs, as well as implementing the occasional feature.
+
+[James Shore](http://www.jamesshore.com) worked on NUnitAsp while leading a team creating a commercial web application in the beta days of ASP.NET.  Unwilling to develop without the safety net of test-driven development, he took over Brian Knowles' open-source application for testing ASP.NET and updated it to support full TDD of ASP.NET code-behind.  Since releasing the first version of NUnitAsp on SourceForge in 2002, he's seen it grow into an application that's downloaded thousands of times every month.
+
+Since the original release, dozens of people have contributed time and effort to NUnitAsp.  Of particular note is Levi Khatskevitch, who joined the team in November 2003 and coordinated the integration of patches and contributed many new features and improvements to version 1.4 and 1.5.  For a complete list of contributors, see our change log.
