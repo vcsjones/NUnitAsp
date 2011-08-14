@@ -2,3 +2,7 @@
 Thumbs.db
 *.suo
 *.user
+_ReSharper.NUnitAsp
+obj
+bin
+NUnitAsp.snk
