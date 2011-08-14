@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NUnit.Extensions.Asp.Test
+﻿namespace NUnitAspTestPages
 {
     public static class Consts
     {

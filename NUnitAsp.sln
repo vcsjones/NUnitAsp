@@ -16,6 +16,7 @@ Global
 		{18E46492-3A7D-4BCC-88D2-2B598D955348}.Clientele Package|Any CPU.ActiveCfg = Clientele Package|Any CPU
 		{18E46492-3A7D-4BCC-88D2-2B598D955348}.Clientele Package|Any CPU.Build.0 = Clientele Package|Any CPU
 		{18E46492-3A7D-4BCC-88D2-2B598D955348}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18E46492-3A7D-4BCC-88D2-2B598D955348}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18E46492-3A7D-4BCC-88D2-2B598D955348}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B344403-AB76-4420-BA97-115A147F7B7D}.Clientele Package|Any CPU.ActiveCfg = Release|Any CPU
 		{9B344403-AB76-4420-BA97-115A147F7B7D}.Clientele Package|Any CPU.Build.0 = Release|Any CPU

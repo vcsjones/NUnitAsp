@@ -83,9 +83,8 @@
       <Name>NUnitAspTestPagesv2</Name>
     </ProjectReference>
     <ProjectReference Include="..\NUnitAsp\NUnitAsp.csproj">
+      <Project>{18E46492-3A7D-4BCC-88D2-2B598D955348}</Project>
       <Name>NUnitAsp</Name>
-      <Project>{5D5FCC6A-44FE-4A25-8F20-B95E904866B0}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
     <Reference Include="nunit.framework">
       <Name>nunit.framework</Name>
@@ -168,7 +167,6 @@
     <Compile Include="ConstructorTests.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Consts.cs" />
     <Compile Include="FormVariablesTest.cs">
       <SubType>Code</SubType>
     </Compile>

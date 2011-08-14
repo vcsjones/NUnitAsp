@@ -27,6 +27,7 @@ using NUnit.Framework;
 using NUnit.Extensions.Asp;
 using NUnit.Extensions.Asp.AspTester;
 using NUnit.Extensions.Asp.HtmlTester;
+using NUnitAspTestPages;
 
 namespace NUnit.Extensions.Asp.Test
 {

@@ -251,7 +251,6 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// For backwards compatibility; will be deprecated in the future.
 		/// </summary>
-		[CLSCompliant(false)]
 		public static void AssertEquals(string[][] expected, string[][] actual)
 		{
 			WebAssert.AreEqual(expected, actual);
@@ -260,7 +259,6 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// For backwards compatibility; will be deprecated in the future.
 		/// </summary>
-		[CLSCompliant(false)]
 		public static void AssertEquals(string message, string[][] expected, string[][] actual)
 		{
 			WebAssert.AreEqual(expected, actual, message);
@@ -269,7 +267,6 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// For backwards compatibility; will be deprecated in the future.
 		/// </summary>
-		[CLSCompliant(false)]
 		public static void AssertEqualsIgnoreOrder(string message, string[][] expected, string[][] actual)
 		{
 			WebAssert.AreEqualIgnoringOrder(expected, actual, message);
@@ -278,7 +275,6 @@ namespace NUnit.Extensions.Asp
 		/// <summary>
 		/// For backwards compatibility; will be deprecated in the future.
 		/// </summary>
-		[CLSCompliant(false)]
 		public static void AssertSortOrder(string message, string[][] data, int column, bool isAscending, DataType type)
 		{
 			WebAssert.Sorted(data, column, isAscending, type, message);

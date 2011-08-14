@@ -131,7 +131,7 @@ namespace Sgml
                         string s = Path.Combine(baseUri.LocalPath, this.Uri);
                         if (s.Substring(1,2) == ":\\") drive = "";
                         string uri = "file:///"+drive+s;
-                        _resolvedUri = new Uri(uri, true);
+                        _resolvedUri = new Uri(uri);
                     } 
                     else {
                         _resolvedUri = new Uri(baseUri, this.Uri);              

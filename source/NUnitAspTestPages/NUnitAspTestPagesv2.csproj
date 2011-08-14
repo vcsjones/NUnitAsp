@@ -91,9 +91,6 @@
     <Content Include="WebFormTestPage.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\NUnitAspTest\Consts.cs">
-      <Link>Consts.cs</Link>
-    </Compile>
     <Compile Include="AspErrorTestPage.aspx.cs">
       <DependentUpon>AspErrorTestPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -158,6 +155,7 @@
       <DependentUpon>ValidatorTestPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Consts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Credentials\CredentialsTest.aspx.cs">
       <DependentUpon>CredentialsTest.aspx</DependentUpon>
